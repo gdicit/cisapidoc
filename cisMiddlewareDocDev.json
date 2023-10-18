@@ -21,9 +21,11 @@
   ],
   "security": [
     {
-      "API Key": [
-
-      ]
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
     }
     
   ],
