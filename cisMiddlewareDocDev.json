@@ -76,7 +76,7 @@
           "password": {
             "type": "string",
             "minLength": 1,
-            "description": "Please enter password"
+            "description": "Please enter password okokokok"
           },
           "dataSource": {
             "type": "string",
