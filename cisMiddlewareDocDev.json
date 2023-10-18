@@ -21,6 +21,7 @@
   ],
   "security": [
     {
+      "description":"API is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client system will get access token. Access token will be needed for any other API calling of CIS system.",
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer",
