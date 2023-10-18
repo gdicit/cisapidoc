@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "GDIC API",
+    "title": "GDIC CIS MIDDLEWARE",
     "version": "1.0.0",
     "contact": {
       "name": "GDIC IT",
@@ -21,8 +21,11 @@
   ],
   "security": [
     {
-      "API Key": []
+      "API Key": [
+
+      ]
     }
+    
   ],
   "paths": {
 
@@ -56,7 +59,11 @@
           }
         },
         
-        "security": []
+        "security": [
+          {
+            "bearerAuth": []
+         }
+        ]
       },
       "parameters": []
     }
@@ -91,11 +98,10 @@
       }
     },
     "securitySchemes": {
-      "API Key": {
-        "name": "JWT Access Token",
-        "type": "JWT Access Token",
-        "in": "query",
-        "description": "Authentication Bearer {{ACCESS TOKEN}}"
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     },
     "responses": {
