@@ -36,6 +36,7 @@
     "/user-authentication": {
       "post": {
         "summary": "User Authentication",
+        "description":"User Authentication decription note",
         "tags": [
           "Users"
         ],
