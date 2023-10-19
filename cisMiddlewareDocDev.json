@@ -58,7 +58,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserRequestBody"
               }
             }
           }
@@ -75,7 +75,8 @@
   },
   "components": {
     "schemas": {
-      "User": [{
+      "UserRequestBody": 
+      {
         "description": "Request Body",
         "type": "object",
         "title": "User",
@@ -101,11 +102,11 @@
           "password"
         ]
       },
-      {
+      "UserResponseBody": {
         "description": "Response Body",
         "$ref": "#/components/responses/UserAthenticationSuccess"
       }
-    ]
+    
     },
     "securitySchemes": {
       "bearerAuth": {
