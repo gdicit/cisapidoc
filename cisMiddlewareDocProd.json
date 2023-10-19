@@ -1,9 +1,11 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "GDIC API",
+    "title": "GDIC CIS MIDDLEWARE",
+    "description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system",
     "version": "1.0.0",
     "contact": {
+      "description":"API is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client system will get access token. Access token will be needed for any other API calling of CIS system.",
       "name": "GDIC IT",
       "email": "itdev@green-delta.com",
       "url": "https://green-delta.com"
@@ -21,14 +23,20 @@
   ],
   "security": [
     {
-      "API Key": []
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
     }
+    
   ],
   "paths": {
 
     "/user-authentication": {
       "post": {
         "summary": "User Authentication",
+        "description":"User Authentication decription note",
         "tags": [
           "Users"
         ],
@@ -50,21 +58,26 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserRequestBody"
               }
             }
           }
         },
         
-        "security": []
+        "security": [
+          {
+            "bearerAuth": []
+         }
+        ]
       },
       "parameters": []
     }
   },
   "components": {
     "schemas": {
-      "User": {
-        "description": "",
+      "UserRequestBody": 
+      {
+        "description": "Request Body",
         "type": "object",
         "title": "User",
         "properties": {
@@ -88,14 +101,20 @@
           "username",
           "password"
         ]
+      },
+      "UserResponseBody": {
+        "description": "Response Body",
+        "type": "object",
+        "title": "User",
+        "$ref": "#/components/responses/UserAthenticationSuccess"
       }
+    
     },
     "securitySchemes": {
-      "API Key": {
-        "name": "JWT Access Token",
-        "type": "JWT Access Token",
-        "in": "query",
-        "description": "Authentication Bearer {{ACCESS TOKEN}}"
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     },
     "responses": {
@@ -204,22 +223,7 @@
         }
       },
       "Unauthorized": {
-        "description": "Action not allowed",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "message"
-              ]
-            }
-          }
-        }
+        "description": "Access token is missing or invalid"        
       }
     },
     "examples": {
@@ -234,7 +238,7 @@
   },
   "tags": [
     {
-      "name": "Todos"
+      "name": "Users"
     }
   ]
 }
