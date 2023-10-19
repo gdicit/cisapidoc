@@ -104,6 +104,8 @@
       },
       "UserResponseBody": {
         "description": "Response Body",
+        "type": "object",
+        "title": "User",
         "$ref": "#/components/responses/UserAthenticationSuccess"
       }
     
@@ -236,7 +238,7 @@
   },
   "tags": [
     {
-      "name": "Todos"
+      "name": "Users"
     }
   ]
 }
