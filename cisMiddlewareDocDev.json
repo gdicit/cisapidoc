@@ -2,21 +2,21 @@
     "swagger": "2.0",
     "info": {
         "description": "Explore the developed and updated API specifications.",
-        "title": "CIS API Documentation"
+        "title": "CIS Middleware API Documentation"
     },
     "host": "localhost:8989",
     "basePath": "/",
     "tags": [
         {
-            "name": "customer-controller",
+            "name": "Customer",
             "description": "Customer Controller"
         },
         {
-            "name": "product-controller",
+            "name": "Product",
             "description": "Product Controller"
         },
         {
-            "name": "user-login-controller",
+            "name": "User",
             "description": "User Login Controller"
         }
     ],
@@ -24,7 +24,7 @@
         "/api/get-customer": {
             "post": {
                 "tags": [
-                    "customer-controller"
+                    "Customer"
                 ],
                 "summary": "Get a product by id",
                 "description": "Returns a product as per the id",
@@ -74,7 +74,7 @@
         "/api/get-customer-single": {
             "post": {
                 "tags": [
-                    "customer-controller"
+                    "Customer"
                 ],
                 "summary": "getCustomersSingle",
                 "operationId": "getCustomersSingleUsingPOST",
@@ -120,7 +120,7 @@
         "/api/get-product-list": {
             "get": {
                 "tags": [
-                    "product-controller"
+                    "Product"
                 ],
                 "summary": "Get product",
                 "description": "Returns a product as per the id",
@@ -141,7 +141,7 @@
                     "200": {
                         "description": "Successfully retrieved",
                         "schema": {
-                            "$ref": "#/definitions/response"
+                            "$ref": "#/definitions/Product Details Response"
                         }
                     },
                     "401": {
@@ -165,7 +165,7 @@
         "/api/products/{id}": {
             "get": {
                 "tags": [
-                    "customer-controller"
+                    "Customer"
                 ],
                 "summary": "Get a product by id",
                 "description": "Returns a product as per the id",
@@ -206,7 +206,7 @@
         "/api/refresh-auth-token": {
             "get": {
                 "tags": [
-                    "user-login-controller"
+                    "User"
                 ],
                 "summary": "Refresh token",
                 "description": "Returns a product as per the id",
@@ -227,7 +227,7 @@
                     "200": {
                         "description": "Successfully retrieved",
                         "schema": {
-                            "$ref": "#/definitions/User Authentication Response"
+                            "$ref": "#/definitions/User Refresh Token Response"
                         }
                     },
                     "401": {
@@ -251,7 +251,7 @@
         "/api/user-authentication": {
             "post": {
                 "tags": [
-                    "user-login-controller"
+                    "User"
                 ],
                 "summary": "User Authentication",
                 "description": "Returns the access token if a valid user according to given users credentials.",
@@ -477,27 +477,6 @@
             },
             "title": "MtrProduct"
         },
-        "NibProduct": {
-            "type": "object",
-            "properties": {
-                "productCode": {
-                    "type": "string",
-                    "description": "Product Code"
-                },
-                "productName": {
-                    "type": "string",
-                    "description": "Product Name"
-                },
-                "sumInsuredList": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer",
-                        "format": "int32"
-                    }
-                }
-            },
-            "title": "NibProduct"
-        },
         "PacClassDetails": {
             "type": "object",
             "properties": {
@@ -567,6 +546,21 @@
         "PpaProduct": {
             "type": "object",
             "title": "PpaProduct"
+        },
+        "Product Details Response": {
+            "type": "object",
+            "properties": {
+                "getQuotationPrerequisite": {
+                    "$ref": "#/definitions/getQuotationPrerequisite"
+                },
+                "productList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/productList"
+                    }
+                }
+            },
+            "title": "Product Details Response"
         },
         "SubProduct": {
             "type": "object",
@@ -708,6 +702,49 @@
             },
             "title": "User Authentication Response"
         },
+        "User Refresh Token Response": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string",
+                    "example": "eyJraWQiOiJlOWNjZDMyYy02OTllLTQ1MjItYjE1MC03MjM5ODRkODkzNDMi",
+                    "description": "Access Token"
+                },
+                "error": {
+                    "type": "array",
+                    "description": "List of errors",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "expiresIn": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 35999,
+                    "description": "Time in seconds until the token expires"
+                },
+                "idToken": {
+                    "type": "string",
+                    "example": "eyJraWQiOiJlOWNjZDMyYcFgU6PAHo3-9RkODkzNDMi",
+                    "description": "ID Token"
+                },
+                "refreshToken": {
+                    "type": "string",
+                    "example": "3Lp8hM4I3iBZtyqVK7Lt4_DGtO1D3pd6Cryq1dzT44S5jTPNxhiE1ErPTQxg60or0vZAPhJYGtafSsv05keSgYcWryCUHGCfzlQ_1caPrNO_ixaLlgXhAPtQypMvTTHD",
+                    "description": "Refresh Token"
+                },
+                "scope": {
+                    "type": "string",
+                    "description": "Scope"
+                },
+                "tokenType": {
+                    "type": "string",
+                    "example": "Bearer",
+                    "description": "Token Type"
+                }
+            },
+            "title": "User Refresh Token Response"
+        },
         "VehicleType": {
             "type": "object",
             "properties": {
@@ -744,7 +781,7 @@
                 "nib": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/NibProduct"
+                        "$ref": "#/definitions/nib"
                     }
                 },
                 "pac": {
@@ -757,6 +794,27 @@
                 }
             },
             "title": "getQuotationPrerequisite"
+        },
+        "nib": {
+            "type": "object",
+            "properties": {
+                "productCode": {
+                    "type": "string",
+                    "description": "Product Code"
+                },
+                "productName": {
+                    "type": "string",
+                    "description": "Product Name"
+                },
+                "sumInsuredList": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "title": "nib"
         },
         "productList": {
             "type": "object",
@@ -826,21 +884,6 @@
                 }
             },
             "title": "productList"
-        },
-        "response": {
-            "type": "object",
-            "properties": {
-                "getQuotationPrerequisite": {
-                    "$ref": "#/definitions/getQuotationPrerequisite"
-                },
-                "productList": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/productList"
-                    }
-                }
-            },
-            "title": "response"
         }
     }
 }
