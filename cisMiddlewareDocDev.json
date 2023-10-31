@@ -1,244 +1,846 @@
 {
-  "openapi": "3.0.0",
+  "swagger": "2.0",
   "info": {
-    "title": "GDIC CIS MIDDLEWARE",
-    "description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system",
-    "version": "1.0.0",
-    "contact": {
-      "description":"API is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client system will get access token. Access token will be needed for any other API calling of CIS system.",
-      "name": "GDIC IT",
-      "email": "itdev@green-delta.com",
-      "url": "https://green-delta.com"
-    }
+      "description": "Explore the developed and updated API specifications.",
+      "title": "CIS API Documentation"
   },
-  "servers": [
-    {
-      "url": "https://cisdev.green-delta.com:8282",
-      "description": "Production"
-    },
-    {
-      "description": "Sandbox",
-      "url": "https://cisdev.green-delta.com:8282"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+  "host": "localhost:8989",
+  "basePath": "/",
+  "tags": [
+      {
+          "name": "customer-controller",
+          "description": "Customer Controller"
+      },
+      {
+          "name": "product-controller",
+          "description": "Product Controller"
+      },
+      {
+          "name": "user-login-controller",
+          "description": "User Login Controller"
       }
-    }
-    
   ],
   "paths": {
-
-    "/user-authentication": {
-      "post": {
-        "summary": "User Authentication",
-        "description":"User Authentication decription note",
-        "tags": [
-          "Users"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/UserAthenticationSuccess"
-          },
-          "400": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserRequestBody"
+      "/api/get-customer": {
+          "post": {
+              "tags": [
+                  "customer-controller"
+              ],
+              "summary": "Get a product by id",
+              "description": "Returns a product as per the id",
+              "operationId": "getCustomersUsingPOST",
+              "consumes": [
+                  "application/json"
+              ],
+              "produces": [
+                  "*/*"
+              ],
+              "parameters": [
+                  {
+                      "in": "body",
+                      "name": "requestVm",
+                      "description": "requestVm",
+                      "required": true,
+                      "schema": {
+                          "$ref": "#/definitions/UserLoginRequestVm"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Successfully retrieved",
+                      "schema": {
+                          "$ref": "#/definitions/DataPackOfUserLoginResponseVm"
+                      }
+                  },
+                  "201": {
+                      "description": "Created"
+                  },
+                  "401": {
+                      "description": "Unauthorized"
+                  },
+                  "403": {
+                      "description": "Forbidden"
+                  },
+                  "404": {
+                      "description": "Not Found"
+                  },
+                  "412": {
+                      "description": "Precondition failed"
+                  }
               }
-            }
           }
-        },
-        
-        "security": [
-          {
-            "bearerAuth": []
-         }
-        ]
       },
-      "parameters": []
-    }
+      "/api/get-customer-single": {
+          "post": {
+              "tags": [
+                  "customer-controller"
+              ],
+              "summary": "getCustomersSingle",
+              "operationId": "getCustomersSingleUsingPOST",
+              "consumes": [
+                  "application/json"
+              ],
+              "produces": [
+                  "*/*"
+              ],
+              "parameters": [
+                  {
+                      "in": "body",
+                      "name": "requestVm",
+                      "description": "requestVm",
+                      "required": true,
+                      "schema": {
+                          "$ref": "#/definitions/UserLoginRequestVm"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/DataPackSingleOfUserLoginResponseVm"
+                      }
+                  },
+                  "201": {
+                      "description": "Created"
+                  },
+                  "401": {
+                      "description": "Unauthorized"
+                  },
+                  "403": {
+                      "description": "Forbidden"
+                  },
+                  "404": {
+                      "description": "Not Found"
+                  }
+              }
+          }
+      },
+      "/api/get-product-list": {
+          "get": {
+              "tags": [
+                  "product-controller"
+              ],
+              "summary": "Get product",
+              "description": "Returns a product as per the id",
+              "operationId": "productServiceUsingGET",
+              "produces": [
+                  "*/*"
+              ],
+              "parameters": [
+                  {
+                      "name": "Authorization",
+                      "in": "header",
+                      "description": "Authentication Token",
+                      "required": true,
+                      "type": "string"
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Successfully retrieved",
+                      "schema": {
+                          "$ref": "#/definitions/response"
+                      }
+                  },
+                  "401": {
+                      "description": "Unauthorized"
+                  },
+                  "403": {
+                      "description": "Forbidden"
+                  },
+                  "404": {
+                      "description": "Not Found"
+                  },
+                  "412": {
+                      "description": "Precondition failed"
+                  },
+                  "500": {
+                      "description": "Internal Server Error"
+                  }
+              }
+          }
+      },
+      "/api/products/{id}": {
+          "get": {
+              "tags": [
+                  "customer-controller"
+              ],
+              "summary": "Get a product by id",
+              "description": "Returns a product as per the id",
+              "operationId": "getProductUsingGET",
+              "produces": [
+                  "*/*"
+              ],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "description": "Product id",
+                      "required": true,
+                      "type": "integer",
+                      "format": "int64",
+                      "x-example": 1
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Successfully retrieved test",
+                      "schema": {
+                          "$ref": "#/definitions/UserLoginRequestVm"
+                      }
+                  },
+                  "401": {
+                      "description": "Unauthorized"
+                  },
+                  "403": {
+                      "description": "Forbidden"
+                  },
+                  "404": {
+                      "description": "Not found - The product was not found test"
+                  }
+              }
+          }
+      },
+      "/api/refresh-auth-token": {
+          "get": {
+              "tags": [
+                  "user-login-controller"
+              ],
+              "summary": "Get a product by id",
+              "description": "Returns a product as per the id",
+              "operationId": "refrestAuthTokenUsingGET",
+              "produces": [
+                  "*/*"
+              ],
+              "parameters": [
+                  {
+                      "name": "Authorization",
+                      "in": "header",
+                      "description": "Authentication Token",
+                      "required": true,
+                      "type": "string"
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Successfully retrieved",
+                      "schema": {
+                          "$ref": "#/definitions/UserLoginResponseVm"
+                      }
+                  },
+                  "401": {
+                      "description": "Unauthorized"
+                  },
+                  "403": {
+                      "description": "Forbidden"
+                  },
+                  "404": {
+                      "description": "Not Found"
+                  },
+                  "412": {
+                      "description": "Precondition failed"
+                  },
+                  "500": {
+                      "description": "Internal Server Error"
+                  }
+              }
+          }
+      },
+      "/api/user-authentication": {
+          "post": {
+              "tags": [
+                  "user-login-controller"
+              ],
+              "summary": "Get a product by id",
+              "description": "Returns a product as per the id",
+              "operationId": "userAuthenticationUsingPOST",
+              "consumes": [
+                  "application/json"
+              ],
+              "produces": [
+                  "*/*"
+              ],
+              "parameters": [
+                  {
+                      "in": "body",
+                      "name": "requestVm",
+                      "description": "requestVm",
+                      "required": true,
+                      "schema": {
+                          "$ref": "#/definitions/UserLoginRequestVm"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Successfully retrieved",
+                      "schema": {
+                          "$ref": "#/definitions/UserLoginResponseVm"
+                      }
+                  },
+                  "201": {
+                      "description": "Created"
+                  },
+                  "401": {
+                      "description": "Unauthorized"
+                  },
+                  "403": {
+                      "description": "Forbidden"
+                  },
+                  "404": {
+                      "description": "Not Found"
+                  },
+                  "412": {
+                      "description": "Precondition failed"
+                  },
+                  "500": {
+                      "description": "Internal Server Error"
+                  }
+              }
+          }
+      }
   },
-  "components": {
-    "schemas": {
-      "UserRequestBody": 
-      {
-        "description": "Request Body",
-        "type": "object",
-        "title": "User",
-        "properties": {
-          "username": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Please enter email or pf"
-          },
-          "password": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Please enter password"
-          },
-          "dataSource": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Request platform identify"
-          }
-        },
-        "required": [
-          "username",
-          "password"
-        ]
-      },
-      "UserResponseBody": {
-        "description": "Response Body",
-        "type": "object",
-        "title": "User",
-        "$ref": "#/components/responses/UserAthenticationSuccess"
-      }
-    
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    },
-    "responses": {
-      "UserAthenticationSuccess": {
-        "description": "User Authentication Success Response",
-        "content": {
-          "application/json": {
-            "schema": {
-              "title": "Success",
-              "type": "object",
-              "description": "",
-              "x-tags": [
-                "Common"
-              ],
-              "properties": {
-                  "data": {
-                                    "type": "object",
-                                    "properties": {
-                                            "result": {
-                                                "type": "boolean",
-                                                "description": "Result could be 'true' or 'false' "
-                                            },
-                                            "token": {
-                                                "type": "string",
-                                                "description": "JWT Access Token"
-                                            },
-                                             "expiredDate": {
-                                                "type": "string",
-                                                "format": "date-time",
-                                                "description": "Token expire date"
-                                            },
-                                             "model": {
-                                                "type": "array",
-                                                "description": "Empty object authentication request"
-                                            },
-                                             "remarks": {
-                                                "type": "array",
-                                                "default": [
-                                                    "Login Success!",
-                                                    "Example-1"
-                                                ],
-                                                "description": "Multiple remarks with comma seperator"
-                                            }
-                                        }
-                                },
-                                "messageID": {
-                                    "type": "string",
-                                    "description": "Unique id for every response"
-                                },
-                                "correlationID": {
-                                    "type": "string",
-                                    "description": "Unique id for asynchronous response"
-                                },
-                                "message": {
-                                    "type": "array",
-                                    "default": [
-                                                    "Login Successful: Valid user",
-                                                    "Example-1"
-                                                ],
-                                    "description": "Multiple messages with comma seperator"
-                                },
-                                 "responseCode": {
-                                    "type": "string",
-                                    "description": "Status code"
-                                },
-                                "timestamp": {
-                                    "type": "string",
-                                    "format": "date-time",
-                                    "description": "response date time"
-                                }
-              },
-              "required": [
-                "result",
-                "token"
-              ]
-            }
-          }
-        }
-      },
-      "NotFound": {
-        "description": "Resource not found",
-        "content": {
-          "application/json": {
-            "schema": {
-              "title": "Error",
-              "type": "object",
-              "description": "A standard error object.",
-              "x-tags": [
-                "Common"
-              ],
-              "properties": {
-                "status": {
-                  "type": "string",
-                  "description": "A code."
-                },
-                "error": {
+  "definitions": {
+      "DataPackOfUserLoginResponseVm": {
+          "type": "object",
+          "properties": {
+              "correlationID": {
                   "type": "string"
-                }
               },
-              "required": [
-                "status",
-                "error"
-              ]
-            }
-          }
-        }
+              "data": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/UserLoginResponseVm"
+                  }
+              },
+              "messageID": {
+                  "type": "string"
+              },
+              "remarks": {
+                  "$ref": "#/definitions/DataRemarks"
+              },
+              "result": {
+                  "type": "boolean"
+              },
+              "timestamp": {
+                  "type": "string"
+              }
+          },
+          "title": "DataPackOfUserLoginResponseVm"
       },
-      "Unauthorized": {
-        "description": "Access token is missing or invalid"        
+      "DataPackSingleOfUserLoginResponseVm": {
+          "type": "object",
+          "properties": {
+              "correlationID": {
+                  "type": "string"
+              },
+              "data": {
+                  "$ref": "#/definitions/UserLoginResponseVm"
+              },
+              "messageID": {
+                  "type": "string"
+              },
+              "remarks": {
+                  "$ref": "#/definitions/DataRemarks"
+              },
+              "result": {
+                  "type": "boolean"
+              },
+              "timestamp": {
+                  "type": "string"
+              }
+          },
+          "title": "DataPackSingleOfUserLoginResponseVm"
+      },
+      "DataRemarks": {
+          "type": "object",
+          "properties": {
+              "errors": {
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              },
+              "success": {
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              }
+          },
+          "title": "DataRemarks"
+      },
+      "MotorCCName": {
+          "type": "object",
+          "properties": {
+              "name": {
+                  "type": "string",
+                  "description": "CC Name"
+              },
+              "value": {
+                  "type": "string",
+                  "description": "CC Value"
+              }
+          },
+          "title": "MotorCCName"
+      },
+      "MotorPlanType": {
+          "type": "object",
+          "properties": {
+              "name": {
+                  "type": "string",
+                  "description": "Plan Type Name"
+              },
+              "value": {
+                  "type": "string",
+                  "description": "Plan Type Value"
+              }
+          },
+          "title": "MotorPlanType"
+      },
+      "MotorVehicle": {
+          "type": "object",
+          "properties": {
+              "description": {
+                  "type": "string",
+                  "description": "Vehicle Description"
+              },
+              "vehicleName": {
+                  "type": "string",
+                  "description": "Vehicle Name"
+              }
+          },
+          "title": "MotorVehicle"
+      },
+      "MtrPerilExclusion": {
+          "type": "object",
+          "properties": {
+              "classCode": {
+                  "type": "string",
+                  "description": "Class Code"
+              },
+              "deptCode": {
+                  "type": "string",
+                  "description": "Department Code"
+              },
+              "id": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Peril ID"
+              },
+              "perilCode": {
+                  "type": "string",
+                  "description": "Peril Code"
+              },
+              "perilName": {
+                  "type": "string",
+                  "description": "Peril Name"
+              }
+          },
+          "title": "MtrPerilExclusion"
+      },
+      "MtrProduct": {
+          "type": "object",
+          "properties": {
+              "motorCCNames": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/MotorCCName"
+                  }
+              },
+              "motorPlanTypes": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/MotorPlanType"
+                  }
+              },
+              "mtrPerilExclusion": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/MtrPerilExclusion"
+                  }
+              },
+              "mtrVehicleList": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/MotorVehicle"
+                  }
+              },
+              "vehicleTypes": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/VehicleType"
+                  }
+              }
+          },
+          "title": "MtrProduct"
+      },
+      "NibProduct": {
+          "type": "object",
+          "properties": {
+              "productCode": {
+                  "type": "string",
+                  "description": "Product Code"
+              },
+              "productName": {
+                  "type": "string",
+                  "description": "Product Name"
+              },
+              "sumInsuredList": {
+                  "type": "array",
+                  "items": {
+                      "type": "integer",
+                      "format": "int32"
+                  }
+              }
+          },
+          "title": "NibProduct"
+      },
+      "PacClassDetails": {
+          "type": "object",
+          "properties": {
+              "classCode": {
+                  "type": "string",
+                  "description": "Class Code"
+              },
+              "className": {
+                  "type": "string",
+                  "description": "Class Name"
+              },
+              "pacOccupationList": {
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              }
+          },
+          "title": "PacClassDetails"
+      },
+      "PacCoverTypeDetails": {
+          "type": "object",
+          "properties": {
+              "coverTypeCode": {
+                  "type": "string",
+                  "description": "Cover Type Code"
+              },
+              "coverTypeName": {
+                  "type": "string",
+                  "description": "Cover Type Name"
+              }
+          },
+          "title": "PacCoverTypeDetails"
+      },
+      "PacProduct": {
+          "type": "object",
+          "properties": {
+              "pacClassDetailsList": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/PacClassDetails"
+                  }
+              },
+              "pacCoverTypeDetailsList": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/PacCoverTypeDetails"
+                  }
+              }
+          },
+          "title": "PacProduct"
+      },
+      "PlaceVisit": {
+          "type": "object",
+          "properties": {
+              "placeVisit": {
+                  "type": "string",
+                  "description": "Place Visit"
+              },
+              "placeVisitCode": {
+                  "type": "string",
+                  "description": "Place Visit Code"
+              }
+          },
+          "title": "PlaceVisit"
+      },
+      "PpaProduct": {
+          "type": "object",
+          "title": "PpaProduct"
+      },
+      "SubProduct": {
+          "type": "object",
+          "properties": {
+              "ageLimitInfo": {
+                  "type": "string",
+                  "example": "Age limit is 16 years to 65 years",
+                  "description": "Sub-Product Age Limit Information"
+              },
+              "coverage": {
+                  "type": "string",
+                  "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li>",
+                  "description": "Sub-Product Coverage"
+              },
+              "description": {
+                  "type": "string",
+                  "example": "<p>Providing affordable comprehensive insurance coverage to females. Ensuring best Insurance Service in Urban and Rural area</p>",
+                  "description": "Sub-Product Description"
+              },
+              "exclusion": {
+                  "type": "string",
+                  "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre-existing disability. </li>",
+                  "description": "Sub-Product Exclusion"
+              },
+              "id": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Sub-Product ID"
+              },
+              "keyfeature": {
+                  "type": "string",
+                  "example": "<ul><li> </li><li> Ensuring best available insurance facilities </li><li>",
+                  "description": "Sub-Product Key Features"
+              },
+              "productCode": {
+                  "type": "string",
+                  "description": "Sub-Product Code"
+              },
+              "productInfo": {
+                  "type": "string",
+                  "example": "NIBEDITA ECO",
+                  "description": "Sub-Product Information"
+              },
+              "productName": {
+                  "type": "string",
+                  "description": "Sub-Product Name"
+              },
+              "sumInsuredInfo": {
+                  "type": "string",
+                  "example": "BDT 50,000 to BDT 2,00,000",
+                  "description": "Sub-Product Sum Insured Information"
+              },
+              "title": {
+                  "type": "string",
+                  "example": "<h2>Comprehensive Insurance Policy For Women</h2>",
+                  "description": "Sub-Product Title"
+              }
+          },
+          "title": "SubProduct"
+      },
+      "UserLoginRequestVm": {
+          "type": "object",
+          "required": [
+              "password",
+              "platform",
+              "source",
+              "username"
+          ],
+          "properties": {
+              "password": {
+                  "type": "string",
+                  "example": 12345678,
+                  "description": "User's password"
+              },
+              "platform": {
+                  "type": "string",
+                  "description": "Platform from which the request is made (e.g., WEB)",
+                  "enum": [
+                      "WEB"
+                  ]
+              },
+              "source": {
+                  "type": "string",
+                  "description": "Source of authentication (e.g., EBL, ROBI, BRAC)",
+                  "enum": [
+                      "BRAC",
+                      "EBL",
+                      "ROBI"
+                  ]
+              },
+              "username": {
+                  "type": "string",
+                  "example": 19255,
+                  "description": "User's username"
+              }
+          },
+          "title": "UserLoginRequestVm"
+      },
+      "UserLoginResponseVm": {
+          "type": "object",
+          "properties": {
+              "accessToken": {
+                  "type": "string",
+                  "example": "eyJraWQiOiJlOWNjZDMyYy02OTllLTQ1MjItYjE1MC03MjM5ODRkODkzNDMi",
+                  "description": "Access Token"
+              },
+              "error": {
+                  "type": "array",
+                  "description": "List of errors",
+                  "items": {
+                      "type": "string"
+                  }
+              },
+              "expiresIn": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 35999,
+                  "description": "Time in seconds until the token expires"
+              },
+              "idToken": {
+                  "type": "string",
+                  "example": "eyJraWQiOiJlOWNjZDMyYcFgU6PAHo3-9RkODkzNDMi",
+                  "description": "ID Token"
+              },
+              "refreshToken": {
+                  "type": "string",
+                  "example": "3Lp8hM4I3iBZtyqVK7Lt4_DGtO1D3pd6Cryq1dzT44S5jTPNxhiE1ErPTQxg60or0vZAPhJYGtafSsv05keSgYcWryCUHGCfzlQ_1caPrNO_ixaLlgXhAPtQypMvTTHD",
+                  "description": "Refresh Token"
+              },
+              "scope": {
+                  "type": "string",
+                  "description": "Scope"
+              },
+              "tokenType": {
+                  "type": "string",
+                  "example": "Bearer",
+                  "description": "Token Type"
+              }
+          },
+          "title": "UserLoginResponseVm"
+      },
+      "VehicleType": {
+          "type": "object",
+          "properties": {
+              "name": {
+                  "type": "string",
+                  "description": "Vehicle Type Name"
+              },
+              "value": {
+                  "type": "string",
+                  "description": "Vehicle Type Value"
+              }
+          },
+          "title": "VehicleType"
+      },
+      "getQuotationPrerequisite": {
+          "type": "object",
+          "properties": {
+              "bnh": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/PlaceVisit"
+                  }
+              },
+              "ens": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/PlaceVisit"
+                  }
+              },
+              "mtr": {
+                  "description": "MTR motor plan types",
+                  "$ref": "#/definitions/MtrProduct"
+              },
+              "nib": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/NibProduct"
+                  }
+              },
+              "pac": {
+                  "description": "PAC products and class details",
+                  "$ref": "#/definitions/PacProduct"
+              },
+              "ppa": {
+                  "description": "PPA details",
+                  "$ref": "#/definitions/PpaProduct"
+              }
+          },
+          "title": "getQuotationPrerequisite"
+      },
+      "productList": {
+          "type": "object",
+          "properties": {
+              "ageLimitInfo": {
+                  "type": "string",
+                  "example": "Age limit is 16 years to 65 years",
+                  "description": "Age Limit Information"
+              },
+              "coverage": {
+                  "type": "string",
+                  "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li>",
+                  "description": "Coverage"
+              },
+              "description": {
+                  "type": "string",
+                  "example": "<p>Providing affordable comprehensive insurance coverage to females. Ensuring best Insurance Service in Urban and Rural area</p>",
+                  "description": "Product Description"
+              },
+              "exclusion": {
+                  "type": "string",
+                  "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre-existing disability. </li>",
+                  "description": "Exclusion"
+              },
+              "hasSubProduct": {
+                  "type": "boolean",
+                  "description": "Whether the product has sub-products"
+              },
+              "id": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Product ID"
+              },
+              "keyfeature": {
+                  "type": "string",
+                  "example": "<ul><li> </li><li> Ensuring best available insurance facilities </li><li>",
+                  "description": "Key Features"
+              },
+              "productCode": {
+                  "type": "string",
+                  "description": "Product Code"
+              },
+              "productInfo": {
+                  "type": "string",
+                  "example": "NIBEDITA",
+                  "description": "Product Information"
+              },
+              "productName": {
+                  "type": "string",
+                  "description": "Product Name"
+              },
+              "subProductList": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/SubProduct"
+                  }
+              },
+              "sumInsuredInfo": {
+                  "type": "string",
+                  "example": "BDT 50,000 to BDT 2,00,000",
+                  "description": "Sum Insured Information"
+              },
+              "title": {
+                  "type": "string",
+                  "example": "<h2>Comprehensive Insurance Policy For Women</h2>",
+                  "description": "Product Title"
+              }
+          },
+          "title": "productList"
+      },
+      "response": {
+          "type": "object",
+          "properties": {
+              "getQuotationPrerequisite": {
+                  "$ref": "#/definitions/getQuotationPrerequisite"
+              },
+              "productList": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/productList"
+                  }
+              }
+          },
+          "title": "response"
       }
-    },
-    "examples": {
-      "user": {
-        "value": {
-          "username": 1726,
-          "password": "abcd1234",
-          "dataSource": "core"
-        }
-      }
-    }
-  },
-  "tags": [
-    {
-      "name": "Users"
-    }
-  ]
+  }
 }
