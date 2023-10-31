@@ -42,7 +42,7 @@
                         "description": "requestVm",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/UserLoginRequestVm"
+                            "$ref": "#/definitions/User Authentication Request"
                         }
                     }
                 ],
@@ -50,7 +50,7 @@
                     "200": {
                         "description": "Successfully retrieved",
                         "schema": {
-                            "$ref": "#/definitions/DataPackOfUserLoginResponseVm"
+                            "$ref": "#/definitions/DataPackOfUser Authentication Response"
                         }
                     },
                     "201": {
@@ -91,7 +91,7 @@
                         "description": "requestVm",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/UserLoginRequestVm"
+                            "$ref": "#/definitions/User Authentication Request"
                         }
                     }
                 ],
@@ -99,7 +99,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/DataPackSingleOfUserLoginResponseVm"
+                            "$ref": "#/definitions/DataPackSingleOfUser Authentication Response"
                         }
                     },
                     "201": {
@@ -188,7 +188,7 @@
                     "200": {
                         "description": "Successfully retrieved test",
                         "schema": {
-                            "$ref": "#/definitions/UserLoginRequestVm"
+                            "$ref": "#/definitions/User Authentication Request"
                         }
                     },
                     "401": {
@@ -208,7 +208,7 @@
                 "tags": [
                     "user-login-controller"
                 ],
-                "summary": "Get a product by id",
+                "summary": "Refresh token",
                 "description": "Returns a product as per the id",
                 "operationId": "refrestAuthTokenUsingGET",
                 "produces": [
@@ -227,7 +227,7 @@
                     "200": {
                         "description": "Successfully retrieved",
                         "schema": {
-                            "$ref": "#/definitions/UserLoginResponseVm"
+                            "$ref": "#/definitions/User Authentication Response"
                         }
                     },
                     "401": {
@@ -253,8 +253,8 @@
                 "tags": [
                     "user-login-controller"
                 ],
-                "summary": "Get a product by id",
-                "description": "Returns a product as per the id",
+                "summary": "User Authentication",
+                "description": "Returns the access token if a valid user according to given users credentials.",
                 "operationId": "userAuthenticationUsingPOST",
                 "consumes": [
                     "application/json"
@@ -269,7 +269,7 @@
                         "description": "requestVm",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/UserLoginRequestVm"
+                            "$ref": "#/definitions/User Authentication Request"
                         }
                     }
                 ],
@@ -277,14 +277,14 @@
                     "200": {
                         "description": "Successfully retrieved",
                         "schema": {
-                            "$ref": "#/definitions/UserLoginResponseVm"
+                            "$ref": "#/definitions/User Authentication Response"
                         }
                     },
                     "201": {
                         "description": "Created"
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized, User not authorized to call this endpoint"
                     },
                     "403": {
                         "description": "Forbidden"
@@ -293,7 +293,7 @@
                         "description": "Not Found"
                     },
                     "412": {
-                        "description": "Precondition failed"
+                        "description": "Precondition failed, Failed to validate data"
                     },
                     "500": {
                         "description": "Internal Server Error"
@@ -303,7 +303,7 @@
         }
     },
     "definitions": {
-        "DataPackOfUserLoginResponseVm": {
+        "DataPackOfUser Authentication Response": {
             "type": "object",
             "properties": {
                 "correlationID": {
@@ -312,7 +312,7 @@
                 "data": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/UserLoginResponseVm"
+                        "$ref": "#/definitions/User Authentication Response"
                     }
                 },
                 "messageID": {
@@ -328,16 +328,16 @@
                     "type": "string"
                 }
             },
-            "title": "DataPackOfUserLoginResponseVm"
+            "title": "DataPackOfUser Authentication Response"
         },
-        "DataPackSingleOfUserLoginResponseVm": {
+        "DataPackSingleOfUser Authentication Response": {
             "type": "object",
             "properties": {
                 "correlationID": {
                     "type": "string"
                 },
                 "data": {
-                    "$ref": "#/definitions/UserLoginResponseVm"
+                    "$ref": "#/definitions/User Authentication Response"
                 },
                 "messageID": {
                     "type": "string"
@@ -352,7 +352,7 @@
                     "type": "string"
                 }
             },
-            "title": "DataPackSingleOfUserLoginResponseVm"
+            "title": "DataPackSingleOfUser Authentication Response"
         },
         "DataRemarks": {
             "type": "object",
@@ -627,7 +627,7 @@
             },
             "title": "SubProduct"
         },
-        "UserLoginRequestVm": {
+        "User Authentication Request": {
             "type": "object",
             "required": [
                 "password",
@@ -663,9 +663,9 @@
                     "description": "User's username"
                 }
             },
-            "title": "UserLoginRequestVm"
+            "title": "User Authentication Request"
         },
-        "UserLoginResponseVm": {
+        "User Authentication Response": {
             "type": "object",
             "properties": {
                 "accessToken": {
@@ -706,7 +706,7 @@
                     "description": "Token Type"
                 }
             },
-            "title": "UserLoginResponseVm"
+            "title": "User Authentication Response"
         },
         "VehicleType": {
             "type": "object",
