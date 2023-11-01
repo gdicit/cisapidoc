@@ -1,244 +1,896 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "GDIC CIS MIDDLEWARE",
-    "description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system",
-    "version": "1.0.0",
-    "contact": {
-      "description":"API is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client system will get access token. Access token will be needed for any other API calling of CIS system.",
-      "name": "GDIC IT",
-      "email": "itdev@green-delta.com",
-      "url": "https://green-delta.com"
-    }
-  },
-  "servers": [
-    {
-      "url": "https://cisdev.green-delta.com:8282",
-      "description": "Production"
+    "swagger": "2.0",
+    "info": {
+        "description": "Explore the developed and updated API specifications.",
+        "title": "CIS Middleware API Documentation"
     },
-    {
-      "description": "Sandbox",
-      "url": "https://cisdev.green-delta.com:8282"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    }
-    
-  ],
-  "paths": {
-
-    "/user-authentication": {
-      "post": {
-        "summary": "User Authentication",
-        "description":"User Authentication decription note",
-        "tags": [
-          "Users"
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/components/responses/UserAthenticationSuccess"
-          },
-          "400": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "403": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFound"
-          }
+    "host": "localhost:8989",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Customer",
+            "description": "Customer Controller"
         },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserRequestBody"
-              }
-            }
-          }
+        {
+            "name": "Product",
+            "description": "Product Controller"
         },
-        
-        "security": [
-          {
-            "bearerAuth": []
-         }
-        ]
-      },
-      "parameters": []
-    }
-  },
-  "components": {
-    "schemas": {
-      "UserRequestBody": 
-      {
-        "description": "Request Body",
-        "type": "object",
-        "title": "User",
-        "properties": {
-          "username": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Please enter email or pf"
-          },
-          "password": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Please enter password"
-          },
-          "dataSource": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Request platform identify"
-          }
-        },
-        "required": [
-          "username",
-          "password"
-        ]
-      },
-      "UserResponseBody": {
-        "description": "Response Body",
-        "type": "object",
-        "title": "User",
-        "$ref": "#/components/responses/UserAthenticationSuccess"
-      }
-    
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    },
-    "responses": {
-      "UserAthenticationSuccess": {
-        "description": "User Authentication Success Response",
-        "content": {
-          "application/json": {
-            "schema": {
-              "title": "Success",
-              "type": "object",
-              "description": "",
-              "x-tags": [
-                "Common"
-              ],
-              "properties": {
-                  "data": {
-                                    "type": "object",
-                                    "properties": {
-                                            "result": {
-                                                "type": "boolean",
-                                                "description": "Result could be 'true' or 'false' "
-                                            },
-                                            "token": {
-                                                "type": "string",
-                                                "description": "JWT Access Token"
-                                            },
-                                             "expiredDate": {
-                                                "type": "string",
-                                                "format": "date-time",
-                                                "description": "Token expire date"
-                                            },
-                                             "model": {
-                                                "type": "array",
-                                                "description": "Empty object authentication request"
-                                            },
-                                             "remarks": {
-                                                "type": "array",
-                                                "default": [
-                                                    "Login Success!",
-                                                    "Example-1"
-                                                ],
-                                                "description": "Multiple remarks with comma seperator"
-                                            }
-                                        }
-                                },
-                                "messageID": {
-                                    "type": "string",
-                                    "description": "Unique id for every response"
-                                },
-                                "correlationID": {
-                                    "type": "string",
-                                    "description": "Unique id for asynchronous response"
-                                },
-                                "message": {
-                                    "type": "array",
-                                    "default": [
-                                                    "Login Successful: Valid user",
-                                                    "Example-1"
-                                                ],
-                                    "description": "Multiple messages with comma seperator"
-                                },
-                                 "responseCode": {
-                                    "type": "string",
-                                    "description": "Status code"
-                                },
-                                "timestamp": {
-                                    "type": "string",
-                                    "format": "date-time",
-                                    "description": "response date time"
-                                }
-              },
-              "required": [
-                "result",
-                "token"
-              ]
-            }
-          }
+        {
+            "name": "User",
+            "description": "User Login Controller"
         }
-      },
-      "NotFound": {
-        "description": "Resource not found",
-        "content": {
-          "application/json": {
-            "schema": {
-              "title": "Error",
-              "type": "object",
-              "description": "A standard error object.",
-              "x-tags": [
-                "Common"
-              ],
-              "properties": {
-                "status": {
-                  "type": "string",
-                  "description": "A code."
+    ],
+    "paths": {
+        "/api/get-customer": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get a product by id",
+                "description": "Returns a product as per the id",
+                "operationId": "getCustomersUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "requestVm",
+                        "description": "requestVm",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User Authentication Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DataPack«User Authentication Response»"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/get-customer-single": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "getCustomersSingle",
+                "operationId": "getCustomersSingleUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "requestVm",
+                        "description": "requestVm",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User Authentication Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DataPackSingle«User Authentication Response»"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/get-product-list": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get product",
+                "description": "Returns the list of the allowed products for showcasing with the product details like features, coverage, exclusions and also pre-requisite data list for getting quotations.",
+                "operationId": "productServiceUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Product Details Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/products/{id}": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Get a product by id",
+                "description": "Returns a product as per the id",
+                "operationId": "getProductUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product id",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64",
+                        "x-example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User Authentication Request"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/refresh-auth-token": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Refresh token",
+                "description": "Returns a new token when the existing token is expires.",
+                "operationId": "refrestAuthTokenUsingGET",
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User Refresh Token Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/user-authentication": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "User Authentication",
+                "description": "Returns the access token if a valid user found according to given users credentials.",
+                "operationId": "userAuthenticationUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "requestVm",
+                        "description": "requestVm",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User Authentication Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User Authentication Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "DataPackSingle«User Authentication Response»": {
+            "type": "object",
+            "properties": {
+                "correlationID": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/User Authentication Response"
+                },
+                "messageID": {
+                    "type": "string"
+                },
+                "remarks": {
+                    "$ref": "#/definitions/DataRemarks"
+                },
+                "result": {
+                    "type": "boolean"
+                },
+                "timestamp": {
+                    "type": "string"
+                }
+            },
+            "title": "DataPackSingle«User Authentication Response»"
+        },
+        "DataPack«User Authentication Response»": {
+            "type": "object",
+            "properties": {
+                "correlationID": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/User Authentication Response"
+                    }
+                },
+                "messageID": {
+                    "type": "string"
+                },
+                "remarks": {
+                    "$ref": "#/definitions/DataRemarks"
+                },
+                "result": {
+                    "type": "boolean"
+                },
+                "timestamp": {
+                    "type": "string"
+                }
+            },
+            "title": "DataPack«User Authentication Response»"
+        },
+        "DataRemarks": {
+            "type": "object",
+            "properties": {
+                "errors": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "success": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "title": "DataRemarks"
+        },
+        "MotorCCName": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "CC Name"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "CC Value"
+                }
+            },
+            "title": "MotorCCName"
+        },
+        "MotorPlanType": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Plan Type Name"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "Plan Type Value"
+                }
+            },
+            "title": "MotorPlanType"
+        },
+        "MotorVehicle": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Vehicle Description"
+                },
+                "vehicleName": {
+                    "type": "string",
+                    "description": "Vehicle Name"
+                }
+            },
+            "title": "MotorVehicle"
+        },
+        "MtrPerilExclusion": {
+            "type": "object",
+            "properties": {
+                "classCode": {
+                    "type": "string",
+                    "description": "Class Code"
+                },
+                "deptCode": {
+                    "type": "string",
+                    "description": "Department Code"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Peril ID"
+                },
+                "perilCode": {
+                    "type": "string",
+                    "description": "Peril Code"
+                },
+                "perilName": {
+                    "type": "string",
+                    "description": "Peril Name"
+                }
+            },
+            "title": "MtrPerilExclusion"
+        },
+        "MtrProduct": {
+            "type": "object",
+            "properties": {
+                "motorCCNames": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MotorCCName"
+                    }
+                },
+                "motorPlanTypes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MotorPlanType"
+                    }
+                },
+                "mtrPerilExclusion": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MtrPerilExclusion"
+                    }
+                },
+                "mtrVehicleList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/MotorVehicle"
+                    }
+                },
+                "vehicleTypes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/VehicleType"
+                    }
+                }
+            },
+            "title": "MtrProduct"
+        },
+        "PacClassDetails": {
+            "type": "object",
+            "properties": {
+                "classCode": {
+                    "type": "string",
+                    "description": "Class Code"
+                },
+                "className": {
+                    "type": "string",
+                    "description": "Class Name"
+                },
+                "pacOccupationList": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "title": "PacClassDetails"
+        },
+        "PacCoverTypeDetails": {
+            "type": "object",
+            "properties": {
+                "coverTypeCode": {
+                    "type": "string",
+                    "description": "Cover Type Code"
+                },
+                "coverTypeName": {
+                    "type": "string",
+                    "description": "Cover Type Name"
+                }
+            },
+            "title": "PacCoverTypeDetails"
+        },
+        "PacProduct": {
+            "type": "object",
+            "properties": {
+                "pacClassDetailsList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PacClassDetails"
+                    }
+                },
+                "pacCoverTypeDetailsList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PacCoverTypeDetails"
+                    }
+                }
+            },
+            "title": "PacProduct"
+        },
+        "PlaceVisit": {
+            "type": "object",
+            "properties": {
+                "placeVisit": {
+                    "type": "string",
+                    "description": "Place Visit"
+                },
+                "placeVisitCode": {
+                    "type": "string",
+                    "description": "Place Visit Code"
+                }
+            },
+            "title": "PlaceVisit"
+        },
+        "PpaProduct": {
+            "type": "object",
+            "title": "PpaProduct"
+        },
+        "Product Details Response": {
+            "type": "object",
+            "properties": {
+                "getQuotationPrerequisite": {
+                    "$ref": "#/definitions/getQuotationPrerequisite"
+                },
+                "productList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/productList"
+                    }
+                }
+            },
+            "title": "Product Details Response"
+        },
+        "SubProduct": {
+            "type": "object",
+            "properties": {
+                "ageLimitInfo": {
+                    "type": "string",
+                    "example": "Age limit is 16 years to 65 years",
+                    "description": "Sub-Product Age Limit Information"
+                },
+                "coverage": {
+                    "type": "string",
+                    "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li>",
+                    "description": "Sub-Product Coverage"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "<p>Providing affordable comprehensive insurance coverage to females. Ensuring best Insurance Service in Urban and Rural area</p>",
+                    "description": "Sub-Product Description"
+                },
+                "exclusion": {
+                    "type": "string",
+                    "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre-existing disability. </li>",
+                    "description": "Sub-Product Exclusion"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Sub-Product ID"
+                },
+                "keyfeature": {
+                    "type": "string",
+                    "example": "<ul><li> </li><li> Ensuring best available insurance facilities </li><li>",
+                    "description": "Sub-Product Key Features"
+                },
+                "productCode": {
+                    "type": "string",
+                    "description": "Sub-Product Code"
+                },
+                "productInfo": {
+                    "type": "string",
+                    "example": "NIBEDITA ECO",
+                    "description": "Sub-Product Information"
+                },
+                "productName": {
+                    "type": "string",
+                    "description": "Sub-Product Name"
+                },
+                "sumInsuredInfo": {
+                    "type": "string",
+                    "example": "BDT 50,000 to BDT 2,00,000",
+                    "description": "Sub-Product Sum Insured Information"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "<h2>Comprehensive Insurance Policy For Women</h2>",
+                    "description": "Sub-Product Title"
+                }
+            },
+            "title": "SubProduct"
+        },
+        "User Authentication Request": {
+            "type": "object",
+            "required": [
+                "password",
+                "platform",
+                "source",
+                "username"
+            ],
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "example": 12345678,
+                    "description": "User's password"
+                },
+                "platform": {
+                    "type": "string",
+                    "description": "Platform from which the request is made (e.g., WEB, APP)",
+                    "enum": [
+                        "APP",
+                        "WEB"
+                    ]
+                },
+                "source": {
+                    "type": "string",
+                    "description": "Source of authentication (e.g., EBL, ROBI, BRAC)",
+                    "enum": [
+                        "BRAC",
+                        "EBL",
+                        "ROBI"
+                    ]
+                },
+                "username": {
+                    "type": "string",
+                    "example": 19255,
+                    "description": "User's username"
+                }
+            },
+            "title": "User Authentication Request"
+        },
+        "User Authentication Response": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string",
+                    "example": "eyJraWQiOiJlOWNjZDMyYy02OTllLTQ1MjItYjE1MC03MjM5ODRkODkzNDMi",
+                    "description": "Access Token"
                 },
                 "error": {
-                  "type": "string"
+                    "type": "array",
+                    "description": "List of errors",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "expiresIn": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 35999,
+                    "description": "Time in seconds until the token expires"
+                },
+                "idToken": {
+                    "type": "string",
+                    "example": "eyJraWQiOiJlOWNjZDMyYcFgU6PAHo3-9RkODkzNDMi",
+                    "description": "ID Token"
+                },
+                "refreshToken": {
+                    "type": "string",
+                    "example": "3Lp8hM4I3iBZtyqVK7Lt4_DGtO1D3pd6Cryq1dzT44S5jTPNxhiE1ErPTQxg60or0vZAPhJYGtafSsv05keSgYcWryCUHGCfzlQ_1caPrNO_ixaLlgXhAPtQypMvTTHD",
+                    "description": "Refresh Token"
+                },
+                "scope": {
+                    "type": "string",
+                    "description": "Scope"
+                },
+                "tokenType": {
+                    "type": "string",
+                    "example": "Bearer",
+                    "description": "Token Type"
                 }
-              },
-              "required": [
-                "status",
-                "error"
-              ]
-            }
-          }
+            },
+            "title": "User Authentication Response"
+        },
+        "User Refresh Token Response": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string",
+                    "example": "eyJraWQiOiJlOWNjZDMyYy02OTllLTQ1MjItYjE1MC03MjM5ODRkODkzNDMi",
+                    "description": "Access Token"
+                },
+                "error": {
+                    "type": "array",
+                    "description": "List of errors",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "expiresIn": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 35999,
+                    "description": "Time in seconds until the token expires"
+                },
+                "idToken": {
+                    "type": "string",
+                    "example": "eyJraWQiOiJlOWNjZDMyYcFgU6PAHo3-9RkODkzNDMi",
+                    "description": "ID Token"
+                },
+                "refreshToken": {
+                    "type": "string",
+                    "example": "3Lp8hM4I3iBZtyqVK7Lt4_DGtO1D3pd6Cryq1dzT44S5jTPNxhiE1ErPTQxg60or0vZAPhJYGtafSsv05keSgYcWryCUHGCfzlQ_1caPrNO_ixaLlgXhAPtQypMvTTHD",
+                    "description": "Refresh Token"
+                },
+                "scope": {
+                    "type": "string",
+                    "description": "Scope"
+                },
+                "tokenType": {
+                    "type": "string",
+                    "example": "Bearer",
+                    "description": "Token Type"
+                }
+            },
+            "title": "User Refresh Token Response"
+        },
+        "VehicleType": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Vehicle Type Name"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "Vehicle Type Value"
+                }
+            },
+            "title": "VehicleType"
+        },
+        "getQuotationPrerequisite": {
+            "type": "object",
+            "properties": {
+                "bnh": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PlaceVisit"
+                    }
+                },
+                "ens": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PlaceVisit"
+                    }
+                },
+                "mtr": {
+                    "description": "MTR motor plan types",
+                    "$ref": "#/definitions/MtrProduct"
+                },
+                "nib": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/nib"
+                    }
+                },
+                "pac": {
+                    "description": "PAC products and class details",
+                    "$ref": "#/definitions/PacProduct"
+                },
+                "ppa": {
+                    "description": "PPA details",
+                    "$ref": "#/definitions/PpaProduct"
+                }
+            },
+            "title": "getQuotationPrerequisite"
+        },
+        "nib": {
+            "type": "object",
+            "properties": {
+                "productCode": {
+                    "type": "string",
+                    "description": "Product Code"
+                },
+                "productName": {
+                    "type": "string",
+                    "description": "Product Name"
+                },
+                "sumInsuredList": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "title": "nib"
+        },
+        "productList": {
+            "type": "object",
+            "properties": {
+                "ageLimitInfo": {
+                    "type": "string",
+                    "example": "Age limit is 16 years to 65 years",
+                    "description": "Age Limit Information"
+                },
+                "coverage": {
+                    "type": "string",
+                    "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li>",
+                    "description": "Coverage"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "<p>Providing affordable comprehensive insurance coverage to females. Ensuring best Insurance Service in Urban and Rural area</p>",
+                    "description": "Product Description"
+                },
+                "exclusion": {
+                    "type": "string",
+                    "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre-existing disability. </li>",
+                    "description": "Exclusion"
+                },
+                "hasSubProduct": {
+                    "type": "boolean",
+                    "description": "Whether the product has sub-products"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Product ID"
+                },
+                "keyfeature": {
+                    "type": "string",
+                    "example": "<ul><li> </li><li> Ensuring best available insurance facilities </li><li>",
+                    "description": "Key Features"
+                },
+                "productCode": {
+                    "type": "string",
+                    "description": "Product Code"
+                },
+                "productInfo": {
+                    "type": "string",
+                    "example": "NIBEDITA",
+                    "description": "Product Information"
+                },
+                "productName": {
+                    "type": "string",
+                    "description": "Product Name"
+                },
+                "subProductList": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SubProduct"
+                    }
+                },
+                "sumInsuredInfo": {
+                    "type": "string",
+                    "example": "BDT 50,000 to BDT 2,00,000",
+                    "description": "Sum Insured Information"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "<h2>Comprehensive Insurance Policy For Women</h2>",
+                    "description": "Product Title"
+                }
+            },
+            "title": "productList"
         }
-      },
-      "Unauthorized": {
-        "description": "Access token is missing or invalid"        
-      }
-    },
-    "examples": {
-      "user": {
-        "value": {
-          "username": 1726,
-          "password": "abcd1234",
-          "dataSource": "core"
-        }
-      }
     }
-  },
-  "tags": [
-    {
-      "name": "Users"
-    }
-  ]
 }
