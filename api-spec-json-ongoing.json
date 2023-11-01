@@ -1,0 +1,912 @@
+POST: {{base_url}}:8282/user-authentication
+
+{
+  "password": "12345678",
+  "username": "19255",
+  "source": "EBL",// ROBI, BRAC , mandatory
+  "platform":"WEB" //mandatory
+}
+
+Response:
+{
+   "accessToken":"eyJraWQiOiJlOWNjZDMyYy02OTllLTQ1MjItYjE1MC03MjM1ODRkODkzNDMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjaXNhcHAiLCJhdWQiOiJjaXMiLCJuYmYiOjE2OTgyMjEwNzIsImV4YW1wbGUyIjoiR3JlZW4gRGVsdGEgU1NPIFBsYXRmb3JtIiwic2NvcGUiOlsib3BlbmlkIl0sImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjcyNzIiLCJleGFtcGxlMSI6IkdyZWVuIERlbHRhIiwiZXhwIjoxNjk4MjU3MDcyLCJpYXQiOjE2OTgyMjEwNzJ9.H7VIcPBvTYS2npuQsmd-1QSDUMyIe3Z4hlFTe9GnbD6qh3bwqHhofziBL42yYpdhO0-j_KualcyNaQ0W_pG_0LY3wdXaFNzmD8BAyYJfi_0boD-MXzqwjvUr-37tgxy-5jW2p0Y3-2F_XWDRZlOncHDQ2wajTJh5Lekrm2gutZ8JRYik4l1b_pOw-YVjZZe5Oftic9rxuL7cCfHijnEIYPgh6mD4zkoDWOdyQBwCHr-a8Lnaq7pFifk3Dpnk8K-dTs54zYkHytZTY1AikLvzIk0SdYQU90BRWY99cFEXsll1vdsD1oCAnQdmUsE_aVuoUeN8pNLO1MxnfqYos4rJdg",
+   "refreshToken":"3Lp8hM4I3iBZtyqVK7Lt4_DGtO1D3pd6Cryq1dzT44S5jTPNxhiE1ErPTQxg60or0vZAPhJYGtafSsv05keSgYcWryCUHGCfzlQ_1caPrNO_ixaLlgXhAPtQypMvTTHD",
+   "scope":"",
+   "idToken":"eyJraWQiOiJlOWNjZDMyYy02OTllLTQ1MjItYjE1MC03MjM1ODRkODkzNDMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjaXNhcHAiLCJhdWQiOiJjaXMiLCJleGFtcGxlMiI6IkdyZWVuIERlbHRhIFNTTyBQbGF0Zm9ybSIsImF6cCI6ImNpcyIsImF1dGhfdGltZSI6MTY5ODIyMTAzMSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzI3MiIsImV4YW1wbGUxIjoiR3JlZW4gRGVsdGEiLCJleHAiOjE2OTgyMjI4NzIsImlhdCI6MTY5ODIyMTA3Miwibm9uY2UiOiJOMC41NTYzOTc4MTAzMzE0MjI0MTU0Njg4MDAyNjg3OCIsInNpZCI6InlzUmtSRnhvSXNsRnBaVTNBSjFsODFXLUh4ek5YbnFMdWVNYVBhLUhzM2sifQ.nggtXwx4r_Es_WC-YehNoh3Bso3Kiy4jS6x91tstt6oOfYJ4ecnhWzLp23qtP20h8FnSzR5lWbFGt0Uwuw0W0z8OrhurX59j8ViwYWJ7qPgXEszKigJUX6X41i-o1pByEx7gaRIs2zrjjOi6RLwqvPb5xmRfa3fS8i1EiTfyjBQbwqv-pei7i7d3Qz0VaOKNnWF9F25HY5wnwZysyvyrX6dPX8S6mFtQie58rAD5chf8gKKocd7uORe6oO0mTVxZF-5D7IgMNRndAICPVpzTVVWcyx4csmEZggcY16j-3LmddI7YrmDIjisqd8NbsnIapys0PeEtgPgG0wIr0APdpw",
+   "tokenType":"Bearer",
+   "expiresIn":35999,
+   "error":[]
+}
+
+
+{{base_url}}:8282/refresh-auth-token
+Header:
+Content-Type:application/json
+Authorization:Bearer {{token}}
+isRefreshToken:true
+
+Response:
+{
+   "access_token":"eyJraWQiOiJlOWNjZDMyYy02OTllLTQ1MjItYjE1MC03MjM1ODRkODkzNDMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjaXNhcHAiLCJhdWQiOiJjaXMiLCJuYmYiOjE2OTgyMjEwNzIsImV4YW1wbGUyIjoiR3JlZW4gRGVsdGEgU1NPIFBsYXRmb3JtIiwic2NvcGUiOlsib3BlbmlkIl0sImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjcyNzIiLCJleGFtcGxlMSI6IkdyZWVuIERlbHRhIiwiZXhwIjoxNjk4MjU3MDcyLCJpYXQiOjE2OTgyMjEwNzJ9.H7VIcPBvTYS2npuQsmd-1QSDUMyIe3Z4hlFTe9GnbD6qh3bwqHhofziBL42yYpdhO0-j_KualcyNaQ0W_pG_0LY3wdXaFNzmD8BAyYJfi_0boD-MXzqwjvUr-37tgxy-5jW2p0Y3-2F_XWDRZlOncHDQ2wajTJh5Lekrm2gutZ8JRYik4l1b_pOw-YVjZZe5Oftic9rxuL7cCfHijnEIYPgh6mD4zkoDWOdyQBwCHr-a8Lnaq7pFifk3Dpnk8K-dTs54zYkHytZTY1AikLvzIk0SdYQU90BRWY99cFEXsll1vdsD1oCAnQdmUsE_aVuoUeN8pNLO1MxnfqYos4rJdg",
+   "refresh_token":"3Lp8hM4I3iBZtyqVK7Lt4_DGtO1D3pd6Cryq1dzT44S5jTPNxhiE1ErPTQxg60or0vZAPhJYGtafSsv05keSgYcWryCUHGCfzlQ_1caPrNO_ixaLlgXhAPtQypMvTTHD",
+   "scope":"",
+   "id_token":"eyJraWQiOiJlOWNjZDMyYy02OTllLTQ1MjItYjE1MC03MjM1ODRkODkzNDMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjaXNhcHAiLCJhdWQiOiJjaXMiLCJleGFtcGxlMiI6IkdyZWVuIERlbHRhIFNTTyBQbGF0Zm9ybSIsImF6cCI6ImNpcyIsImF1dGhfdGltZSI6MTY5ODIyMTAzMSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzI3MiIsImV4YW1wbGUxIjoiR3JlZW4gRGVsdGEiLCJleHAiOjE2OTgyMjI4NzIsImlhdCI6MTY5ODIyMTA3Miwibm9uY2UiOiJOMC41NTYzOTc4MTAzMzE0MjI0MTU0Njg4MDAyNjg3OCIsInNpZCI6InlzUmtSRnhvSXNsRnBaVTNBSjFsODFXLUh4ek5YbnFMdWVNYVBhLUhzM2sifQ.nggtXwx4r_Es_WC-YehNoh3Bso3Kiy4jS6x91tstt6oOfYJ4ecnhWzLp23qtP20h8FnSzR5lWbFGt0Uwuw0W0z8OrhurX59j8ViwYWJ7qPgXEszKigJUX6X41i-o1pByEx7gaRIs2zrjjOi6RLwqvPb5xmRfa3fS8i1EiTfyjBQbwqv-pei7i7d3Qz0VaOKNnWF9F25HY5wnwZysyvyrX6dPX8S6mFtQie58rAD5chf8gKKocd7uORe6oO0mTVxZF-5D7IgMNRndAICPVpzTVVWcyx4csmEZggcY16j-3LmddI7YrmDIjisqd8NbsnIapys0PeEtgPgG0wIr0APdpw",
+   "token_type":"Bearer",
+   "expires_in":35999,
+   "error":[]
+}
+
+
+GET: {{base_url}}:8282/get-product-list
+Header: authentication token
+Read the client id, client name, platform from token and then call get allowed product list to CIS
+
+{
+    "result": true,
+    "data": {
+        "productList": [
+            {
+                "id": 20627,
+                "productCode": "NIB",
+                "productName": "Nibedita",
+                "hasSubProduct": true,
+                "title": "<h2>Comprehensive Insurance Policy For Women</h2>",
+                "description": "<p>Providing affordable comprehensive insurance coverage to females.Ensuring best Insurance Service in Urban and Rural area</p>",
+                "keyfeature": "<ul><li> Providing affordable comprehensive insurance coverage to females </li><li> Ensuring best available insurance facilities </li><li> Ensuring best Insurance Service in Urban and Rural area </li><li> Helping the women's to be self dependent </li><li> Sum insured staring from Tk. 100,000.00 and exit sum insured Tk. 1,000,000.00 </li><li> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li> Affordable net premium starting from 580/- per person </li><li> Hassle free claim management </li></ul>",
+                "coverage": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li><li _ngcontent-bcn-c140> Bodily injury due to accident causing permanent or partial disability </li><li _ngcontent-bcn-c140> Disability/Accidental death due to insect bites, snakes and animal bites. </li><li _ngcontent-bcn-c140> Death or bodily injury due to flood, earthquake, land slide, cyclone and other natural calamities </li><li _ngcontent-bcn-c140> Death/bodily injury due to riot and strike, civil commotion </li><li _ngcontent-bcn-c140> Death during child birth or during caesarean operation at the time of child birth. </li><li _ngcontent-bcn-c140> Loss or Damage to household goods/personal effects due to fire/lightening, riots, storm, typhoon, flood, cyclone and earthquake </li><li _ngcontent-bcn-c140> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li _ngcontent-bcn-c140> The tenure of the policy is for 1 Year. </li><li _ngcontent-bcn-c140> All sections of women in the age group of 18-65 years </li><!----></ul>",
+                "exclusion": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre existing disability. </li><li _ngcontent-bcn-c140> Death, injury or disablement arising from or traceable to whilst under the influence of intoxication, liquor and drugs. </li><li _ngcontent-bcn-c140> Death caused by convulsions of nature, suicide and intentional self injury. </li><li _ngcontent-bcn-c140> Death or injury directly or indirectly caused by insanity. </li><li _ngcontent-bcn-c140> War, invasion, foreign army, hostilities (whether was be declared or not),civil war. </li><li _ngcontent-bcn-c140> Rebellion, revolution, insurrection, mutiny. </li><li _ngcontent-bcn-c140> Lockout, military or usurped power. </li><li _ngcontent-bcn-c140> A group of malicious people acting on behalf of or in connection with any organization, conspiracy, confiscation, commandeering, requisition or destruction or damage by order of any government de jure or de facto or by any public authority. </li><li _ngcontent-bcn-c140> nuclear reaction, nuclear radiation or radioactive contamination. </li><!----></ul>",
+                "sumInsuredInfo": "BDT 50,000 to BDT 2,00,000",
+                "productInfo": "NIBEDITA",
+                "ageLimitInfo": "Age limit is 16 years to 65 years",
+                "subProductList": [
+                    {
+                        "id": 627,
+                        "productCode": "NIBEDITA_ECO",
+                        "productName": "Nibedita Eco",
+                        "title": "<h2>Comprehensive Insurance Policy For Women</h2>",
+                        "description": "<p>Providing affordable comprehensive insurance coverage to females.Ensuring best Insurance Service in Urban and Rural area</p>",
+                        "keyfeature": "<ul><li> Providing affordable comprehensive insurance coverage to females </li><li> Ensuring best available insurance facilities </li><li> Ensuring best Insurance Service in Urban and Rural area </li><li> Helping the women's to be self dependent </li><li> Sum insured staring from Tk. 100,000.00 and exit sum insured Tk. 1,000,000.00 </li><li> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li> Affordable net premium starting from 580/- per person </li><li> Hassle free claim management </li></ul>",
+                        "coverage": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li><li _ngcontent-bcn-c140> Bodily injury due to accident causing permanent or partial disability </li><li _ngcontent-bcn-c140> Disability/Accidental death due to insect bites, snakes and animal bites. </li><li _ngcontent-bcn-c140> Death or bodily injury due to flood, earthquake, land slide, cyclone and other natural calamities </li><li _ngcontent-bcn-c140> Death/bodily injury due to riot and strike, civil commotion </li><li _ngcontent-bcn-c140> Death during child birth or during caesarean operation at the time of child birth. </li><li _ngcontent-bcn-c140> Loss or Damage to household goods/personal effects due to fire/lightening, riots, storm, typhoon, flood, cyclone and earthquake </li><li _ngcontent-bcn-c140> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li _ngcontent-bcn-c140> The tenure of the policy is for 1 Year. </li><li _ngcontent-bcn-c140> All sections of women in the age group of 18-65 years </li><!----></ul>",
+                        "exclusion": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre existing disability. </li><li _ngcontent-bcn-c140> Death, injury or disablement arising from or traceable to whilst under the influence of intoxication, liquor and drugs. </li><li _ngcontent-bcn-c140> Death caused by convulsions of nature, suicide and intentional self injury. </li><li _ngcontent-bcn-c140> Death or injury directly or indirectly caused by insanity. </li><li _ngcontent-bcn-c140> War, invasion, foreign army, hostilities (whether was be declared or not),civil war. </li><li _ngcontent-bcn-c140> Rebellion, revolution, insurrection, mutiny. </li><li _ngcontent-bcn-c140> Lockout, military or usurped power. </li><li _ngcontent-bcn-c140> A group of malicious people acting on behalf of or in connection with any organization, conspiracy, confiscation, commandeering, requisition or destruction or damage by order of any government de jure or de facto or by any public authority. </li><li _ngcontent-bcn-c140> nuclear reaction, nuclear radiation or radioactive contamination. </li><!----></ul>",
+                        "sumInsuredInfo": "BDT 50,000 to BDT 2,00,000",
+                        "productInfo": "NIBEDITA ECO",
+                        "ageLimitInfo": "Age limit is 16 years to 65 years"
+                    },
+                    {
+                        "id": 628,
+                        "productCode": "NIBEDITA_PLUS",
+                        "productName": "Nibedita Plus",
+                        "title": "<h2>Comprehensive Insurance Policy For Women</h2>",
+                        "description": "<p>Providing affordable comprehensive insurance coverage to females.Ensuring best Insurance Service in Urban and Rural area</p>",
+                        "keyfeature": "<ul><li> Providing affordable comprehensive insurance coverage to females </li><li> Ensuring best available insurance facilities </li><li> Ensuring best Insurance Service in Urban and Rural area </li><li> Helping the women's to be self dependent </li><li> Sum insured staring from Tk. 100,000.00 and exit sum insured Tk. 1,000,000.00 </li><li> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li> Affordable net premium starting from 580/- per person </li><li> Hassle free claim management </li></ul>",
+                        "coverage": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li><li _ngcontent-bcn-c140> Bodily injury due to accident causing permanent or partial disability </li><li _ngcontent-bcn-c140> Disability/Accidental death due to insect bites, snakes and animal bites. </li><li _ngcontent-bcn-c140> Death or bodily injury due to flood, earthquake, land slide, cyclone and other natural calamities </li><li _ngcontent-bcn-c140> Death/bodily injury due to riot and strike, civil commotion </li><li _ngcontent-bcn-c140> Death during child birth or during caesarean operation at the time of child birth. </li><li _ngcontent-bcn-c140> Loss or Damage to household goods/personal effects due to fire/lightening, riots, storm, typhoon, flood, cyclone and earthquake </li><li _ngcontent-bcn-c140> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li _ngcontent-bcn-c140> The tenure of the policy is for 1 Year. </li><li _ngcontent-bcn-c140> All sections of women in the age group of 18-65 years </li><!----></ul>",
+                        "exclusion": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre existing disability. </li><li _ngcontent-bcn-c140> Death, injury or disablement arising from or traceable to whilst under the influence of intoxication, liquor and drugs. </li><li _ngcontent-bcn-c140> Death caused by convulsions of nature, suicide and intentional self injury. </li><li _ngcontent-bcn-c140> Death or injury directly or indirectly caused by insanity. </li><li _ngcontent-bcn-c140> War, invasion, foreign army, hostilities (whether was be declared or not),civil war. </li><li _ngcontent-bcn-c140> Rebellion, revolution, insurrection, mutiny. </li><li _ngcontent-bcn-c140> Lockout, military or usurped power. </li><li _ngcontent-bcn-c140> A group of malicious people acting on behalf of or in connection with any organization, conspiracy, confiscation, commandeering, requisition or destruction or damage by order of any government de jure or de facto or by any public authority. </li><li _ngcontent-bcn-c140> nuclear reaction, nuclear radiation or radioactive contamination. </li><!----></ul>",
+                        "sumInsuredInfo": "BDT 50,000 to BDT 2,00,000",
+                        "productInfo": "NIBEDITA ECO",
+                        "ageLimitInfo": "Age limit is 16 years to 65 years"
+                    },
+                    {
+                        "id": 629,
+                        "productCode": "NIBEDITA_REGULAR",
+                        "productName": "Nibedita Regular",
+                        "title": "<h2>Comprehensive Insurance Policy For Women</h2>",
+                        "description": "<p>Absolute Disablement And Death Resulting From Accidental Bodily Injury.From age 16 to 65 years.</p>",
+                        "keyfeature": "<ul><li> Providing affordable comprehensive insurance coverage to females </li><li> Ensuring best available insurance facilities </li><li> Ensuring best Insurance Service in Urban and Rural area </li><li> Helping the women's to be self dependent </li><li> Sum insured staring from Tk. 100,000.00 and exit sum insured Tk. 1,000,000.00 </li><li> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li> Affordable net premium starting from 580/- per person </li><li> Hassle free claim management </li></ul>",
+                        "coverage": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li><li _ngcontent-bcn-c140> Bodily injury due to accident causing permanent or partial disability </li><li _ngcontent-bcn-c140> Disability/Accidental death due to insect bites, snakes and animal bites. </li><li _ngcontent-bcn-c140> Death or bodily injury due to flood, earthquake, land slide, cyclone and other natural calamities </li><li _ngcontent-bcn-c140> Death/bodily injury due to riot and strike, civil commotion </li><li _ngcontent-bcn-c140> Death during child birth or during caesarean operation at the time of child birth. </li><li _ngcontent-bcn-c140> Loss or Damage to household goods/personal effects due to fire/lightening, riots, storm, typhoon, flood, cyclone and earthquake </li><li _ngcontent-bcn-c140> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li _ngcontent-bcn-c140> The tenure of the policy is for 1 Year. </li><li _ngcontent-bcn-c140> All sections of women in the age group of 18-65 years </li><!----></ul>",
+                        "exclusion": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre existing disability. </li><li _ngcontent-bcn-c140> Death, injury or disablement arising from or traceable to whilst under the influence of intoxication, liquor and drugs. </li><li _ngcontent-bcn-c140> Death caused by convulsions of nature, suicide and intentional self injury. </li><li _ngcontent-bcn-c140> Death or injury directly or indirectly caused by insanity. </li><li _ngcontent-bcn-c140> War, invasion, foreign army, hostilities (whether was be declared or not),civil war. </li><li _ngcontent-bcn-c140> Rebellion, revolution, insurrection, mutiny. </li><li _ngcontent-bcn-c140> Lockout, military or usurped power. </li><li _ngcontent-bcn-c140> A group of malicious people acting on behalf of or in connection with any organization, conspiracy, confiscation, commandeering, requisition or destruction or damage by order of any government de jure or de facto or by any public authority. </li><li _ngcontent-bcn-c140> nuclear reaction, nuclear radiation or radioactive contamination. </li><!----></ul>",
+                        "sumInsuredInfo": "BDT 50,000 to BDT 2,00,000",
+                        "productInfo": "NIBEDITA REGULAR",
+                        "ageLimitInfo": "Age limit is 16 years to 65 years"
+                    }
+                ]
+            },
+            {
+                "id": 20628,
+                "productCode": "PAC",
+                "productName": "People Accident Insurance",
+                "hasSubProduct": false,
+                "title": "<h2>Provide the best Personal Accident Insurance</h2>",
+                "description": "<p>Providing affordable comprehensive insurance coverage to females.Ensuring best Insurance Service in Urban and Rural area</p>",
+                "keyfeature": "<ul><li> Providing affordable comprehensive insurance coverage to females </li><li> Ensuring best available insurance facilities </li><li> Ensuring best Insurance Service in Urban and Rural area </li><li> Helping the women's to be self dependent </li><li> Sum insured staring from Tk. 100,000.00 and exit sum insured Tk. 1,000,000.00 </li><li> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li> Affordable net premium starting from 580/- per person </li><li> Hassle free claim management </li></ul>",
+                "coverage": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li><li _ngcontent-bcn-c140> Bodily injury due to accident causing permanent or partial disability </li><li _ngcontent-bcn-c140> Disability/Accidental death due to insect bites, snakes and animal bites. </li><li _ngcontent-bcn-c140> Death or bodily injury due to flood, earthquake, land slide, cyclone and other natural calamities </li><li _ngcontent-bcn-c140> Death/bodily injury due to riot and strike, civil commotion </li><li _ngcontent-bcn-c140> Death during child birth or during caesarean operation at the time of child birth. </li><li _ngcontent-bcn-c140> Loss or Damage to household goods/personal effects due to fire/lightening, riots, storm, typhoon, flood, cyclone and earthquake </li><li _ngcontent-bcn-c140> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li _ngcontent-bcn-c140> The tenure of the policy is for 1 Year. </li><li _ngcontent-bcn-c140> All sections of women in the age group of 18-65 years </li><!----></ul>",
+                "exclusion": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre existing disability. </li><li _ngcontent-bcn-c140> Death, injury or disablement arising from or traceable to whilst under the influence of intoxication, liquor and drugs. </li><li _ngcontent-bcn-c140> Death caused by convulsions of nature, suicide and intentional self injury. </li><li _ngcontent-bcn-c140> Death or injury directly or indirectly caused by insanity. </li><li _ngcontent-bcn-c140> War, invasion, foreign army, hostilities (whether was be declared or not),civil war. </li><li _ngcontent-bcn-c140> Rebellion, revolution, insurrection, mutiny. </li><li _ngcontent-bcn-c140> Lockout, military or usurped power. </li><li _ngcontent-bcn-c140> A group of malicious people acting on behalf of or in connection with any organization, conspiracy, confiscation, commandeering, requisition or destruction or damage by order of any government de jure or de facto or by any public authority. </li><li _ngcontent-bcn-c140> nuclear reaction, nuclear radiation or radioactive contamination. </li><!----></ul>",
+                "sumInsuredInfo": "BDT 50,000 to BDT 2,00,000",
+                "productInfo": "NIBEDITA",
+                "ageLimitInfo": "Age limit is 16 years to 65 years",
+                "subProductList": []
+            },
+            {
+                "id": 20628,
+                "productCode": "MTR",
+                "productName": "Effective Insurance Provider For Vehicles",
+                "hasSubProduct": false,
+                "title": "<h2>Provide the best Personal Accident Insurance</h2>",
+                "description": "<p>Providing affordable comprehensive insurance coverage to females.Ensuring best Insurance Service in Urban and Rural area</p>",
+                "keyfeature": "<ul><li> Providing affordable comprehensive insurance coverage to females </li><li> Ensuring best available insurance facilities </li><li> Ensuring best Insurance Service in Urban and Rural area </li><li> Helping the women's to be self dependent </li><li> Sum insured staring from Tk. 100,000.00 and exit sum insured Tk. 1,000,000.00 </li><li> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li> Affordable net premium starting from 580/- per person </li><li> Hassle free claim management </li></ul>",
+                "coverage": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li><li _ngcontent-bcn-c140> Bodily injury due to accident causing permanent or partial disability </li><li _ngcontent-bcn-c140> Disability/Accidental death due to insect bites, snakes and animal bites. </li><li _ngcontent-bcn-c140> Death or bodily injury due to flood, earthquake, land slide, cyclone and other natural calamities </li><li _ngcontent-bcn-c140> Death/bodily injury due to riot and strike, civil commotion </li><li _ngcontent-bcn-c140> Death during child birth or during caesarean operation at the time of child birth. </li><li _ngcontent-bcn-c140> Loss or Damage to household goods/personal effects due to fire/lightening, riots, storm, typhoon, flood, cyclone and earthquake </li><li _ngcontent-bcn-c140> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li _ngcontent-bcn-c140> The tenure of the policy is for 1 Year. </li><li _ngcontent-bcn-c140> All sections of women in the age group of 18-65 years </li><!----></ul>",
+                "exclusion": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre existing disability. </li><li _ngcontent-bcn-c140> Death, injury or disablement arising from or traceable to whilst under the influence of intoxication, liquor and drugs. </li><li _ngcontent-bcn-c140> Death caused by convulsions of nature, suicide and intentional self injury. </li><li _ngcontent-bcn-c140> Death or injury directly or indirectly caused by insanity. </li><li _ngcontent-bcn-c140> War, invasion, foreign army, hostilities (whether was be declared or not),civil war. </li><li _ngcontent-bcn-c140> Rebellion, revolution, insurrection, mutiny. </li><li _ngcontent-bcn-c140> Lockout, military or usurped power. </li><li _ngcontent-bcn-c140> A group of malicious people acting on behalf of or in connection with any organization, conspiracy, confiscation, commandeering, requisition or destruction or damage by order of any government de jure or de facto or by any public authority. </li><li _ngcontent-bcn-c140> nuclear reaction, nuclear radiation or radioactive contamination. </li><!----></ul>",
+                "sumInsuredInfo": "BDT 50,000 to BDT 2,00,000",
+                "productInfo": "NIBEDITA",
+                "ageLimitInfo": "Age limit is 16 years to 65 years",
+                "subProductList": []
+            },
+            {
+                "id": 20628,
+                "productCode": "B&H",
+                "productName": "Ensuring the best Travel Insurance facilities",
+                "hasSubProduct": false,
+                "title": "<h2>Provide the best Personal Accident Insurance</h2>",
+                "description": "<p>Providing affordable comprehensive insurance coverage to females.Ensuring best Insurance Service in Urban and Rural area</p>",
+                "keyfeature": "<ul><li> Providing affordable comprehensive insurance coverage to females </li><li> Ensuring best available insurance facilities </li><li> Ensuring best Insurance Service in Urban and Rural area </li><li> Helping the women's to be self dependent </li><li> Sum insured staring from Tk. 100,000.00 and exit sum insured Tk. 1,000,000.00 </li><li> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li> Affordable net premium starting from 580/- per person </li><li> Hassle free claim management </li></ul>",
+                "coverage": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li><li _ngcontent-bcn-c140> Bodily injury due to accident causing permanent or partial disability </li><li _ngcontent-bcn-c140> Disability/Accidental death due to insect bites, snakes and animal bites. </li><li _ngcontent-bcn-c140> Death or bodily injury due to flood, earthquake, land slide, cyclone and other natural calamities </li><li _ngcontent-bcn-c140> Death/bodily injury due to riot and strike, civil commotion </li><li _ngcontent-bcn-c140> Death during child birth or during caesarean operation at the time of child birth. </li><li _ngcontent-bcn-c140> Loss or Damage to household goods/personal effects due to fire/lightening, riots, storm, typhoon, flood, cyclone and earthquake </li><li _ngcontent-bcn-c140> Trauma Allowance incase of Rape, Road bully, robbery, acid victim </li><li _ngcontent-bcn-c140> The tenure of the policy is for 1 Year. </li><li _ngcontent-bcn-c140> All sections of women in the age group of 18-65 years </li><!----></ul>",
+                "exclusion": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre existing disability. </li><li _ngcontent-bcn-c140> Death, injury or disablement arising from or traceable to whilst under the influence of intoxication, liquor and drugs. </li><li _ngcontent-bcn-c140> Death caused by convulsions of nature, suicide and intentional self injury. </li><li _ngcontent-bcn-c140> Death or injury directly or indirectly caused by insanity. </li><li _ngcontent-bcn-c140> War, invasion, foreign army, hostilities (whether was be declared or not),civil war. </li><li _ngcontent-bcn-c140> Rebellion, revolution, insurrection, mutiny. </li><li _ngcontent-bcn-c140> Lockout, military or usurped power. </li><li _ngcontent-bcn-c140> A group of malicious people acting on behalf of or in connection with any organization, conspiracy, confiscation, commandeering, requisition or destruction or damage by order of any government de jure or de facto or by any public authority. </li><li _ngcontent-bcn-c140> nuclear reaction, nuclear radiation or radioactive contamination. </li><!----></ul>",
+                "sumInsuredInfo": "BDT 50,000 to BDT 2,00,000",
+                "productInfo": "Ensuring the best Travel Insurance facilities",
+                "ageLimitInfo": "Age limit is 16 years to 65 years",
+                "subProductList": []
+            }
+        ],
+        "getQuotationPrerequisite": {
+            "nib": [
+                {
+                    "productCode": "NIBEDITA ECO",
+                    "productName": "NIBEDITA ECO",
+                    "sumInsuredList": [
+                        50000,
+                        100000,
+                        150000,
+                        200000,
+                        1413400000
+                    ]
+                },
+                {
+                    "productCode": "NIBEDITA_REGULAR",
+                    "productName": "NIBEDITA REGULAR",
+                    "sumInsuredList": [
+                        100000,
+                        200000,
+                        300000,
+                        400000,
+                        500000,
+                        600000,
+                        700000,
+                        800000,
+                        900000,
+                        1000000
+                    ]
+                },
+                {
+                    "productCode": "NIBEDITA_PLUS",
+                    "productName": "NIBEDITA PLUS",
+                    "sumInsuredList": [
+                        500000,
+                        1000000,
+                        2000000,
+                        3000000,
+                        4000000,
+                        5000000
+                    ]
+                }
+            ],
+            "pac": {
+                "pacClassDetailsList": [
+                    {
+                        "classCode": "A",
+                        "className": "Plan - A",
+                        "pacOccupationList": [
+                            "Accountants",
+                            "Bankers",
+                            "Barristers",
+                            "Medical Practitioners",
+                            "Mercantile Assistants",
+                            "Engaged solely in Executive",
+                            "Administrative",
+                            "Clerical duties"
+                        ]
+                    },
+                    {
+                        "classCode": "B",
+                        "className": "Plan - B",
+                        "pacOccupationList": [
+                            "Architects",
+                            "Planters",
+                            "Electrical Engineers (Superintending only)",
+                            "Master Tradesman who supervise"
+                        ]
+                    },
+                    {
+                        "classCode": "C",
+                        "className": "Plan - C",
+                        "pacOccupationList": [
+                            "Motor Engineering (Master work)",
+                            "Veterinary Surgeons",
+                            "Person engaged in Manual work not in hazards or wood working Machinery",
+                            "Other Occupation"
+                        ]
+                    }
+                ],
+                "pacCoverTypeDetailsList": [
+                    {
+                        "coverTypeCode": "A",
+                        "coverTypeName": "TABLE-A- Personal Accidental death permanent & temporary disablement including Medical Expenses."
+                    },
+                    {
+                        "coverTypeCode": "AA",
+                        "coverTypeName": "TABLE-A- - Personal Accidental death permanent & temporary disablement."
+                    },
+                    {
+                        "coverTypeCode": "B",
+                        "coverTypeName": "TABLE-B- - Personal Accidental death permanent total & partial disablement."
+                    },
+                    {
+                        "coverTypeCode": "C",
+                        "coverTypeName": "TABLE-C- Personal Accidental death only."
+                    }
+                ]
+            },
+            "ppa": {},
+            "ens": {
+                "placeVisitList": [
+                    {
+                        "placeVisit": "Plan \"C\" : For Schengen Countries and Worldwide Excluding USA and Canada",
+                        "placeVisitCode": "A"
+                    },
+                    {
+                        "placeVisit": "Plan \"D\" : For Schengen Countries and Worldwide Including USA and Canada",
+                        "placeVisitCode": "B"
+                    },
+                    {
+                        "placeVisit": "Plan \"C\" : For Non Schengen Countries and Worldwide Excluding USA and Canada",
+                        "placeVisitCode": "H"
+                    },
+                    {
+                        "placeVisit": "Plan \"D\" : For Non Schengen Countries and Worldwide Including USA and Canada",
+                        "placeVisitCode": "I"
+                    }
+                ]
+            },
+            "bnh": {
+                "placeVisitList": [
+                    {
+                        "placeVisit": "Plan \"A\" : For Schengen Countries and Worldwide Excluding USA and Canada",
+                        "placeVisitCode": "C"
+                    },
+                    {
+                        "placeVisit": "Plan \"B\" : For Schengen Countries and Worldwide Including USA and Canada",
+                        "placeVisitCode": "F"
+                    },
+                    {
+                        "placeVisit": "Plan \"A\" : For Non Schengen Countries and Worldwide Excluding USA and Canada",
+                        "placeVisitCode": "G"
+                    },
+                    {
+                        "placeVisit": "Plan \"B\" : For Non Schengen Countries and Worldwide Including USA and Canada",
+                        "placeVisitCode": "L"
+                    }
+                ]
+            },
+            "mtr": {
+"motorPlanTypes": [
+        {
+            "name": "Comprehensive",
+            "value": "Comprehensive"
+        },
+        {
+            "name": "Comprehensive (Fire Only)",
+            "value": "ComprehensiveFireOnly"
+        },
+        {
+            "name": "Comprehensive (Theft Only)",
+            "value": "ComprehensiveTheftOnly"
+        },
+        {
+            "name": "Comprehensive (Fire And Theft)",
+            "value": "ComprehensiveFireAndTheft"
+        },
+        {
+            "name": "Act Liability",
+            "value": "ActLiability"
+        }
+    ],
+"vehicleTypes": [
+        {
+            "name": "Private",
+            "value": "Private"
+        },
+        {
+            "name": "Commercial",
+            "value": "Commercial"
+        }
+    ],
+"motorCCNames": [
+        {
+            "name": "NA",
+            "value": "NA"
+        },
+        {
+            "name": "CC",
+            "value": "CC"
+        },
+        {
+            "name": "TON",
+            "value": "TON"
+        },
+        {
+            "name": "SEAT",
+            "value": "SEAT"
+        },
+        {
+            "name": "HP",
+            "value": "HP"
+        }
+    ],
+"mtrVehicleList": [
+            {
+                "vehicleName": "Motor Cycle",
+                "description": "Motor Cycle"
+            },
+            {
+                "vehicleName": "Three wheeler",
+                "description": "Three/ 3 wheeler"
+            },
+            {
+                "vehicleName": "Private Car",
+                "description": "Private Car"
+            },
+            {
+                "vehicleName": "Ambulance",
+                "description": "Ambulance"
+            },
+            {
+                "vehicleName": "Truck",
+                "description": "Truck/ Pickup/Covered Van/Delivery Van"
+            },
+            {
+                "vehicleName": "Bus",
+                "description": "Bus"
+            },
+            {
+                "vehicleName": "Air Line Vehicles",
+                "description": "Omnibus"
+            },
+            {
+                "vehicleName": "Microbus",
+                "description": "Microbus"
+            },
+            {
+                "vehicleName": "Four wheeler(tempo/ leguna)",
+                "description": "Tempo/Leguna"
+            },
+            {
+                "vehicleName": "Agri(Pedestrian Controlled Tractor)",
+                "description": "Agri(Pedestrian Controlled Tractor)"
+            },
+            {
+                "vehicleName": "Agri(Haulage upto two trailer confined to insured farm & concession)",
+                "description": "Agri(Haulage upto two trailer confined to insured farm & concession)"
+            },
+            {
+                "vehicleName": "Agri(Haulage upto two trailer not confined to insured farm & concession)",
+                "description": "Agri(Haulage upto two trailer not confined to insured farm & concession)"
+            },
+            {
+                "vehicleName": "Taxi Car",
+                "description": "Taxi commercial"
+            },
+            {
+                "vehicleName": "Pickup",
+                "description": "Truck/ Pickup/Covered Van/Delivery Van"
+            },
+            {
+                "vehicleName": "Covered Van",
+                "description": "Truck/ Pickup/Covered Van/Delivery Van"
+            },
+            {
+                "vehicleName": "Delivery Van",
+                "description": "Truck/ Pickup/Covered Van/Delivery Van"
+            },
+            {
+                "vehicleName": "Double Deck Bus",
+                "description": "Double Deck Bus"
+            },
+            {
+                "vehicleName": "Excavator (Used Confined to Insured Own Premises)",
+                "description": "Excavator (Used Confined to Insured Own Premises)"
+            },
+            {
+                "vehicleName": "Lori",
+                "description": "Lori"
+            },
+            {
+                "vehicleName": "Trailer",
+                "description": "Trailer"
+            },
+            {
+                "vehicleName": "Crane (Premanently Fitted Vehicle)",
+                "description": "Crane (Premanently Fitted Vehicle)"
+            },
+            {
+                "vehicleName": "Mobile shop and canteen (Vehicle)",
+                "description": "Mobile shop and canteen (Vehicle)"
+            },
+            {
+                "vehicleName": "Motorized Rickshaw",
+                "description": "Motorized Rickshaw"
+            },
+            {
+                "vehicleName": "Excavator (Used not Confined to Insured Own Premises)",
+                "description": "Excavator (Used not Confined to Insured Own Premises)"
+            },
+            {
+                "vehicleName": "Crane (Goods Carrying Vehicle)",
+                "description": "Crane (Crane (Goods Carrying Vehicle))"
+            },
+            {
+                "vehicleName": "Mobile shop and canteen (Trailer)",
+                "description": "Mobile shop and canteen (Trailer)"
+            },
+            {
+                "vehicleName": "Electric Vehicle",
+                "description": "Electric Vehicle"
+            },
+            {
+                "vehicleName": "CNG",
+                "description": "CNG"
+            }
+        ],
+"mtrPerilExclusion": [
+            {
+                "id": 722,
+                "deptCode": "MTR",
+                "classCode": "MTR",
+                "perilCode": "R&SD",
+                "perilName": "Riot And Strike"
+            },
+            {
+                "id": 723,
+                "deptCode": "MTR",
+                "classCode": "MTR",
+                "perilCode": "EQ (F & S)",
+                "perilName": "Earthquake"
+            },
+            {
+                "id": 724,
+                "deptCode": "MTR",
+                "classCode": "MTR",
+                "perilCode": "FLD & CYC",
+                "perilName": "Flood And Cyclone"
+            }
+        ]
+            }
+        }
+    },
+    "remarks": {
+        "succsess": [],
+        "error": []
+    },
+    "timestamp": "2023-10-25 15:27:51.21",
+    "correlationID": "2ca0a858c6",
+    "messageID": "9d166f02bc"
+}
+
+POST: {{base_url}}:8282/search-customer
+
+{
+  "customerType": "", // BUSINESS, PERSONAL
+  "customerGroupCode": "", // mendatory when customer type is BUSINESS, example: UNILIVER, ISPAHANI
+  "searchType": "", // MOBILE, BIN, NID, TIN
+  "searchText": ""
+}
+
+Response:
+{
+    "result":true,
+    "data":  
+    {
+        "id": 20627,
+        "name": "Abul Hashem",
+        "firstName": "Abul",
+        "middleName": "",
+        "lastName": "Hashem",
+        "mobileNo": ["01236547852"],
+        "email": "abul@gmail.com",
+        "nationality": "Bangladeshi",
+        "customerType": "BUSINESS",
+        "companyType": "REGISTERED",
+        "presentAddress": "169/ A Khilgaon, Dhaka-1219",
+        "permanentAddress": "Vill: Abu Gram, Thana: Raipur, District: Laxmipur",
+        "dateOfBirth": "2000-01-01",
+        "fatherName": "Kalam Khan",
+        "motherName": "Sufia Khatun",
+        "spouseName": "Afia Khatun",
+        "passportNo": "P-8989898998",
+        "passportExpireDate": "2025-01-01",
+        "birthRegNo": "YUUUYUYUYUYUYUASASASASASASAS",
+        "tradeLicenceNo": "",
+        "companyRegAuthority": "",
+        "customerGroupCode": "",
+        "regIssueDate": "",
+        "bin": "000123456-7854",
+        "tin": "",
+        "nid": "",
+        "incomeSource": "",
+        "contactPerson": "",
+        "contactAddress": "",
+        "officeAddress": "",
+        "officeContactNumber": "",
+        "customerGroupCode":"",
+        "gender": "",
+    }, // {}
+    "remarks":{
+        "succsess":["Successfully fetched customer."],
+        "error":[]
+    },
+    "timestamp":"2023-10-25 15:27:51.21",
+    "correlationID": "2ca0a858c6",
+    "messageID": "9d166f02bc"
+}
+
+POST : {{base_url}}:8282/get-quotation
+
+Request: 
+{
+  "productCode": "NIB",
+  "commonInfo": {
+     "isExistingCustomer":true,
+     "customerId":10,
+     "customerDob":"",
+     "customerMobile":"01989989989",
+     "customerNid":"BHBHBHBHBH",
+     "customerBin":"10909090",
+     "customerTin":"TIN-JGHGHGHGH",
+     "sumInsured":100000,
+     "documentValidFrom": "2023-08-09",
+     "documentValidTo": "2024-08-08",
+  },
+  "productSpecificInfo":{
+        "pac":{
+            "pacClassTypeCode": "",
+            "pacCoverTypeCode": "",
+        },
+        "bnh":{
+                "placeVisitCode": "C",
+                "policyDuration": "short",
+                "dayStay": 160,
+                "coveredLimit": 125000
+        },
+        "ens":{
+                    "ensType": "Employment",
+                    "numberOfChild": 0,
+                    "conversionRateUsdToBdt": 90,
+                    "placeVisitCode": "B",
+                    "numberOfPerson": 1,
+                    "stampDutyType": "Recoverable",
+                    "dayStay": 0,
+                    "monthStay": 8,
+                    "coveredLimit": 125000
+        },
+        "mtr":{
+                    "mtrCcTon": "CC",
+                    "mtrCcTonValue": 200,
+                    "mtrNoOfDriver": 1,
+                    "mtrNoOfConductor": 0,
+                    "mtrNoOfGuide": 0,
+                    "mtrNoOfHelper": 0,
+                    "mtrNoOfPassenger": 1,
+                    "mtrConductorRate": 0,
+                    "mtrGuideRate": 0,
+                    "mtrConductorAmount": 0,
+                    "mtrGuideAmount": 0,
+                    "lumpSumAmount": 0,
+                    "mtrPlanName": "Comprehensive",
+                    "mtrVehicleId": 1,
+                    "mtrVehicleType": "Private",
+                    "sumInsured": 2000000,
+                    "vehicleRegistrationNumber": "323425",
+                    "manufactureYear": "2019",
+                    "taxToken": "3425345",
+                    "fitnessExpiryDate": "2023-07-19",
+                    "motorTermsOfUseId": 1,
+                    "taxFreeVehicle": true,
+                    "techometerVehicle": true,
+                    "namedDriver": false,
+                    "avlsDiscount": true,
+                    "customerId": 70734,
+                    "vatRate": 15,
+                    "loadingRate": 0,
+                    "ncbRate": 0,
+                    "mtrPassengerTimesMultiply": 1,
+                    "mtrDriverTimesMultiply": 1,
+                    "mtrHelperTimesMultiply": 1,
+                    "exclusionPerilList": [723,722],
+                    "comprehensiveRate": 0,
+                    "stampAmount": 500,
+                    "stampDutyType": "Non-Recoverable",
+                    "oppositePurposeUseLoading": true,
+                    "policyDuration": "full",
+                    "totalDays": 365
+            },
+        }
+  }
+
+Response:
+{
+    "result":true,
+    "data": {}, // send jevabe pabo sevabe send kore dibo
+    "remarks":{
+        "succsess":["Successfully fetched customer."],
+        "error":[]
+    },
+    "timestamp":"2023-10-25 15:27:51.21",
+    "correlationID": "2ca0a858c6",
+    "messageID": "9d166f02bc"
+}
+
+
+POST : {{base_url}}:8282/add-master-document
+
+{
+"loginUserInfo":{
+    "name": "Abul Hashem",
+    "employeeId": "EBL45454545",
+    "mobile": "01969696465",
+    "email": "abc@gmail.com",
+    "designation": "Assistant Sales Executive",
+    "gender": "Male",
+    "branch":"EBL_MKH"
+},
+"productCode": "NIB",
+"subProductCode": "NIBEDITA_ECO",
+"perilId":"",
+"documentType":"P",
+"documentDate":"2023-10-22",
+"policyYear":"2023",
+"policyDuration":"FULL",
+"documentValidFrom":"2023-10-22",
+"documentValidTo":"2024-10-22",
+"totalDays":"365",
+"totalMonth":"12",
+"customerId":"10",
+"sumInsured":1000000,
+"currencyType":"BDT",
+"currencyRate":1,
+"netPremium":1000,
+"vatType":"VAT",
+"vatRate":15,
+"vatAmount":150,
+"stampDutyType":"Recoverable",
+"stampType":"Fixed",
+"stampAmount":100,
+"grossPremium":1250,
+"insuredAddress":"",
+"paymentMode":"CHEQUE",
+"paymentNumber":"CHQ-121212121",
+"paymentDate":"2023-10-22",
+"paymentBankName":"The City Bank Limited",
+"paymentBankBranchId":"Gulshan Branch",
+"paymentRoutingNumber":"4545454",
+"nibDetails":{},
+"pacDetails":{},
+"ppaDetails":{},
+"mtrDetails":{},
+"bnhDetails":{},
+"ensDetails":{}
+}
+
+
+
+--------------------------------------- TRAVEL ----------------------------------------
+======================BNH=======================
+{
+    "documentType": "P",
+    "policyEndDate": "2024-04-02",
+    "policyStartDate": "2023-10-26",
+    "productCode": "bnh",
+    "customerId": 70755,
+    "dateOfBirth": null,
+    "placeVisitCode": "C",
+    "stampDutyType": "Recoverable",
+    "policyDuration": "short",
+    "dayStay": 160,
+    "coveredLimit": 125000
+}
+
+======================ENS=======================
+
+{
+    "documentType": "P",
+    "policyEndDate": "2024-07-01",
+    "policyStartDate": "2023-10-31",
+    "productCode": "ens",
+    "ensType": "Employment",
+    "numberOfChild": 0,
+    "customerId": 70755,
+    "conversionRateUsdToBdt": 90,
+    "placeVisitCode": "B",
+    "dateOfBirth": null,
+    "numberOfPerson": 1,
+    "stampDutyType": "Recoverable",
+    "dayStay": 0,
+    "monthStay": 8,
+    "coveredLimit": 125000
+}
+
+--------------------------------------- HEALTH ----------------------------------------
+======================NIBEDITA_ECO=======================
+
+{
+    "customerId": 70755,
+    "productCode": "NIB",
+    "documentValidFrom": "2023-10-24",
+    "documentValidTo": "2024-10-23",
+    "nibProductCode": "NIBEDITA_ECO",
+    "sumInsured": 200000
+}
+
+======================NIBEDITA_REGULAR=======================
+
+{
+    "customerId": 70755,
+    "productCode": "NIB",
+    "documentValidFrom": "2023-10-24",
+    "documentValidTo": "2024-10-23",
+    "nibProductCode": "NIBEDITA_REGULAR",
+    "sumInsured": 600000
+}
+
+======================NIBEDITA_PLUS=======================
+
+{
+    "customerId": 70755,
+    "productCode": "NIB",
+    "documentValidFrom": "2023-10-24",
+    "documentValidTo": "2024-10-23",
+    "nibProductCode": "NIBEDITA_PLUS",
+    "sumInsured": 600000
+}
+
+======================PAC=======================
+NO Quotation feature is available for PAC in new CIS
+
+======================PPA=======================
+{
+    "customerId": 70755,
+    "productCode": "PPA",
+    "documentValidFrom": "2023-10-25",
+    "documentValidTo": "2024-10-24"
+}
+
+======================MTR=======================
+{
+    "request": {
+        "getQuote": {
+            "documentType": "T",
+            "mtrCcTon": "CC",
+            "mtrCcTonValue": 160,
+            "mtrNoOfDriver": 1,
+            "mtrNoOfConductor": 1,
+            "mtrNoOfGuide": 1,
+            "mtrNoOfHelper": 1,
+            "mtrNoOfPassenger": 2,
+            "mtrConductorRate": 0,
+            "mtrGuideRate": 0,
+            "mtrConductorAmount": 0,
+            "mtrGuideAmount": 0,
+            "lumpSumAmount": 100,
+            "mtrPlanName": "Comprehensive",
+            "mtrVehicleId": 3,
+            "mtrVehicleType": "Private",
+            "policyEndDate": "2023-11-24",
+            "policyStartDate": "2023-10-16",
+            "productCode": "mtr",
+            "sumInsured": 200000,
+            "taxFreeVehicle": true,
+            "techometerVehicle": true,
+            "namedDriver": false,
+            "avlsDiscount": false,
+            "customerId": 70755,
+            "vatRate": 15,
+            "loadingRate": 4,
+            "ncbRate": 10,
+            "mtrPassengerTimesMultiply": 2,
+            "mtrDriverTimesMultiply": 2,
+            "mtrHelperTimesMultiply": 1,
+            "exclusionPerilList": [
+                {
+                    "id": 722,
+                    "deptCode": "MTR",
+                    "classCode": "MTR",
+                    "perilCode": "R&SD",
+                    "perilName": "Riot And Strike",
+                    "perilRate": 0.5,
+                    "isExclusion": true,
+                    "perilAmount": null,
+                    "premium": null,
+                    "perilId": 722,
+                    "isRemoved": null
+                }
+            ],
+            "comprehensiveRate": null,
+            "stampAmount": 500,
+            "stampDutyType": "Non-Recoverable",
+            "oppositePurposeUseLoading": false,
+            "policyDuration": "short",
+            "totalDays": 40,
+            "amendmentChangeHead": null,
+            "amendmentSumInsuredType":""
+        }
+    },
+    "action": "get",
+    "api": "productCalculation",
+    "asyncReplyFlag": false,
+    "correlationID": "2ca0a858c6",
+    "messageID": "9d166f02bc",
+    "replyAddress": "",
+    "source": "core",
+    "timestamp": "2020-07-11 13:17:55"
+}
+
+
+=========================================
+Response:
+{
+    "result":true,
+    "data": {
+        "interfaceShow": {
+            "netPremium": 9100.0,
+            "vatAmount": 1365.0,
+            "stampAmount": 20.0,
+            "discountAmount": 0.0,
+            "grossPremium": 10485.0,
+            "policyValidFrom": "2023-10-24",
+            "policyValidTo": "2024-10-23",
+            "policyDuration":{
+                "year":"",
+                "month":"",
+                "day":"",
+                "yearMonthDay":"year: 0, month 1 , day: 2"
+            }
+        },
+        "forDataSave": { 
+        // new cis thk ja pabe purata ekhane dia dibo, doc save er somoy ei purata pathaia dibe 
+        //    and customer and mr info, additional info and this object while save
+            "sumInsured": 500000.0,
+            "netPremium": 9100.0,
+            "vatType": "VAT",
+            "vatRate": 15.0,
+            "vatAmount": 1365.0,
+            "stampRate": 0.0,
+            "stampAmount": 20.0,
+            "policyDuration": "365 Days",
+            "dateOfBirth": "1994-02-01",
+            "documentValidFrom": "2023-10-24",
+            "documentValidTo": "2024-10-23",
+            "age": "29 Years",
+            "grossPremium": 10485.0,
+            "interestName": "Nibedita",
+            "perilId": 735,
+            "perilCode": "NIBEDITA_PLUS",
+            "perilName": "NIBEDITA PLUS"
+        },
+        "prerequisiteDataSave":"
+            nib: {
+                "testFields":["situation","occupation"],
+                "dropdown":{
+                    "medicatTyoe":[
+                        {
+                            name:"asas",
+                            value:"asdasd"
+                        }
+                    ]
+                }
+            }
+
+        ",
+    "remarks":{
+        "succsess":["Successfully fetched customer."],
+        "error":[]
+    },
+    "timestamp":"2023-10-25 15:27:51.21",
+    "correlationID": "2ca0a858c6",
+    "messageID": "9d166f02bc"
+}
