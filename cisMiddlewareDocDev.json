@@ -54,16 +54,19 @@
                         }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
                     },
                     "412": {
-                        "description": "Precondition failed"
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
                     },
                     "415": {
-                        "description": "Method not allowed"
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
                     }
                 }
             }
@@ -100,16 +103,19 @@
                         }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
                     },
                     "412": {
-                        "description": "Precondition failed"
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
                     },
                     "415": {
-                        "description": "Method not allowed"
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
                     }
                 }
             }
@@ -120,7 +126,7 @@
                     "Product"
                 ],
                 "summary": "Get product",
-                "description": "Returns a product as per the id",
+                "description": "Returns the list of the allowed products for showcasing with the product details like features, coverage, exclusions and also pre-requisite data list for getting quotations.",
                 "operationId": "productServiceUsingGET",
                 "produces": [
                     "*/*"
@@ -142,16 +148,19 @@
                         }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
                     },
                     "412": {
-                        "description": "Precondition failed"
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
                     },
                     "415": {
-                        "description": "Method not allowed"
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
                     }
                 }
             }
@@ -186,16 +195,19 @@
                         }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
                     },
                     "412": {
-                        "description": "Precondition failed"
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
                     },
                     "415": {
-                        "description": "Method not allowed"
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
                     }
                 }
             }
@@ -206,7 +218,7 @@
                     "User"
                 ],
                 "summary": "Refresh token",
-                "description": "Returns a product as per the id",
+                "description": "Returns a new token when the existing token is expires.",
                 "operationId": "refrestAuthTokenUsingGET",
                 "produces": [
                     "*/*"
@@ -228,16 +240,19 @@
                         }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
                     },
                     "412": {
-                        "description": "Precondition failed"
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
                     },
                     "415": {
-                        "description": "Method not allowed"
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
                     }
                 }
             }
@@ -248,7 +263,7 @@
                     "User"
                 ],
                 "summary": "User Authentication",
-                "description": "Returns the access token if a valid user according to given users credentials.",
+                "description": "Returns the access token if a valid user found according to given users credentials.",
                 "operationId": "userAuthenticationUsingPOST",
                 "consumes": [
                     "application/json"
@@ -275,16 +290,19 @@
                         }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
                     },
                     "412": {
-                        "description": "Precondition failed"
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
                     },
                     "415": {
-                        "description": "Method not allowed"
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
                     }
                 }
             }
@@ -625,8 +643,9 @@
                 },
                 "platform": {
                     "type": "string",
-                    "description": "Platform from which the request is made (e.g., WEB)",
+                    "description": "Platform from which the request is made (e.g., WEB, APP)",
                     "enum": [
+                        "APP",
                         "WEB"
                     ]
                 },
