@@ -1,5 +1,5 @@
 
-1. ===========================================================================
+//1. ===========================================================================
 POST: {{base_url}}:8282/user-authentication
 
 {
@@ -20,7 +20,7 @@ Response:
    "error":[]
 }
 
-2. ===========================================================================
+//2. ===========================================================================
 
 {{base_url}}:8282/refresh-auth-token
 Header:
@@ -39,7 +39,7 @@ Response:
    "error":[]
 }
 
-3. ===========================================================================
+//3. ===========================================================================
 
 GET: {{base_url}}:8282/get-product-list
 Header: authentication token
@@ -493,7 +493,7 @@ Read the client id, client name, platform from token and then call get allowed p
     "messageID": "9d166f02bc"
 }
 
-4. ===========================================================================
+//4. ===========================================================================
 
 GET: {{base_url}}:8282/get-product-list-pre-requisite
 Header: authentication token
@@ -844,7 +844,7 @@ Read the client id, client name, platform from token and then call get allowed p
     "messageID": "9d166f02bc"
 }
 
-5. ===========================================================================
+//5. ===========================================================================
 
 POST: {{base_url}}:8282/search-customer
 
@@ -903,8 +903,7 @@ Response:
     "messageID": "9d166f02bc"
 }
 
------------------------------------------------------------
-6. ===========================================================================
+//6. ===========================================================================
 
 POST: {{base_url}}:8282/add-customer
 
@@ -969,7 +968,7 @@ Response:
     "messageID": "9d166f02bc"
 }
 
-7. ===========================================================================
+//7. ===========================================================================
 
 POST : {{base_url}}:8282/get-quotation
 
@@ -1116,7 +1115,7 @@ Response:
     "messageID": "9d166f02bc"
 }
 
-8. -------------------------------------------------------------------
+//8. -------------------------------------------------------------------
 
 POST : {{base_url}}:8282/add-master-document
 
@@ -1163,12 +1162,12 @@ POST : {{base_url}}:8282/add-master-document
         "paymentRoutingNumber":"4545454"
     },
     "quotationDataForSave":{},
-        "nibDetails":{},
-        "pacDetails":{},
-        "ppaDetails":{},
-        "mtrDetails":{},
-        "bnhDetails":{},
-        "ensDetails":{}
+    "nibDetails":{},
+    "pacDetails":{},
+    "ppaDetails":{},
+    "mtrDetails":{},
+    "bnhDetails":{},
+    "ensDetails":{}
 }
 
 Response:
@@ -1177,7 +1176,8 @@ Response:
     "data": {
         "policyNumber":"",
         "mrNumber":"",
-        "umpUrl":""
+        "mrUrl":"",
+        "policyUrl"
     },
     "remarks":{
         "succsess":["Successfully saved policy."],
@@ -1188,3 +1188,26 @@ Response:
     "messageID": "9d166f02bc"
 }
 
+//9. -------------------------------------------------------------------
+
+
+GET : {{base_url}}:8282/get-url?type=doc&number= // others: mr
+
+
+Response:
+{
+    "result":true,
+    "data": {
+        "policyNumber":"",
+        "mrNumber":"",
+        "mrUrl":"",
+        "policyUrl":""
+    },
+    "remarks":{
+        "succsess":["Successfully saved policy."],
+        "error":[]
+    },
+    "timestamp":"2023-10-25 15:27:51.21",
+    "correlationID": "2ca0a858c6",
+    "messageID": "9d166f02bc"
+}
