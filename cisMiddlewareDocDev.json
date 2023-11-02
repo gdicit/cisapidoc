@@ -168,7 +168,7 @@
         "/api/products/{id}": {
             "get": {
                 "tags": [
-                    "Customer"
+                    "Product"
                 ],
                 "summary": "Get a product by id",
                 "description": "Returns a product as per the id",
