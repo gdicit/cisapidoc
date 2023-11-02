@@ -1,3 +1,5 @@
+
+1. ===========================================================================
 POST: {{base_url}}:8282/user-authentication
 
 {
@@ -18,6 +20,7 @@ Response:
    "error":[]
 }
 
+2. ===========================================================================
 
 {{base_url}}:8282/refresh-auth-token
 Header:
@@ -36,6 +39,7 @@ Response:
    "error":[]
 }
 
+3. ===========================================================================
 
 GET: {{base_url}}:8282/get-product-list
 Header: authentication token
@@ -489,6 +493,359 @@ Read the client id, client name, platform from token and then call get allowed p
     "messageID": "9d166f02bc"
 }
 
+4. ===========================================================================
+
+GET: {{base_url}}:8282/get-product-list-pre-requisite
+Header: authentication token
+Read the client id, client name, platform from token and then call get allowed product list to CIS
+
+{
+    "result": true,
+    "data": {
+            "nib": [
+                {
+                    "productCode": "NIBEDITA ECO",
+                    "productName": "NIBEDITA ECO",
+                    "sumInsuredList": [
+                        50000,
+                        100000,
+                        150000,
+                        200000,
+                        1413400000
+                    ]
+                },
+                {
+                    "productCode": "NIBEDITA_REGULAR",
+                    "productName": "NIBEDITA REGULAR",
+                    "sumInsuredList": [
+                        100000,
+                        200000,
+                        300000,
+                        400000,
+                        500000,
+                        600000,
+                        700000,
+                        800000,
+                        900000,
+                        1000000
+                    ]
+                },
+                {
+                    "productCode": "NIBEDITA_PLUS",
+                    "productName": "NIBEDITA PLUS",
+                    "sumInsuredList": [
+                        500000,
+                        1000000,
+                        2000000,
+                        3000000,
+                        4000000,
+                        5000000
+                    ]
+                }
+            ],
+            "pac": {
+                "pacClassDetailsList": [
+                    {
+                        "classCode": "A",
+                        "className": "Plan - A",
+                        "pacOccupationList": [
+                            "Accountants",
+                            "Bankers",
+                            "Barristers",
+                            "Medical Practitioners",
+                            "Mercantile Assistants",
+                            "Engaged solely in Executive",
+                            "Administrative",
+                            "Clerical duties"
+                        ]
+                    },
+                    {
+                        "classCode": "B",
+                        "className": "Plan - B",
+                        "pacOccupationList": [
+                            "Architects",
+                            "Planters",
+                            "Electrical Engineers (Superintending only)",
+                            "Master Tradesman who supervise"
+                        ]
+                    },
+                    {
+                        "classCode": "C",
+                        "className": "Plan - C",
+                        "pacOccupationList": [
+                            "Motor Engineering (Master work)",
+                            "Veterinary Surgeons",
+                            "Person engaged in Manual work not in hazards or wood working Machinery",
+                            "Other Occupation"
+                        ]
+                    }
+                ],
+                "pacCoverTypeDetailsList": [
+                    {
+                        "coverTypeCode": "A",
+                        "coverTypeName": "TABLE-A- Personal Accidental death permanent & temporary disablement including Medical Expenses."
+                    },
+                    {
+                        "coverTypeCode": "AA",
+                        "coverTypeName": "TABLE-A- - Personal Accidental death permanent & temporary disablement."
+                    },
+                    {
+                        "coverTypeCode": "B",
+                        "coverTypeName": "TABLE-B- - Personal Accidental death permanent total & partial disablement."
+                    },
+                    {
+                        "coverTypeCode": "C",
+                        "coverTypeName": "TABLE-C- Personal Accidental death only."
+                    }
+                ]
+            },
+            "ppa": {},
+            "ens": {
+                "placeVisitList": [
+                    {
+                        "placeVisit": "Plan \"C\" : For Schengen Countries and Worldwide Excluding USA and Canada",
+                        "placeVisitCode": "A"
+                    },
+                    {
+                        "placeVisit": "Plan \"D\" : For Schengen Countries and Worldwide Including USA and Canada",
+                        "placeVisitCode": "B"
+                    },
+                    {
+                        "placeVisit": "Plan \"C\" : For Non Schengen Countries and Worldwide Excluding USA and Canada",
+                        "placeVisitCode": "H"
+                    },
+                    {
+                        "placeVisit": "Plan \"D\" : For Non Schengen Countries and Worldwide Including USA and Canada",
+                        "placeVisitCode": "I"
+                    }
+                ]
+            },
+            "bnh": {
+                "placeVisitList": [
+                    {
+                        "placeVisit": "Plan \"A\" : For Schengen Countries and Worldwide Excluding USA and Canada",
+                        "placeVisitCode": "C"
+                    },
+                    {
+                        "placeVisit": "Plan \"B\" : For Schengen Countries and Worldwide Including USA and Canada",
+                        "placeVisitCode": "F"
+                    },
+                    {
+                        "placeVisit": "Plan \"A\" : For Non Schengen Countries and Worldwide Excluding USA and Canada",
+                        "placeVisitCode": "G"
+                    },
+                    {
+                        "placeVisit": "Plan \"B\" : For Non Schengen Countries and Worldwide Including USA and Canada",
+                        "placeVisitCode": "L"
+                    }
+                ]
+            },
+            "mtr": {
+"motorPlanTypes": [
+        {
+            "name": "Comprehensive",
+            "value": "Comprehensive"
+        },
+        {
+            "name": "Comprehensive (Fire Only)",
+            "value": "ComprehensiveFireOnly"
+        },
+        {
+            "name": "Comprehensive (Theft Only)",
+            "value": "ComprehensiveTheftOnly"
+        },
+        {
+            "name": "Comprehensive (Fire And Theft)",
+            "value": "ComprehensiveFireAndTheft"
+        },
+        {
+            "name": "Act Liability",
+            "value": "ActLiability"
+        }
+    ],
+"vehicleTypes": [
+        {
+            "name": "Private",
+            "value": "Private"
+        },
+        {
+            "name": "Commercial",
+            "value": "Commercial"
+        }
+    ],
+"motorCCNames": [
+        {
+            "name": "NA",
+            "value": "NA"
+        },
+        {
+            "name": "CC",
+            "value": "CC"
+        },
+        {
+            "name": "TON",
+            "value": "TON"
+        },
+        {
+            "name": "SEAT",
+            "value": "SEAT"
+        },
+        {
+            "name": "HP",
+            "value": "HP"
+        }
+    ],
+"mtrVehicleList": [
+            {
+                "vehicleName": "Motor Cycle",
+                "description": "Motor Cycle"
+            },
+            {
+                "vehicleName": "Three wheeler",
+                "description": "Three/ 3 wheeler"
+            },
+            {
+                "vehicleName": "Private Car",
+                "description": "Private Car"
+            },
+            {
+                "vehicleName": "Ambulance",
+                "description": "Ambulance"
+            },
+            {
+                "vehicleName": "Truck",
+                "description": "Truck/ Pickup/Covered Van/Delivery Van"
+            },
+            {
+                "vehicleName": "Bus",
+                "description": "Bus"
+            },
+            {
+                "vehicleName": "Air Line Vehicles",
+                "description": "Omnibus"
+            },
+            {
+                "vehicleName": "Microbus",
+                "description": "Microbus"
+            },
+            {
+                "vehicleName": "Four wheeler(tempo/ leguna)",
+                "description": "Tempo/Leguna"
+            },
+            {
+                "vehicleName": "Agri(Pedestrian Controlled Tractor)",
+                "description": "Agri(Pedestrian Controlled Tractor)"
+            },
+            {
+                "vehicleName": "Agri(Haulage upto two trailer confined to insured farm & concession)",
+                "description": "Agri(Haulage upto two trailer confined to insured farm & concession)"
+            },
+            {
+                "vehicleName": "Agri(Haulage upto two trailer not confined to insured farm & concession)",
+                "description": "Agri(Haulage upto two trailer not confined to insured farm & concession)"
+            },
+            {
+                "vehicleName": "Taxi Car",
+                "description": "Taxi commercial"
+            },
+            {
+                "vehicleName": "Pickup",
+                "description": "Truck/ Pickup/Covered Van/Delivery Van"
+            },
+            {
+                "vehicleName": "Covered Van",
+                "description": "Truck/ Pickup/Covered Van/Delivery Van"
+            },
+            {
+                "vehicleName": "Delivery Van",
+                "description": "Truck/ Pickup/Covered Van/Delivery Van"
+            },
+            {
+                "vehicleName": "Double Deck Bus",
+                "description": "Double Deck Bus"
+            },
+            {
+                "vehicleName": "Excavator (Used Confined to Insured Own Premises)",
+                "description": "Excavator (Used Confined to Insured Own Premises)"
+            },
+            {
+                "vehicleName": "Lori",
+                "description": "Lori"
+            },
+            {
+                "vehicleName": "Trailer",
+                "description": "Trailer"
+            },
+            {
+                "vehicleName": "Crane (Premanently Fitted Vehicle)",
+                "description": "Crane (Premanently Fitted Vehicle)"
+            },
+            {
+                "vehicleName": "Mobile shop and canteen (Vehicle)",
+                "description": "Mobile shop and canteen (Vehicle)"
+            },
+            {
+                "vehicleName": "Motorized Rickshaw",
+                "description": "Motorized Rickshaw"
+            },
+            {
+                "vehicleName": "Excavator (Used not Confined to Insured Own Premises)",
+                "description": "Excavator (Used not Confined to Insured Own Premises)"
+            },
+            {
+                "vehicleName": "Crane (Goods Carrying Vehicle)",
+                "description": "Crane (Crane (Goods Carrying Vehicle))"
+            },
+            {
+                "vehicleName": "Mobile shop and canteen (Trailer)",
+                "description": "Mobile shop and canteen (Trailer)"
+            },
+            {
+                "vehicleName": "Electric Vehicle",
+                "description": "Electric Vehicle"
+            },
+            {
+                "vehicleName": "CNG",
+                "description": "CNG"
+            }
+        ],
+"mtrPerilExclusion": [
+            {
+                "id": 722,
+                "deptCode": "MTR",
+                "classCode": "MTR",
+                "perilCode": "R&SD",
+                "perilName": "Riot And Strike"
+            },
+            {
+                "id": 723,
+                "deptCode": "MTR",
+                "classCode": "MTR",
+                "perilCode": "EQ (F & S)",
+                "perilName": "Earthquake"
+            },
+            {
+                "id": 724,
+                "deptCode": "MTR",
+                "classCode": "MTR",
+                "perilCode": "FLD & CYC",
+                "perilName": "Flood And Cyclone"
+            }
+        ]
+            }
+        
+    },
+    "remarks": {
+        "succsess": [],
+        "error": []
+    },
+    "timestamp": "2023-10-25 15:27:51.21",
+    "correlationID": "2ca0a858c6",
+    "messageID": "9d166f02bc"
+}
+
+5. ===========================================================================
+
 POST: {{base_url}}:8282/search-customer
 
 {
@@ -545,6 +902,74 @@ Response:
     "correlationID": "2ca0a858c6",
     "messageID": "9d166f02bc"
 }
+
+-----------------------------------------------------------
+6. ===========================================================================
+
+POST: {{base_url}}:8282/add-customer
+
+{
+"loginUserInfo":{
+    "name": "Abul Hashem",
+    "employeeId": "EBL45454545",
+    "mobile": "01969696465",
+    "email": "abc@gmail.com",
+    "designation": "Assistant Sales Executive",
+    "gender": "Male",
+    "branch":"EBL_MKH"
+},
+"customerInfo":{
+        "name": "Abul Hashem",
+        "firstName": "Abul",
+        "middleName": "",
+        "lastName": "Hashem",
+        "mobileNo": ["01236547852"],
+        "email": "abul@gmail.com",
+        "nationality": "Bangladeshi",
+        "customerType": "BUSINESS",
+        "companyType": "REGISTERED",
+        "presentAddress": "169/ A Khilgaon, Dhaka-1219",
+        "permanentAddress": "Vill: Abu Gram, Thana: Raipur, District: Laxmipur",
+        "dateOfBirth": "2000-01-01",
+        "fatherName": "Kalam Khan",
+        "motherName": "Sufia Khatun",
+        "spouseName": "Afia Khatun",
+        "passportNo": "P-8989898998",
+        "passportExpireDate": "2025-01-01",
+        "birthRegNo": "YUUUYUYUYUYUYUASASASASASASAS",
+        "tradeLicenceNo": "",
+        "companyRegAuthority": "",
+        "customerGroupCode": "",
+        "regIssueDate": "",
+        "bin": "000123456-7854",
+        "tin": "",
+        "nid": "",
+        "incomeSource": "",
+        "contactPerson": "",
+        "contactAddress": "",
+        "officeAddress": "",
+        "officeContactNumber": "",
+        "customerGroupCode":"",
+        "gender": ""
+}
+
+}
+
+
+Response:
+{
+    "result":true,
+    "data": [], // {}
+    "remarks":{
+        "succsess":["Successfully saved customer."],
+        "error":[]
+    },
+    "timestamp":"2023-10-25 15:27:51.21",
+    "correlationID": "2ca0a858c6",
+    "messageID": "9d166f02bc"
+}
+
+7. ===========================================================================
 
 POST : {{base_url}}:8282/get-quotation
 
@@ -627,227 +1052,8 @@ Request:
                     "totalDays": 365
             },
         }
-  }
-
-Response:
-{
-    "result":true,
-    "data": {}, // send jevabe pabo sevabe send kore dibo
-    "remarks":{
-        "succsess":["Successfully fetched customer."],
-        "error":[]
-    },
-    "timestamp":"2023-10-25 15:27:51.21",
-    "correlationID": "2ca0a858c6",
-    "messageID": "9d166f02bc"
 }
 
-
-POST : {{base_url}}:8282/add-master-document
-
-{
-"loginUserInfo":{
-    "name": "Abul Hashem",
-    "employeeId": "EBL45454545",
-    "mobile": "01969696465",
-    "email": "abc@gmail.com",
-    "designation": "Assistant Sales Executive",
-    "gender": "Male",
-    "branch":"EBL_MKH"
-},
-"productCode": "NIB",
-"subProductCode": "NIBEDITA_ECO",
-"perilId":"",
-"documentType":"P",
-"documentDate":"2023-10-22",
-"policyYear":"2023",
-"policyDuration":"FULL",
-"documentValidFrom":"2023-10-22",
-"documentValidTo":"2024-10-22",
-"totalDays":"365",
-"totalMonth":"12",
-"customerId":"10",
-"sumInsured":1000000,
-"currencyType":"BDT",
-"currencyRate":1,
-"netPremium":1000,
-"vatType":"VAT",
-"vatRate":15,
-"vatAmount":150,
-"stampDutyType":"Recoverable",
-"stampType":"Fixed",
-"stampAmount":100,
-"grossPremium":1250,
-"insuredAddress":"",
-"paymentMode":"CHEQUE",
-"paymentNumber":"CHQ-121212121",
-"paymentDate":"2023-10-22",
-"paymentBankName":"The City Bank Limited",
-"paymentBankBranchId":"Gulshan Branch",
-"paymentRoutingNumber":"4545454",
-"nibDetails":{},
-"pacDetails":{},
-"ppaDetails":{},
-"mtrDetails":{},
-"bnhDetails":{},
-"ensDetails":{}
-}
-
-
-
---------------------------------------- TRAVEL ----------------------------------------
-======================BNH=======================
-{
-    "documentType": "P",
-    "policyEndDate": "2024-04-02",
-    "policyStartDate": "2023-10-26",
-    "productCode": "bnh",
-    "customerId": 70755,
-    "dateOfBirth": null,
-    "placeVisitCode": "C",
-    "stampDutyType": "Recoverable",
-    "policyDuration": "short",
-    "dayStay": 160,
-    "coveredLimit": 125000
-}
-
-======================ENS=======================
-
-{
-    "documentType": "P",
-    "policyEndDate": "2024-07-01",
-    "policyStartDate": "2023-10-31",
-    "productCode": "ens",
-    "ensType": "Employment",
-    "numberOfChild": 0,
-    "customerId": 70755,
-    "conversionRateUsdToBdt": 90,
-    "placeVisitCode": "B",
-    "dateOfBirth": null,
-    "numberOfPerson": 1,
-    "stampDutyType": "Recoverable",
-    "dayStay": 0,
-    "monthStay": 8,
-    "coveredLimit": 125000
-}
-
---------------------------------------- HEALTH ----------------------------------------
-======================NIBEDITA_ECO=======================
-
-{
-    "customerId": 70755,
-    "productCode": "NIB",
-    "documentValidFrom": "2023-10-24",
-    "documentValidTo": "2024-10-23",
-    "nibProductCode": "NIBEDITA_ECO",
-    "sumInsured": 200000
-}
-
-======================NIBEDITA_REGULAR=======================
-
-{
-    "customerId": 70755,
-    "productCode": "NIB",
-    "documentValidFrom": "2023-10-24",
-    "documentValidTo": "2024-10-23",
-    "nibProductCode": "NIBEDITA_REGULAR",
-    "sumInsured": 600000
-}
-
-======================NIBEDITA_PLUS=======================
-
-{
-    "customerId": 70755,
-    "productCode": "NIB",
-    "documentValidFrom": "2023-10-24",
-    "documentValidTo": "2024-10-23",
-    "nibProductCode": "NIBEDITA_PLUS",
-    "sumInsured": 600000
-}
-
-======================PAC=======================
-NO Quotation feature is available for PAC in new CIS
-
-======================PPA=======================
-{
-    "customerId": 70755,
-    "productCode": "PPA",
-    "documentValidFrom": "2023-10-25",
-    "documentValidTo": "2024-10-24"
-}
-
-======================MTR=======================
-{
-    "request": {
-        "getQuote": {
-            "documentType": "T",
-            "mtrCcTon": "CC",
-            "mtrCcTonValue": 160,
-            "mtrNoOfDriver": 1,
-            "mtrNoOfConductor": 1,
-            "mtrNoOfGuide": 1,
-            "mtrNoOfHelper": 1,
-            "mtrNoOfPassenger": 2,
-            "mtrConductorRate": 0,
-            "mtrGuideRate": 0,
-            "mtrConductorAmount": 0,
-            "mtrGuideAmount": 0,
-            "lumpSumAmount": 100,
-            "mtrPlanName": "Comprehensive",
-            "mtrVehicleId": 3,
-            "mtrVehicleType": "Private",
-            "policyEndDate": "2023-11-24",
-            "policyStartDate": "2023-10-16",
-            "productCode": "mtr",
-            "sumInsured": 200000,
-            "taxFreeVehicle": true,
-            "techometerVehicle": true,
-            "namedDriver": false,
-            "avlsDiscount": false,
-            "customerId": 70755,
-            "vatRate": 15,
-            "loadingRate": 4,
-            "ncbRate": 10,
-            "mtrPassengerTimesMultiply": 2,
-            "mtrDriverTimesMultiply": 2,
-            "mtrHelperTimesMultiply": 1,
-            "exclusionPerilList": [
-                {
-                    "id": 722,
-                    "deptCode": "MTR",
-                    "classCode": "MTR",
-                    "perilCode": "R&SD",
-                    "perilName": "Riot And Strike",
-                    "perilRate": 0.5,
-                    "isExclusion": true,
-                    "perilAmount": null,
-                    "premium": null,
-                    "perilId": 722,
-                    "isRemoved": null
-                }
-            ],
-            "comprehensiveRate": null,
-            "stampAmount": 500,
-            "stampDutyType": "Non-Recoverable",
-            "oppositePurposeUseLoading": false,
-            "policyDuration": "short",
-            "totalDays": 40,
-            "amendmentChangeHead": null,
-            "amendmentSumInsuredType":""
-        }
-    },
-    "action": "get",
-    "api": "productCalculation",
-    "asyncReplyFlag": false,
-    "correlationID": "2ca0a858c6",
-    "messageID": "9d166f02bc",
-    "replyAddress": "",
-    "source": "core",
-    "timestamp": "2020-07-11 13:17:55"
-}
-
-
-=========================================
 Response:
 {
     "result":true,
@@ -861,10 +1067,10 @@ Response:
             "policyValidFrom": "2023-10-24",
             "policyValidTo": "2024-10-23",
             "policyDuration":{
-                "year":"",
-                "month":"",
-                "day":"",
-                "yearMonthDay":"year: 0, month 1 , day: 2"
+                "year":1,
+                "month":12,
+                "day":365,
+                "yearMonthDay":"year: 1, month: 0 , day: 0"
             }
         },
         "forDataSave": { 
@@ -888,20 +1094,19 @@ Response:
             "perilCode": "NIBEDITA_PLUS",
             "perilName": "NIBEDITA PLUS"
         },
-        "prerequisiteDataSave":"
-            nib: {
+        "prerequisiteDataSave":{
+            "nib": {
                 "testFields":["situation","occupation"],
                 "dropdown":{
                     "medicatTyoe":[
                         {
-                            name:"asas",
-                            value:"asdasd"
+                            "name":"asas",
+                            "value":"asdasd"
                         }
                     ]
                 }
             }
-
-        ",
+            },
     "remarks":{
         "succsess":["Successfully fetched customer."],
         "error":[]
@@ -910,3 +1115,76 @@ Response:
     "correlationID": "2ca0a858c6",
     "messageID": "9d166f02bc"
 }
+
+8. -------------------------------------------------------------------
+
+POST : {{base_url}}:8282/add-master-document
+
+{
+"loginUserInfo":{
+        "name": "Abul Hashem",
+        "employeeId": "EBL45454545",
+        "mobile": "01969696465",
+        "email": "abc@gmail.com",
+        "designation": "Assistant Sales Executive",
+        "gender": "Male",
+        "branch":"EBL_MKH"
+    },
+    "commonInfo":{
+        "productCode": "NIB",
+        "subProductCode": "NIBEDITA_ECO",
+        "perilId":"",
+        "documentType":"P",
+        "documentDate":"2023-10-22",
+        "policyYear":"2023",
+        "policyDuration":"FULL",
+        "documentValidFrom":"2023-10-22",
+        "documentValidTo":"2024-10-22",
+        "totalDays":"365",
+        "totalMonth":"12",
+        "customerId":"10",
+        "sumInsured":1000000,
+        "currencyType":"BDT",
+        "currencyRate":1,
+        "netPremium":1000,
+        "vatType":"VAT",
+        "vatRate":15,
+        "vatAmount":150,
+        "stampDutyType":"Recoverable",
+        "stampType":"Fixed",
+        "stampAmount":100,
+        "grossPremium":1250,
+        "insuredAddress":"",
+        "paymentMode":"CHEQUE",
+        "paymentNumber":"CHQ-121212121",
+        "paymentDate":"2023-10-22",
+        "paymentBankName":"The City Bank Limited",
+        "paymentBankBranchId":"Gulshan Branch",
+        "paymentRoutingNumber":"4545454"
+    },
+    "quotationDataForSave":{},
+        "nibDetails":{},
+        "pacDetails":{},
+        "ppaDetails":{},
+        "mtrDetails":{},
+        "bnhDetails":{},
+        "ensDetails":{}
+}
+
+Response:
+{
+    "result":true,
+    "data": {
+        "policyNumber":"",
+        "mrNumber":"",
+        "umpUrl":""
+    },
+    "remarks":{
+        "succsess":["Successfully saved policy."],
+        "error":[]
+    },
+    "timestamp":"2023-10-25 15:27:51.21",
+    "correlationID": "2ca0a858c6",
+    "messageID": "9d166f02bc"
+}
+

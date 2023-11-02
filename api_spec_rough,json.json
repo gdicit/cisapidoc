@@ -1,0 +1,215 @@
+--------------------------------------- TRAVEL ----------------------------------------
+======================BNH=======================
+{
+    "documentType": "P",
+    "policyEndDate": "2024-04-02",
+    "policyStartDate": "2023-10-26",
+    "productCode": "bnh",
+    "customerId": 70755,
+    "dateOfBirth": null,
+    "placeVisitCode": "C",
+    "stampDutyType": "Recoverable",
+    "policyDuration": "short",
+    "dayStay": 160,
+    "coveredLimit": 125000
+}
+
+======================ENS=======================
+
+{
+    "documentType": "P",
+    "policyEndDate": "2024-07-01",
+    "policyStartDate": "2023-10-31",
+    "productCode": "ens",
+    "ensType": "Employment",
+    "numberOfChild": 0,
+    "customerId": 70755,
+    "conversionRateUsdToBdt": 90,
+    "placeVisitCode": "B",
+    "dateOfBirth": null,
+    "numberOfPerson": 1,
+    "stampDutyType": "Recoverable",
+    "dayStay": 0,
+    "monthStay": 8,
+    "coveredLimit": 125000
+}
+
+--------------------------------------- HEALTH ----------------------------------------
+======================NIBEDITA_ECO=======================
+
+{
+    "customerId": 70755,
+    "productCode": "NIB",
+    "documentValidFrom": "2023-10-24",
+    "documentValidTo": "2024-10-23",
+    "nibProductCode": "NIBEDITA_ECO",
+    "sumInsured": 200000
+}
+
+======================NIBEDITA_REGULAR=======================
+
+{
+    "customerId": 70755,
+    "productCode": "NIB",
+    "documentValidFrom": "2023-10-24",
+    "documentValidTo": "2024-10-23",
+    "nibProductCode": "NIBEDITA_REGULAR",
+    "sumInsured": 600000
+}
+
+======================NIBEDITA_PLUS=======================
+
+{
+    "customerId": 70755,
+    "productCode": "NIB",
+    "documentValidFrom": "2023-10-24",
+    "documentValidTo": "2024-10-23",
+    "nibProductCode": "NIBEDITA_PLUS",
+    "sumInsured": 600000
+}
+
+======================PAC=======================
+NO Quotation feature is available for PAC in new CIS
+
+======================PPA=======================
+{
+    "customerId": 70755,
+    "productCode": "PPA",
+    "documentValidFrom": "2023-10-25",
+    "documentValidTo": "2024-10-24"
+}
+
+======================MTR=======================
+{
+    "request": {
+        "getQuote": {
+            "documentType": "T",
+            "mtrCcTon": "CC",
+            "mtrCcTonValue": 160,
+            "mtrNoOfDriver": 1,
+            "mtrNoOfConductor": 1,
+            "mtrNoOfGuide": 1,
+            "mtrNoOfHelper": 1,
+            "mtrNoOfPassenger": 2,
+            "mtrConductorRate": 0,
+            "mtrGuideRate": 0,
+            "mtrConductorAmount": 0,
+            "mtrGuideAmount": 0,
+            "lumpSumAmount": 100,
+            "mtrPlanName": "Comprehensive",
+            "mtrVehicleId": 3,
+            "mtrVehicleType": "Private",
+            "policyEndDate": "2023-11-24",
+            "policyStartDate": "2023-10-16",
+            "productCode": "mtr",
+            "sumInsured": 200000,
+            "taxFreeVehicle": true,
+            "techometerVehicle": true,
+            "namedDriver": false,
+            "avlsDiscount": false,
+            "customerId": 70755,
+            "vatRate": 15,
+            "loadingRate": 4,
+            "ncbRate": 10,
+            "mtrPassengerTimesMultiply": 2,
+            "mtrDriverTimesMultiply": 2,
+            "mtrHelperTimesMultiply": 1,
+            "exclusionPerilList": [
+                {
+                    "id": 722,
+                    "deptCode": "MTR",
+                    "classCode": "MTR",
+                    "perilCode": "R&SD",
+                    "perilName": "Riot And Strike",
+                    "perilRate": 0.5,
+                    "isExclusion": true,
+                    "perilAmount": null,
+                    "premium": null,
+                    "perilId": 722,
+                    "isRemoved": null
+                }
+            ],
+            "comprehensiveRate": null,
+            "stampAmount": 500,
+            "stampDutyType": "Non-Recoverable",
+            "oppositePurposeUseLoading": false,
+            "policyDuration": "short",
+            "totalDays": 40,
+            "amendmentChangeHead": null,
+            "amendmentSumInsuredType":""
+        }
+    },
+    "action": "get",
+    "api": "productCalculation",
+    "asyncReplyFlag": false,
+    "correlationID": "2ca0a858c6",
+    "messageID": "9d166f02bc",
+    "replyAddress": "",
+    "source": "core",
+    "timestamp": "2020-07-11 13:17:55"
+}
+
+
+=========================================
+Response:
+{
+    "result":true,
+    "data": {
+        "interfaceShow": {
+            "netPremium": 9100.0,
+            "vatAmount": 1365.0,
+            "stampAmount": 20.0,
+            "discountAmount": 0.0,
+            "grossPremium": 10485.0,
+            "policyValidFrom": "2023-10-24",
+            "policyValidTo": "2024-10-23",
+            "policyDuration":{
+                "year":"",
+                "month":"",
+                "day":"",
+                "yearMonthDay":"year: 0, month 1 , day: 2"
+            }
+        },
+        "forDataSave": { 
+        // new cis thk ja pabe purata ekhane dia dibo, doc save er somoy ei purata pathaia dibe 
+        //    and customer and mr info, additional info and this object while save
+            "sumInsured": 500000.0,
+            "netPremium": 9100.0,
+            "vatType": "VAT",
+            "vatRate": 15.0,
+            "vatAmount": 1365.0,
+            "stampRate": 0.0,
+            "stampAmount": 20.0,
+            "policyDuration": "365 Days",
+            "dateOfBirth": "1994-02-01",
+            "documentValidFrom": "2023-10-24",
+            "documentValidTo": "2024-10-23",
+            "age": "29 Years",
+            "grossPremium": 10485.0,
+            "interestName": "Nibedita",
+            "perilId": 735,
+            "perilCode": "NIBEDITA_PLUS",
+            "perilName": "NIBEDITA PLUS"
+        },
+        "prerequisiteDataSave":"
+            nib: {
+                "testFields":["situation","occupation"],
+                "dropdown":{
+                    "medicatTyoe":[
+                        {
+                            name:"asas",
+                            value:"asdasd"
+                        }
+                    ]
+                }
+            }
+
+        ",
+    "remarks":{
+        "succsess":["Successfully fetched customer."],
+        "error":[]
+    },
+    "timestamp":"2023-10-25 15:27:51.21",
+    "correlationID": "2ca0a858c6",
+    "messageID": "9d166f02bc"
+}
