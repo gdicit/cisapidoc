@@ -999,7 +999,7 @@ POST: {{base_url}}:8282/add-customer
         "officeContactNumber": "",
         "customerGroupCode":"",
         "gender": ""
-}
+    }
 
 }
 
@@ -1025,7 +1025,7 @@ Request:
 {
   "productCode": "NIB",
   "commonInfo": {
-     "isExistingCustomer":true,
+     "isExistingCustomer":false,
      "customerType": "", // BUSINESS, PERSONAL
      "customerGroupCode": "", // mendatory when customer type is BUSINESS, example: UNILIVER, ISPAHANI
      "customerId":10,
@@ -1126,39 +1126,9 @@ Response:
         "forDataSave": { 
         // new cis thk ja pabe purata ekhane dia dibo, doc save er somoy ei purata pathaia dibe 
         //    and customer and mr info, additional info and this object while save
-            "sumInsured": 500000.0,
-            "netPremium": 9100.0,
-            "vatType": "VAT",
-            "vatRate": 15.0,
-            "vatAmount": 1365.0,
-            "stampRate": 0.0,
-            "stampAmount": 20.0,
-            "policyDuration": "365 Days",
-            "dateOfBirth": "1994-02-01",
-            "documentValidFrom": "2023-10-24",
-            "documentValidTo": "2024-10-23",
-            "age": "29 Years",
-            "grossPremium": 10485.0,
-            "interestName": "Nibedita",
-            "perilId": 735,
-            "perilCode": "NIBEDITA_PLUS",
-            "perilName": "NIBEDITA PLUS"
         },
-        "prerequisiteDataSave":{
-            "nib": {
-                "testFields":["situation","occupation"],
-                "dropdown":{
-                    "medicatTyoe":[
-                        {
-                            "name":"asas",
-                            "value":"asdasd"
-                        }
-                    ]
-                }
-            }
-            },
     "remarks":{
-        "succsess":["Successfully fetched customer."],
+        "succsess":["Successfully fetched quotation."],
         "error":[]
     },
     "timestamp":"2023-10-25 15:27:51.21",
@@ -1332,10 +1302,14 @@ Response:
 {
     "result":true,
     "data": {
-        "policyNumber":"",
-        "mrNumber":"",
-        "mrUrl":"",
-        "policyUrl":""
+        "policyNumber":"GDI/AHO/09/2023/MTR/T/600003",
+        "mrNumber":"5700001",
+        "mrUrl":"https://abcd/erty",
+        "policyUrl":"https://abcd/erty",
+        "customerId":100,
+        "customerBin":"",
+        "customerNid":"",
+        "customerMobile":""
     },
     "remarks":{
         "succsess":["Successfully saved policy."],
@@ -1356,10 +1330,14 @@ Response:
 {
     "result":true,
     "data": {
-        "policyNumber":"",
-        "mrNumber":"",
-        "mrUrl":"",
-        "policyUrl":""
+        "policyNumber":"GDI/AHO/09/2023/MTR/T/600003",
+        "mrNumber":"5700001",
+        "mrUrl":"https://abcd/erty",
+        "policyUrl":"https://abcd/erty",
+        "customerId":100,
+        "customerBin":"",
+        "customerNid":"",
+        "customerMobile":""
     },
     "remarks":{
         "succsess":["Successfully saved policy."],
