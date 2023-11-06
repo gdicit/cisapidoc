@@ -504,14 +504,13 @@ Read the client id, client name, platform from token and then call get allowed p
     "data": {
             "nib": [
                 {
-                    "productCode": "NIBEDITA ECO",
+                    "productCode": "NIBEDITA_ECO",
                     "productName": "NIBEDITA ECO",
                     "sumInsuredList": [
                         50000,
                         100000,
                         150000,
-                        200000,
-                        1413400000
+                        200000
                     ]
                 },
                 {
@@ -618,6 +617,36 @@ Read the client id, client name, platform from token and then call get allowed p
                         "placeVisit": "Plan \"D\" : For Non Schengen Countries and Worldwide Including USA and Canada",
                         "placeVisitCode": "I"
                     }
+                ],
+                "planTypeList": [
+                    {
+                        "name": "A",
+                        "value": "A"
+                    },
+                    {
+                        "name": "B",
+                        "value": "B"
+                    }
+                ],
+                "medicalTypeList": [
+                    {
+                        "name": "Medical",
+                        "value": "Medical"
+                    },
+                    {
+                        "name": "Non Medical",
+                        "value": "Non Medical"
+                    }
+                ],
+                "ensTypeList": [
+                    {
+                        "name": "Study",
+                        "value": "Study"
+                    },
+                    {
+                        "name": "Employment",
+                        "value": "Employment"
+                    }
                 ]
             },
             "bnh": {
@@ -638,203 +667,223 @@ Read the client id, client name, platform from token and then call get allowed p
                         "placeVisit": "Plan \"B\" : For Non Schengen Countries and Worldwide Including USA and Canada",
                         "placeVisitCode": "L"
                     }
+                ],
+                "planTypeList": [
+                    {
+                        "name": "A",
+                        "value": "A"
+                    },
+                    {
+                        "name": "B",
+                        "value": "B"
+                    }
+                ],
+                "medicalTypeList": [
+                    {
+                        "name": "Medical",
+                        "value": "Medical"
+                    },
+                    {
+                        "name": "Non Medical",
+                        "value": "Non Medical"
+                    }
                 ]
             },
             "mtr": {
-"motorPlanTypes": [
-        {
-            "name": "Comprehensive",
-            "value": "Comprehensive"
-        },
-        {
-            "name": "Comprehensive (Fire Only)",
-            "value": "ComprehensiveFireOnly"
-        },
-        {
-            "name": "Comprehensive (Theft Only)",
-            "value": "ComprehensiveTheftOnly"
-        },
-        {
-            "name": "Comprehensive (Fire And Theft)",
-            "value": "ComprehensiveFireAndTheft"
-        },
-        {
-            "name": "Act Liability",
-            "value": "ActLiability"
-        }
-    ],
-"vehicleTypes": [
-        {
-            "name": "Private",
-            "value": "Private"
-        },
-        {
-            "name": "Commercial",
-            "value": "Commercial"
-        }
-    ],
-"motorCCNames": [
-        {
-            "name": "NA",
-            "value": "NA"
-        },
-        {
-            "name": "CC",
-            "value": "CC"
-        },
-        {
-            "name": "TON",
-            "value": "TON"
-        },
-        {
-            "name": "SEAT",
-            "value": "SEAT"
-        },
-        {
-            "name": "HP",
-            "value": "HP"
-        }
-    ],
-"mtrVehicleList": [
-            {
-                "vehicleName": "Motor Cycle",
-                "description": "Motor Cycle"
-            },
-            {
-                "vehicleName": "Three wheeler",
-                "description": "Three/ 3 wheeler"
-            },
-            {
-                "vehicleName": "Private Car",
-                "description": "Private Car"
-            },
-            {
-                "vehicleName": "Ambulance",
-                "description": "Ambulance"
-            },
-            {
-                "vehicleName": "Truck",
-                "description": "Truck/ Pickup/Covered Van/Delivery Van"
-            },
-            {
-                "vehicleName": "Bus",
-                "description": "Bus"
-            },
-            {
-                "vehicleName": "Air Line Vehicles",
-                "description": "Omnibus"
-            },
-            {
-                "vehicleName": "Microbus",
-                "description": "Microbus"
-            },
-            {
-                "vehicleName": "Four wheeler(tempo/ leguna)",
-                "description": "Tempo/Leguna"
-            },
-            {
-                "vehicleName": "Agri(Pedestrian Controlled Tractor)",
-                "description": "Agri(Pedestrian Controlled Tractor)"
-            },
-            {
-                "vehicleName": "Agri(Haulage upto two trailer confined to insured farm & concession)",
-                "description": "Agri(Haulage upto two trailer confined to insured farm & concession)"
-            },
-            {
-                "vehicleName": "Agri(Haulage upto two trailer not confined to insured farm & concession)",
-                "description": "Agri(Haulage upto two trailer not confined to insured farm & concession)"
-            },
-            {
-                "vehicleName": "Taxi Car",
-                "description": "Taxi commercial"
-            },
-            {
-                "vehicleName": "Pickup",
-                "description": "Truck/ Pickup/Covered Van/Delivery Van"
-            },
-            {
-                "vehicleName": "Covered Van",
-                "description": "Truck/ Pickup/Covered Van/Delivery Van"
-            },
-            {
-                "vehicleName": "Delivery Van",
-                "description": "Truck/ Pickup/Covered Van/Delivery Van"
-            },
-            {
-                "vehicleName": "Double Deck Bus",
-                "description": "Double Deck Bus"
-            },
-            {
-                "vehicleName": "Excavator (Used Confined to Insured Own Premises)",
-                "description": "Excavator (Used Confined to Insured Own Premises)"
-            },
-            {
-                "vehicleName": "Lori",
-                "description": "Lori"
-            },
-            {
-                "vehicleName": "Trailer",
-                "description": "Trailer"
-            },
-            {
-                "vehicleName": "Crane (Premanently Fitted Vehicle)",
-                "description": "Crane (Premanently Fitted Vehicle)"
-            },
-            {
-                "vehicleName": "Mobile shop and canteen (Vehicle)",
-                "description": "Mobile shop and canteen (Vehicle)"
-            },
-            {
-                "vehicleName": "Motorized Rickshaw",
-                "description": "Motorized Rickshaw"
-            },
-            {
-                "vehicleName": "Excavator (Used not Confined to Insured Own Premises)",
-                "description": "Excavator (Used not Confined to Insured Own Premises)"
-            },
-            {
-                "vehicleName": "Crane (Goods Carrying Vehicle)",
-                "description": "Crane (Crane (Goods Carrying Vehicle))"
-            },
-            {
-                "vehicleName": "Mobile shop and canteen (Trailer)",
-                "description": "Mobile shop and canteen (Trailer)"
-            },
-            {
-                "vehicleName": "Electric Vehicle",
-                "description": "Electric Vehicle"
-            },
-            {
-                "vehicleName": "CNG",
-                "description": "CNG"
-            }
-        ],
-"mtrPerilExclusion": [
-            {
-                "id": 722,
-                "deptCode": "MTR",
-                "classCode": "MTR",
-                "perilCode": "R&SD",
-                "perilName": "Riot And Strike"
-            },
-            {
-                "id": 723,
-                "deptCode": "MTR",
-                "classCode": "MTR",
-                "perilCode": "EQ (F & S)",
-                "perilName": "Earthquake"
-            },
-            {
-                "id": 724,
-                "deptCode": "MTR",
-                "classCode": "MTR",
-                "perilCode": "FLD & CYC",
-                "perilName": "Flood And Cyclone"
-            }
-        ]
-            }
-        
-    },
+                "motorPlanTypes": [
+                        {
+                            "name": "Comprehensive",
+                            "value": "Comprehensive"
+                        },
+                        {
+                            "name": "Comprehensive (Fire Only)",
+                            "value": "ComprehensiveFireOnly"
+                        },
+                        {
+                            "name": "Comprehensive (Theft Only)",
+                            "value": "ComprehensiveTheftOnly"
+                        },
+                        {
+                            "name": "Comprehensive (Fire And Theft)",
+                            "value": "ComprehensiveFireAndTheft"
+                        },
+                        {
+                            "name": "Act Liability",
+                            "value": "ActLiability"
+                        }
+                    ],
+                "vehicleTypes": [
+                        {
+                            "name": "Private",
+                            "value": "Private"
+                        },
+                        {
+                            "name": "Commercial",
+                            "value": "Commercial"
+                        }
+                    ],
+                "motorCCNames": [
+                        {
+                            "name": "NA",
+                            "value": "NA"
+                        },
+                        {
+                            "name": "CC",
+                            "value": "CC"
+                        },
+                        {
+                            "name": "TON",
+                            "value": "TON"
+                        },
+                        {
+                            "name": "SEAT",
+                            "value": "SEAT"
+                        },
+                        {
+                            "name": "HP",
+                            "value": "HP"
+                        }
+                    ],
+                "mtrVehicleList": [
+                            {
+                                "vehicleName": "Motor Cycle",
+                                "description": "Motor Cycle"
+                            },
+                            {
+                                "vehicleName": "Three wheeler",
+                                "description": "Three/ 3 wheeler"
+                            },
+                            {
+                                "vehicleName": "Private Car",
+                                "description": "Private Car"
+                            },
+                            {
+                                "vehicleName": "Ambulance",
+                                "description": "Ambulance"
+                            },
+                            {
+                                "vehicleName": "Truck",
+                                "description": "Truck/ Pickup/Covered Van/Delivery Van"
+                            },
+                            {
+                                "vehicleName": "Bus",
+                                "description": "Bus"
+                            },
+                            {
+                                "vehicleName": "Air Line Vehicles",
+                                "description": "Omnibus"
+                            },
+                            {
+                                "vehicleName": "Microbus",
+                                "description": "Microbus"
+                            },
+                            {
+                                "vehicleName": "Four wheeler(tempo/ leguna)",
+                                "description": "Tempo/Leguna"
+                            },
+                            {
+                                "vehicleName": "Agri(Pedestrian Controlled Tractor)",
+                                "description": "Agri(Pedestrian Controlled Tractor)"
+                            },
+                            {
+                                "vehicleName": "Agri(Haulage upto two trailer confined to insured farm & concession)",
+                                "description": "Agri(Haulage upto two trailer confined to insured farm & concession)"
+                            },
+                            {
+                                "vehicleName": "Agri(Haulage upto two trailer not confined to insured farm & concession)",
+                                "description": "Agri(Haulage upto two trailer not confined to insured farm & concession)"
+                            },
+                            {
+                                "vehicleName": "Taxi Car",
+                                "description": "Taxi commercial"
+                            },
+                            {
+                                "vehicleName": "Pickup",
+                                "description": "Truck/ Pickup/Covered Van/Delivery Van"
+                            },
+                            {
+                                "vehicleName": "Covered Van",
+                                "description": "Truck/ Pickup/Covered Van/Delivery Van"
+                            },
+                            {
+                                "vehicleName": "Delivery Van",
+                                "description": "Truck/ Pickup/Covered Van/Delivery Van"
+                            },
+                            {
+                                "vehicleName": "Double Deck Bus",
+                                "description": "Double Deck Bus"
+                            },
+                            {
+                                "vehicleName": "Excavator (Used Confined to Insured Own Premises)",
+                                "description": "Excavator (Used Confined to Insured Own Premises)"
+                            },
+                            {
+                                "vehicleName": "Lori",
+                                "description": "Lori"
+                            },
+                            {
+                                "vehicleName": "Trailer",
+                                "description": "Trailer"
+                            },
+                            {
+                                "vehicleName": "Crane (Premanently Fitted Vehicle)",
+                                "description": "Crane (Premanently Fitted Vehicle)"
+                            },
+                            {
+                                "vehicleName": "Mobile shop and canteen (Vehicle)",
+                                "description": "Mobile shop and canteen (Vehicle)"
+                            },
+                            {
+                                "vehicleName": "Motorized Rickshaw",
+                                "description": "Motorized Rickshaw"
+                            },
+                            {
+                                "vehicleName": "Excavator (Used not Confined to Insured Own Premises)",
+                                "description": "Excavator (Used not Confined to Insured Own Premises)"
+                            },
+                            {
+                                "vehicleName": "Crane (Goods Carrying Vehicle)",
+                                "description": "Crane (Crane (Goods Carrying Vehicle))"
+                            },
+                            {
+                                "vehicleName": "Mobile shop and canteen (Trailer)",
+                                "description": "Mobile shop and canteen (Trailer)"
+                            },
+                            {
+                                "vehicleName": "Electric Vehicle",
+                                "description": "Electric Vehicle"
+                            },
+                            {
+                                "vehicleName": "CNG",
+                                "description": "CNG"
+                            }
+                        ],
+                "mtrPerilExclusion": [
+                            {
+                                "id": 722,
+                                "deptCode": "MTR",
+                                "classCode": "MTR",
+                                "perilCode": "R&SD",
+                                "perilName": "Riot And Strike"
+                            },
+                            {
+                                "id": 723,
+                                "deptCode": "MTR",
+                                "classCode": "MTR",
+                                "perilCode": "EQ (F & S)",
+                                "perilName": "Earthquake"
+                            },
+                            {
+                                "id": 724,
+                                "deptCode": "MTR",
+                                "classCode": "MTR",
+                                "perilCode": "FLD & CYC",
+                                "perilName": "Flood And Cyclone"
+                            }
+                        ]
+                            }
+                        
+                    },
     "remarks": {
         "succsess": [],
         "error": []
