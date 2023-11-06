@@ -25,6 +25,63 @@
         }
     ],
     "paths": {
+        "/api/add-customer": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Add A New Customer",
+                "description": "Add a new customer and if successfull return a successfull message otherwise return error code and message.",
+                "operationId": "addCustomerUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "requestVm",
+                        "description": "requestVm",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/AddCustomerRequestVm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DataPack«string»"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
         "/api/get-product-list": {
             "get": {
                 "tags": [
@@ -176,6 +233,13 @@
                 ],
                 "parameters": [
                     {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
                         "in": "body",
                         "name": "requestVm",
                         "description": "requestVm",
@@ -262,6 +326,20 @@
         }
     },
     "definitions": {
+        "AddCustomerRequestVm": {
+            "type": "object",
+            "properties": {
+                "customerInfo": {
+                    "description": "Customer information",
+                    "$ref": "#/definitions/CustomerInfo"
+                },
+                "loginUserInfo": {
+                    "description": "Login user information",
+                    "$ref": "#/definitions/LoginUserInfo"
+                }
+            },
+            "title": "AddCustomerRequestVm"
+        },
         "BnhDetails": {
             "type": "object",
             "properties": {
@@ -455,6 +533,139 @@
             },
             "title": "Customer Response"
         },
+        "CustomerInfo": {
+            "type": "object",
+            "properties": {
+                "bin": {
+                    "type": "string",
+                    "description": "BIN (Business Identification Number)"
+                },
+                "birthRegNo": {
+                    "type": "string",
+                    "description": "Birth registration number"
+                },
+                "companyRegAuthority": {
+                    "type": "string",
+                    "description": "Company registration authority"
+                },
+                "companyType": {
+                    "type": "string",
+                    "description": "Type of company (e.g., REGISTERED, UNREGISTERED)"
+                },
+                "contactAddress": {
+                    "type": "string",
+                    "description": "Contact address"
+                },
+                "contactPerson": {
+                    "type": "string",
+                    "description": "Contact person"
+                },
+                "customerGroupCode": {
+                    "type": "string",
+                    "description": "Customer group code"
+                },
+                "customerType": {
+                    "type": "string",
+                    "description": "Type of customer (e.g., BUSINESS, INDIVIDUAL)"
+                },
+                "dateOfBirth": {
+                    "type": "string",
+                    "description": "Date of birth (YYYY-MM-DD)"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "Email address"
+                },
+                "fatherName": {
+                    "type": "string",
+                    "description": "Father's name"
+                },
+                "firstName": {
+                    "type": "string",
+                    "description": "First name"
+                },
+                "gender": {
+                    "type": "string",
+                    "description": "Gender"
+                },
+                "incomeSource": {
+                    "type": "string",
+                    "description": "Source of income"
+                },
+                "lastName": {
+                    "type": "string",
+                    "description": "Last name"
+                },
+                "middleName": {
+                    "type": "string",
+                    "description": "Middle name"
+                },
+                "mobileNo": {
+                    "type": "array",
+                    "description": "List of mobile numbers",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "motherName": {
+                    "type": "string",
+                    "description": "Mother's name"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Full name of the customer"
+                },
+                "nationality": {
+                    "type": "string",
+                    "description": "Nationality"
+                },
+                "nid": {
+                    "type": "string",
+                    "description": "National ID number"
+                },
+                "officeAddress": {
+                    "type": "string",
+                    "description": "Office address"
+                },
+                "officeContactNumber": {
+                    "type": "string",
+                    "description": "Office contact number"
+                },
+                "passportExpireDate": {
+                    "type": "string",
+                    "description": "Passport expiration date (YYYY-MM-DD)"
+                },
+                "passportNo": {
+                    "type": "string",
+                    "description": "Passport number"
+                },
+                "permanentAddress": {
+                    "type": "string",
+                    "description": "Permanent address"
+                },
+                "presentAddress": {
+                    "type": "string",
+                    "description": "Present address"
+                },
+                "regIssueDate": {
+                    "type": "string",
+                    "description": "Registration issue date (YYYY-MM-DD)"
+                },
+                "spouseName": {
+                    "type": "string",
+                    "description": "Spouse's name"
+                },
+                "tin": {
+                    "type": "string",
+                    "description": "Taxpayer Identification Number (TIN)"
+                },
+                "tradeLicenceNo": {
+                    "type": "string",
+                    "description": "Trade license number"
+                }
+            },
+            "title": "CustomerInfo"
+        },
         "DataPackSingle«Customer Response»": {
             "type": "object",
             "properties": {
@@ -502,6 +713,33 @@
                 }
             },
             "title": "DataPackSingle«Quotation Pre Requsite Response»"
+        },
+        "DataPack«string»": {
+            "type": "object",
+            "properties": {
+                "correlationID": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "messageID": {
+                    "type": "string"
+                },
+                "remarks": {
+                    "$ref": "#/definitions/DataRemarks"
+                },
+                "result": {
+                    "type": "boolean"
+                },
+                "timestamp": {
+                    "type": "string"
+                }
+            },
+            "title": "DataPack«string»"
         },
         "DataRemarks": {
             "type": "object",
@@ -568,6 +806,40 @@
                 }
             },
             "title": "EnsType"
+        },
+        "LoginUserInfo": {
+            "type": "object",
+            "properties": {
+                "branch": {
+                    "type": "string",
+                    "description": "Branch"
+                },
+                "designation": {
+                    "type": "string",
+                    "description": "Designation"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "Email address"
+                },
+                "employeeId": {
+                    "type": "string",
+                    "description": "Employee ID"
+                },
+                "gender": {
+                    "type": "string",
+                    "description": "Gender"
+                },
+                "mobile": {
+                    "type": "string",
+                    "description": "Mobile number"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the user"
+                }
+            },
+            "title": "LoginUserInfo"
         },
         "MedicalType": {
             "type": "object",
