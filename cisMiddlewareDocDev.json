@@ -12,12 +12,16 @@
             "description": "Customer Controller"
         },
         {
+            "name": "Document",
+            "description": "Document Master Controller"
+        },
+        {
             "name": "Product",
             "description": "Product Controller"
         },
         {
             "name": "Quotation",
-            "description": "Get Product Quotation"
+            "description": "Get Product Quotation Controller"
         },
         {
             "name": "User",
@@ -62,6 +66,63 @@
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/DataPack«string»"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/add-master-document": {
+            "post": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Save the document",
+                "description": "Returns document number and Money Receipt number after save.",
+                "operationId": "addMasterDocumentUsingPOST",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "*/*"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token: Bearer [token]",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "requestVm",
+                        "description": "requestVm",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Add Document Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/DataPackSingle«Add Document Response»"
                         }
                     },
                     "400": {
@@ -326,6 +387,74 @@
         }
     },
     "definitions": {
+        "Add Document Request": {
+            "type": "object",
+            "required": [
+                "customerInfo",
+                "loginUserInfo"
+            ],
+            "properties": {
+                "bnh": {
+                    "description": "BNH Details",
+                    "$ref": "#/definitions/BNHDetails"
+                },
+                "commonInfo": {
+                    "description": "Common Information for MR",
+                    "$ref": "#/definitions/CommonInfo"
+                },
+                "customerInfo": {
+                    "description": "Customer Information",
+                    "$ref": "#/definitions/CustomerInfo"
+                },
+                "ens": {
+                    "description": "ENS Details",
+                    "$ref": "#/definitions/ENSDetails"
+                },
+                "loginUserInfo": {
+                    "description": "Login User Information",
+                    "$ref": "#/definitions/LoginUserInfo"
+                },
+                "mtr": {
+                    "description": "MTR Details",
+                    "$ref": "#/definitions/MTRDetails"
+                },
+                "nib": {
+                    "description": "NIB Details",
+                    "$ref": "#/definitions/NIBDetails"
+                },
+                "pac": {
+                    "description": "PAC Details",
+                    "$ref": "#/definitions/PACDetails"
+                },
+                "ppa": {
+                    "description": "PPA Details",
+                    "$ref": "#/definitions/PPADetails"
+                }
+            },
+            "title": "Add Document Request"
+        },
+        "Add Document Response": {
+            "type": "object",
+            "properties": {
+                "customerId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": 100,
+                    "description": "Customer ID"
+                },
+                "mrNumber": {
+                    "type": "string",
+                    "example": 100001,
+                    "description": "MR Number"
+                },
+                "policyNumber": {
+                    "type": "string",
+                    "example": "GDI/AHO/09/2023/MTR/T/600003",
+                    "description": "Policy Number"
+                }
+            },
+            "title": "Add Document Response"
+        },
         "AddCustomerRequestVm": {
             "type": "object",
             "properties": {
@@ -339,6 +468,92 @@
                 }
             },
             "title": "AddCustomerRequestVm"
+        },
+        "BNHDetails": {
+            "type": "object",
+            "properties": {
+                "coveredLimit": {
+                    "type": "string",
+                    "description": "Covered Limit"
+                },
+                "custGender": {
+                    "type": "string",
+                    "description": "Customer Gender"
+                },
+                "custOccupation": {
+                    "type": "string",
+                    "description": "Customer Occupation"
+                },
+                "custPasspostNo": {
+                    "type": "string",
+                    "description": "Customer Passport Number"
+                },
+                "destCountryAddress": {
+                    "type": "string",
+                    "description": "Destination Country Address"
+                },
+                "doctorId": {
+                    "type": "string",
+                    "description": "Doctor ID"
+                },
+                "employerAddress": {
+                    "type": "string",
+                    "description": "Employer Address"
+                },
+                "employerName": {
+                    "type": "string",
+                    "description": "Employer Name"
+                },
+                "insuredOccupation": {
+                    "type": "string",
+                    "description": "Insured Occupation"
+                },
+                "interestInsured": {
+                    "type": "string",
+                    "description": "Interest Insured"
+                },
+                "medicalNonMedical": {
+                    "type": "string",
+                    "description": "Medical or Non-Medical"
+                },
+                "nameOfTheUsualPhysician": {
+                    "type": "string",
+                    "description": "Name of the Usual Physician"
+                },
+                "officeTelephoneNo": {
+                    "type": "string",
+                    "description": "Office Telephone Number"
+                },
+                "participant": {
+                    "type": "string",
+                    "description": "Participant"
+                },
+                "physicianTelephoneNoHome": {
+                    "type": "string",
+                    "description": "Physician Telephone Number (Home)"
+                },
+                "physicianTelephoneNoOffice": {
+                    "type": "string",
+                    "description": "Physician Telephone Number (Office)"
+                },
+                "planName": {
+                    "type": "string",
+                    "description": "Plan Name"
+                },
+                "planType": {
+                    "type": "string",
+                    "description": "Plan Type"
+                },
+                "reInsuredCountry": {
+                    "type": "string",
+                    "description": "Re-Insured Country"
+                },
+                "visaType": {
+                    "type": "string",
+                    "description": "Visa Type"
+                }
+            },
+            "title": "BNHDetails"
         },
         "BnhDetails": {
             "type": "object",
@@ -366,6 +581,40 @@
                 }
             },
             "title": "BnhDetails"
+        },
+        "CommonInfo": {
+            "type": "object",
+            "properties": {
+                "paymentBankBranchId": {
+                    "type": "string",
+                    "description": "Payment Bank Branch ID"
+                },
+                "paymentBankName": {
+                    "type": "string",
+                    "description": "Payment Bank Name"
+                },
+                "paymentDate": {
+                    "type": "string",
+                    "description": "Payment Date"
+                },
+                "paymentMode": {
+                    "type": "string",
+                    "description": "Payment Mode"
+                },
+                "paymentNumber": {
+                    "type": "string",
+                    "description": "Payment Number"
+                },
+                "paymentRoutingNumber": {
+                    "type": "string",
+                    "description": "Payment Routing Number"
+                },
+                "trxNumber": {
+                    "type": "string",
+                    "description": "Transaction Number"
+                }
+            },
+            "title": "CommonInfo"
         },
         "Customer Response": {
             "type": "object",
@@ -538,133 +787,159 @@
             "properties": {
                 "bin": {
                     "type": "string",
-                    "description": "BIN (Business Identification Number)"
+                    "description": "BIN (Business Identification Number). Mandatory for business customers."
                 },
                 "birthRegNo": {
                     "type": "string",
-                    "description": "Birth registration number"
+                    "description": "Birth registration number (optional)."
                 },
                 "companyRegAuthority": {
                     "type": "string",
-                    "description": "Company registration authority"
+                    "description": "Company registration authority (optional)."
                 },
                 "companyType": {
                     "type": "string",
-                    "description": "Type of company (e.g., REGISTERED, UNREGISTERED)"
+                    "description": "Type of company (e.g., REGISTERED). Mandatory for business customers."
                 },
                 "contactAddress": {
                     "type": "string",
-                    "description": "Contact address"
+                    "description": "Contact address (optional)."
                 },
                 "contactPerson": {
                     "type": "string",
-                    "description": "Contact person"
+                    "description": "Contact person (optional)."
                 },
                 "customerGroupCode": {
                     "type": "string",
-                    "description": "Customer group code"
+                    "description": "Customer group code (e.g., UNILIVER). Mandatory for business customers."
+                },
+                "customerId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Customer ID. It will depend on whether it's a new customer or an existing one."
                 },
                 "customerType": {
                     "type": "string",
-                    "description": "Type of customer (e.g., BUSINESS, INDIVIDUAL)"
+                    "description": "Type of customer (e.g., BUSINESS). Mandatory for business customers."
                 },
                 "dateOfBirth": {
                     "type": "string",
-                    "description": "Date of birth (YYYY-MM-DD)"
+                    "description": "Date of birth of the customer. Mandatory for personal customers."
                 },
                 "email": {
                     "type": "string",
-                    "description": "Email address"
+                    "description": "Email address of the customer. Mandatory for personal customers."
                 },
                 "fatherName": {
                     "type": "string",
-                    "description": "Father's name"
+                    "description": "Father's name. Mandatory for personal customers."
                 },
                 "firstName": {
                     "type": "string",
-                    "description": "First name"
+                    "description": "First name of the customer. Mandatory for personal customers."
                 },
                 "gender": {
                     "type": "string",
-                    "description": "Gender"
+                    "description": "Gender of the customer. Mandatory for personal customers."
                 },
                 "incomeSource": {
                     "type": "string",
-                    "description": "Source of income"
+                    "description": "Source of income (optional)."
+                },
+                "insuredAddress": {
+                    "type": "string",
+                    "description": "Insured address. Mandatory for both existing and new customers."
                 },
                 "lastName": {
                     "type": "string",
-                    "description": "Last name"
-                },
-                "middleName": {
-                    "type": "string",
-                    "description": "Middle name"
+                    "description": "Last name of the customer (optional)."
                 },
                 "mobileNo": {
-                    "type": "array",
-                    "description": "List of mobile numbers",
-                    "items": {
-                        "type": "string"
-                    }
+                    "type": "string",
+                    "description": "Mobile number of the customer. Mandatory for both personal and business customers."
                 },
                 "motherName": {
                     "type": "string",
-                    "description": "Mother's name"
+                    "description": "Mother's name. Mandatory for personal customers."
                 },
                 "name": {
                     "type": "string",
-                    "description": "Full name of the customer"
+                    "description": "Full name of the customer. Mandatory for both personal and business customers."
                 },
                 "nationality": {
                     "type": "string",
-                    "description": "Nationality"
+                    "description": "Nationality of the customer (optional)."
                 },
                 "nid": {
                     "type": "string",
-                    "description": "National ID number"
+                    "description": "NID (National ID) (optional)."
                 },
                 "officeAddress": {
                     "type": "string",
-                    "description": "Office address"
+                    "description": "Office address (optional)."
                 },
                 "officeContactNumber": {
                     "type": "string",
-                    "description": "Office contact number"
+                    "description": "Office contact number (optional)."
                 },
                 "passportExpireDate": {
                     "type": "string",
-                    "description": "Passport expiration date (YYYY-MM-DD)"
+                    "description": "Passport expiration date (if applicable). Mandatory when passport number is given."
                 },
                 "passportNo": {
                     "type": "string",
-                    "description": "Passport number"
+                    "description": "Passport number (if available). Mandatory when passport number is given."
                 },
                 "permanentAddress": {
                     "type": "string",
-                    "description": "Permanent address"
+                    "description": "Permanent address of the customer. Mandatory for both personal and business customers."
                 },
                 "presentAddress": {
                     "type": "string",
-                    "description": "Present address"
+                    "description": "Present address of the customer (optional)."
                 },
                 "regIssueDate": {
                     "type": "string",
-                    "description": "Registration issue date (YYYY-MM-DD)"
+                    "description": "Registration issue date (optional)."
                 },
                 "spouseName": {
                     "type": "string",
-                    "description": "Spouse's name"
+                    "description": "Spouse's name. Mandatory for personal customers."
                 },
                 "tin": {
                     "type": "string",
-                    "description": "Taxpayer Identification Number (TIN)"
+                    "description": "TIN (Taxpayer Identification Number) (optional)."
                 },
                 "tradeLicenceNo": {
                     "type": "string",
-                    "description": "Trade license number"
+                    "description": "Trade license number (optional)."
                 }
             },
             "title": "CustomerInfo"
+        },
+        "DataPackSingle«Add Document Response»": {
+            "type": "object",
+            "properties": {
+                "correlationID": {
+                    "type": "string"
+                },
+                "data": {
+                    "$ref": "#/definitions/Add Document Response"
+                },
+                "messageID": {
+                    "type": "string"
+                },
+                "remarks": {
+                    "$ref": "#/definitions/DataRemarks"
+                },
+                "result": {
+                    "type": "boolean"
+                },
+                "timestamp": {
+                    "type": "string"
+                }
+            },
+            "title": "DataPackSingle«Add Document Response»"
         },
         "DataPackSingle«Customer Response»": {
             "type": "object",
@@ -759,6 +1034,92 @@
             },
             "title": "DataRemarks"
         },
+        "ENSDetails": {
+            "type": "object",
+            "properties": {
+                "coveredLimit": {
+                    "type": "string",
+                    "description": "Covered Limit"
+                },
+                "custGender": {
+                    "type": "string",
+                    "description": "Customer Gender"
+                },
+                "custOccupation": {
+                    "type": "string",
+                    "description": "Customer Occupation"
+                },
+                "custPasspostNo": {
+                    "type": "string",
+                    "description": "Customer Passport Number"
+                },
+                "destCountryAddress": {
+                    "type": "string",
+                    "description": "Destination Country Address"
+                },
+                "doctorId": {
+                    "type": "string",
+                    "description": "Doctor ID"
+                },
+                "employerAddress": {
+                    "type": "string",
+                    "description": "Employer Address"
+                },
+                "employerName": {
+                    "type": "string",
+                    "description": "Employer Name"
+                },
+                "insuredOccupation": {
+                    "type": "string",
+                    "description": "Insured Occupation"
+                },
+                "interestInsured": {
+                    "type": "string",
+                    "description": "Interest Insured"
+                },
+                "medicalNonMedical": {
+                    "type": "string",
+                    "description": "Medical or Non-Medical"
+                },
+                "nameOfTheUsualPhysician": {
+                    "type": "string",
+                    "description": "Name of the Usual Physician"
+                },
+                "officeTelephoneNo": {
+                    "type": "string",
+                    "description": "Office Telephone Number"
+                },
+                "participant": {
+                    "type": "string",
+                    "description": "Participant"
+                },
+                "physicianTelephoneNoHome": {
+                    "type": "string",
+                    "description": "Physician Telephone Number (Home)"
+                },
+                "physicianTelephoneNoOffice": {
+                    "type": "string",
+                    "description": "Physician Telephone Number (Office)"
+                },
+                "planName": {
+                    "type": "string",
+                    "description": "Plan Name"
+                },
+                "planType": {
+                    "type": "string",
+                    "description": "Plan Type"
+                },
+                "reInsuredCountry": {
+                    "type": "string",
+                    "description": "Re-Insured Country"
+                },
+                "visaType": {
+                    "type": "string",
+                    "description": "Visa Type"
+                }
+            },
+            "title": "ENSDetails"
+        },
         "EnsDetails": {
             "type": "object",
             "properties": {
@@ -809,37 +1170,89 @@
         },
         "LoginUserInfo": {
             "type": "object",
+            "required": [
+                "employeeId",
+                "name",
+                "role"
+            ],
             "properties": {
-                "branch": {
+                "branchCode": {
                     "type": "string",
-                    "description": "Branch"
+                    "description": "Branch Code"
+                },
+                "clientCode": {
+                    "type": "string",
+                    "description": "Client Code"
                 },
                 "designation": {
                     "type": "string",
                     "description": "Designation"
                 },
-                "email": {
-                    "type": "string",
-                    "description": "Email address"
-                },
                 "employeeId": {
                     "type": "string",
                     "description": "Employee ID"
                 },
-                "gender": {
-                    "type": "string",
-                    "description": "Gender"
-                },
                 "mobile": {
                     "type": "string",
-                    "description": "Mobile number"
+                    "description": "Mobile Number"
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name of the user"
+                    "description": "Name"
+                },
+                "role": {
+                    "type": "string",
+                    "example": "Manager, RM, Sales",
+                    "description": "Role"
                 }
             },
             "title": "LoginUserInfo"
+        },
+        "MTRDetails": {
+            "type": "object",
+            "properties": {
+                "companyOrModelName": {
+                    "type": "string",
+                    "description": "Company or Model Name"
+                },
+                "fitnessExpiryDate": {
+                    "type": "string",
+                    "description": "Fitness Expiry Date"
+                },
+                "manufactureYear": {
+                    "type": "string",
+                    "description": "Manufacture Year"
+                },
+                "manufacturer": {
+                    "type": "string",
+                    "description": "Manufacturer"
+                },
+                "motorEngineAndChassisNumber": {
+                    "type": "string",
+                    "description": "Motor Engine and Chassis Number"
+                },
+                "motorMakeAndBodyType": {
+                    "type": "string",
+                    "description": "Motor Make and Body Type"
+                },
+                "motorModelNumber": {
+                    "type": "string",
+                    "description": "Motor Model Number"
+                },
+                "motorTermsOfUseId": {
+                    "type": "string",
+                    "description": "Motor Terms of Use ID"
+                },
+                "nameOfRegistrationAuthority": {
+                    "type": "string",
+                    "description": "Name of Registration Authority"
+                },
+                "taxToken": {
+                    "type": "string",
+                    "description": "Tax Token"
+                }
+            },
+            "title": "MTRDetails"
         },
         "MedicalType": {
             "type": "object",
@@ -1015,6 +1428,48 @@
             },
             "title": "MtrVehicle"
         },
+        "NIBDetails": {
+            "type": "object",
+            "required": [
+                "construction",
+                "occupation",
+                "situation"
+            ],
+            "properties": {
+                "construction": {
+                    "type": "string",
+                    "description": "Construction"
+                },
+                "nomineeDetails": {
+                    "type": "array",
+                    "description": "Nominee Details",
+                    "items": {
+                        "$ref": "#/definitions/NomineeDetails"
+                    }
+                },
+                "occupation": {
+                    "type": "string",
+                    "description": "Occupation"
+                },
+                "pacClassType": {
+                    "type": "string",
+                    "description": "PAC Class Type"
+                },
+                "pacCoverType": {
+                    "type": "string",
+                    "description": "PAC Cover Type"
+                },
+                "pacOccupation": {
+                    "type": "string",
+                    "description": "PAC Occupation"
+                },
+                "situation": {
+                    "type": "string",
+                    "description": "Situation"
+                }
+            },
+            "title": "NIBDetails"
+        },
         "NibProduct": {
             "type": "object",
             "properties": {
@@ -1036,6 +1491,147 @@
                 }
             },
             "title": "NibProduct"
+        },
+        "NomineeDetails": {
+            "type": "object",
+            "required": [
+                "nomineeAddress",
+                "nomineeDateOfBirth",
+                "nomineeEmail",
+                "nomineeMobile",
+                "nomineeName",
+                "nomineeNid",
+                "nomineeRelation",
+                "nomineeSharePct"
+            ],
+            "properties": {
+                "nomineeAddress": {
+                    "type": "string",
+                    "example": "123 Main St, City",
+                    "description": "Nominee Address"
+                },
+                "nomineeDateOfBirth": {
+                    "type": "string",
+                    "example": "2023-12-25",
+                    "description": "Nominee Date of Birth"
+                },
+                "nomineeEmail": {
+                    "type": "string",
+                    "example": "nominee@example.com",
+                    "description": "Nominee Email"
+                },
+                "nomineeMobile": {
+                    "type": "string",
+                    "example": "0123456789",
+                    "description": "Nominee Mobile Number"
+                },
+                "nomineeName": {
+                    "type": "string",
+                    "example": "John Doe",
+                    "description": "Nominee Name"
+                },
+                "nomineeNid": {
+                    "type": "string",
+                    "example": 1234567890,
+                    "description": "Nominee NID"
+                },
+                "nomineeRelation": {
+                    "type": "string",
+                    "example": "Spouse",
+                    "description": "Nominee Relation"
+                },
+                "nomineeSharePct": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 100,
+                    "description": "Nominee Share Percentage"
+                }
+            },
+            "title": "NomineeDetails"
+        },
+        "PACDetails": {
+            "type": "object",
+            "required": [
+                "construction",
+                "occupation",
+                "situation"
+            ],
+            "properties": {
+                "construction": {
+                    "type": "string",
+                    "description": "Construction"
+                },
+                "nomineeDetails": {
+                    "type": "array",
+                    "description": "Nominee Details",
+                    "items": {
+                        "$ref": "#/definitions/NomineeDetails"
+                    }
+                },
+                "occupation": {
+                    "type": "string",
+                    "description": "Occupation"
+                },
+                "pacClassType": {
+                    "type": "string",
+                    "description": "PAC Class Type"
+                },
+                "pacCoverType": {
+                    "type": "string",
+                    "description": "PAC Cover Type"
+                },
+                "pacOccupation": {
+                    "type": "string",
+                    "description": "PAC Occupation"
+                },
+                "situation": {
+                    "type": "string",
+                    "description": "Situation"
+                }
+            },
+            "title": "PACDetails"
+        },
+        "PPADetails": {
+            "type": "object",
+            "required": [
+                "construction",
+                "occupation",
+                "situation"
+            ],
+            "properties": {
+                "construction": {
+                    "type": "string",
+                    "description": "Construction"
+                },
+                "nomineeDetails": {
+                    "type": "array",
+                    "description": "Nominee Details",
+                    "items": {
+                        "$ref": "#/definitions/NomineeDetails"
+                    }
+                },
+                "occupation": {
+                    "type": "string",
+                    "description": "Occupation"
+                },
+                "pacClassType": {
+                    "type": "string",
+                    "description": "PAC Class Type"
+                },
+                "pacCoverType": {
+                    "type": "string",
+                    "description": "PAC Cover Type"
+                },
+                "pacOccupation": {
+                    "type": "string",
+                    "description": "PAC Occupation"
+                },
+                "situation": {
+                    "type": "string",
+                    "description": "Situation"
+                }
+            },
+            "title": "PPADetails"
         },
         "PacClassDetails": {
             "type": "object",
