@@ -1,0 +1,64 @@
+Request body:
+{
+    "documentType": "P",
+    "policyEndDate": "2024-04-02",
+    "policyStartDate": "2023-10-26",
+    "productCode": "bnh",
+    "customerId": 70755,
+    "dateOfBirth": null,
+    "placeVisitCode": "C",
+    "stampDutyType": "Recoverable",
+    "policyDuration": "short",
+    "dayStay": 160,
+    "coveredLimit": 125000
+}
+
+Response:
+
+{
+    "data": {
+        "result": true,
+        "model": {
+            "totalDays": 160,
+            "netPremium": 13561.2,
+            "vat": 2034.18,
+            "vatRate": 15.0,
+            "stamp": 20.0,
+            "grossPremium": 15615.38,
+            "promoCodeDiscount": 0.0,
+            "grossPremiumAfterPromoCode": 15615.38,
+            "audioTeleconsultation": null,
+            "age": 30,
+            "serviceCharge": null,
+            "loadingAmt": 2260.2,
+            "ensType": null,
+            "messages": [],
+            "travelPeril": [
+                {
+                    "id": null,
+                    "deptCode": "MISC",
+                    "classCode": "OMC",
+                    "perilCode": "BNH",
+                    "perilName": "Business & holiday (B&H)",
+                    "perilRate": 0.0,
+                    "isExclusion": false,
+                    "perilAmount": 0,
+                    "premium": 13561.2,
+                    "perilId": 746,
+                    "isRemoved": null
+                }
+            ],
+            "valid": true
+        },
+        "remarks": [
+            "Successfully get travel calculation"
+        ]
+    },
+    "messageID": "",
+    "correlationID": "",
+    "message": [
+        "Successfully get travel calculation"
+    ],
+    "responseCode": "200",
+    "timestamp": "2023-11-05 12:46:25.475"
+}

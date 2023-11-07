@@ -1,0 +1,522 @@
+--------------------------------------- TRAVEL ----------------------------------------
+======================BNH=======================
+{
+    "documentType": "P",
+    "policyEndDate": "2024-04-02",
+    "policyStartDate": "2023-10-26",
+    "productCode": "bnh",
+    "customerId": 70755,
+    "dateOfBirth": null,
+    "placeVisitCode": "C",
+    "stampDutyType": "Recoverable",
+    "policyDuration": "short",
+    "dayStay": 160,
+    "coveredLimit": 125000
+}
+
+======================ENS=======================
+
+{
+    "documentType": "P",
+    "policyEndDate": "2024-07-01",
+    "policyStartDate": "2023-10-31",
+    "productCode": "ens",
+    "ensType": "Employment",
+    "numberOfChild": 0,
+    "customerId": 70755,
+    "conversionRateUsdToBdt": 90,
+    "placeVisitCode": "B",
+    "dateOfBirth": null,
+    "numberOfPerson": 1,
+    "stampDutyType": "Recoverable",
+    "dayStay": 0,
+    "monthStay": 8,
+    "coveredLimit": 125000
+}
+
+--------------------------------------- HEALTH ----------------------------------------
+======================NIBEDITA_ECO=======================
+
+{
+    "customerId": 70755,
+    "productCode": "NIB",
+    "documentValidFrom": "2023-10-24",
+    "documentValidTo": "2024-10-23",
+    "nibProductCode": "NIBEDITA_ECO",
+    "sumInsured": 200000
+}
+
+======================NIBEDITA_REGULAR=======================
+
+{
+    "customerId": 70755,
+    "productCode": "NIB",
+    "documentValidFrom": "2023-10-24",
+    "documentValidTo": "2024-10-23",
+    "nibProductCode": "NIBEDITA_REGULAR",
+    "sumInsured": 600000
+}
+
+======================NIBEDITA_PLUS=======================
+
+{
+    "customerId": 70755,
+    "productCode": "NIB",
+    "documentValidFrom": "2023-10-24",
+    "documentValidTo": "2024-10-23",
+    "nibProductCode": "NIBEDITA_PLUS",
+    "sumInsured": 600000
+}
+
+======================PAC=======================
+NO Quotation feature is available for PAC in new CIS
+
+======================PPA=======================
+{
+    "customerId": 70755,
+    "productCode": "PPA",
+    "documentValidFrom": "2023-10-25",
+    "documentValidTo": "2024-10-24"
+}
+
+======================MTR=======================
+{
+    "request": {
+        "getQuote": {
+            "documentType": "T",
+            "mtrCcTon": "CC",
+            "mtrCcTonValue": 160,
+            "mtrNoOfDriver": 1,
+            "mtrNoOfConductor": 1,
+            "mtrNoOfGuide": 1,
+            "mtrNoOfHelper": 1,
+            "mtrNoOfPassenger": 2,
+            "mtrConductorRate": 0,
+            "mtrGuideRate": 0,
+            "mtrConductorAmount": 0,
+            "mtrGuideAmount": 0,
+            "lumpSumAmount": 100,
+            "mtrPlanName": "Comprehensive",
+            "mtrVehicleId": 3,
+            "mtrVehicleType": "Private",
+            "policyEndDate": "2023-11-24",
+            "policyStartDate": "2023-10-16",
+            "productCode": "mtr",
+            "sumInsured": 200000,
+            "taxFreeVehicle": true,
+            "techometerVehicle": true,
+            "namedDriver": false,
+            "avlsDiscount": false,
+            "customerId": 70755,
+            "vatRate": 15,
+            "loadingRate": 4,
+            "ncbRate": 10,
+            "mtrPassengerTimesMultiply": 2,
+            "mtrDriverTimesMultiply": 2,
+            "mtrHelperTimesMultiply": 1,
+            "exclusionPerilList": [
+                {
+                    "id": 722,
+                    "deptCode": "MTR",
+                    "classCode": "MTR",
+                    "perilCode": "R&SD",
+                    "perilName": "Riot And Strike",
+                    "perilRate": 0.5,
+                    "isExclusion": true,
+                    "perilAmount": null,
+                    "premium": null,
+                    "perilId": 722,
+                    "isRemoved": null
+                }
+            ],
+            "comprehensiveRate": null,
+            "stampAmount": 500,
+            "stampDutyType": "Non-Recoverable",
+            "oppositePurposeUseLoading": false,
+            "policyDuration": "short",
+            "totalDays": 40,
+            "amendmentChangeHead": null,
+            "amendmentSumInsuredType":""
+        }
+    },
+    "action": "get",
+    "api": "productCalculation",
+    "asyncReplyFlag": false,
+    "correlationID": "2ca0a858c6",
+    "messageID": "9d166f02bc",
+    "replyAddress": "",
+    "source": "core",
+    "timestamp": "2020-07-11 13:17:55"
+}
+
+
+=========================================
+Response:
+{
+    "result":true,
+    "data": {
+        "interfaceShow": {
+            "netPremium": 9100.0,
+            "vatAmount": 1365.0,
+            "stampAmount": 20.0,
+            "discountAmount": 0.0,
+            "grossPremium": 10485.0,
+            "policyValidFrom": "2023-10-24",
+            "policyValidTo": "2024-10-23",
+            "policyDuration":{
+                "year":"",
+                "month":"",
+                "day":"",
+                "yearMonthDay":"year: 0, month 1 , day: 2"
+            }
+        },
+        "forDataSave": { 
+        // new cis thk ja pabe purata ekhane dia dibo, doc save er somoy ei purata pathaia dibe 
+        //    and customer and mr info, additional info and this object while save
+            "sumInsured": 500000.0,
+            "netPremium": 9100.0,
+            "vatType": "VAT",
+            "vatRate": 15.0,
+            "vatAmount": 1365.0,
+            "stampRate": 0.0,
+            "stampAmount": 20.0,
+            "policyDuration": "365 Days",
+            "dateOfBirth": "1994-02-01",
+            "documentValidFrom": "2023-10-24",
+            "documentValidTo": "2024-10-23",
+            "age": "29 Years",
+            "grossPremium": 10485.0,
+            "interestName": "Nibedita",
+            "perilId": 735,
+            "perilCode": "NIBEDITA_PLUS",
+            "perilName": "NIBEDITA PLUS"
+        },
+        "prerequisiteDataSave":"
+            nib: {
+                "testFields":["situation","occupation"],
+                "dropdown":{
+                    "medicatTyoe":[
+                        {
+                            name:"asas",
+                            value:"asdasd"
+                        }
+                    ]
+                }
+            }
+
+        ",
+    "remarks":{
+        "succsess":["Successfully fetched customer."],
+        "error":[]
+    },
+    "timestamp":"2023-10-25 15:27:51.21",
+    "correlationID": "2ca0a858c6",
+    "messageID": "9d166f02bc"
+}
+
+===================================================================
+
+"customerInfo":{
+        "customerId":10, // id will given for existing customer otherwise it will be null
+        "name": "Abul Hashem", // mendatory both, concat first name and last name when customer is personal
+        "firstName": "Abul", // mendatory personal
+        "lastName": "Hashem", //optional
+        "mobileNo": "01236547852", // mendatory both
+        "dateOfBirth": "2000-01-01", // mendatory personal
+        "gender": "", // mendatory personal
+        "email": "abul@gmail.com", // mendatory personal
+        "nationality": "Bangladeshi", //optional
+        "customerType": "BUSINESS", // mendatory business
+        "customerGroupCode":"UNILIVER", // mendatory business
+        "companyType": "REGISTERED", // mendatory business
+        "presentAddress": "169/ A Khilgaon, Dhaka-1219", // optional both
+        "permanentAddress": "Vill: Abu Gram, Thana: Raipur, District: Laxmipur", // mendatory both
+        "fatherName": "Kalam Khan", // mendatory personal
+        "motherName": "Sufia Khatun", // mendatory personal
+        "spouseName": "Afia Khatun", // mendatory personal
+        "passportNo": "P-8989898998", 
+        "passportExpireDate": "2025-01-01", // mendatory when passport no is given
+        "birthRegNo": "",
+        "tradeLicenceNo": "",
+        "companyRegAuthority": "",
+        "regIssueDate": "",
+        "bin": "000123456-7854", // mendatory business
+        "tin": "",
+        "nid": "",
+        "incomeSource": "",
+        "contactPerson": "",
+        "contactAddress": "",
+        "officeAddress": "",
+        "officeContactNumber": ""
+}
+
+
+// ===============================================
+nibPacPpa
+
+"situation":"", // text field
+"occupation":"", // text field
+"construction":"", // text field
+"pacOccupation":"", // Dropdown
+"pacClassType":"", // Dropdowm
+"pacCoverType":"", // Dropdowm
+"ppaAdditionalText":"", // text field
+
+[situation] [varchar](1000) NULL
+[occupation] [varchar](1000) NULL
+[construction] [varchar](1000) NULL
+[risk_type] [varchar](50) NULL
+[pac_occupation] [varchar](100) NULL
+[pac_class_type] [varchar](25) NULL
+[pac_cover_type] [varchar](25) NULL
+[ppa_additional_text] [varchar](500) NULL
+
+bnh_ens ===============================================
+
+"custOccupation":"",
+"custPasspostNo":"",
+"custGender":"",
+"planType":"",
+"medicalNonMedical":"",
+"interestInsured":"",
+"reInsuredCountry":"",
+"doctorId":"",
+"planName":"",
+"coveredLimit":"",
+"insuredOccupation":"",
+"employerName":"",
+"employerAddress":"",
+"officeTelephoneNo":"",
+"nameOfTheUsualPhysician":"",
+"physicianTelephoneNoOffice":"",
+"physicianTelephoneNoHome":"",
+"destCountryAddress":"",
+"participant":"",
+"visaType":"",
+"sponsorName":"",
+"destCountryCollege":"",
+"destCountryOccupation":"",
+"studyCourse":"",
+"nextKinName":"",
+"nextKinAddress":"",
+"nextKinTelNo":"",
+"nextKinRelationship":"",
+"physicianHomeTelNo":"",
+"ensType":"",
+"loadingAmt":"",
+"regionOfCountry":"",
+"numberOfChild":"",
+"numberOfPerson":"",
+"conversionRateUsdToBdt":"",
+"placeVisitCode":"",
+
+
+[cust_ocu] [varchar](500) NULL
+[cust_passpost_no] [varchar](500) NULL
+[cust_gender] [varchar](500) NULL
+[plan_type] [varchar](500) NULL
+[medical_non_medical] [varchar](500) NULL
+[interest_insured] [varchar](500) NULL
+[re_insured_country] [varchar](500) NULL
+[doctor_id] [varchar](500) NULL
+[plan_name] [varchar](500) NULL
+[covered_limit] [bigint] NULL
+[insured_occupation] [varchar](500) NULL
+[employer_name] [varchar](500) NULL
+[employer_address] [varchar](500) NULL
+[office_telephone_no] [varchar](500) NULL
+[name_of_the_usual_physician] [varchar](500) NULL
+[physician_telephone_no_office] [varchar](500) NULL
+[physician_telephone_no_home] [varchar](500) NULL
+[dest_country_address] [varchar](500) NULL
+[participant] [varchar](500) NULL
+[visa_type] [varchar](500) NULL
+[sponsor_name] [varchar](500) NULL
+[dest_country_college] [varchar](500) NULL
+[dest_country_occupation] [varchar](500) NULL
+[study_course] [varchar](500) NULL
+[next_kin_name] [varchar](500) NULL
+[next_kin_address] [varchar](500) NULL
+[next_kin_tel_no] [varchar](500) NULL
+[next_kin_relationship] [varchar](500) NULL
+[physician_home_tel_no] [varchar](500) NULL
+[ens_type] [varchar](149) NULL
+[loading_amt] [float] NULL
+[region_of_country] [varchar](5000) NULL
+[number_of_child] [int] NULL
+[number_of_person] [int] NULL
+[conversion_rate_usd_to_bdt] [float] NULL
+[place_visit_code] [varchar](500) NULL
+
+mtr================================
+
+"mtrPlanName":"",
+"mtrVehicleName":"",
+"mtrVehicleType":"",
+"mtrCcTon":"",
+"mtrCcTonValue":"",
+"mtrNoOfPassenger":"",
+"mtrNoOfDriver":"",
+"mtrNoOfHelper":"",
+"isRiotAndStrickeExclude":"",
+"isEarthQuackeExcluded":"",
+"isFloodAndCycloneExcluded":"",
+"noClaimBonusRate":"",
+"noClaimBonusAmount":"",
+"loadingRate":"",
+"loadingAmount":"",
+"promoCode":"",
+"promoCodeDiscount":"",
+"grossPremiumAfterPromoCode":"",
+"taxFreeVehicleLoadingAmount":"",
+"techometerDiscountRate":"",
+"techometerDiscountAmount":"",
+"namedDriverRate":"",
+"namedDriverAmount":"",
+"motorRegistrationNumber":"",
+"isTaxFreeVehicle":"",
+"isTechometerVehicle":"",
+"isNamedDriver":"",
+"taxFreeVehicleRate":"",
+"motorVehicleId":"",
+"mtrPassengerAmount":"",
+"mtrDriverAmount":"",
+"mtrHelperAmount":"",
+"riotAndStrikeRate":"",
+"riotAndStrikeRateType":"",
+"earthquakeRate":"",
+"earthquakeRateType":"",
+"floodAndCycloneRate":"",
+"floodAndCycloneRateType":"",
+"finalComprehensiveRate":"",
+"actualComprehensiveRate":"",
+"mtrPerPassengerRate":"",
+"mtrPerDriverRate":"",
+"mtrPerHelperRate":"",
+"mtrPerPassengerRateType":"",
+"mtrPerDriverRateType":"",
+"mtrPerHelperRateType":"",
+"loadingType":"",
+"noClaimBonusType":"",
+"mtrPassengerTimesMultiply":"",
+"mtrDriverTimesMultiply":"",
+"mtrHelperTimesMultiply":"",
+"isAvlsDiscount":"",
+"avlsDiscountRate":"",
+"ownDamageDasic":"",
+"daysCount":"",
+"shortPeriodRate":"",
+"isOppositePurposeUseLoading":"",
+"oppositePurposeUseLoadingRate":"",
+"motorEngineAndChassisNumber":"",
+"motorMakeAndBodyType":"",
+"manufactureYear":"",
+"nameOfRegistrationAuthority":"",
+"motorModelNumber":"",
+"privateCarBelow750CcDiscountRate":"",
+"isPrivateCarBelow750":"",
+"mtrNoOfConductor":"",
+"mtrNoOfGuide":"",
+"mtrPerConductorRate":"",
+"mtrPerGuideRate":"",
+"mtrConductorAmount":"",
+"mtrGuideAmount":"",
+"lumpSumAmount":"",
+"taxToken":"",
+"fitnessExpiryDate":"",
+"manufacturer":"",
+"companyOrModelName":"",
+"motorTermsOfUseId":"",
+"owner":"",
+"totalSeatCapacity":""
+
+[mtr_plan_name] [varchar](100) NULL
+[mtr_vehicle_name] [varchar](100) NULL
+[mtr_vehicle_type] [varchar](100) NULL
+[mtr_cc_ton] [varchar](10) NULL
+[mtr_cc_ton_value] [float] NULL
+[mtr_no_of_passenger] [int] NULL
+[mtr_no_of_driver] [int] NULL
+[mtr_no_of_helper] [int] NULL
+[is_riot_and_stricke_exclude] [bit] NULL
+[is_earth_quacke_excluded] [bit] NULL
+[is_flood_and_cyclone_excluded] [bit] NULL
+[no_claim_bonus_rate] [float] NULL
+[no_claim_bonus_amount] [float] NULL
+[loading_rate] [float] NULL
+[loading_amount] [float] NULL
+[promo_code] [varchar](100) NULL
+[promo_code_discount] [float] NULL
+[gross_premium_after_promo_code] [float] NULL
+[tax_free_vehicle_loading_amount] [float] NULL
+[techometer_discount_rate] [float] NULL
+[techometer_discount_amount] [float] NULL
+[named_driver_rate] [float] NULL
+[named_driver_amount] [float] NULL
+[motor_registration_number] [varchar](100) NULL
+[is_tax_free_vehicle] [bit] NULL
+[is_techometer_vehicle] [bit] NULL
+[is_named_driver] [bit] NULL
+[tax_free_vehicle_rate] [float] NULL
+[motor_vehicle_id] [bigint] NOT NULL
+[mtr_passenger_amount] [float] NULL
+[mtr_driver_amount] [float] NULL
+[mtr_helper_amount] [float] NULL
+[riot_and_strike_rate] [float] NULL
+[riot_and_strike_rate_type] [varchar](100) NULL
+[earthquake_rate] [float] NULL
+[earthquake_rate_type] [varchar](100) NULL
+[flood_and_cyclone_rate] [float] NULL
+[flood_and_cyclone_rate_type] [varchar](100) NULL
+[final_comprehensive_rate] [float] NULL
+[actual_comprehensive_rate] [float] NULL
+[mtr_per_passenger_rate] [float] NULL
+[mtr_per_driver_rate] [float] NULL
+[mtr_per_helper_rate] [float] NULL
+[mtr_per_passenger_rate_type] [varchar](100) NULL
+[mtr_per_driver_rate_type] [varchar](100) NULL
+[mtr_per_helper_rate_type] [varchar](100) NULL
+[loading_type] [varchar](100) NULL
+[no_claim_bonus_type] [varchar](100) NULL
+[mtr_passenger_times_multiply] [int] NULL
+[mtr_driver_times_multiply] [int] NULL
+[mtr_helper_times_multiply] [int] NULL
+[is_avls_discount] [bit] NULL
+[avls_discount_rate] [float] NULL
+[own_damage_dasic] [float] NOT NULL
+[days_count] [int] NOT NULL
+[short_period_rate] [float] NOT NULL
+[is_opposite_purpose_use_loading] [bit] NULL
+[opposite_purpose_use_loading_rate] [float] NULL
+[motor_engine_and_chassis_number] [varchar](255) NULL
+[motor_make_and_body_type] [varchar](255) NULL
+[manufacture_year] [varchar](50) NULL
+[name_of_registration_authority] [varchar](50) NULL
+[motor_model_number] [varchar](255) NULL
+[private_car_below_750_cc_discount_rate] [float] NULL
+[is_private_car_below_750] [bit] NULL
+[mtr_no_of_conductor] [int] NULL
+[mtr_no_of_guide] [int] NULL
+[mtr_per_conductor_rate] [float] NULL
+[mtr_per_guide_rate] [float] NULL
+[mtr_conductor_amount] [float] NULL
+[mtr_guide_amount] [float] NULL
+[lump_sum_amount] [bigint] NULL
+[tax_token] [varchar](255) NULL
+[fitness_expiry_date] [date] NULL
+[manufacturer] [varchar](255) NULL
+[company_or_model_name] [varchar](255) NULL
+[motor_terms_of_use_id] [bigint] NULL
+[owner] [varchar](500) NULL
+[total_seat_capacity] [int] NULL
+
+============================================
+
+"nomineeName":"",    
+"nomineeRelation":"",    
+"nomineeNid":"",
+"nomineeDateOfBirth":"",    
+"nomineeMobile":"",    
+"nomineeAddress":"",    
+"nomineeSharePct":100,
+"nomineeEmail ":""
