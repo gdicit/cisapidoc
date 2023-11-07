@@ -1025,7 +1025,6 @@ Request:
 {
   "productCode": "NIB",
   "commonInfo": {
-     "isExistingCustomer":false,
      "customerType": "", // BUSINESS, PERSONAL
      "customerGroupCode": "", // mendatory when customer type is BUSINESS, example: UNILIVER, ISPAHANI
      "customerId":10, // null when new customer
