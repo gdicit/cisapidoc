@@ -1028,7 +1028,7 @@ Request:
      "isExistingCustomer":false,
      "customerType": "", // BUSINESS, PERSONAL
      "customerGroupCode": "", // mendatory when customer type is BUSINESS, example: UNILIVER, ISPAHANI
-     "customerId":10,
+     "customerId":10, // null when new customer
      "customerDob":"",
      "customerMobile":"01989989989",
      "customerNid":"BHBHBHBHBH",
@@ -1142,72 +1142,54 @@ POST : {{base_url}}:8282/add-master-document
 
 {
     "loginUserInfo": {
-        "name": "Abul Hashem",
-        "employeeId": "EBL45454545",
+        "name": "Abul Hashem", // mendatory
+        "employeeId": "EBL45454545", // mendatory
         "mobile": "01969696465",
-        "email": "abc@gmail.com",
         "designation": "Assistant Sales Executive",
-        "gender": "Male",
-        "branch": "EBL_MKH"
+        "role": "Sales", // mendatory , example: Manager, RM, Sales
+        "clientCode": "EBL",
+        "branchCode": "MKH"
     },
     "customerInfo": {
-        "customerId": 10, // id will given for existing customer otherwise it will be null
-        "name": "Abul Hashem", // mendatory both, concat first name and last name when customer is personal
-        "firstName": "Abul", // mendatory personal
+        "customerId": 10, 
+        // it will also depend on creating new customer or considering an existing customer
+        // customerId will given for existing customer otherwise it will be null
+        "name": "Abul Hashem", // mendatory for both, concat first name and last name when customer is personal
+        "firstName": "Abul", // mendatory for personal
         "lastName": "Hashem", //optional
-        "mobileNo": "01236547852", // mendatory both
-        "dateOfBirth": "2000-01-01", // mendatory personal
-        "gender": "", // mendatory personal
-        "email": "abul@gmail.com", // mendatory personal
+        "mobileNo": "01236547852", // mendatory for both
+        "dateOfBirth": "2000-01-01", // mendatory for personal
+        "gender": "", // mendatory for personal
+        "email": "abul@gmail.com", // mendatory for personal
         "nationality": "Bangladeshi", //optional
-        "customerType": "BUSINESS", // mendatory business
-        "customerGroupCode": "UNILIVER", // mendatory business
-        "companyType": "REGISTERED", // mendatory business
+        "customerType": "BUSINESS", // mendatory for business
+        "customerGroupCode": "UNILIVER", // mendatory for business
+        "companyType": "REGISTERED", // mendatory for business
         "presentAddress": "169/ A Khilgaon, Dhaka-1219", // optional both
-        "permanentAddress": "Vill: Abu Gram, Thana: Raipur, District: Laxmipur", // mendatory both
-        "fatherName": "Kalam Khan", // mendatory personal
-        "motherName": "Sufia Khatun", // mendatory personal
-        "spouseName": "Afia Khatun", // mendatory personal
+        "permanentAddress": "Vill: Abu Gram, Thana: Raipur, District: Laxmipur", // mendatory for both
+        "fatherName": "Kalam Khan", // mendatory for personal
+        "motherName": "Sufia Khatun", // mendatory for personal
+        "spouseName": "Afia Khatun", // mendatory for personal
         "passportNo": "P-8989898998",
-        "passportExpireDate": "2025-01-01", // mendatory when passport no is given
+        "passportExpireDate": "2025-01-01", // mendatory for when passport no is given
         "birthRegNo": "",
         "tradeLicenceNo": "",
         "companyRegAuthority": "",
         "regIssueDate": "",
-        "bin": "000123456-7854", // mendatory business
+        "bin": "000123456-7854", // mendatory for business
         "tin": "",
         "nid": "",
         "incomeSource": "",
         "contactPerson": "",
         "contactAddress": "",
         "officeAddress": "",
-        "officeContactNumber": ""
+        "officeContactNumber": "",
+        "insuredAddress": "", 
+        // insuredAddress: mandatory for both cases, (existing or new customer), 
+        //by default it can be customers permanent address. 
+        // User can change the address as it will be consider as mailing address
     },
-    "commonInfo": {
-        "productCode": "NIB",
-        "subProductCode": "NIBEDITA_ECO",
-        "documentType": "P",
-        "documentDate": "2023-10-22",
-        "policyYear": "2023",
-        "policyDuration": "FULL",
-        "documentValidFrom": "2023-10-22",
-        "documentValidTo": "2024-10-22",
-        "totalDays": "365",
-        "totalMonth": "12",
-        "sumInsured": 1000000,
-        "currencyType": "BDT",
-        "currencyRate": 1,
-        "netPremium": 1000,
-        "vatType": "VAT",
-        "vatRate": 15,
-        "vatAmount": 150,
-        "stampDutyType": "Recoverable",
-        "stampType": "Fixed",
-        "stampAmount": 100,
-        "grossPremium": 1250,
-        "riskType":"", // Dropdown
-        "insuredAddress": "", // important, default is customer permanent address if customer is exist. Otherwise user input
-        
+    "commonInfo": {        
         "paymentMode": "CHEQUE", // FOR MR
         "paymentNumber": "CHQ-121212121", // FOR MR
         "trxNumber":"",
@@ -1217,15 +1199,33 @@ POST : {{base_url}}:8282/add-master-document
         "paymentRoutingNumber": "4545454" // FOR MR
     },
     "forDataSave": {}, // full response from get quotation
-    "nibPacPpaDetails": {
-        "situation":"", //UI: text field
+    "nib": {
+        "situation":"", //Insured address from forDataSave/customer: omit
         "occupation":"", //UI: text field
         "construction":"", //UI: text field
-        "pacOccupation":"", // Dropdown :from get product list API prerequisite
-        "pacClassType":"", // Dropdowm :from get product list API prerequisite
-        "pacCoverType":"", // Dropdowm :from get product list API prerequisite
-        "ppaAdditionalText":"", //UI: text field
-        "hasNominee":true,
+        "pacOccupation":"", // from forDataSave: omit
+        "pacClassType":"", // from forDataSave: omit
+        "pacCoverType":"", // from forDataSave: omit
+        "nomineeDetails":[
+            {
+            "nomineeName":"",    //UI: text field  , note, if as per schedule attached the the value of nomineeName will be 'As per schedule attached'
+            "nomineeRelation":"",   //UI: text field  
+            "nomineeNid":"", //UI: text field
+            "nomineeDateOfBirth":"",    //UI: Datepicker field , "2023-12-25"
+            "nomineeMobile":"",    //UI: text field
+            "nomineeAddress":"",     //UI: text field
+            "nomineeSharePct":100, //UI: Number field
+            "nomineeEmail ":"" //UI: text field
+            }
+        ]
+    },
+    "pac": {
+        "situation":"", //Insured address from forDataSave/customer: omit
+        "occupation":"", //UI: text field
+        "construction":"", //UI: text field
+        "pacOccupation":"", // from forDataSave: omit
+        "pacClassType":"", // from forDataSave: omit
+        "pacCoverType":"", // from forDataSave: omit
         "nomineeDetails":[{
             "nomineeName":"",    //UI: text field  , note, if as per schedule attached the the value of nomineeName will be 'As per schedule attached'
             "nomineeRelation":"",   //UI: text field  
@@ -1237,13 +1237,25 @@ POST : {{base_url}}:8282/add-master-document
             "nomineeEmail ":"" //UI: text field
         }]
     },
-    "mtrDetails": {
-        "mtrPlanName":"", //  Dropdown :from get product list API prerequisite
-        "mtrVehicleName":"", //  Dropdown :from get product list API prerequisite
-        "mtrVehicleType":"", //  Dropdown :from get product list API prerequisite
-        "mtrCcTon":"", //  Dropdown :from get product list API prerequisite
-        "mtrCcTonValue":150, // UI number field
-        "motorVehicleId":"", 
+    "ppa": {
+        "situation":"", //Insured address from forDataSave/customer: omit
+        "occupation":"", //UI: text field
+        "construction":"", //UI: text field
+        "pacOccupation":"", // from forDataSave: omit
+        "pacClassType":"", // from forDataSave: omit
+        "pacCoverType":"", // from forDataSave: omit
+        "nomineeDetails":[{
+            "nomineeName":"",    //UI: text field  , note, if as per schedule attached the the value of nomineeName will be 'As per schedule attached'
+            "nomineeRelation":"",   //UI: text field  
+            "nomineeNid":"", //UI: text field
+            "nomineeDateOfBirth":"",    //UI: Datepicker field , "2023-12-25"
+            "nomineeMobile":"",    //UI: text field
+            "nomineeAddress":"",     //UI: text field
+            "nomineeSharePct":100, //UI: Number field
+            "nomineeEmail ":"" //UI: text field
+        }]
+    },
+    "mtr": {
         "motorEngineAndChassisNumber":"",
         "motorMakeAndBodyType":"",
         "manufactureYear":"",
@@ -1253,11 +1265,47 @@ POST : {{base_url}}:8282/add-master-document
         "fitnessExpiryDate":"",
         "manufacturer":"",
         "companyOrModelName":"",
-        "motorTermsOfUseId":"",
-        "owner":"", // The insurer
-        "totalSeatCapacity":0
+        "motorTermsOfUseId":""
     },
-    "bnhEnsDetails": {
+    "bnh": { // kongula mandatrot ar optional jante hobe
+        "custOccupation":"", // customer occupation UI Text field
+        "custPasspostNo":"", // UI Text field
+        "custGender":"",
+        "planType":"", // UI dropdown
+        "medicalNonMedical":"", // UI dropdown
+        "interestInsured":"", // UI 
+        "reInsuredCountry":"", // UI dropdown
+        "doctorId":"", 
+        "planName":"", // UI dropdown, related with quotation
+        "coveredLimit":"", // UI dropdown, related with quotation
+        "insuredOccupation":"", // UI Text field
+        "employerName":"", // UI Text field
+        "employerAddress":"", // UI Text field
+        "officeTelephoneNo":"", // UI Text field
+        "nameOfTheUsualPhysician":"", // UI Text field
+        "physicianTelephoneNoOffice":"", // UI Text field
+        "physicianTelephoneNoHome":"", // UI Text field
+        "destCountryAddress":"", // UI Text field
+        "participant":"", // UI Text field
+        "visaType":"", // UI Text field
+        "sponsorName":"", // UI Text field
+        "destCountryCollege":"", // UI Text field
+        "destCountryOccupation":"", // UI Text field
+        "studyCourse":"", // UI Text field
+        "nextKinName":"", // UI Text field
+        "nextKinAddress":"", // UI Text field
+        "nextKinTelNo":"", // UI Text field
+        "nextKinRelationship":"", // UI Text field
+        "physicianHomeTelNo":"", // UI Text field
+        "ensType":"", // product code?
+        "loadingAmt":"", // default 0
+        "regionOfCountry":"", // UI dropdown, related with quotation
+        "numberOfChild":"",
+        "numberOfPerson":"",
+        "conversionRateUsdToBdt":"",
+        "placeVisitCode":""
+    },
+    "ens": { // kongula mandatrot ar optional jante hobe
         "custOccupation":"", // customer occupation UI Text field
         "custPasspostNo":"", // UI Text field
         "custGender":"",
@@ -1297,19 +1345,13 @@ POST : {{base_url}}:8282/add-master-document
     }
 }
 
-
 Response:
 {
     "result":true,
     "data": {
         "policyNumber":"GDI/AHO/09/2023/MTR/T/600003",
         "mrNumber":"5700001",
-        "mrUrl":"https://abcd/erty",
-        "policyUrl":"https://abcd/erty",
-        "customerId":100,
-        "customerBin":"",
-        "customerNid":"",
-        "customerMobile":""
+        "customerId":100
     },
     "remarks":{
         "succsess":["Successfully saved policy."],
