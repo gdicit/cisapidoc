@@ -188,6 +188,60 @@
                 }
             }
         },
+        "/api/get-quotation": {
+            "get": {
+                "tags": [
+                    "Quotation"
+                ],
+                "summary": "Get Quotation",
+                "description": "Returns specific product's quotation.",
+                "operationId": "getQuotationUsingGET",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "requestVm",
+                        "description": "requestVm",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Get Quotation Request Body"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Get Quotation Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
         "/api/get-quotation-pre-requisite": {
             "get": {
                 "tags": [
@@ -197,7 +251,7 @@
                 "description": "Returns the list of quotation pre requsite.",
                 "operationId": "getQuotationPreRequisiteUsingGET",
                 "produces": [
-                    "*/*"
+                    "application/json"
                 ],
                 "parameters": [
                     {
@@ -555,6 +609,34 @@
             },
             "title": "BNHDetails"
         },
+        "Bnh": {
+            "type": "object",
+            "properties": {
+                "coveredLimit": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 125000,
+                    "description": "Covered limit"
+                },
+                "dayStay": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 160,
+                    "description": "Number of days for stay"
+                },
+                "placeVisitCode": {
+                    "type": "string",
+                    "example": "C",
+                    "description": "Place visit code"
+                },
+                "policyDuration": {
+                    "type": "string",
+                    "example": "short",
+                    "description": "Policy duration (short or full)"
+                }
+            },
+            "title": "Bnh"
+        },
         "BnhDetails": {
             "type": "object",
             "properties": {
@@ -585,33 +667,65 @@
         "CommonInfo": {
             "type": "object",
             "properties": {
-                "paymentBankBranchId": {
+                "customerBin": {
                     "type": "string",
-                    "description": "Payment Bank Branch ID"
+                    "example": 10909090,
+                    "description": "Customer's BIN number"
                 },
-                "paymentBankName": {
+                "customerDob": {
                     "type": "string",
-                    "description": "Payment Bank Name"
+                    "example": "2000-01-01",
+                    "description": "Customer's date of birth"
                 },
-                "paymentDate": {
+                "customerGroupCode": {
                     "type": "string",
-                    "description": "Payment Date"
+                    "example": "UNILIVER",
+                    "description": "Customer group code"
                 },
-                "paymentMode": {
-                    "type": "string",
-                    "description": "Payment Mode"
+                "customerId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 10,
+                    "description": "Customer ID for existing customers"
                 },
-                "paymentNumber": {
+                "customerMobile": {
                     "type": "string",
-                    "description": "Payment Number"
+                    "example": "01989989989",
+                    "description": "Customer's mobile number"
                 },
-                "paymentRoutingNumber": {
+                "customerNid": {
                     "type": "string",
-                    "description": "Payment Routing Number"
+                    "example": "BHBHBHBHBH",
+                    "description": "Customer's national ID"
                 },
-                "trxNumber": {
+                "customerTin": {
                     "type": "string",
-                    "description": "Transaction Number"
+                    "example": "TIN-JGHGHGHGH",
+                    "description": "Customer's TIN number"
+                },
+                "customerType": {
+                    "type": "string",
+                    "example": "BUSINESS",
+                    "description": "Type of customer (BUSINESS or PERSONAL)"
+                },
+                "documentValidFrom": {
+                    "type": "string",
+                    "example": "2023-08-09",
+                    "description": "Validity start date of the document"
+                },
+                "documentValidTo": {
+                    "type": "string",
+                    "example": "2024-08-08",
+                    "description": "Validity end date of the document"
+                },
+                "existingCustomer": {
+                    "type": "boolean"
+                },
+                "sumInsured": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 100000,
+                    "description": "Sum insured amount"
                 }
             },
             "title": "CommonInfo"
@@ -1120,6 +1234,63 @@
             },
             "title": "ENSDetails"
         },
+        "Ens": {
+            "type": "object",
+            "properties": {
+                "conversionRateUsdToBdt": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 90,
+                    "description": "Conversion rate from USD to BDT"
+                },
+                "coveredLimit": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 125000,
+                    "description": "Covered limit"
+                },
+                "dayStay": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "Number of days for stay"
+                },
+                "ensType": {
+                    "type": "string",
+                    "example": "Employment",
+                    "description": "ENS type"
+                },
+                "monthStay": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 8,
+                    "description": "Number of months for stay"
+                },
+                "numberOfChild": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "Number of children"
+                },
+                "numberOfPerson": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1,
+                    "description": "Number of persons"
+                },
+                "placeVisitCode": {
+                    "type": "string",
+                    "example": "B",
+                    "description": "Place visit code"
+                },
+                "stampDutyType": {
+                    "type": "string",
+                    "example": "Recoverable",
+                    "description": "Stamp duty type (Recoverable or Non-Recoverable)"
+                }
+            },
+            "title": "Ens"
+        },
         "EnsDetails": {
             "type": "object",
             "properties": {
@@ -1167,6 +1338,83 @@
                 }
             },
             "title": "EnsType"
+        },
+        "ForDataSave": {
+            "type": "object",
+            "title": "ForDataSave"
+        },
+        "Get Quotation Request Body": {
+            "type": "object",
+            "properties": {
+                "commonInfo": {
+                    "description": "Common information",
+                    "$ref": "#/definitions/CommonInfo"
+                },
+                "productCode": {
+                    "type": "string",
+                    "example": "NIB",
+                    "description": "Product code"
+                },
+                "productSpecificInfo": {
+                    "description": "Product-specific information",
+                    "$ref": "#/definitions/ProductSpecificInfo"
+                }
+            },
+            "title": "Get Quotation Request Body"
+        },
+        "Get Quotation Response": {
+            "type": "object",
+            "properties": {
+                "discountAmount": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 0,
+                    "description": "Discount amount"
+                },
+                "forDataSave": {
+                    "description": "Data for saving purposes",
+                    "$ref": "#/definitions/ForDataSave"
+                },
+                "grossPremium": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 10485,
+                    "description": "Gross premium amount"
+                },
+                "netPremium": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 9100,
+                    "description": "Net premium amount"
+                },
+                "policyDuration": {
+                    "description": "Policy duration details",
+                    "$ref": "#/definitions/PolicyDuration"
+                },
+                "policyValidFrom": {
+                    "type": "string",
+                    "example": "2023-10-24",
+                    "description": "Policy valid from date"
+                },
+                "policyValidTo": {
+                    "type": "string",
+                    "example": "2024-10-23",
+                    "description": "Policy valid to date"
+                },
+                "stampAmount": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 20,
+                    "description": "Stamp amount"
+                },
+                "vatAmount": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 1365,
+                    "description": "VAT amount"
+                }
+            },
+            "title": "Get Quotation Response"
         },
         "LoginUserInfo": {
             "type": "object",
@@ -1309,6 +1557,233 @@
                 }
             },
             "title": "MotorVehicle"
+        },
+        "Mtr": {
+            "type": "object",
+            "properties": {
+                "avlsDiscount": {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "Whether AVLs discount is available"
+                },
+                "comprehensiveRate": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "Comprehensive rate"
+                },
+                "customerId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 70734,
+                    "description": "Customer ID"
+                },
+                "exclusionPerilList": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "fitnessExpiryDate": {
+                    "type": "string",
+                    "example": "2023-07-19",
+                    "description": "Fitness expiry date"
+                },
+                "loadingRate": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "Loading rate"
+                },
+                "lumpSumAmount": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "Lump sum amount"
+                },
+                "manufactureYear": {
+                    "type": "string",
+                    "example": 2019,
+                    "description": "Manufacture year"
+                },
+                "motorTermsOfUseId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1,
+                    "description": "Motor terms of use ID"
+                },
+                "mtrCcTon": {
+                    "type": "string",
+                    "example": "CC",
+                    "description": "MTR CC ton type (CC or Ton)"
+                },
+                "mtrCcTonValue": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 200,
+                    "description": "MTR CC ton value"
+                },
+                "mtrConductorAmount": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "Conductor amount"
+                },
+                "mtrConductorRate": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "Conductor rate"
+                },
+                "mtrDriverTimesMultiply": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1,
+                    "description": "Multiplier for driver count"
+                },
+                "mtrGuideAmount": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "Guide amount"
+                },
+                "mtrGuideRate": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "Guide rate"
+                },
+                "mtrHelperTimesMultiply": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1,
+                    "description": "Multiplier for helper count"
+                },
+                "mtrNoOfConductor": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "Number of conductors"
+                },
+                "mtrNoOfDriver": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1,
+                    "description": "Number of drivers"
+                },
+                "mtrNoOfGuide": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "Number of guides"
+                },
+                "mtrNoOfHelper": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "Number of helpers"
+                },
+                "mtrNoOfPassenger": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1,
+                    "description": "Number of passengers"
+                },
+                "mtrPassengerTimesMultiply": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1,
+                    "description": "Multiplier for passenger count"
+                },
+                "mtrPlanName": {
+                    "type": "string",
+                    "example": "Comprehensive",
+                    "description": "MTR plan name"
+                },
+                "mtrVehicleId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1,
+                    "description": "MTR vehicle ID"
+                },
+                "mtrVehicleType": {
+                    "type": "string",
+                    "example": "Private",
+                    "description": "MTR vehicle type"
+                },
+                "namedDriver": {
+                    "type": "boolean",
+                    "example": false,
+                    "description": "Whether named driver is available"
+                },
+                "ncbRate": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 0,
+                    "description": "No Claim Bonus rate"
+                },
+                "oppositePurposeUseLoading": {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "Whether loading is applicable for opposite purpose use"
+                },
+                "policyDuration": {
+                    "type": "string",
+                    "example": "full",
+                    "description": "Policy duration (short or full)"
+                },
+                "stampAmount": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 500,
+                    "description": "Stamp amount"
+                },
+                "stampDutyType": {
+                    "type": "string",
+                    "example": "Non-Recoverable",
+                    "description": "Stamp duty type (Recoverable or Non-Recoverable)"
+                },
+                "sumInsured": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 2000000,
+                    "description": "Sum insured amount"
+                },
+                "taxFreeVehicle": {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "Whether the vehicle is tax-free"
+                },
+                "taxToken": {
+                    "type": "string",
+                    "example": 3425345,
+                    "description": "Tax token number"
+                },
+                "techometerVehicle": {
+                    "type": "boolean",
+                    "example": true,
+                    "description": "Whether the vehicle has a tachometer"
+                },
+                "totalDays": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 365,
+                    "description": "Total days for policy"
+                },
+                "vatRate": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 15,
+                    "description": "VAT rate"
+                },
+                "vehicleRegistrationNumber": {
+                    "type": "string",
+                    "example": 323425,
+                    "description": "Vehicle registration number"
+                }
+            },
+            "title": "Mtr"
         },
         "MtrDetails": {
             "type": "object",
@@ -1633,6 +2108,22 @@
             },
             "title": "PPADetails"
         },
+        "Pac": {
+            "type": "object",
+            "properties": {
+                "pacClassTypeCode": {
+                    "type": "string",
+                    "example": "PAC123",
+                    "description": "PAC class type code"
+                },
+                "pacCoverTypeCode": {
+                    "type": "string",
+                    "example": "COVER456",
+                    "description": "PAC cover type code"
+                }
+            },
+            "title": "Pac"
+        },
         "PacClassDetails": {
             "type": "object",
             "properties": {
@@ -1733,6 +2224,35 @@
             },
             "title": "PlanType"
         },
+        "PolicyDuration": {
+            "type": "object",
+            "properties": {
+                "day": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 365,
+                    "description": "Number of days"
+                },
+                "month": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 12,
+                    "description": "Number of months"
+                },
+                "year": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1,
+                    "description": "Number of years"
+                },
+                "yearMonthDay": {
+                    "type": "string",
+                    "example": "year: 1, month: 12, day: 365",
+                    "description": "Formatted duration"
+                }
+            },
+            "title": "PolicyDuration"
+        },
         "PpaDetails": {
             "type": "object",
             "title": "PpaDetails"
@@ -1755,6 +2275,28 @@
                 }
             },
             "title": "Product Details Response"
+        },
+        "ProductSpecificInfo": {
+            "type": "object",
+            "properties": {
+                "bnh": {
+                    "description": "BNH information",
+                    "$ref": "#/definitions/Bnh"
+                },
+                "ens": {
+                    "description": "ENS information",
+                    "$ref": "#/definitions/Ens"
+                },
+                "mtr": {
+                    "description": "MTR information",
+                    "$ref": "#/definitions/Mtr"
+                },
+                "pac": {
+                    "description": "PAC information",
+                    "$ref": "#/definitions/Pac"
+                }
+            },
+            "title": "ProductSpecificInfo"
         },
         "Quotation Pre Requsite Response": {
             "type": "object",
