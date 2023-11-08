@@ -1,5 +1,6 @@
 {
 	"openapi": "3.0.0",
+	"x-explorer-enabled": false,
 	"info": {
 		"title": "CIS Middleware Documentation",
 		"description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system",
@@ -8,19 +9,16 @@
 			"url": "https://green-delta.com",
 			"email": "itdev@green-delta.com"
 		},
-		"license": {
-			
-		},
 		"version": "1.0.0"
 	},
 	"servers": [
 		{
-			"url": "https://<domain>:<port>",
-			"description": "Production"
+			"url": "https://<Sandbox-Domain>:<port>",
+			"description": "Sandbox"
 		},
 		{
-			"description": "Sandbox",
-			"url": "https://<domain>:<port>"
+			"description": "Production",
+			"url": "https://<Production-Domain>:<port>"
 		}
 	],
 	"security": [
