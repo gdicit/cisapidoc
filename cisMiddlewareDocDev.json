@@ -41,7 +41,7 @@
                     "application/json"
                 ],
                 "produces": [
-                    "*/*"
+                    "application/json"
                 ],
                 "parameters": [
                     {
@@ -152,7 +152,7 @@
                 "description": "Returns the list of the allowed products for showcasing with the product details like features, coverage, exclusions and also pre-requisite data list for getting quotations.",
                 "operationId": "productServiceUsingGET",
                 "produces": [
-                    "*/*"
+                    "application/json"
                 ],
                 "parameters": [
                     {
@@ -296,7 +296,7 @@
                 "description": "Returns a new token when the existing token is expires.",
                 "operationId": "refrestAuthTokenUsingGET",
                 "produces": [
-                    "*/*"
+                    "application/json"
                 ],
                 "parameters": [
                     {
@@ -344,7 +344,7 @@
                     "application/json"
                 ],
                 "produces": [
-                    "*/*"
+                    "application/json"
                 ],
                 "parameters": [
                     {
@@ -401,7 +401,7 @@
                     "application/json"
                 ],
                 "produces": [
-                    "*/*"
+                    "application/json"
                 ],
                 "parameters": [
                     {
