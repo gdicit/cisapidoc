@@ -502,7 +502,14 @@ Read the client id, client name, platform from token and then call get allowed p
 {
     "result": true,
     "data": {
-            "nib": [
+            "nib":{ 
+            "textField":[
+                {
+                "name":"",
+                "isRequired":false
+                }
+            ],
+            "dropdown":[
                 {
                     "productCode": "NIBEDITA_ECO",
                     "productName": "NIBEDITA ECO",
@@ -541,7 +548,8 @@ Read the client id, client name, platform from token and then call get allowed p
                         5000000
                     ]
                 }
-            ],
+                ]
+            },
             "pac": {
                 "pacClassDetailsList": [
                     {
