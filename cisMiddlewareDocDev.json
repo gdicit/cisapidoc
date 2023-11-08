@@ -104,7 +104,7 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "description": "Authentication Token: Bearer [token]",
+                        "description": "Bearer [token]",
                         "required": true,
                         "type": "string"
                     },
@@ -395,7 +395,7 @@
             ],
             "properties": {
                 "bnh": {
-                    "description": "BNH Details",
+                    "description": "Business & Holidays related details",
                     "$ref": "#/definitions/BNHDetails"
                 },
                 "commonInfo": {
@@ -407,27 +407,31 @@
                     "$ref": "#/definitions/CustomerInfo"
                 },
                 "ens": {
-                    "description": "ENS Details",
+                    "description": "Employment and Studies related details",
                     "$ref": "#/definitions/ENSDetails"
+                },
+                "forDataSave": {
+                    "type": "object",
+                    "description": "Exact quotation response will need to send in this object"
                 },
                 "loginUserInfo": {
                     "description": "Login User Information",
                     "$ref": "#/definitions/LoginUserInfo"
                 },
                 "mtr": {
-                    "description": "MTR Details",
+                    "description": "Motor product related details",
                     "$ref": "#/definitions/MTRDetails"
                 },
                 "nib": {
-                    "description": "NIB Details",
+                    "description": "Nibedita product related details",
                     "$ref": "#/definitions/NIBDetails"
                 },
                 "pac": {
-                    "description": "PAC Details",
+                    "description": "Personal Accident product related details",
                     "$ref": "#/definitions/PACDetails"
                 },
                 "ppa": {
-                    "description": "PPA Details",
+                    "description": "People's Personal Accident product related details",
                     "$ref": "#/definitions/PPADetails"
                 }
             },
@@ -584,14 +588,23 @@
         },
         "CommonInfo": {
             "type": "object",
+            "required": [
+                "paymentBankName",
+                "paymentBranchName",
+                "paymentDate",
+                "paymentMode",
+                "paymentNumber",
+                "paymentRoutingNumber",
+                "trxNumber"
+            ],
             "properties": {
-                "paymentBankBranchId": {
-                    "type": "string",
-                    "description": "Payment Bank Branch ID"
-                },
                 "paymentBankName": {
                     "type": "string",
                     "description": "Payment Bank Name"
+                },
+                "paymentBranchName": {
+                    "type": "string",
+                    "description": "Payment Branch Name"
                 },
                 "paymentDate": {
                     "type": "string",
@@ -799,7 +812,7 @@
                 },
                 "companyType": {
                     "type": "string",
-                    "description": "Type of company (e.g., REGISTERED). Mandatory for business customers."
+                    "description": "Type of company (e.g., REGISTERED). Required for business customers."
                 },
                 "contactAddress": {
                     "type": "string",
@@ -811,24 +824,24 @@
                 },
                 "customerGroupCode": {
                     "type": "string",
-                    "description": "Customer group code (e.g., UNILIVER). Mandatory for business customers."
+                    "description": "Customer group code (e.g., UNILIVER). Required for business customers."
                 },
                 "customerId": {
                     "type": "integer",
                     "format": "int32",
-                    "description": "Customer ID. It will depend on whether it's a new customer or an existing one."
+                    "description": "Customer ID. It will depend on whether it's a new customer or an existing one. customerId will given for existing customer otherwise it will be null"
                 },
                 "customerType": {
                     "type": "string",
-                    "description": "Type of customer (e.g., BUSINESS). Mandatory for business customers."
+                    "description": "Type of customer (e.g., BUSINESS). Required for business customers."
                 },
                 "dateOfBirth": {
                     "type": "string",
-                    "description": "Date of birth of the customer. Mandatory for personal customers."
+                    "description": "Date of birth of the customer. Mandatory for personal customers. Required for new PERSONAL customer."
                 },
                 "email": {
                     "type": "string",
-                    "description": "Email address of the customer. Mandatory for personal customers."
+                    "description": "Email address of the customer. Mandatory for personal customers. Required for new customer."
                 },
                 "fatherName": {
                     "type": "string",
@@ -836,11 +849,11 @@
                 },
                 "firstName": {
                     "type": "string",
-                    "description": "First name of the customer. Mandatory for personal customers."
+                    "description": "First name of the customer. Mandatory for personal customers. Required for new PERSONAL customer. "
                 },
                 "gender": {
                     "type": "string",
-                    "description": "Gender of the customer. Mandatory for personal customers."
+                    "description": "Gender of the customer. Mandatory for personal customers. Required for new PERSONAL customer."
                 },
                 "incomeSource": {
                     "type": "string",
@@ -848,7 +861,7 @@
                 },
                 "insuredAddress": {
                     "type": "string",
-                    "description": "Insured address. Mandatory for both existing and new customers."
+                    "description": "Insured address. Mandatory for both existing and new customers. By default it can be customers permanent address. User can change the address as it will be consider as mailing address"
                 },
                 "lastName": {
                     "type": "string",
@@ -856,7 +869,7 @@
                 },
                 "mobileNo": {
                     "type": "string",
-                    "description": "Mobile number of the customer. Mandatory for both personal and business customers."
+                    "description": "Mobile number of the customer. Mandatory for both personal and business customers. Required for new customer."
                 },
                 "motherName": {
                     "type": "string",
@@ -864,7 +877,7 @@
                 },
                 "name": {
                     "type": "string",
-                    "description": "Full name of the customer. Mandatory for both personal and business customers."
+                    "description": "Full name of the customer. Mandatory for both personal and business customers. Required for new customer."
                 },
                 "nationality": {
                     "type": "string",
@@ -884,7 +897,7 @@
                 },
                 "passportExpireDate": {
                     "type": "string",
-                    "description": "Passport expiration date (if applicable). Mandatory when passport number is given."
+                    "description": "Passport expiration date (if applicable). Mandatory when passport number (passportNo) is given."
                 },
                 "passportNo": {
                     "type": "string",
@@ -892,7 +905,7 @@
                 },
                 "permanentAddress": {
                     "type": "string",
-                    "description": "Permanent address of the customer. Mandatory for both personal and business customers."
+                    "description": "Permanent address of the customer. Required for both personal and business customers."
                 },
                 "presentAddress": {
                     "type": "string",
@@ -1430,11 +1443,6 @@
         },
         "NIBDetails": {
             "type": "object",
-            "required": [
-                "construction",
-                "occupation",
-                "situation"
-            ],
             "properties": {
                 "construction": {
                     "type": "string",
@@ -1450,22 +1458,6 @@
                 "occupation": {
                     "type": "string",
                     "description": "Occupation"
-                },
-                "pacClassType": {
-                    "type": "string",
-                    "description": "PAC Class Type"
-                },
-                "pacCoverType": {
-                    "type": "string",
-                    "description": "PAC Cover Type"
-                },
-                "pacOccupation": {
-                    "type": "string",
-                    "description": "PAC Occupation"
-                },
-                "situation": {
-                    "type": "string",
-                    "description": "Situation"
                 }
             },
             "title": "NIBDetails"
@@ -1551,11 +1543,6 @@
         },
         "PACDetails": {
             "type": "object",
-            "required": [
-                "construction",
-                "occupation",
-                "situation"
-            ],
             "properties": {
                 "construction": {
                     "type": "string",
@@ -1571,33 +1558,12 @@
                 "occupation": {
                     "type": "string",
                     "description": "Occupation"
-                },
-                "pacClassType": {
-                    "type": "string",
-                    "description": "PAC Class Type"
-                },
-                "pacCoverType": {
-                    "type": "string",
-                    "description": "PAC Cover Type"
-                },
-                "pacOccupation": {
-                    "type": "string",
-                    "description": "PAC Occupation"
-                },
-                "situation": {
-                    "type": "string",
-                    "description": "Situation"
                 }
             },
             "title": "PACDetails"
         },
         "PPADetails": {
             "type": "object",
-            "required": [
-                "construction",
-                "occupation",
-                "situation"
-            ],
             "properties": {
                 "construction": {
                     "type": "string",
@@ -1613,22 +1579,6 @@
                 "occupation": {
                     "type": "string",
                     "description": "Occupation"
-                },
-                "pacClassType": {
-                    "type": "string",
-                    "description": "PAC Class Type"
-                },
-                "pacCoverType": {
-                    "type": "string",
-                    "description": "PAC Cover Type"
-                },
-                "pacOccupation": {
-                    "type": "string",
-                    "description": "PAC Occupation"
-                },
-                "situation": {
-                    "type": "string",
-                    "description": "Situation"
                 }
             },
             "title": "PPADetails"
