@@ -503,393 +503,601 @@ Read the client id, client name, platform from token and then call get allowed p
     "result": true,
     "data": {
             "nib":{ 
-            "textField":[
-                {
-                "name":"",
-                "isRequired":false
-                }
-            ],
-            "dropdown":[
-                {
-                    "productCode": "NIBEDITA_ECO",
-                    "productName": "NIBEDITA ECO",
-                    "sumInsuredList": [
-                        50000,
-                        100000,
-                        150000,
-                        200000
+                "textField":[],
+                "dropdown":[
+                    {
+                        "productCode": "NIBEDITA_ECO",
+                        "productName": "NIBEDITA ECO",
+                        "sumInsuredList": [
+                            50000,
+                            100000,
+                            150000,
+                            200000
+                        ]
+                    },
+                    {
+                        "productCode": "NIBEDITA_REGULAR",
+                        "productName": "NIBEDITA REGULAR",
+                        "sumInsuredList": [
+                            100000,
+                            200000,
+                            300000,
+                            400000,
+                            500000,
+                            600000,
+                            700000,
+                            800000,
+                            900000,
+                            1000000
+                        ]
+                    },
+                    {
+                        "productCode": "NIBEDITA_PLUS",
+                        "productName": "NIBEDITA PLUS",
+                        "sumInsuredList": [
+                            500000,
+                            1000000,
+                            2000000,
+                            3000000,
+                            4000000,
+                            5000000
+                        ]
+                    }
                     ]
                 },
-                {
-                    "productCode": "NIBEDITA_REGULAR",
-                    "productName": "NIBEDITA REGULAR",
-                    "sumInsuredList": [
-                        100000,
-                        200000,
-                        300000,
-                        400000,
-                        500000,
-                        600000,
-                        700000,
-                        800000,
-                        900000,
-                        1000000
-                    ]
-                },
-                {
-                    "productCode": "NIBEDITA_PLUS",
-                    "productName": "NIBEDITA PLUS",
-                    "sumInsuredList": [
-                        500000,
-                        1000000,
-                        2000000,
-                        3000000,
-                        4000000,
-                        5000000
-                    ]
-                }
-                ]
-            },
             "pac": {
-                "pacClassDetailsList": [
-                    {
-                        "classCode": "A",
-                        "className": "Plan - A",
-                        "pacOccupationList": [
-                            "Accountants",
-                            "Bankers",
-                            "Barristers",
-                            "Medical Practitioners",
-                            "Mercantile Assistants",
-                            "Engaged solely in Executive",
-                            "Administrative",
-                            "Clerical duties"
-                        ]
-                    },
-                    {
-                        "classCode": "B",
-                        "className": "Plan - B",
-                        "pacOccupationList": [
-                            "Architects",
-                            "Planters",
-                            "Electrical Engineers (Superintending only)",
-                            "Master Tradesman who supervise"
-                        ]
-                    },
-                    {
-                        "classCode": "C",
-                        "className": "Plan - C",
-                        "pacOccupationList": [
-                            "Motor Engineering (Master work)",
-                            "Veterinary Surgeons",
-                            "Person engaged in Manual work not in hazards or wood working Machinery",
-                            "Other Occupation"
-                        ]
-                    }
-                ],
-                "pacCoverTypeDetailsList": [
-                    {
-                        "coverTypeCode": "A",
-                        "coverTypeName": "TABLE-A- Personal Accidental death permanent & temporary disablement including Medical Expenses."
-                    },
-                    {
-                        "coverTypeCode": "AA",
-                        "coverTypeName": "TABLE-A- - Personal Accidental death permanent & temporary disablement."
-                    },
-                    {
-                        "coverTypeCode": "B",
-                        "coverTypeName": "TABLE-B- - Personal Accidental death permanent total & partial disablement."
-                    },
-                    {
-                        "coverTypeCode": "C",
-                        "coverTypeName": "TABLE-C- Personal Accidental death only."
-                    }
-                ]
+                "textField":[],
+                "dropdown":{
+                    "pacClassDetailsList": [
+                        {
+                            "classCode": "A",
+                            "className": "Plan - A",
+                            "pacOccupationList": [
+                                "Accountants",
+                                "Bankers",
+                                "Barristers",
+                                "Medical Practitioners",
+                                "Mercantile Assistants",
+                                "Engaged solely in Executive",
+                                "Administrative",
+                                "Clerical duties"
+                            ]
+                        },
+                        {
+                            "classCode": "B",
+                            "className": "Plan - B",
+                            "pacOccupationList": [
+                                "Architects",
+                                "Planters",
+                                "Electrical Engineers (Superintending only)",
+                                "Master Tradesman who supervise"
+                            ]
+                        },
+                        {
+                            "classCode": "C",
+                            "className": "Plan - C",
+                            "pacOccupationList": [
+                                "Motor Engineering (Master work)",
+                                "Veterinary Surgeons",
+                                "Person engaged in Manual work not in hazards or wood working Machinery",
+                                "Other Occupation"
+                            ]
+                        }
+                    ],
+                    "pacCoverTypeDetailsList": [
+                        {
+                            "coverTypeCode": "A",
+                            "coverTypeName": "TABLE-A- Personal Accidental death permanent & temporary disablement including Medical Expenses."
+                        },
+                        {
+                            "coverTypeCode": "AA",
+                            "coverTypeName": "TABLE-A- - Personal Accidental death permanent & temporary disablement."
+                        },
+                        {
+                            "coverTypeCode": "B",
+                            "coverTypeName": "TABLE-B- - Personal Accidental death permanent total & partial disablement."
+                        },
+                        {
+                            "coverTypeCode": "C",
+                            "coverTypeName": "TABLE-C- Personal Accidental death only."
+                        }
+                    ]
+                },
             },
             "ppa": {},
             "ens": {
-                "placeVisitList": [
+                "textFields":[
                     {
-                        "placeVisit": "Plan \"C\" : For Schengen Countries and Worldwide Excluding USA and Canada",
-                        "placeVisitCode": "A"
+                        "name":"numberOfChild",
+                        "type":"int",
+                        "required":true
+                    },
+                     {
+                        "name":"conversionRateUsdToBdt", // APPLICABLE when ensType=Employment
+                        "type":"int",
+                        "required":false
+                    },
+                     {
+                        "name":"numberOfPerson", // APPLICABLE when ensType=Employment
+                        "type":"int",
+                        "required":false 
                     },
                     {
-                        "placeVisit": "Plan \"D\" : For Schengen Countries and Worldwide Including USA and Canada",
-                        "placeVisitCode": "B"
+                        "name":"monthStay", 
+                        "type":"int",
+                        "required":true
                     },
                     {
-                        "placeVisit": "Plan \"C\" : For Non Schengen Countries and Worldwide Excluding USA and Canada",
-                        "placeVisitCode": "H"
-                    },
-                    {
-                        "placeVisit": "Plan \"D\" : For Non Schengen Countries and Worldwide Including USA and Canada",
-                        "placeVisitCode": "I"
+                        "name":"coveredLimit", // If covered limit select then coveredLimit=125000 else 0
+                        "type":"int",
+                        "required":false
                     }
                 ],
-                "planTypeList": [
-                    {
-                        "name": "A",
-                        "value": "A"
-                    },
-                    {
-                        "name": "B",
-                        "value": "B"
-                    }
-                ],
-                "medicalTypeList": [
-                    {
-                        "name": "Medical",
-                        "value": "Medical"
-                    },
-                    {
-                        "name": "Non Medical",
-                        "value": "Non Medical"
-                    }
-                ],
-                "ensTypeList": [
-                    {
-                        "name": "Study",
-                        "value": "Study"
-                    },
-                    {
-                        "name": "Employment",
-                        "value": "Employment"
-                    }
-                ]
+                "dropdown":{
+                    // placeVisitList Geographical area
+                    "placeVisitList": [
+                        {
+                            "placeVisit": "Plan \"C\" : For Schengen Countries and Worldwide Excluding USA and Canada",
+                            "placeVisitCode": "A"
+                        },
+                        {
+                            "placeVisit": "Plan \"D\" : For Schengen Countries and Worldwide Including USA and Canada",
+                            "placeVisitCode": "B"
+                        },
+                        {
+                            "placeVisit": "Plan \"C\" : For Non Schengen Countries and Worldwide Excluding USA and Canada",
+                            "placeVisitCode": "H"
+                        },
+                        {
+                            "placeVisit": "Plan \"D\" : For Non Schengen Countries and Worldwide Including USA and Canada",
+                            "placeVisitCode": "I"
+                        }
+                    ],
+                    "planTypeList": [
+                        {
+                            "name": "A",
+                            "value": "A"
+                        },
+                        {
+                            "name": "B",
+                            "value": "B"
+                        }
+                    ],
+                    "medicalTypeList": [
+                        {
+                            "name": "Medical",
+                            "value": "Medical"
+                        },
+                        {
+                            "name": "Non Medical",
+                            "value": "Non Medical"
+                        }
+                    ],
+                    "ensTypeList": [
+                        {
+                            "name": "Study",
+                            "value": "Study"
+                        },
+                        {
+                            "name": "Employment",
+                            "value": "Employment"
+                        }
+                    ]
+                }
             },
             "bnh": {
-                "placeVisitList": [
+                "textField":[
                     {
-                        "placeVisit": "Plan \"A\" : For Schengen Countries and Worldwide Excluding USA and Canada",
-                        "placeVisitCode": "C"
+                        "name":"dayStay", 
+                        "type":"int",
+                        "required":true
                     },
                     {
-                        "placeVisit": "Plan \"B\" : For Schengen Countries and Worldwide Including USA and Canada",
-                        "placeVisitCode": "F"
-                    },
-                    {
-                        "placeVisit": "Plan \"A\" : For Non Schengen Countries and Worldwide Excluding USA and Canada",
-                        "placeVisitCode": "G"
-                    },
-                    {
-                        "placeVisit": "Plan \"B\" : For Non Schengen Countries and Worldwide Including USA and Canada",
-                        "placeVisitCode": "L"
+                        "name":"coveredLimit", // If covered limit select then coveredLimit=125000 else 0
+                        "type":"int",
+                        "required":false
                     }
                 ],
-                "planTypeList": [
-                    {
-                        "name": "A",
-                        "value": "A"
-                    },
-                    {
-                        "name": "B",
-                        "value": "B"
-                    }
-                ],
-                "medicalTypeList": [
-                    {
-                        "name": "Medical",
-                        "value": "Medical"
-                    },
-                    {
-                        "name": "Non Medical",
-                        "value": "Non Medical"
-                    }
-                ]
+                "dropdown":{
+                    "placeVisitList": [
+                        {
+                            "placeVisit": "Plan \"A\" : For Schengen Countries and Worldwide Excluding USA and Canada",
+                            "placeVisitCode": "C"
+                        },
+                        {
+                            "placeVisit": "Plan \"B\" : For Schengen Countries and Worldwide Including USA and Canada",
+                            "placeVisitCode": "F"
+                        },
+                        {
+                            "placeVisit": "Plan \"A\" : For Non Schengen Countries and Worldwide Excluding USA and Canada",
+                            "placeVisitCode": "G"
+                        },
+                        {
+                            "placeVisit": "Plan \"B\" : For Non Schengen Countries and Worldwide Including USA and Canada",
+                            "placeVisitCode": "L"
+                        }
+                    ],
+                    "planTypeList": [
+                        {
+                            "name": "A",
+                            "value": "A"
+                        },
+                        {
+                            "name": "B",
+                            "value": "B"
+                        }
+                    ],
+                    "medicalTypeList": [
+                        {
+                            "name": "Medical",
+                            "value": "Medical"
+                        },
+                        {
+                            "name": "Non Medical",
+                            "value": "Non Medical"
+                        }
+                    ]
+                }
             },
             "mtr": {
-                "motorPlanTypes": [
-                        {
-                            "name": "Comprehensive",
-                            "value": "Comprehensive"
-                        },
-                        {
-                            "name": "Comprehensive (Fire Only)",
-                            "value": "ComprehensiveFireOnly"
-                        },
-                        {
-                            "name": "Comprehensive (Theft Only)",
-                            "value": "ComprehensiveTheftOnly"
-                        },
-                        {
-                            "name": "Comprehensive (Fire And Theft)",
-                            "value": "ComprehensiveFireAndTheft"
-                        },
-                        {
-                            "name": "Act Liability",
-                            "value": "ActLiability"
-                        }
-                    ],
-                "vehicleTypes": [
-                        {
-                            "name": "Private",
-                            "value": "Private"
-                        },
-                        {
-                            "name": "Commercial",
-                            "value": "Commercial"
-                        }
-                    ],
-                "motorCCNames": [
-                        {
-                            "name": "NA",
-                            "value": "NA"
-                        },
-                        {
-                            "name": "CC",
-                            "value": "CC"
-                        },
-                        {
-                            "name": "TON",
-                            "value": "TON"
-                        },
-                        {
-                            "name": "SEAT",
-                            "value": "SEAT"
-                        },
-                        {
-                            "name": "HP",
-                            "value": "HP"
-                        }
-                    ],
-                "mtrVehicleList": [
+                "textField":[
+                    {
+                        "name":"mtrCcTonValue", 
+                        "type":"int",
+                        "required":true
+                    },
+                    {
+                        "name":"totalSeatCapacity", 
+                        "type":"int",
+                        "required":true
+                    },
+                    {
+                        "name":"mtrNoOfDriver", 
+                        "type":"int",
+                        "required":true
+                    },
+                    {
+                        "name":"mtrNoOfConductor", 
+                        "type":"int",
+                        "required":true
+                    },
+                    {
+                        "name":"mtrNoOfGuide", 
+                        "type":"int",
+                        "required":true
+                    },
+                    {
+                        "name":"mtrNoOfHelper", 
+                        "type":"int",
+                        "required":true
+                    },
+                    {
+                        "name":"mtrNoOfPassenger", 
+                        "type":"int",
+                        "required":true
+                    },
+                    {
+                        "name":"mtrConductorRate", 
+                        "type":"float",
+                        "required":true
+                    },
+                    {
+                        "name":"mtrGuideRate", 
+                        "type":"float",
+                        "required":true
+                    },
+                    {
+                        "name":"lumpSumAmount", 
+                        "type":"int",
+                        "required":false
+                    },
+                    {
+                        "name":"taxFreeVehicle", 
+                        "type":"boolean",
+                        "required":true
+                    },
+                    {
+                        "name":"techometerVehicle", 
+                        "type":"boolean",
+                        "required":true
+                    },
+                    {
+                        "name":"namedDriver", 
+                        "type":"boolean",
+                        "required":true
+                    },
+                    {
+                        "name":"loadingRate", 
+                        "type":"float",
+                        "required":true
+                    },
+                    {
+                        "name":"ncbRate", 
+                        "type":"int",
+                        "required":false
+                    },
+                    {
+                        "name":"mtrPassengerTimesMultiply", 
+                        "type":"int",
+                        "required":true
+                    },
+                    {
+                        "name":"mtrDriverTimesMultiply", 
+                        "type":"int",
+                        "required":true
+                    },
+                    {
+                        "name":"mtrHelperTimesMultiply", 
+                        "type":"int",
+                        "required":false
+                    }
+                ],
+                "dropdown":{
+                    "motorPlanTypes": [
                             {
-                                "vehicleName": "Motor Cycle",
-                                "description": "Motor Cycle"
+                                "name": "Comprehensive",
+                                "value": "Comprehensive"
                             },
                             {
-                                "vehicleName": "Three wheeler",
-                                "description": "Three/ 3 wheeler"
+                                "name": "Comprehensive (Fire Only)",
+                                "value": "ComprehensiveFireOnly"
                             },
                             {
-                                "vehicleName": "Private Car",
-                                "description": "Private Car"
+                                "name": "Comprehensive (Theft Only)",
+                                "value": "ComprehensiveTheftOnly"
                             },
                             {
-                                "vehicleName": "Ambulance",
-                                "description": "Ambulance"
+                                "name": "Comprehensive (Fire And Theft)",
+                                "value": "ComprehensiveFireAndTheft"
                             },
                             {
-                                "vehicleName": "Truck",
-                                "description": "Truck/ Pickup/Covered Van/Delivery Van"
-                            },
-                            {
-                                "vehicleName": "Bus",
-                                "description": "Bus"
-                            },
-                            {
-                                "vehicleName": "Air Line Vehicles",
-                                "description": "Omnibus"
-                            },
-                            {
-                                "vehicleName": "Microbus",
-                                "description": "Microbus"
-                            },
-                            {
-                                "vehicleName": "Four wheeler(tempo/ leguna)",
-                                "description": "Tempo/Leguna"
-                            },
-                            {
-                                "vehicleName": "Agri(Pedestrian Controlled Tractor)",
-                                "description": "Agri(Pedestrian Controlled Tractor)"
-                            },
-                            {
-                                "vehicleName": "Agri(Haulage upto two trailer confined to insured farm & concession)",
-                                "description": "Agri(Haulage upto two trailer confined to insured farm & concession)"
-                            },
-                            {
-                                "vehicleName": "Agri(Haulage upto two trailer not confined to insured farm & concession)",
-                                "description": "Agri(Haulage upto two trailer not confined to insured farm & concession)"
-                            },
-                            {
-                                "vehicleName": "Taxi Car",
-                                "description": "Taxi commercial"
-                            },
-                            {
-                                "vehicleName": "Pickup",
-                                "description": "Truck/ Pickup/Covered Van/Delivery Van"
-                            },
-                            {
-                                "vehicleName": "Covered Van",
-                                "description": "Truck/ Pickup/Covered Van/Delivery Van"
-                            },
-                            {
-                                "vehicleName": "Delivery Van",
-                                "description": "Truck/ Pickup/Covered Van/Delivery Van"
-                            },
-                            {
-                                "vehicleName": "Double Deck Bus",
-                                "description": "Double Deck Bus"
-                            },
-                            {
-                                "vehicleName": "Excavator (Used Confined to Insured Own Premises)",
-                                "description": "Excavator (Used Confined to Insured Own Premises)"
-                            },
-                            {
-                                "vehicleName": "Lori",
-                                "description": "Lori"
-                            },
-                            {
-                                "vehicleName": "Trailer",
-                                "description": "Trailer"
-                            },
-                            {
-                                "vehicleName": "Crane (Premanently Fitted Vehicle)",
-                                "description": "Crane (Premanently Fitted Vehicle)"
-                            },
-                            {
-                                "vehicleName": "Mobile shop and canteen (Vehicle)",
-                                "description": "Mobile shop and canteen (Vehicle)"
-                            },
-                            {
-                                "vehicleName": "Motorized Rickshaw",
-                                "description": "Motorized Rickshaw"
-                            },
-                            {
-                                "vehicleName": "Excavator (Used not Confined to Insured Own Premises)",
-                                "description": "Excavator (Used not Confined to Insured Own Premises)"
-                            },
-                            {
-                                "vehicleName": "Crane (Goods Carrying Vehicle)",
-                                "description": "Crane (Crane (Goods Carrying Vehicle))"
-                            },
-                            {
-                                "vehicleName": "Mobile shop and canteen (Trailer)",
-                                "description": "Mobile shop and canteen (Trailer)"
-                            },
-                            {
-                                "vehicleName": "Electric Vehicle",
-                                "description": "Electric Vehicle"
-                            },
-                            {
-                                "vehicleName": "CNG",
-                                "description": "CNG"
+                                "name": "Act Liability",
+                                "value": "ActLiability"
                             }
                         ],
-                "mtrPerilExclusion": [
+                    "vehicleTypes": [
                             {
-                                "id": 722,
-                                "deptCode": "MTR",
-                                "classCode": "MTR",
-                                "perilCode": "R&SD",
-                                "perilName": "Riot And Strike"
+                                "name": "Private",
+                                "value": "Private"
                             },
                             {
-                                "id": 723,
-                                "deptCode": "MTR",
-                                "classCode": "MTR",
-                                "perilCode": "EQ (F & S)",
-                                "perilName": "Earthquake"
+                                "name": "Commercial",
+                                "value": "Commercial"
+                            }
+                        ],
+                    "motorCCNames": [
+                            {
+                                "name": "NA",
+                                "value": "NA"
                             },
                             {
-                                "id": 724,
-                                "deptCode": "MTR",
-                                "classCode": "MTR",
-                                "perilCode": "FLD & CYC",
-                                "perilName": "Flood And Cyclone"
+                                "name": "CC",
+                                "value": "CC"
+                            },
+                            {
+                                "name": "TON",
+                                "value": "TON"
+                            },
+                            {
+                                "name": "SEAT",
+                                "value": "SEAT"
+                            },
+                            {
+                                "name": "HP",
+                                "value": "HP"
                             }
-                        ]
-                            }
+                        ],
+                    "mtrVehicleList": [
+                                {
+                                    "vehicleName": "Motor Cycle",
+                                    "description": "Motor Cycle"
+                                },
+                                {
+                                    "vehicleName": "Three wheeler",
+                                    "description": "Three/ 3 wheeler"
+                                },
+                                {
+                                    "vehicleName": "Private Car",
+                                    "description": "Private Car"
+                                },
+                                {
+                                    "vehicleName": "Ambulance",
+                                    "description": "Ambulance"
+                                },
+                                {
+                                    "vehicleName": "Truck",
+                                    "description": "Truck/ Pickup/Covered Van/Delivery Van"
+                                },
+                                {
+                                    "vehicleName": "Bus",
+                                    "description": "Bus"
+                                },
+                                {
+                                    "vehicleName": "Air Line Vehicles",
+                                    "description": "Omnibus"
+                                },
+                                {
+                                    "vehicleName": "Microbus",
+                                    "description": "Microbus"
+                                },
+                                {
+                                    "vehicleName": "Four wheeler(tempo/ leguna)",
+                                    "description": "Tempo/Leguna"
+                                },
+                                {
+                                    "vehicleName": "Agri(Pedestrian Controlled Tractor)",
+                                    "description": "Agri(Pedestrian Controlled Tractor)"
+                                },
+                                {
+                                    "vehicleName": "Agri(Haulage upto two trailer confined to insured farm & concession)",
+                                    "description": "Agri(Haulage upto two trailer confined to insured farm & concession)"
+                                },
+                                {
+                                    "vehicleName": "Agri(Haulage upto two trailer not confined to insured farm & concession)",
+                                    "description": "Agri(Haulage upto two trailer not confined to insured farm & concession)"
+                                },
+                                {
+                                    "vehicleName": "Taxi Car",
+                                    "description": "Taxi commercial"
+                                },
+                                {
+                                    "vehicleName": "Pickup",
+                                    "description": "Truck/ Pickup/Covered Van/Delivery Van"
+                                },
+                                {
+                                    "vehicleName": "Covered Van",
+                                    "description": "Truck/ Pickup/Covered Van/Delivery Van"
+                                },
+                                {
+                                    "vehicleName": "Delivery Van",
+                                    "description": "Truck/ Pickup/Covered Van/Delivery Van"
+                                },
+                                {
+                                    "vehicleName": "Double Deck Bus",
+                                    "description": "Double Deck Bus"
+                                },
+                                {
+                                    "vehicleName": "Excavator (Used Confined to Insured Own Premises)",
+                                    "description": "Excavator (Used Confined to Insured Own Premises)"
+                                },
+                                {
+                                    "vehicleName": "Lori",
+                                    "description": "Lori"
+                                },
+                                {
+                                    "vehicleName": "Trailer",
+                                    "description": "Trailer"
+                                },
+                                {
+                                    "vehicleName": "Crane (Premanently Fitted Vehicle)",
+                                    "description": "Crane (Premanently Fitted Vehicle)"
+                                },
+                                {
+                                    "vehicleName": "Mobile shop and canteen (Vehicle)",
+                                    "description": "Mobile shop and canteen (Vehicle)"
+                                },
+                                {
+                                    "vehicleName": "Motorized Rickshaw",
+                                    "description": "Motorized Rickshaw"
+                                },
+                                {
+                                    "vehicleName": "Excavator (Used not Confined to Insured Own Premises)",
+                                    "description": "Excavator (Used not Confined to Insured Own Premises)"
+                                },
+                                {
+                                    "vehicleName": "Crane (Goods Carrying Vehicle)",
+                                    "description": "Crane (Crane (Goods Carrying Vehicle))"
+                                },
+                                {
+                                    "vehicleName": "Mobile shop and canteen (Trailer)",
+                                    "description": "Mobile shop and canteen (Trailer)"
+                                },
+                                {
+                                    "vehicleName": "Electric Vehicle",
+                                    "description": "Electric Vehicle"
+                                },
+                                {
+                                    "vehicleName": "CNG",
+                                    "description": "CNG"
+                                }
+                            ],
+                    "mtrPerilExclusion": [
+                                {
+                                    "id": 722,
+                                    "deptCode": "MTR",
+                                    "classCode": "MTR",
+                                    "perilCode": "R&SD",
+                                    "perilName": "Riot And Strike"
+                                },
+                                {
+                                    "id": 723,
+                                    "deptCode": "MTR",
+                                    "classCode": "MTR",
+                                    "perilCode": "EQ (F & S)",
+                                    "perilName": "Earthquake"
+                                },
+                                {
+                                    "id": 724,
+                                    "deptCode": "MTR",
+                                    "classCode": "MTR",
+                                    "perilCode": "FLD & CYC",
+                                    "perilName": "Flood And Cyclone"
+                                }
+                            ],
+                    "termsOfUse": [
+                        {
+                            "id": 1,
+                            "termsOfUseName": "USE SOLELY FOR SOCIAL DOMESTIC AND PLEASURE PURPOSE",
+                            "termsOfUseCode": "1233"
+                        },
+                        {
+                            "id": 3,
+                            "termsOfUseName": "USE ONLY FOR SOCIAL PURPOSE AND IN CONNECTION WITH THE INSUREDS BUSINESS",
+                            "termsOfUseCode": "1233"
+                        },
+                        {
+                            "id": 4,
+                            "termsOfUseName": "USE ONLY IN CONNECTION WITH THE INSUREDS BUSINESS",
+                            "termsOfUseCode": "1233"
+                        },
+                        {
+                            "id": 5,
+                            "termsOfUseName": "USE ONLY UNDER A PRIVATE CARRIERS PERMIT WITHIN THE MEANING OF MOTOR VECHICLE ACT,1991",
+                            "termsOfUseCode": "1233"
+                        },
+                        {
+                            "id": 6,
+                            "termsOfUseName": "USE ONLY FOR SOCIAL DOMESTIC PLEASURES AND/OR PROFESSIONAL PURPOSE AND FOR THE INSUREDS BUSINESS",
+                            "termsOfUseCode": "1233"
+                        },
+                        {
+                            "id": 7,
+                            "termsOfUseName": "USE ONLY FOR SOCIAL DOMESTIC AND PLEASURE PURPOSE AND FOR THE INSUREDS BUSINESS OR PROFESSION",
+                            "termsOfUseCode": "1233"
+                        },
+                        {
+                            "id": 8,
+                            "termsOfUseName": "USE ONLY A PUBLIC CARRIERS PERMIT WITHIN THE MEANING OF THE MOTOR VEHICLE ACT,1991",
+                            "termsOfUseCode": "1233"
+                        },
+                        {
+                            "id": 9,
+                            "termsOfUseName": "USE ONLY UNDER A PUBLIC CARRIERS PERMIT WIYHIN THE MEANING OF THE MOTOR VEHICLE ACT,1991",
+                            "termsOfUseCode": "1233"
+                        },
+                        {
+                            "id": 10,
+                            "termsOfUseName": "USE ONLY UNDER A CONTRACT CARRIERS PERMIT WIYHIN THE MEANING OF THE MOTOR VEHICLE ACT,1991",
+                            "termsOfUseCode": "1233"
+                        },
+                        {
+                            "id": 11,
+                            "termsOfUseName": "USE FOR AGRICULTURAL AND FORESTY PURPOSES",
+                            "termsOfUseCode": "1233"
+                        },
+                        {
+                            "id": 12,
+                            "termsOfUseName": "USE ONLY FOR AMBULANCE PURPOSES",
+                            "termsOfUseCode": "1233"
+                        },
+                        {
+                            "id": 13,
+                            "termsOfUseName": "USE ONLY FOR DOMESTIC, PLEASURE AND/OR PROFESSIONAL PURPOSE AND FOR THE INSUREDS BUSINESS",
+                            "termsOfUseCode": "1233"
+                        },
+                        {
+                            "id": 14,
+                            "termsOfUseName": "USE ONLY FOR  OFFICIAL PURPOSES AND INCONNECTION WITH THE INSUREDS BUSINESS",
+                            "termsOfUseCode": "1233"
+                        },
+                        {
+                            "id": 15,
+                            "termsOfUseName": "USE ONLY FOR SOCIAL DOMESTIC, PLEASURE AND OFFICIAL  PURPOSES AND /OR IN CONNECTION WITH THE INSUREDS BUSINESS",
+                            "termsOfUseCode": "1233"
+                        }
+        ]
+                }
+            }
                         
                     },
     "remarks": {
@@ -1077,18 +1285,11 @@ Request:
                     "mtrNoOfPassenger": 1,
                     "mtrConductorRate": 0,
                     "mtrGuideRate": 0,
-                    "mtrConductorAmount": 0,
-                    "mtrGuideAmount": 0,
                     "lumpSumAmount": 0,
                     "mtrPlanName": "Comprehensive",
                     "mtrVehicleId": 1,
                     "mtrVehicleType": "Private",
                     "sumInsured": 2000000,
-                    "vehicleRegistrationNumber": "323425",
-                    "manufactureYear": "2019",
-                    "taxToken": "3425345",
-                    "fitnessExpiryDate": "2023-07-19",
-                    "motorTermsOfUseId": 1,
                     "taxFreeVehicle": true,
                     "techometerVehicle": true,
                     "namedDriver": false,
@@ -1134,6 +1335,179 @@ Response:
         // new cis thk ja pabe purata ekhane dia dibo, doc save er somoy ei purata pathaia dibe 
         //    and customer and mr info, additional info and this object while save
         },
+        "forDataSavePrerequisite":{
+            "nib": {
+                "textField":[
+                    {
+                        "name":"occupation", 
+                        "type":"String",
+                        "required":true
+                    },
+                    {
+                        "name":"construction", 
+                        "type":"String",
+                        "required":true
+                    }
+                ]
+    },
+    "pac": {
+        "textField":[
+                    {
+                        "name":"occupation", 
+                        "type":"String",
+                        "required":true
+                    },
+                    {
+                        "name":"construction", 
+                        "type":"String",
+                        "required":true
+                    }
+                ]
+    },
+    "ppa": {
+        "textField":[
+                    {
+                        "name":"occupation", 
+                        "type":"String",
+                        "required":true
+                    },
+                    {
+                        "name":"construction", 
+                        "type":"String",
+                        "required":true
+                    }
+                ]
+    },
+    "mtr": 
+        {
+            "textField":[
+                            {
+                                "name":"motorEngineAndChassisNumber", 
+                                "type":"String",
+                                "required":true
+                            },
+
+                            {
+                                "name":"motorMakeAndBodyType", 
+                                "type":"String",
+                                "required":true
+                            },
+                            {
+                                "name":"manufactureYear", 
+                                "type":"String",
+                                "required":true
+                            },
+                            {
+                                "name":"motorModelNumber", 
+                                "type":"String",
+                                "required":true
+                            },
+                            {
+                                "name":"taxToken", 
+                                "type":"String",
+                                "required":true
+                            },
+                            {
+                                "name":"fitnessExpiryDate", 
+                                "type":"Date",
+                                "required":true
+                            },
+                            {
+                                "name":"manufacturer", 
+                                "type":"String",
+                                "required":true
+                            },
+                            {
+                                "name":"companyOrModelName", 
+                                "type":"String",
+                                "required":true
+                            },
+                            {
+                                "name":"motorTermsOfUseId", 
+                                "type":"int",
+                                "required":true
+                            }
+                        ]
+        },
+    },
+    "bnh": { // kongula mandatrot ar optional jante hobe
+        "custOccupation":"", // customer occupation UI Text field
+        "custPasspostNo":"", // UI Text field
+        "custGender":"",
+        "planType":"", // UI dropdown
+        "medicalNonMedical":"", // UI dropdown
+        "interestInsured":"", // UI 
+        "reInsuredCountry":"", // UI dropdown
+        "doctorId":"", 
+        "planName":"", // UI dropdown, related with quotation
+        "coveredLimit":"", // UI dropdown, related with quotation
+        "insuredOccupation":"", // UI Text field
+        "employerName":"", // UI Text field
+        "employerAddress":"", // UI Text field
+        "officeTelephoneNo":"", // UI Text field
+        "nameOfTheUsualPhysician":"", // UI Text field
+        "physicianTelephoneNoOffice":"", // UI Text field
+        "physicianTelephoneNoHome":"", // UI Text field
+        "destCountryAddress":"", // UI Text field
+        "participant":"", // UI Text field
+        "visaType":"", // UI Text field
+        "sponsorName":"", // UI Text field
+        "destCountryCollege":"", // UI Text field
+        "destCountryOccupation":"", // UI Text field
+        "studyCourse":"", // UI Text field
+        "nextKinName":"", // UI Text field
+        "nextKinAddress":"", // UI Text field
+        "nextKinTelNo":"", // UI Text field
+        "nextKinRelationship":"", // UI Text field
+        "physicianHomeTelNo":"", // UI Text field
+        "ensType":"", // product code?
+        "loadingAmt":"", // default 0
+        "regionOfCountry":"", // UI dropdown, related with quotation
+        "numberOfChild":"",
+        "numberOfPerson":"",
+        "conversionRateUsdToBdt":"",
+        "placeVisitCode":""
+    },
+    "ens": { // kongula mandatrot ar optional jante hobe
+        "custOccupation":"", // customer occupation UI Text field
+        "custPasspostNo":"", // UI Text field
+        "custGender":"",
+        "planType":"", // UI dropdown
+        "medicalNonMedical":"", // UI dropdown
+        "interestInsured":"", // UI 
+        "reInsuredCountry":"", // UI dropdown
+        "doctorId":"", 
+        "planName":"", // UI dropdown, related with quotation
+        "coveredLimit":"", // UI dropdown, related with quotation
+        "insuredOccupation":"", // UI Text field
+        "employerName":"", // UI Text field
+        "employerAddress":"", // UI Text field
+        "officeTelephoneNo":"", // UI Text field
+        "nameOfTheUsualPhysician":"", // UI Text field
+        "physicianTelephoneNoOffice":"", // UI Text field
+        "physicianTelephoneNoHome":"", // UI Text field
+        "destCountryAddress":"", // UI Text field
+        "participant":"", // UI Text field
+        "visaType":"", // UI Text field
+        "sponsorName":"", // UI Text field
+        "destCountryCollege":"", // UI Text field
+        "destCountryOccupation":"", // UI Text field
+        "studyCourse":"", // UI Text field
+        "nextKinName":"", // UI Text field
+        "nextKinAddress":"", // UI Text field
+        "nextKinTelNo":"", // UI Text field
+        "nextKinRelationship":"", // UI Text field
+        "physicianHomeTelNo":"", // UI Text field
+        "ensType":"", // product code?
+        "loadingAmt":"", // default 0
+        "regionOfCountry":"", // UI dropdown, related with quotation
+        "numberOfChild":"",
+        "numberOfPerson":"",
+        "conversionRateUsdToBdt":"",
+        "placeVisitCode":""
+    }
+
+        },
     "remarks":{
         "succsess":["Successfully fetched quotation."],
         "error":[]
@@ -1147,6 +1521,13 @@ Response:
 
 POST : {{base_url}}:8282/add-master-document
 
+Dev notes: PAC, PPA, NIB
+        "situation":"", //Insured address from forDataSave/customer: omit
+        "pacOccupation":"", // from forDataSave: omit
+        "pacClassType":"", // from forDataSave: omit
+        "pacCoverType":"", // from forDataSave: omit
+
+Request:
 {
     "loginUserInfo": {
         "name": "Abul Hashem", // mendatory
@@ -1207,12 +1588,8 @@ POST : {{base_url}}:8282/add-master-document
     },
     "forDataSave": {}, // full response from get quotation
     "nib": {
-        "situation":"", //Insured address from forDataSave/customer: omit
         "occupation":"", //UI: text field
         "construction":"", //UI: text field
-        "pacOccupation":"", // from forDataSave: omit
-        "pacClassType":"", // from forDataSave: omit
-        "pacCoverType":"", // from forDataSave: omit
         "nomineeDetails":[
             {
             "nomineeName":"",    //UI: text field  , note, if as per schedule attached the the value of nomineeName will be 'As per schedule attached'
@@ -1227,12 +1604,8 @@ POST : {{base_url}}:8282/add-master-document
         ]
     },
     "pac": {
-        "situation":"", //Insured address from forDataSave/customer: omit
         "occupation":"", //UI: text field
         "construction":"", //UI: text field
-        "pacOccupation":"", // from forDataSave: omit
-        "pacClassType":"", // from forDataSave: omit
-        "pacCoverType":"", // from forDataSave: omit
         "nomineeDetails":[{
             "nomineeName":"",    //UI: text field  , note, if as per schedule attached the the value of nomineeName will be 'As per schedule attached'
             "nomineeRelation":"",   //UI: text field  
@@ -1245,12 +1618,8 @@ POST : {{base_url}}:8282/add-master-document
         }]
     },
     "ppa": {
-        "situation":"", //Insured address from forDataSave/customer: omit
         "occupation":"", //UI: text field
         "construction":"", //UI: text field
-        "pacOccupation":"", // from forDataSave: omit
-        "pacClassType":"", // from forDataSave: omit
-        "pacCoverType":"", // from forDataSave: omit
         "nomineeDetails":[{
             "nomineeName":"",    //UI: text field  , note, if as per schedule attached the the value of nomineeName will be 'As per schedule attached'
             "nomineeRelation":"",   //UI: text field  
@@ -1266,7 +1635,6 @@ POST : {{base_url}}:8282/add-master-document
         "motorEngineAndChassisNumber":"",
         "motorMakeAndBodyType":"",
         "manufactureYear":"",
-        "nameOfRegistrationAuthority":"",
         "motorModelNumber":"",
         "taxToken":"",
         "fitnessExpiryDate":"",
