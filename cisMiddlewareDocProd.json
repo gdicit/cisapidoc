@@ -537,15 +537,15 @@
                 "properties": {
                     "bnh": {
                         "description": "Business & Holidays related details",
-                        "$ref": "#/components/schemas/BNHDetails"
+                        "$ref": "#/components/schemas/Business and Holidays Details"
                     },
                     "commonInfo": {
                         "description": "Common Information for MR",
-                        "$ref": "#/components/schemas/CommonInfo"
+                        "$ref": "#/components/schemas/Document Common Information"
                     },
                     "customerInfo": {
                         "description": "Customer Information",
-                        "$ref": "#/components/schemas/CustomerInfo"
+                        "$ref": "#/components/schemas/Customer Information"
                     },
                     "ens": {
                         "description": "Employment and Studies related details",
@@ -599,8 +599,76 @@
                     }
                 }
             },
-            "BNHDetails": {
-                "title": "BNHDetails",
+            "Business And Holidays": {
+                "title": "Business And Holidays",
+                "type": "object",
+                "properties": {
+                    "coveredLimit": {
+                        "type": "integer",
+                        "description": "Covered limit",
+                        "format": "int32",
+                        "example": 125000
+                    },
+                    "dayStay": {
+                        "type": "integer",
+                        "description": "Number of days for stay",
+                        "format": "int32",
+                        "example": 160
+                    },
+                    "placeVisitCode": {
+                        "type": "string",
+                        "description": "Place visit code",
+                        "example": "C"
+                    },
+                    "policyDuration": {
+                        "type": "string",
+                        "description": "Policy duration (short or full)",
+                        "example": "short"
+                    }
+                }
+            },
+            "Business And Holidays Details": {
+                "title": "Business And Holidays Details",
+                "type": "object",
+                "properties": {
+                    "dropdown": {
+                        "type": "array",
+                        "description": "Prerequisite dropdown fields to get the products quotation.",
+                        "items": {
+                            "$ref": "#/components/schemas/Business And Holidays Dropdown Details"
+                        }
+                    }
+                }
+            },
+            "Business And Holidays Dropdown Details": {
+                "title": "Business And Holidays Dropdown Details",
+                "type": "object",
+                "properties": {
+                    "medicalTypeList": {
+                        "type": "array",
+                        "description": "List of medical types for BNH",
+                        "items": {
+                            "$ref": "#/components/schemas/Medical Type"
+                        }
+                    },
+                    "placeVisitList": {
+                        "type": "array",
+                        "description": "List of place visit options for BNH",
+                        "items": {
+                            "$ref": "#/components/schemas/Place Visit"
+                        }
+                    },
+                    "planTypeList": {
+                        "type": "array",
+                        "description": "List of plan types for BNH",
+                        "items": {
+                            "$ref": "#/components/schemas/Plan Type"
+                        }
+                    }
+                }
+            },
+            "Business and Holidays Details": {
+                "title": "Business and Holidays Details",
                 "type": "object",
                 "properties": {
                     "coveredLimit": {
@@ -685,8 +753,8 @@
                     }
                 }
             },
-            "BnhPrerequisiteForDataSave": {
-                "title": "BnhPrerequisiteForDataSave",
+            "Business and Holidays Prerequisite For Data Save": {
+                "title": "Business and Holidays Prerequisite For Data Save",
                 "type": "object",
                 "properties": {
                     "textFields": {
@@ -695,117 +763,6 @@
                         "items": {
                             "$ref": "#/components/schemas/TextFieldBnhForDataSave"
                         }
-                    }
-                }
-            },
-            "Business And Holidays": {
-                "title": "Business And Holidays",
-                "type": "object",
-                "properties": {
-                    "coveredLimit": {
-                        "type": "integer",
-                        "description": "Covered limit",
-                        "format": "int32",
-                        "example": 125000
-                    },
-                    "dayStay": {
-                        "type": "integer",
-                        "description": "Number of days for stay",
-                        "format": "int32",
-                        "example": 160
-                    },
-                    "placeVisitCode": {
-                        "type": "string",
-                        "description": "Place visit code",
-                        "example": "C"
-                    },
-                    "policyDuration": {
-                        "type": "string",
-                        "description": "Policy duration (short or full)",
-                        "example": "short"
-                    }
-                }
-            },
-            "Business And Holidays Details": {
-                "title": "Business And Holidays Details",
-                "type": "object",
-                "properties": {
-                    "dropdown": {
-                        "type": "array",
-                        "description": "Prerequisite dropdown fields to get the products quotation.",
-                        "items": {
-                            "$ref": "#/components/schemas/Business And Holidays Dropdown Details"
-                        }
-                    }
-                }
-            },
-            "Business And Holidays Dropdown Details": {
-                "title": "Business And Holidays Dropdown Details",
-                "type": "object",
-                "properties": {
-                    "medicalTypeList": {
-                        "type": "array",
-                        "description": "List of medical types for BNH",
-                        "items": {
-                            "$ref": "#/components/schemas/Medical Type"
-                        }
-                    },
-                    "placeVisitList": {
-                        "type": "array",
-                        "description": "List of place visit options for BNH",
-                        "items": {
-                            "$ref": "#/components/schemas/Place Visit"
-                        }
-                    },
-                    "planTypeList": {
-                        "type": "array",
-                        "description": "List of plan types for BNH",
-                        "items": {
-                            "$ref": "#/components/schemas/Plan Type"
-                        }
-                    }
-                }
-            },
-            "CommonInfo": {
-                "title": "CommonInfo",
-                "required": [
-                    "paymentBankName",
-                    "paymentBranchName",
-                    "paymentDate",
-                    "paymentMode",
-                    "paymentNumber",
-                    "paymentRoutingNumber",
-                    "trxNumber"
-                ],
-                "type": "object",
-                "properties": {
-                    "paymentBankName": {
-                        "type": "string",
-                        "description": "Payment Bank Name"
-                    },
-                    "paymentBranchName": {
-                        "type": "string",
-                        "description": "Payment Branch Name"
-                    },
-                    "paymentDate": {
-                        "type": "string",
-                        "description": "Payment Date"
-                    },
-                    "paymentMode": {
-                        "type": "string",
-                        "description": "Payment Mode"
-                    },
-                    "paymentNumber": {
-                        "type": "string",
-                        "description": "Payment Number"
-                    },
-                    "paymentRoutingNumber": {
-                        "type": "string",
-                        "description": "Payment Routing Number"
-                    },
-                    "trxNumber": {
-                        "type": "string",
-                        "description": "Transaction Number"
                     }
                 }
             },
@@ -881,138 +838,132 @@
                 "properties": {
                     "bin": {
                         "type": "string",
-                        "description": "BIN (Business Identification Number)",
-                        "example": "4265457564523"
+                        "description": "BIN (Business Identification Number). Mandatory for business customers."
                     },
                     "birthRegNo": {
                         "type": "string",
-                        "description": "Birth registration number of the customer"
+                        "description": "Birth registration number (optional)."
                     },
                     "companyRegAuthority": {
                         "type": "string",
-                        "description": "Company registration authority"
+                        "description": "Company registration authority (optional)."
                     },
                     "companyType": {
                         "type": "string",
-                        "description": "Type of company",
-                        "example": "REGISTERED, UNREGISTERED"
+                        "description": "Type of company (e.g., REGISTERED). Required for business customers."
                     },
                     "contactAddress": {
                         "type": "string",
-                        "description": "Contact address of the customer"
+                        "description": "Contact address (optional)."
                     },
                     "contactPerson": {
                         "type": "string",
-                        "description": "The user designated by Customer who will serve as the primary contact person"
+                        "description": "Contact person (optional)."
                     },
                     "customerGroupCode": {
                         "type": "string",
-                        "description": "Customer group code"
+                        "description": "Customer group code (e.g., UNILIVER). Required for business customers."
+                    },
+                    "customerId": {
+                        "type": "integer",
+                        "description": "Customer ID. It will depend on whether it's a new customer or an existing one. customerId will given for existing customer otherwise it will be null",
+                        "format": "int32"
                     },
                     "customerType": {
                         "type": "string",
-                        "description": "Type of customer",
-                        "example": "BUSINESS, INDIVIDUAL"
+                        "description": "Type of customer (e.g., BUSINESS). Required for business customers."
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "Date of birth of the customer format: (YYYY-MM-DD)",
-                        "example": "1990-01-01"
+                        "description": "Date of birth of the customer. Mandatory for personal customers. Required for new PERSONAL customer."
                     },
                     "email": {
                         "type": "string",
-                        "description": "Email address of the customer"
+                        "description": "Email address of the customer. Mandatory for personal customers. Required for new customer."
                     },
                     "fatherName": {
                         "type": "string",
-                        "description": "Father's name of the customer"
+                        "description": "Father's name. Mandatory for personal customers."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "First name of the customer"
+                        "description": "First name of the customer. Mandatory for personal customers. Required for new PERSONAL customer. "
                     },
                     "gender": {
                         "type": "string",
-                        "description": "Gender of the customer",
-                        "example": "Male, Female etc."
+                        "description": "Gender of the customer. Mandatory for personal customers. Required for new PERSONAL customer."
                     },
                     "incomeSource": {
                         "type": "string",
-                        "description": "Customer source of income"
+                        "description": "Source of income (optional)."
+                    },
+                    "insuredAddress": {
+                        "type": "string",
+                        "description": "Insured address. Mandatory for both existing and new customers. By default it can be customers permanent address. User can change the address as it will be consider as mailing address"
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "Last name of the customer"
-                    },
-                    "middleName": {
-                        "type": "string",
-                        "description": "Middle name of the customer"
+                        "description": "Last name of the customer (optional)."
                     },
                     "mobileNo": {
-                        "type": "array",
-                        "description": "List of mobile numbers of the customer",
-                        "items": {
-                            "type": "string"
-                        }
+                        "type": "string",
+                        "description": "Mobile number of the customer. Mandatory for both personal and business customers. Required for new customer."
                     },
                     "motherName": {
                         "type": "string",
-                        "description": "Mother's name of the customer"
+                        "description": "Mother's name. Mandatory for personal customers."
                     },
                     "name": {
                         "type": "string",
-                        "description": "Full name of the customer"
+                        "description": "Full name of the customer. Mandatory for both personal and business customers. Required for new customer."
                     },
                     "nationality": {
                         "type": "string",
-                        "description": "Nationality of the customer"
+                        "description": "Nationality of the customer (optional)."
                     },
                     "nid": {
                         "type": "string",
-                        "description": "National ID number of the customer"
+                        "description": "NID (National ID) (optional)."
                     },
                     "officeAddress": {
                         "type": "string",
-                        "description": "Office address of the customer"
+                        "description": "Office address (optional)."
                     },
                     "officeContactNumber": {
                         "type": "string",
-                        "description": "Office contact number of the customer"
+                        "description": "Office contact number (optional)."
                     },
                     "passportExpireDate": {
                         "type": "string",
-                        "description": "Passport expiration date format: (YYYY-MM-DD)",
-                        "example": "1990-01-01"
+                        "description": "Passport expiration date (if applicable). Mandatory when passport number (passportNo) is given."
                     },
                     "passportNo": {
                         "type": "string",
-                        "description": "Passport number of the customer if any"
+                        "description": "Passport number (if available). Mandatory when passport number is given."
                     },
                     "permanentAddress": {
                         "type": "string",
-                        "description": "Permanent address of the customer"
+                        "description": "Permanent address of the customer. Required for both personal and business customers."
                     },
                     "presentAddress": {
                         "type": "string",
-                        "description": "Present address of the customer"
+                        "description": "Present address of the customer (optional)."
                     },
                     "regIssueDate": {
                         "type": "string",
-                        "description": "Registration issue date format: (YYYY-MM-DD)",
-                        "example": "1990-01-01"
+                        "description": "Registration issue date (optional)."
                     },
                     "spouseName": {
                         "type": "string",
-                        "description": "Spouse's name of the customer if any"
+                        "description": "Spouse's name. Mandatory for personal customers."
                     },
                     "tin": {
                         "type": "string",
-                        "description": "Taxpayer Identification Number (TIN)",
-                        "example": "95751147656"
+                        "description": "TIN (Taxpayer Identification Number) (optional)."
                     },
                     "tradeLicenceNo": {
                         "type": "string",
-                        "description": "Trade license number of the customer if any"
+                        "description": "Trade license number (optional)."
                     }
                 }
             },
@@ -1182,243 +1133,133 @@
                     }
                 }
             },
-            "CustomerInfo": {
-                "title": "CustomerInfo",
-                "type": "object",
-                "properties": {
-                    "bin": {
-                        "type": "string",
-                        "description": "BIN (Business Identification Number). Mandatory for business customers."
-                    },
-                    "birthRegNo": {
-                        "type": "string",
-                        "description": "Birth registration number (optional)."
-                    },
-                    "companyRegAuthority": {
-                        "type": "string",
-                        "description": "Company registration authority (optional)."
-                    },
-                    "companyType": {
-                        "type": "string",
-                        "description": "Type of company (e.g., REGISTERED). Required for business customers."
-                    },
-                    "contactAddress": {
-                        "type": "string",
-                        "description": "Contact address (optional)."
-                    },
-                    "contactPerson": {
-                        "type": "string",
-                        "description": "Contact person (optional)."
-                    },
-                    "customerGroupCode": {
-                        "type": "string",
-                        "description": "Customer group code (e.g., UNILIVER). Required for business customers."
-                    },
-                    "customerId": {
-                        "type": "integer",
-                        "description": "Customer ID. It will depend on whether it's a new customer or an existing one. customerId will given for existing customer otherwise it will be null",
-                        "format": "int32"
-                    },
-                    "customerType": {
-                        "type": "string",
-                        "description": "Type of customer (e.g., BUSINESS). Required for business customers."
-                    },
-                    "dateOfBirth": {
-                        "type": "string",
-                        "description": "Date of birth of the customer. Mandatory for personal customers. Required for new PERSONAL customer."
-                    },
-                    "email": {
-                        "type": "string",
-                        "description": "Email address of the customer. Mandatory for personal customers. Required for new customer."
-                    },
-                    "fatherName": {
-                        "type": "string",
-                        "description": "Father's name. Mandatory for personal customers."
-                    },
-                    "firstName": {
-                        "type": "string",
-                        "description": "First name of the customer. Mandatory for personal customers. Required for new PERSONAL customer. "
-                    },
-                    "gender": {
-                        "type": "string",
-                        "description": "Gender of the customer. Mandatory for personal customers. Required for new PERSONAL customer."
-                    },
-                    "incomeSource": {
-                        "type": "string",
-                        "description": "Source of income (optional)."
-                    },
-                    "insuredAddress": {
-                        "type": "string",
-                        "description": "Insured address. Mandatory for both existing and new customers. By default it can be customers permanent address. User can change the address as it will be consider as mailing address"
-                    },
-                    "lastName": {
-                        "type": "string",
-                        "description": "Last name of the customer (optional)."
-                    },
-                    "mobileNo": {
-                        "type": "string",
-                        "description": "Mobile number of the customer. Mandatory for both personal and business customers. Required for new customer."
-                    },
-                    "motherName": {
-                        "type": "string",
-                        "description": "Mother's name. Mandatory for personal customers."
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Full name of the customer. Mandatory for both personal and business customers. Required for new customer."
-                    },
-                    "nationality": {
-                        "type": "string",
-                        "description": "Nationality of the customer (optional)."
-                    },
-                    "nid": {
-                        "type": "string",
-                        "description": "NID (National ID) (optional)."
-                    },
-                    "officeAddress": {
-                        "type": "string",
-                        "description": "Office address (optional)."
-                    },
-                    "officeContactNumber": {
-                        "type": "string",
-                        "description": "Office contact number (optional)."
-                    },
-                    "passportExpireDate": {
-                        "type": "string",
-                        "description": "Passport expiration date (if applicable). Mandatory when passport number (passportNo) is given."
-                    },
-                    "passportNo": {
-                        "type": "string",
-                        "description": "Passport number (if available). Mandatory when passport number is given."
-                    },
-                    "permanentAddress": {
-                        "type": "string",
-                        "description": "Permanent address of the customer. Required for both personal and business customers."
-                    },
-                    "presentAddress": {
-                        "type": "string",
-                        "description": "Present address of the customer (optional)."
-                    },
-                    "regIssueDate": {
-                        "type": "string",
-                        "description": "Registration issue date (optional)."
-                    },
-                    "spouseName": {
-                        "type": "string",
-                        "description": "Spouse's name. Mandatory for personal customers."
-                    },
-                    "tin": {
-                        "type": "string",
-                        "description": "TIN (Taxpayer Identification Number) (optional)."
-                    },
-                    "tradeLicenceNo": {
-                        "type": "string",
-                        "description": "Trade license number (optional)."
-                    }
-                }
-            },
             "DataPackSingle«Add Document Response»": {
                 "title": "DataPackSingle«Add Document Response»",
                 "type": "object",
                 "properties": {
                     "correlationID": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
                     },
                     "data": {
                         "$ref": "#/components/schemas/Add Document Response"
                     },
                     "messageID": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
                     },
                     "remarks": {
                         "$ref": "#/components/schemas/DataRemarks"
                     },
                     "result": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
                     },
                     "timestamp": {
-                        "type": "string"
+                        "description": "Time and date of the execution",
+                        "$ref": "#/components/schemas/Timestamp"
                     }
-                }
+                },
+                "description": "Data Object Single"
             },
             "DataPackSingle«Customer Response Body»": {
                 "title": "DataPackSingle«Customer Response Body»",
                 "type": "object",
                 "properties": {
                     "correlationID": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
                     },
                     "data": {
                         "$ref": "#/components/schemas/Customer Response Body"
                     },
                     "messageID": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
                     },
                     "remarks": {
                         "$ref": "#/components/schemas/DataRemarks"
                     },
                     "result": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
                     },
                     "timestamp": {
-                        "type": "string"
+                        "description": "Time and date of the execution",
+                        "$ref": "#/components/schemas/Timestamp"
                     }
-                }
+                },
+                "description": "Data Object Single"
             },
             "DataPackSingle«ForDataSavePrerequisite»": {
                 "title": "DataPackSingle«ForDataSavePrerequisite»",
                 "type": "object",
                 "properties": {
                     "correlationID": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
                     },
                     "data": {
                         "$ref": "#/components/schemas/ForDataSavePrerequisite"
                     },
                     "messageID": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
                     },
                     "remarks": {
                         "$ref": "#/components/schemas/DataRemarks"
                     },
                     "result": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
                     },
                     "timestamp": {
-                        "type": "string"
+                        "description": "Time and date of the execution",
+                        "$ref": "#/components/schemas/Timestamp"
                     }
-                }
+                },
+                "description": "Data Object Single"
             },
             "DataPackSingle«Quotation Pre Requsite Response»": {
                 "title": "DataPackSingle«Quotation Pre Requsite Response»",
                 "type": "object",
                 "properties": {
                     "correlationID": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
                     },
                     "data": {
                         "$ref": "#/components/schemas/Quotation Pre Requsite Response"
                     },
                     "messageID": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
                     },
                     "remarks": {
                         "$ref": "#/components/schemas/DataRemarks"
                     },
                     "result": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
                     },
                     "timestamp": {
-                        "type": "string"
+                        "description": "Time and date of the execution",
+                        "$ref": "#/components/schemas/Timestamp"
                     }
-                }
+                },
+                "description": "Data Object Single"
             },
             "DataPack«string»": {
                 "title": "DataPack«string»",
                 "type": "object",
                 "properties": {
                     "correlationID": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
                     },
                     "data": {
                         "type": "array",
@@ -1427,18 +1268,23 @@
                         }
                     },
                     "messageID": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
                     },
                     "remarks": {
                         "$ref": "#/components/schemas/DataRemarks"
                     },
                     "result": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
                     },
                     "timestamp": {
-                        "type": "string"
+                        "description": "Time and date of the execution",
+                        "$ref": "#/components/schemas/Timestamp"
                     }
-                }
+                },
+                "description": "Data Object"
             },
             "DataRemarks": {
                 "title": "DataRemarks",
@@ -1455,6 +1301,50 @@
                         "items": {
                             "type": "string"
                         }
+                    }
+                },
+                "description": "Remarks"
+            },
+            "Document Common Information": {
+                "title": "Document Common Information",
+                "required": [
+                    "paymentBankName",
+                    "paymentBranchName",
+                    "paymentDate",
+                    "paymentMode",
+                    "paymentNumber",
+                    "paymentRoutingNumber",
+                    "trxNumber"
+                ],
+                "type": "object",
+                "properties": {
+                    "paymentBankName": {
+                        "type": "string",
+                        "description": "Payment Bank Name"
+                    },
+                    "paymentBranchName": {
+                        "type": "string",
+                        "description": "Payment Branch Name"
+                    },
+                    "paymentDate": {
+                        "type": "string",
+                        "description": "Payment Date"
+                    },
+                    "paymentMode": {
+                        "type": "string",
+                        "description": "Payment Mode"
+                    },
+                    "paymentNumber": {
+                        "type": "string",
+                        "description": "Payment Number"
+                    },
+                    "paymentRoutingNumber": {
+                        "type": "string",
+                        "description": "Payment Routing Number"
+                    },
+                    "trxNumber": {
+                        "type": "string",
+                        "description": "Transaction Number"
                     }
                 }
             },
@@ -1542,7 +1432,8 @@
                         "type": "string",
                         "description": "Visa Type"
                     }
-                }
+                },
+                "description": "Employment and Studies Details"
             },
             "Employment And Studies": {
                 "title": "Employment And Studies",
@@ -1682,7 +1573,8 @@
                             "$ref": "#/components/schemas/TextFieldEnsForDataSave"
                         }
                     }
-                }
+                },
+                "description": "Employment and Studies Prerequisite For DataSave"
             },
             "ForDataSave": {
                 "title": "ForDataSave",
@@ -1694,7 +1586,7 @@
                 "properties": {
                     "bnh": {
                         "description": "BNH details",
-                        "$ref": "#/components/schemas/BnhPrerequisiteForDataSave"
+                        "$ref": "#/components/schemas/Business and Holidays Prerequisite For Data Save"
                     },
                     "ens": {
                         "description": "ENS details",
@@ -1874,7 +1766,8 @@
                         "description": "Role",
                         "example": "Manager, RM, Sales"
                     }
-                }
+                },
+                "description": "Login User Info"
             },
             "MTRDetails": {
                 "title": "MTRDetails",
@@ -1920,7 +1813,8 @@
                         "type": "string",
                         "description": "Tax Token"
                     }
-                }
+                },
+                "description": "Motor Details"
             },
             "Medical Type": {
                 "title": "Medical Type",
@@ -2344,7 +2238,8 @@
                             "$ref": "#/components/schemas/TextFieldMtrForDataSave"
                         }
                     }
-                }
+                },
+                "description": "Motor Prerequisite For Data Save"
             },
             "NIBDetails": {
                 "title": "NIBDetails",
@@ -2365,7 +2260,8 @@
                         "type": "string",
                         "description": "Occupation"
                     }
-                }
+                },
+                "description": "Nibedita Details"
             },
             "NibDropdownDetails": {
                 "title": "NibDropdownDetails",
@@ -2387,7 +2283,8 @@
                             "format": "int32"
                         }
                     }
-                }
+                },
+                "description": "Nibedita Dropdown Details"
             },
             "NibPrerequisiteForDataSave": {
                 "title": "NibPrerequisiteForDataSave",
@@ -2400,7 +2297,8 @@
                             "$ref": "#/components/schemas/TextFieldNibForDataSave"
                         }
                     }
-                }
+                },
+                "description": "Nibedita Prerequisite For Data Save"
             },
             "Nibedita Product": {
                 "title": "Nibedita Product",
@@ -2477,7 +2375,8 @@
                         "format": "int32",
                         "example": 100
                     }
-                }
+                },
+                "description": "Nominee Details"
             },
             "PACDetails": {
                 "title": "PACDetails",
@@ -2498,7 +2397,8 @@
                         "type": "string",
                         "description": "Occupation"
                     }
-                }
+                },
+                "description": "Personal Accident Details"
             },
             "PPADetails": {
                 "title": "PPADetails",
@@ -2519,7 +2419,8 @@
                         "type": "string",
                         "description": "Occupation"
                     }
-                }
+                },
+                "description": "People's Personal Accident Details"
             },
             "PacPrerequisiteForDataSave": {
                 "title": "PacPrerequisiteForDataSave",
@@ -2532,7 +2433,8 @@
                             "$ref": "#/components/schemas/TextFieldPacForDataSave"
                         }
                     }
-                }
+                },
+                "description": "Personal Accident Prerequisite for Data Save"
             },
             "People's Personal Accident": {
                 "title": "People's Personal Accident",
@@ -2642,7 +2544,8 @@
                         "description": "Formatted duration",
                         "example": "year: 1, month: 12, day: 365"
                     }
-                }
+                },
+                "description": "Policy Duration"
             },
             "PpaPrerequisiteForDataSave": {
                 "title": "PpaPrerequisiteForDataSave",
@@ -2655,7 +2558,8 @@
                             "$ref": "#/components/schemas/TextFieldPpaForDataSave"
                         }
                     }
-                }
+                },
+                "description": "Prerequisite for Data Save"
             },
             "Product Details Response": {
                 "title": "Product Details Response",
@@ -2917,7 +2821,8 @@
                         "description": "Type of the field.",
                         "example": "String, int, float, boolean"
                     }
-                }
+                },
+                "description": "Business and Holidays Related text fields"
             },
             "TextFieldEnsForDataSave": {
                 "title": "TextFieldEnsForDataSave",
@@ -2942,7 +2847,8 @@
                         "description": "Type of the field.",
                         "example": "String, int, float, boolean"
                     }
-                }
+                },
+                "description": "Employment and Studies Related text fields"
             },
             "TextFieldMtrForDataSave": {
                 "title": "TextFieldMtrForDataSave",
@@ -2967,7 +2873,8 @@
                         "description": "Type of the field.",
                         "example": "String, int, float, boolean"
                     }
-                }
+                },
+                "description": "Motor Related text fields"
             },
             "TextFieldNib": {
                 "title": "TextFieldNib",
@@ -2991,7 +2898,8 @@
                         "description": "Type of the field.",
                         "example": "String, int, float, boolean"
                     }
-                }
+                },
+                "description": "Nibedita Related text fields"
             },
             "TextFieldNibForDataSave": {
                 "title": "TextFieldNibForDataSave",
@@ -3016,7 +2924,8 @@
                         "description": "Type of the field.",
                         "example": "String, int, float, boolean"
                     }
-                }
+                },
+                "description": "Nibedita text fields for Data Save"
             },
             "TextFieldPac": {
                 "title": "TextFieldPac",
@@ -3040,7 +2949,8 @@
                         "description": "Type of the field.",
                         "example": "String, int, float, boolean"
                     }
-                }
+                },
+                "description": "Personal Accident Related text fields"
             },
             "TextFieldPacForDataSave": {
                 "title": "TextFieldPacForDataSave",
@@ -3065,7 +2975,8 @@
                         "description": "Type of the field.",
                         "example": "String, int, float, boolean"
                     }
-                }
+                },
+                "description": "Personal Accident Related text fields for Data Save"
             },
             "TextFieldPpaForDataSave": {
                 "title": "TextFieldPpaForDataSave",
@@ -3089,6 +3000,53 @@
                         "type": "string",
                         "description": "Type of the field.",
                         "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "People's Personal Accident Related text fields for Data Save"
+            },
+            "Timestamp": {
+                "title": "Timestamp",
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "day": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "hours": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "minutes": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "month": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "nanos": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "seconds": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "time": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "timezoneOffset": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "year": {
+                        "type": "integer",
+                        "format": "int32"
                     }
                 }
             },
