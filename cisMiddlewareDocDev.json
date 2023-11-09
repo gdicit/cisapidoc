@@ -224,6 +224,54 @@
                 }
             }
         },
+        "/api/get-document-pre-requisite": {
+            "get": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Get Document Pre Requisite",
+                "description": "Returns the list of Document pre requsite.",
+                "operationId": "getDocumentPreRequisiteUsingGET",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataPackSingle«ForDataSavePrerequisite»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
         "/api/get-quotation": {
             "get": {
                 "tags": [
@@ -714,6 +762,19 @@
                     }
                 }
             },
+            "BnhPrerequisiteForDataSave": {
+                "title": "BnhPrerequisiteForDataSave",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldBnhForDataSave"
+                        }
+                    }
+                }
+            },
             "CommonInfo": {
                 "title": "CommonInfo",
                 "type": "object",
@@ -1129,6 +1190,30 @@
                     }
                 }
             },
+            "DataPackSingle«ForDataSavePrerequisite»": {
+                "title": "DataPackSingle«ForDataSavePrerequisite»",
+                "type": "object",
+                "properties": {
+                    "correlationID": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/ForDataSavePrerequisite"
+                    },
+                    "messageID": {
+                        "type": "string"
+                    },
+                    "remarks": {
+                        "$ref": "#/components/schemas/DataRemarks"
+                    },
+                    "result": {
+                        "type": "boolean"
+                    },
+                    "timestamp": {
+                        "type": "string"
+                    }
+                }
+            },
             "DataPackSingle«Quotation Pre Requsite Response»": {
                 "title": "DataPackSingle«Quotation Pre Requsite Response»",
                 "type": "object",
@@ -1395,6 +1480,19 @@
                     }
                 }
             },
+            "EnsPrerequisiteForDataSave": {
+                "title": "EnsPrerequisiteForDataSave",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldEnsForDataSave"
+                        }
+                    }
+                }
+            },
             "EnsType": {
                 "title": "EnsType",
                 "type": "object",
@@ -1414,6 +1512,36 @@
             "ForDataSave": {
                 "title": "ForDataSave",
                 "type": "object"
+            },
+            "ForDataSavePrerequisite": {
+                "title": "ForDataSavePrerequisite",
+                "type": "object",
+                "properties": {
+                    "bnh": {
+                        "description": "BNH details",
+                        "$ref": "#/components/schemas/BnhPrerequisiteForDataSave"
+                    },
+                    "ens": {
+                        "description": "ENS details",
+                        "$ref": "#/components/schemas/EnsPrerequisiteForDataSave"
+                    },
+                    "mtr": {
+                        "description": "MTR details",
+                        "$ref": "#/components/schemas/MtrPrerequisiteForDataSave"
+                    },
+                    "nib": {
+                        "description": "NIB products",
+                        "$ref": "#/components/schemas/NibPrerequisiteForDataSave"
+                    },
+                    "pac": {
+                        "description": "PAC details",
+                        "$ref": "#/components/schemas/PacPrerequisiteForDataSave"
+                    },
+                    "ppa": {
+                        "description": "PPA details",
+                        "$ref": "#/components/schemas/PpaPrerequisiteForDataSave"
+                    }
+                }
             },
             "Get Quotation Request Body": {
                 "title": "Get Quotation Request Body",
@@ -1447,6 +1575,10 @@
                     "forDataSave": {
                         "description": "Data for saving purposes",
                         "$ref": "#/components/schemas/ForDataSave"
+                    },
+                    "forDataSavePrerequisite": {
+                        "description": "Prerequisite fields for data savings both text fields and dropdown. Not related with quotation getting, but need when save the document.",
+                        "$ref": "#/components/schemas/ForDataSavePrerequisite"
                     },
                     "grossPremium": {
                         "type": "number",
@@ -1948,6 +2080,19 @@
                     }
                 }
             },
+            "MtrPrerequisiteForDataSave": {
+                "title": "MtrPrerequisiteForDataSave",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldMtrForDataSave"
+                        }
+                    }
+                }
+            },
             "MtrTermsOfUse": {
                 "title": "MtrTermsOfUse",
                 "type": "object",
@@ -2024,6 +2169,19 @@
                         "items": {
                             "type": "integer",
                             "format": "int32"
+                        }
+                    }
+                }
+            },
+            "NibPrerequisiteForDataSave": {
+                "title": "NibPrerequisiteForDataSave",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldNibForDataSave"
                         }
                     }
                 }
@@ -2183,6 +2341,19 @@
                     }
                 }
             },
+            "PacPrerequisiteForDataSave": {
+                "title": "PacPrerequisiteForDataSave",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldPacForDataSave"
+                        }
+                    }
+                }
+            },
             "PlaceVisit": {
                 "title": "PlaceVisit",
                 "type": "object",
@@ -2253,6 +2424,19 @@
                         "description": "Prerequisite text fields to get the products quotation.",
                         "items": {
                             "$ref": "#/components/schemas/TextFieldPpa"
+                        }
+                    }
+                }
+            },
+            "PpaPrerequisiteForDataSave": {
+                "title": "PpaPrerequisiteForDataSave",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldPpaForDataSave"
                         }
                     }
                 }
@@ -2420,6 +2604,31 @@
                     }
                 }
             },
+            "TextFieldBnhForDataSave": {
+                "title": "TextFieldBnhForDataSave",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "custOccupation, custPasspostNo, custGender, interestInsured, reInsuredCountry, doctorId, planName, coveredLimit, insuredOccupation, employerName, employerAddress, officeTelephoneNo, nameOfTheUsualPhysician, physicianTelephoneNoOffice, physicianTelephoneNoHome, destCountryAddress, participant, visaType, sponsorName, destCountryCollege, destCountryOccupation, studyCourse, nextKinName, nextKinAddress, nextKinTelNo, nextKinRelationship, physicianHomeTelNo, regionOfCountry"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                }
+            },
             "TextFieldEns": {
                 "title": "TextFieldEns",
                 "type": "object",
@@ -2432,6 +2641,31 @@
                         "type": "string",
                         "description": "Name of the field.",
                         "example": "numberOfChild, conversionRateUsdToBdt, numberOfPerson, monthStay, coveredLimit"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                }
+            },
+            "TextFieldEnsForDataSave": {
+                "title": "TextFieldEnsForDataSave",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "custOccupation, custPasspostNo, custGender, interestInsured, reInsuredCountry, doctorId, planName, coveredLimit, insuredOccupation, employerName, employerAddress, officeTelephoneNo, nameOfTheUsualPhysician, physicianTelephoneNoOffice, physicianTelephoneNoHome, destCountryAddress, participant, visaType, sponsorName, destCountryCollege, destCountryOccupation, studyCourse, nextKinName, nextKinAddress, nextKinTelNo, nextKinRelationship, physicianHomeTelNo, regionOfCountry"
                     },
                     "required": {
                         "type": "boolean",
@@ -2470,6 +2704,31 @@
                     }
                 }
             },
+            "TextFieldMtrForDataSave": {
+                "title": "TextFieldMtrForDataSave",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "motorEngineAndChassisNumber, motorMakeAndBodyType, manufactureYear, motorModelNumber, taxToken, fitnessExpiryDate, manufacturer, companyOrModelName, motorTermsOfUseId"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                }
+            },
             "TextFieldNib": {
                 "title": "TextFieldNib",
                 "type": "object",
@@ -2481,6 +2740,31 @@
                     "name": {
                         "type": "string",
                         "description": "Name of the field."
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                }
+            },
+            "TextFieldNibForDataSave": {
+                "title": "TextFieldNibForDataSave",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "occupation, construction"
                     },
                     "required": {
                         "type": "boolean",
@@ -2518,6 +2802,31 @@
                     }
                 }
             },
+            "TextFieldPacForDataSave": {
+                "title": "TextFieldPacForDataSave",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "occupation, construction"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                }
+            },
             "TextFieldPpa": {
                 "title": "TextFieldPpa",
                 "type": "object",
@@ -2529,6 +2838,31 @@
                     "name": {
                         "type": "string",
                         "description": "Name of the field."
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                }
+            },
+            "TextFieldPpaForDataSave": {
+                "title": "TextFieldPpaForDataSave",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "occupation, construction"
                     },
                     "required": {
                         "type": "boolean",
