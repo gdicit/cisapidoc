@@ -1158,7 +1158,8 @@
                     },
                     "timestamp": {
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp"
+                        "$ref": "#/components/schemas/Timestamp",
+                        "example": "2023-11-09 17:02:32.041"
                     }
                 },
                 "description": "Data Object Single"
@@ -1188,7 +1189,8 @@
                     },
                     "timestamp": {
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp"
+                        "$ref": "#/components/schemas/Timestamp",
+                        "example": "2023-11-09 17:02:32.041"
                     }
                 },
                 "description": "Data Object Single"
@@ -1218,7 +1220,8 @@
                     },
                     "timestamp": {
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp"
+                        "$ref": "#/components/schemas/Timestamp",
+                        "example": "2023-11-09 17:02:32.041"
                     }
                 },
                 "description": "Data Object Single"
@@ -1248,7 +1251,8 @@
                     },
                     "timestamp": {
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp"
+                        "$ref": "#/components/schemas/Timestamp",
+                        "example": "2023-11-09 17:02:32.041"
                     }
                 },
                 "description": "Data Object Single"
@@ -1281,7 +1285,8 @@
                     },
                     "timestamp": {
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp"
+                        "$ref": "#/components/schemas/Timestamp",
+                        "example": "2023-11-09 17:02:32.041"
                     }
                 },
                 "description": "Data Object"
@@ -3140,7 +3145,7 @@
                     "accessToken": {
                         "type": "string",
                         "description": "Access Token",
-                        "example": "eyJraWQiOiJlOWNjZDMyYy02OTllLTQ1MjItYjE1MC03MjM5ODRkODkzNDMi"
+                        "example": "[token]"
                     },
                     "error": {
                         "type": "array",
@@ -3150,10 +3155,9 @@
                         }
                     },
                     "expiresIn": {
-                        "type": "integer",
                         "description": "Time in seconds until the token expires",
-                        "format": "int32",
-                        "example": 35999
+                        "$ref": "#/components/schemas/Timestamp",
+                        "example": "2023-11-09 17:02:32.041"
                     },
                     "idToken": {
                         "type": "string",
@@ -3163,7 +3167,7 @@
                     "refreshToken": {
                         "type": "string",
                         "description": "Refresh Token",
-                        "example": "3Lp8hM4I3iBZtyqVK7Lt4_DGtO1D3pd6Cryq1dzT44S5jTPNxhiE1ErPTQxg60or0vZAPhJYGtafSsv05keSgYcWryCUHGCfzlQ_1caPrNO_ixaLlgXhAPtQypMvTTHD"
+                        "example": "[token]"
                     },
                     "scope": {
                         "type": "string",
