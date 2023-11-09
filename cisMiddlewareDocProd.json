@@ -3112,8 +3112,8 @@
                         }
                     },
                     "expiresIn": {
+                        "type": "string",
                         "description": "Time in seconds until the token expires",
-                        "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     },
                     "idToken": {
@@ -3154,8 +3154,8 @@
                         }
                     },
                     "expiresIn": {
+                        "type": "string",
                         "description": "Time in seconds until the token expires",
-                        "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     },
                     "idToken": {
