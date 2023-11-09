@@ -1608,7 +1608,8 @@
                         "description": "PPA details",
                         "$ref": "#/components/schemas/PpaPrerequisiteForDataSave"
                     }
-                }
+                },
+                "description": "Data Save Prerequisite"
             },
             "Get Quotation Request Body": {
                 "title": "Get Quotation Request Body",
