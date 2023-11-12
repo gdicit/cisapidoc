@@ -1,0 +1,3270 @@
+{
+	"openapi": "3.0.0",
+	"x-explorer-enabled": false,
+	"info": {
+		"title": "CIS Middleware Documentation",
+		"description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system\n\n\n\nAPI is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client will get an access token. Access token will be needed for any other API calling of CIS middleware.",
+		"contact": {
+			"name": "GDIC IT",
+			"url": "https://green-delta.com",
+			"email": "itdev@green-delta.com"
+		},
+		"version": "1.0.0"
+	},
+	"servers": [
+		{
+			"url": "https://<sandbox-host>:<port>",
+			"description": "Sandbox"
+		},
+		{
+			"description": "Production",
+			"url": "https://<production-host>:<port>"
+		}
+	],
+    "tags": [
+        {
+            "name": "Customer",
+            "description": "Customer Controller"
+        },
+        {
+            "name": "Document",
+            "description": "Document Master Controller"
+        },
+        {
+            "name": "Product",
+            "description": "Product Controller"
+        },
+        {
+            "name": "Quotation",
+            "description": "Get Product Quotation Controller"
+        },
+        {
+            "name": "User",
+            "description": "User Login Controller"
+        }
+    ],
+    "paths": {
+        "/api/add-customer": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Add A New Customer",
+                "description": "Add a new customer and if successfull return a successfull message otherwise return error code and message.",
+                "operationId": "addCustomerUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Add Customrer Request"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataPack«string»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/search-customer": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Search Customer by search parameteres",
+                "description": "Returns customer by given customerType, GroupCode, searchText",
+                "operationId": "searchCustomerUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Search Customer Request Body"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataPackSingle«Customer Response Body»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/add-master-document": {
+            "post": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Save the document",
+                "description": "Returns document number and Money Receipt number after save.",
+                "operationId": "addMasterDocumentUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer [token]",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Add Document Request"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataPackSingle«Add Document Response»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/get-document-pre-requisite": {
+            "get": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Get Document Pre Requisite",
+                "description": "Returns the list of Document pre requsite.",
+                "operationId": "getDocumentPreRequisiteUsingGET",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataPackSingle«ForDataSavePrerequisite»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/get-quotation": {
+            "post": {
+                "tags": [
+                    "Quotation"
+                ],
+                "summary": "Get Quotation",
+                "description": "Returns specific product's quotation.",
+                "operationId": "getQuotationUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Get Quotation Request Body"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Get Quotation Response"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/get-quotation-pre-requisite": {
+            "get": {
+                "tags": [
+                    "Quotation"
+                ],
+                "summary": "Get Quotation Pre Requisite",
+                "description": "Returns the list of quotation pre requsite.",
+                "operationId": "getQuotationPreRequisiteUsingGET",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DataPackSingle«Quotation Pre Requsite Response»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/get-product-list": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get product",
+                "description": "Returns the list of the allowed products for showcasing with the product details like features, coverage, exclusions and also pre-requisite data list for getting quotations.",
+                "operationId": "productServiceUsingGET",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product Details Response"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/refresh-auth-token": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Refresh token",
+                "description": "Returns a new token when the existing token is expires.",
+                "operationId": "refrestAuthTokenUsingGET",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User Refresh Token Response"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/user-authentication": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "User Authentication",
+                "description": "Returns the access token if a valid user found according to given users credentials.",
+                "operationId": "userAuthenticationUsingPOST",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User Authentication Request"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User Authentication Response"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Add Customrer Request": {
+                "title": "Add Customrer Request",
+                "type": "object",
+                "properties": {
+                    "customerInfo": {
+                        "description": "Customer Information",
+                        "$ref": "#/components/schemas/Customer Information"
+                    },
+                    "loginUserInfo": {
+                        "description": "Login User Information",
+                        "$ref": "#/components/schemas/Login User Information"
+                    }
+                }
+            },
+            "Add Document Request": {
+                "title": "Add Document Request",
+                "required": [
+                    "customerInfo",
+                    "loginUserInfo"
+                ],
+                "type": "object",
+                "properties": {
+                    "bnh": {
+                        "description": "Business & Holidays related details",
+                        "$ref": "#/components/schemas/Business and Holidays Details"
+                    },
+                    "commonInfo": {
+                        "description": "Common Information for MR",
+                        "$ref": "#/components/schemas/Document Common Information"
+                    },
+                    "customerInfo": {
+                        "description": "Customer Information",
+                        "$ref": "#/components/schemas/Customer Information"
+                    },
+                    "ens": {
+                        "description": "Employment and Studies related details",
+                        "$ref": "#/components/schemas/ENSDetails"
+                    },
+                    "forDataSave": {
+                        "type": "object",
+                        "description": "Exact quotation response will need to send in this object"
+                    },
+                    "loginUserInfo": {
+                        "description": "Login User Information",
+                        "$ref": "#/components/schemas/LoginUserInfo"
+                    },
+                    "mtr": {
+                        "description": "Motor product related details",
+                        "$ref": "#/components/schemas/MTRDetails"
+                    },
+                    "nib": {
+                        "description": "Nibedita product related details",
+                        "$ref": "#/components/schemas/NIBDetails"
+                    },
+                    "pac": {
+                        "description": "Personal Accident product related details",
+                        "$ref": "#/components/schemas/PACDetails"
+                    },
+                    "ppa": {
+                        "description": "People's Personal Accident product related details",
+                        "$ref": "#/components/schemas/PPADetails"
+                    }
+                }
+            },
+            "Add Document Response": {
+                "title": "Add Document Response",
+                "type": "object",
+                "properties": {
+                    "customerId": {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "format": "int64",
+                        "example": 100
+                    },
+                    "mrNumber": {
+                        "type": "string",
+                        "description": "MR Number",
+                        "example": "100001"
+                    },
+                    "policyNumber": {
+                        "type": "string",
+                        "description": "Policy Number",
+                        "example": "GDI/AHO/09/2023/MTR/T/600003"
+                    }
+                }
+            },
+            "Business And Holidays": {
+                "title": "Business And Holidays",
+                "type": "object",
+                "properties": {
+                    "coveredLimit": {
+                        "type": "integer",
+                        "description": "Covered limit",
+                        "format": "int32",
+                        "example": 125000
+                    },
+                    "dayStay": {
+                        "type": "integer",
+                        "description": "Number of days for stay",
+                        "format": "int32",
+                        "example": 160
+                    },
+                    "placeVisitCode": {
+                        "type": "string",
+                        "description": "Place visit code",
+                        "example": "C"
+                    },
+                    "policyDuration": {
+                        "type": "string",
+                        "description": "Policy duration (short or full)",
+                        "example": "short"
+                    }
+                }
+            },
+            "Business And Holidays Details": {
+                "title": "Business And Holidays Details",
+                "type": "object",
+                "properties": {
+                    "dropdown": {
+                        "type": "array",
+                        "description": "Prerequisite dropdown fields to get the products quotation.",
+                        "items": {
+                            "$ref": "#/components/schemas/Business And Holidays Dropdown Details"
+                        }
+                    }
+                }
+            },
+            "Business And Holidays Dropdown Details": {
+                "title": "Business And Holidays Dropdown Details",
+                "type": "object",
+                "properties": {
+                    "medicalTypeList": {
+                        "type": "array",
+                        "description": "List of medical types for BNH",
+                        "items": {
+                            "$ref": "#/components/schemas/Medical Type"
+                        }
+                    },
+                    "placeVisitList": {
+                        "type": "array",
+                        "description": "List of place visit options for BNH",
+                        "items": {
+                            "$ref": "#/components/schemas/Place Visit"
+                        }
+                    },
+                    "planTypeList": {
+                        "type": "array",
+                        "description": "List of plan types for BNH",
+                        "items": {
+                            "$ref": "#/components/schemas/Plan Type"
+                        }
+                    }
+                }
+            },
+            "Business and Holidays Details": {
+                "title": "Business and Holidays Details",
+                "type": "object",
+                "properties": {
+                    "coveredLimit": {
+                        "type": "string",
+                        "description": "Covered Limit"
+                    },
+                    "custGender": {
+                        "type": "string",
+                        "description": "Customer Gender"
+                    },
+                    "custOccupation": {
+                        "type": "string",
+                        "description": "Customer Occupation"
+                    },
+                    "custPasspostNo": {
+                        "type": "string",
+                        "description": "Customer Passport Number"
+                    },
+                    "destCountryAddress": {
+                        "type": "string",
+                        "description": "Destination Country Address"
+                    },
+                    "doctorId": {
+                        "type": "string",
+                        "description": "Doctor ID"
+                    },
+                    "employerAddress": {
+                        "type": "string",
+                        "description": "Employer Address"
+                    },
+                    "employerName": {
+                        "type": "string",
+                        "description": "Employer Name"
+                    },
+                    "insuredOccupation": {
+                        "type": "string",
+                        "description": "Insured Occupation"
+                    },
+                    "interestInsured": {
+                        "type": "string",
+                        "description": "Interest Insured"
+                    },
+                    "medicalNonMedical": {
+                        "type": "string",
+                        "description": "Medical or Non-Medical"
+                    },
+                    "nameOfTheUsualPhysician": {
+                        "type": "string",
+                        "description": "Name of the Usual Physician"
+                    },
+                    "officeTelephoneNo": {
+                        "type": "string",
+                        "description": "Office Telephone Number"
+                    },
+                    "participant": {
+                        "type": "string",
+                        "description": "Participant"
+                    },
+                    "physicianTelephoneNoHome": {
+                        "type": "string",
+                        "description": "Physician Telephone Number (Home)"
+                    },
+                    "physicianTelephoneNoOffice": {
+                        "type": "string",
+                        "description": "Physician Telephone Number (Office)"
+                    },
+                    "planName": {
+                        "type": "string",
+                        "description": "Plan Name"
+                    },
+                    "planType": {
+                        "type": "string",
+                        "description": "Plan Type"
+                    },
+                    "reInsuredCountry": {
+                        "type": "string",
+                        "description": "Re-Insured Country"
+                    },
+                    "visaType": {
+                        "type": "string",
+                        "description": "Visa Type"
+                    }
+                }
+            },
+            "Business and Holidays Prerequisite For Data Save": {
+                "title": "Business and Holidays Prerequisite For Data Save",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldBnhForDataSave"
+                        }
+                    }
+                }
+            },
+            "Customer Common Information": {
+                "title": "Customer Common Information",
+                "type": "object",
+                "properties": {
+                    "customerBin": {
+                        "type": "string",
+                        "description": "Customer's BIN number",
+                        "example": "10909090"
+                    },
+                    "customerDob": {
+                        "type": "string",
+                        "description": "Customer's date of birth",
+                        "example": "2000-01-01"
+                    },
+                    "customerGroupCode": {
+                        "type": "string",
+                        "description": "Customer group code",
+                        "example": "UNILIVER"
+                    },
+                    "customerId": {
+                        "type": "integer",
+                        "description": "Customer ID for existing customers",
+                        "format": "int32",
+                        "example": 10
+                    },
+                    "customerMobile": {
+                        "type": "string",
+                        "description": "Customer's mobile number",
+                        "example": "01989989989"
+                    },
+                    "customerNid": {
+                        "type": "string",
+                        "description": "Customer's national ID",
+                        "example": "BHBHBHBHBH"
+                    },
+                    "customerTin": {
+                        "type": "string",
+                        "description": "Customer's TIN number",
+                        "example": "TIN-JGHGHGHGH"
+                    },
+                    "customerType": {
+                        "type": "string",
+                        "description": "Type of customer (BUSINESS or PERSONAL)",
+                        "example": "BUSINESS"
+                    },
+                    "documentValidFrom": {
+                        "type": "string",
+                        "description": "Validity start date of the document",
+                        "example": "2023-08-09"
+                    },
+                    "documentValidTo": {
+                        "type": "string",
+                        "description": "Validity end date of the document",
+                        "example": "2024-08-08"
+                    },
+                    "existingCustomer": {
+                        "type": "boolean"
+                    },
+                    "sumInsured": {
+                        "type": "integer",
+                        "description": "Sum insured amount",
+                        "format": "int32",
+                        "example": 100000
+                    }
+                }
+            },
+            "Customer Information": {
+                "title": "Customer Information",
+                "type": "object",
+                "properties": {
+                    "bin": {
+                        "type": "string",
+                        "description": "BIN (Business Identification Number). Mandatory for business customers."
+                    },
+                    "birthRegNo": {
+                        "type": "string",
+                        "description": "Birth registration number (optional)."
+                    },
+                    "companyRegAuthority": {
+                        "type": "string",
+                        "description": "Company registration authority (optional)."
+                    },
+                    "companyType": {
+                        "type": "string",
+                        "description": "Type of company (e.g., REGISTERED). Required for business customers."
+                    },
+                    "contactAddress": {
+                        "type": "string",
+                        "description": "Contact address (optional)."
+                    },
+                    "contactPerson": {
+                        "type": "string",
+                        "description": "Contact person (optional)."
+                    },
+                    "customerGroupCode": {
+                        "type": "string",
+                        "description": "Customer group code (e.g., UNILIVER). Required for business customers."
+                    },
+                    "customerId": {
+                        "type": "integer",
+                        "description": "Customer ID. It will depend on whether it's a new customer or an existing one. customerId will given for existing customer otherwise it will be null",
+                        "format": "int32"
+                    },
+                    "customerType": {
+                        "type": "string",
+                        "description": "Type of customer (e.g., BUSINESS). Required for business customers."
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "Date of birth of the customer. Mandatory for personal customers. Required for new PERSONAL customer."
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the customer. Mandatory for personal customers. Required for new customer."
+                    },
+                    "fatherName": {
+                        "type": "string",
+                        "description": "Father's name. Mandatory for personal customers."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "First name of the customer. Mandatory for personal customers. Required for new PERSONAL customer. "
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender of the customer. Mandatory for personal customers. Required for new PERSONAL customer."
+                    },
+                    "incomeSource": {
+                        "type": "string",
+                        "description": "Source of income (optional)."
+                    },
+                    "insuredAddress": {
+                        "type": "string",
+                        "description": "Insured address. Mandatory for both existing and new customers. By default it can be customers permanent address. User can change the address as it will be consider as mailing address"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Last name of the customer (optional)."
+                    },
+                    "mobileNo": {
+                        "type": "string",
+                        "description": "Mobile number of the customer. Mandatory for both personal and business customers. Required for new customer."
+                    },
+                    "motherName": {
+                        "type": "string",
+                        "description": "Mother's name. Mandatory for personal customers."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Full name of the customer. Mandatory for both personal and business customers. Required for new customer."
+                    },
+                    "nationality": {
+                        "type": "string",
+                        "description": "Nationality of the customer (optional)."
+                    },
+                    "nid": {
+                        "type": "string",
+                        "description": "NID (National ID) (optional)."
+                    },
+                    "officeAddress": {
+                        "type": "string",
+                        "description": "Office address (optional)."
+                    },
+                    "officeContactNumber": {
+                        "type": "string",
+                        "description": "Office contact number (optional)."
+                    },
+                    "passportExpireDate": {
+                        "type": "string",
+                        "description": "Passport expiration date (if applicable). Mandatory when passport number (passportNo) is given."
+                    },
+                    "passportNo": {
+                        "type": "string",
+                        "description": "Passport number (if available). Mandatory when passport number is given."
+                    },
+                    "permanentAddress": {
+                        "type": "string",
+                        "description": "Permanent address of the customer. Required for both personal and business customers."
+                    },
+                    "presentAddress": {
+                        "type": "string",
+                        "description": "Present address of the customer (optional)."
+                    },
+                    "regIssueDate": {
+                        "type": "string",
+                        "description": "Registration issue date (optional)."
+                    },
+                    "spouseName": {
+                        "type": "string",
+                        "description": "Spouse's name. Mandatory for personal customers."
+                    },
+                    "tin": {
+                        "type": "string",
+                        "description": "TIN (Taxpayer Identification Number) (optional)."
+                    },
+                    "tradeLicenceNo": {
+                        "type": "string",
+                        "description": "Trade license number (optional)."
+                    }
+                }
+            },
+            "Customer Response Body": {
+                "title": "Customer Response Body",
+                "type": "object",
+                "properties": {
+                    "bin": {
+                        "type": "string",
+                        "description": "BIN (Business Identification Number) of the customer",
+                        "example": "123456789"
+                    },
+                    "birthRegNo": {
+                        "type": "string",
+                        "description": "Birth registration number of the customer",
+                        "example": "B9876543"
+                    },
+                    "companyRegAuthority": {
+                        "type": "string",
+                        "description": "Company registration authority of the customer",
+                        "example": "Government"
+                    },
+                    "companyType": {
+                        "type": "string",
+                        "description": "Type of the company",
+                        "example": "Corporation, Limited etc."
+                    },
+                    "contactAddress": {
+                        "type": "string",
+                        "description": "Contact address for the customer",
+                        "example": "789 Third St, City, Country"
+                    },
+                    "contactPerson": {
+                        "type": "string",
+                        "description": "Contact person for the customer",
+                        "example": "John Doe"
+                    },
+                    "customerGroupCode": {
+                        "type": "string",
+                        "description": "Customer group code",
+                        "example": "CG123"
+                    },
+                    "customerType": {
+                        "type": "string",
+                        "description": "Type of the customer",
+                        "example": "Individual, Business etc."
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "Date of birth of the customer format: (YYYY-MM-DD)",
+                        "example": "1990-01-01"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the customer",
+                        "example": "test@example.com"
+                    },
+                    "fatherName": {
+                        "type": "string",
+                        "description": "Father's name of the customer",
+                        "example": "John Smith"
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "First Name Of The Customer",
+                        "example": "Abdur"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender of the customer",
+                        "example": "Male, Female etc."
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Auto increment id",
+                        "example": "123456"
+                    },
+                    "incomeSource": {
+                        "type": "string",
+                        "description": "Source of customer's income",
+                        "example": "Employment, Business etc."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Last Name Of The Customer",
+                        "example": "Sujon"
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "Middle Name Of The Customer",
+                        "example": "Rahman"
+                    },
+                    "mobileNo": {
+                        "type": "string",
+                        "description": "Mobile number of the customer",
+                        "example": "1234567890"
+                    },
+                    "motherName": {
+                        "type": "string",
+                        "description": "Mother's name of the customer",
+                        "example": "Mary Smith"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Full name of the customer",
+                        "example": "Abdur Rahman Sujon"
+                    },
+                    "nationality": {
+                        "type": "string",
+                        "description": "Nationality of the customer",
+                        "example": "Bangladeshi, US, Canada etc."
+                    },
+                    "nid": {
+                        "type": "string",
+                        "description": "National ID number of the customer",
+                        "example": "1234567890"
+                    },
+                    "officeAddress": {
+                        "type": "string",
+                        "description": "Office address of the customer",
+                        "example": "101 Business Ave, City, Country"
+                    },
+                    "officeContactNumber": {
+                        "type": "string",
+                        "description": "Office contact number of the customer",
+                        "example": "+1234567890"
+                    },
+                    "passportExpireDate": {
+                        "type": "string",
+                        "description": "Passport expiry date of the customer",
+                        "example": "2025-01-01"
+                    },
+                    "passportNo": {
+                        "type": "string",
+                        "description": "Passport number of the customer",
+                        "example": "A1234567"
+                    },
+                    "permanentAddress": {
+                        "type": "string",
+                        "description": "Permanent address of the customer",
+                        "example": "456 Second St, City, Country"
+                    },
+                    "presentAddress": {
+                        "type": "string",
+                        "description": "Present address of the customer",
+                        "example": "123 Main St, City, Country"
+                    },
+                    "regIssueDate": {
+                        "type": "string",
+                        "description": "Registration issue date",
+                        "example": "2022-01-15"
+                    },
+                    "spouseName": {
+                        "type": "string",
+                        "description": "Spouse's name of the customer",
+                        "example": "Jane Smith"
+                    },
+                    "tin": {
+                        "type": "string",
+                        "description": "TIN (Tax Identification Number) of the customer",
+                        "example": "987654321"
+                    },
+                    "tradeLicenceNo": {
+                        "type": "string",
+                        "description": "Trade license number of the customer",
+                        "example": "T987654321"
+                    }
+                }
+            },
+            "DataPackSingle«Add Document Response»": {
+                "title": "DataPackSingle«Add Document Response»",
+                "type": "object",
+                "properties": {
+                    "correlationID": {
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/Add Document Response"
+                    },
+                    "messageID": {
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
+                    },
+                    "remarks": {
+                        "$ref": "#/components/schemas/DataRemarks"
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "description": "Time and date of the execution",
+                        "$ref": "#/components/schemas/Timestamp",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                },
+                "description": "Data Object Single"
+            },
+            "DataPackSingle«Customer Response Body»": {
+                "title": "DataPackSingle«Customer Response Body»",
+                "type": "object",
+                "properties": {
+                    "correlationID": {
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/Customer Response Body"
+                    },
+                    "messageID": {
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
+                    },
+                    "remarks": {
+                        "$ref": "#/components/schemas/DataRemarks"
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "description": "Time and date of the execution",
+                        "$ref": "#/components/schemas/Timestamp",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                },
+                "description": "Data Object Single"
+            },
+            "DataPackSingle«ForDataSavePrerequisite»": {
+                "title": "DataPackSingle«ForDataSavePrerequisite»",
+                "type": "object",
+                "properties": {
+                    "correlationID": {
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/ForDataSavePrerequisite"
+                    },
+                    "messageID": {
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
+                    },
+                    "remarks": {
+                        "$ref": "#/components/schemas/DataRemarks"
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "description": "Time and date of the execution",
+                        "$ref": "#/components/schemas/Timestamp",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                },
+                "description": "Data Object Single"
+            },
+            "DataPackSingle«Quotation Pre Requsite Response»": {
+                "title": "DataPackSingle«Quotation Pre Requsite Response»",
+                "type": "object",
+                "properties": {
+                    "correlationID": {
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/Quotation Pre Requsite Response"
+                    },
+                    "messageID": {
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
+                    },
+                    "remarks": {
+                        "$ref": "#/components/schemas/DataRemarks"
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "description": "Time and date of the execution",
+                        "$ref": "#/components/schemas/Timestamp",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                },
+                "description": "Data Object Single"
+            },
+            "DataPack«string»": {
+                "title": "DataPack«string»",
+                "type": "object",
+                "properties": {
+                    "correlationID": {
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "messageID": {
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
+                    },
+                    "remarks": {
+                        "$ref": "#/components/schemas/DataRemarks"
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "description": "Time and date of the execution",
+                        "$ref": "#/components/schemas/Timestamp",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                },
+                "description": "Data Object"
+            },
+            "DataRemarks": {
+                "title": "DataRemarks",
+                "type": "object",
+                "properties": {
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "success": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "description": "Remarks"
+            },
+            "Document Common Information": {
+                "title": "Document Common Information",
+                "required": [
+                    "paymentBankName",
+                    "paymentBranchName",
+                    "paymentDate",
+                    "paymentMode",
+                    "paymentNumber",
+                    "paymentRoutingNumber",
+                    "trxNumber"
+                ],
+                "type": "object",
+                "properties": {
+                    "paymentBankName": {
+                        "type": "string",
+                        "description": "Payment Bank Name"
+                    },
+                    "paymentBranchName": {
+                        "type": "string",
+                        "description": "Payment Branch Name"
+                    },
+                    "paymentDate": {
+                        "type": "string",
+                        "description": "Payment Date"
+                    },
+                    "paymentMode": {
+                        "type": "string",
+                        "description": "Payment Mode"
+                    },
+                    "paymentNumber": {
+                        "type": "string",
+                        "description": "Payment Number"
+                    },
+                    "paymentRoutingNumber": {
+                        "type": "string",
+                        "description": "Payment Routing Number"
+                    },
+                    "trxNumber": {
+                        "type": "string",
+                        "description": "Transaction Number"
+                    }
+                }
+            },
+            "ENSDetails": {
+                "title": "ENSDetails",
+                "type": "object",
+                "properties": {
+                    "coveredLimit": {
+                        "type": "string",
+                        "description": "Covered Limit"
+                    },
+                    "custGender": {
+                        "type": "string",
+                        "description": "Customer Gender"
+                    },
+                    "custOccupation": {
+                        "type": "string",
+                        "description": "Customer Occupation"
+                    },
+                    "custPasspostNo": {
+                        "type": "string",
+                        "description": "Customer Passport Number"
+                    },
+                    "destCountryAddress": {
+                        "type": "string",
+                        "description": "Destination Country Address"
+                    },
+                    "doctorId": {
+                        "type": "string",
+                        "description": "Doctor ID"
+                    },
+                    "employerAddress": {
+                        "type": "string",
+                        "description": "Employer Address"
+                    },
+                    "employerName": {
+                        "type": "string",
+                        "description": "Employer Name"
+                    },
+                    "insuredOccupation": {
+                        "type": "string",
+                        "description": "Insured Occupation"
+                    },
+                    "interestInsured": {
+                        "type": "string",
+                        "description": "Interest Insured"
+                    },
+                    "medicalNonMedical": {
+                        "type": "string",
+                        "description": "Medical or Non-Medical"
+                    },
+                    "nameOfTheUsualPhysician": {
+                        "type": "string",
+                        "description": "Name of the Usual Physician"
+                    },
+                    "officeTelephoneNo": {
+                        "type": "string",
+                        "description": "Office Telephone Number"
+                    },
+                    "participant": {
+                        "type": "string",
+                        "description": "Participant"
+                    },
+                    "physicianTelephoneNoHome": {
+                        "type": "string",
+                        "description": "Physician Telephone Number (Home)"
+                    },
+                    "physicianTelephoneNoOffice": {
+                        "type": "string",
+                        "description": "Physician Telephone Number (Office)"
+                    },
+                    "planName": {
+                        "type": "string",
+                        "description": "Plan Name"
+                    },
+                    "planType": {
+                        "type": "string",
+                        "description": "Plan Type"
+                    },
+                    "reInsuredCountry": {
+                        "type": "string",
+                        "description": "Re-Insured Country"
+                    },
+                    "visaType": {
+                        "type": "string",
+                        "description": "Visa Type"
+                    }
+                },
+                "description": "Employment and Studies Details"
+            },
+            "Employment And Studies": {
+                "title": "Employment And Studies",
+                "type": "object",
+                "properties": {
+                    "conversionRateUsdToBdt": {
+                        "type": "integer",
+                        "description": "Conversion rate from USD to BDT",
+                        "format": "int32",
+                        "example": 90
+                    },
+                    "coveredLimit": {
+                        "type": "integer",
+                        "description": "Covered limit",
+                        "format": "int32",
+                        "example": 125000
+                    },
+                    "dayStay": {
+                        "type": "integer",
+                        "description": "Number of days for stay",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "ensType": {
+                        "type": "string",
+                        "description": "ENS type",
+                        "example": "Employment"
+                    },
+                    "monthStay": {
+                        "type": "integer",
+                        "description": "Number of months for stay",
+                        "format": "int32",
+                        "example": 8
+                    },
+                    "numberOfChild": {
+                        "type": "integer",
+                        "description": "Number of children",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "numberOfPerson": {
+                        "type": "integer",
+                        "description": "Number of persons",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "placeVisitCode": {
+                        "type": "string",
+                        "description": "Place visit code",
+                        "example": "B"
+                    },
+                    "stampDutyType": {
+                        "type": "string",
+                        "description": "Stamp duty type (Recoverable or Non-Recoverable)",
+                        "example": "Recoverable"
+                    }
+                }
+            },
+            "Employment And Studies Details": {
+                "title": "Employment And Studies Details",
+                "type": "object",
+                "properties": {
+                    "dropdown": {
+                        "type": "array",
+                        "description": "Prerequisite dropdown fields to get the products quotation.",
+                        "items": {
+                            "$ref": "#/components/schemas/Employment And Studies Dropdown Details"
+                        }
+                    },
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to get the products quotation.",
+                        "items": {
+                            "$ref": "#/components/schemas/Text Field Employment And Studies"
+                        }
+                    }
+                }
+            },
+            "Employment And Studies Dropdown Details": {
+                "title": "Employment And Studies Dropdown Details",
+                "type": "object",
+                "properties": {
+                    "ensTypeList": {
+                        "type": "array",
+                        "description": "List of ENS types",
+                        "items": {
+                            "$ref": "#/components/schemas/Employment And Studies Type"
+                        }
+                    },
+                    "medicalTypeList": {
+                        "type": "array",
+                        "description": "List of medical types",
+                        "items": {
+                            "$ref": "#/components/schemas/Medical Type"
+                        }
+                    },
+                    "placeVisitList": {
+                        "type": "array",
+                        "description": "List of place visit options",
+                        "items": {
+                            "$ref": "#/components/schemas/Place Visit"
+                        }
+                    },
+                    "planTypeList": {
+                        "type": "array",
+                        "description": "List of plan types",
+                        "items": {
+                            "$ref": "#/components/schemas/Plan Type"
+                        }
+                    }
+                }
+            },
+            "Employment And Studies Type": {
+                "title": "Employment And Studies Type",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "ENS type name",
+                        "example": "Study, Employment"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "ENS type value",
+                        "example": "Study, Employment"
+                    }
+                }
+            },
+            "EnsPrerequisiteForDataSave": {
+                "title": "EnsPrerequisiteForDataSave",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldEnsForDataSave"
+                        }
+                    }
+                },
+                "description": "Employment and Studies Prerequisite For DataSave"
+            },
+            "ForDataSave": {
+                "title": "ForDataSave",
+                "type": "object"
+            },
+            "ForDataSavePrerequisite": {
+                "title": "ForDataSavePrerequisite",
+                "type": "object",
+                "properties": {
+                    "bnh": {
+                        "description": "BNH details",
+                        "$ref": "#/components/schemas/Business and Holidays Prerequisite For Data Save"
+                    },
+                    "ens": {
+                        "description": "ENS details",
+                        "$ref": "#/components/schemas/EnsPrerequisiteForDataSave"
+                    },
+                    "mtr": {
+                        "description": "MTR details",
+                        "$ref": "#/components/schemas/MtrPrerequisiteForDataSave"
+                    },
+                    "nib": {
+                        "description": "NIB products",
+                        "$ref": "#/components/schemas/NibPrerequisiteForDataSave"
+                    },
+                    "pac": {
+                        "description": "PAC details",
+                        "$ref": "#/components/schemas/PacPrerequisiteForDataSave"
+                    },
+                    "ppa": {
+                        "description": "PPA details",
+                        "$ref": "#/components/schemas/PpaPrerequisiteForDataSave"
+                    }
+                },
+                "description": "Data Save Prerequisite"
+            },
+            "Get Quotation Request Body": {
+                "title": "Get Quotation Request Body",
+                "type": "object",
+                "properties": {
+                    "commonInfo": {
+                        "description": "Common information",
+                        "$ref": "#/components/schemas/Customer Common Information"
+                    },
+                    "productCode": {
+                        "type": "string",
+                        "description": "Product code",
+                        "example": "NIB"
+                    },
+                    "productSpecificInfo": {
+                        "description": "Product-specific information",
+                        "$ref": "#/components/schemas/Product Specific Information"
+                    }
+                }
+            },
+            "Get Quotation Response": {
+                "title": "Get Quotation Response",
+                "type": "object",
+                "properties": {
+                    "discountAmount": {
+                        "type": "number",
+                        "description": "Discount amount",
+                        "format": "double",
+                        "example": 0
+                    },
+                    "forDataSave": {
+                        "description": "Data for saving purposes",
+                        "$ref": "#/components/schemas/ForDataSave"
+                    },
+                    "forDataSavePrerequisite": {
+                        "description": "Prerequisite fields for data savings both text fields and dropdown. Not related with quotation getting, but need when save the document.",
+                        "$ref": "#/components/schemas/ForDataSavePrerequisite"
+                    },
+                    "grossPremium": {
+                        "type": "number",
+                        "description": "Gross premium amount",
+                        "format": "double",
+                        "example": 10485
+                    },
+                    "netPremium": {
+                        "type": "number",
+                        "description": "Net premium amount",
+                        "format": "double",
+                        "example": 9100
+                    },
+                    "policyDuration": {
+                        "description": "Policy duration details",
+                        "$ref": "#/components/schemas/PolicyDuration"
+                    },
+                    "policyValidFrom": {
+                        "type": "string",
+                        "description": "Policy valid from date",
+                        "example": "2023-10-24"
+                    },
+                    "policyValidTo": {
+                        "type": "string",
+                        "description": "Policy valid to date",
+                        "example": "2024-10-23"
+                    },
+                    "stampAmount": {
+                        "type": "number",
+                        "description": "Stamp amount",
+                        "format": "double",
+                        "example": 20
+                    },
+                    "vatAmount": {
+                        "type": "number",
+                        "description": "VAT amount",
+                        "format": "double",
+                        "example": 1365
+                    }
+                }
+            },
+            "Login User Information": {
+                "title": "Login User Information",
+                "type": "object",
+                "properties": {
+                    "branch": {
+                        "type": "string",
+                        "description": "Working branch of the user",
+                        "example": "MKH, PBD etc."
+                    },
+                    "designation": {
+                        "type": "string",
+                        "description": "Designation of the loggedin user",
+                        "example": "Manager, RM etc."
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the loggedin user",
+                        "example": "example@example.com"
+                    },
+                    "employeeId": {
+                        "type": "string",
+                        "description": "Employee ID",
+                        "example": "test-id"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender of the loggedin user",
+                        "example": "Male, Female etc."
+                    },
+                    "mobile": {
+                        "type": "string",
+                        "description": "Mobile number of the loggedin user",
+                        "example": "017468714655"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the loggedin user",
+                        "example": "test-user"
+                    }
+                }
+            },
+            "LoginUserInfo": {
+                "title": "LoginUserInfo",
+                "required": [
+                    "employeeId",
+                    "name",
+                    "role"
+                ],
+                "type": "object",
+                "properties": {
+                    "branchCode": {
+                        "type": "string",
+                        "description": "Branch Code"
+                    },
+                    "clientCode": {
+                        "type": "string",
+                        "description": "Client Code"
+                    },
+                    "designation": {
+                        "type": "string",
+                        "description": "Designation"
+                    },
+                    "employeeId": {
+                        "type": "string",
+                        "description": "Employee ID"
+                    },
+                    "mobile": {
+                        "type": "string",
+                        "description": "Mobile Number"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name"
+                    },
+                    "role": {
+                        "type": "string",
+                        "description": "Role",
+                        "example": "Manager, RM, Sales"
+                    }
+                },
+                "description": "Login User Info"
+            },
+            "MTRDetails": {
+                "title": "MTRDetails",
+                "type": "object",
+                "properties": {
+                    "companyOrModelName": {
+                        "type": "string",
+                        "description": "Company or Model Name"
+                    },
+                    "fitnessExpiryDate": {
+                        "type": "string",
+                        "description": "Fitness Expiry Date"
+                    },
+                    "manufactureYear": {
+                        "type": "string",
+                        "description": "Manufacture Year"
+                    },
+                    "manufacturer": {
+                        "type": "string",
+                        "description": "Manufacturer"
+                    },
+                    "motorEngineAndChassisNumber": {
+                        "type": "string",
+                        "description": "Motor Engine and Chassis Number"
+                    },
+                    "motorMakeAndBodyType": {
+                        "type": "string",
+                        "description": "Motor Make and Body Type"
+                    },
+                    "motorModelNumber": {
+                        "type": "string",
+                        "description": "Motor Model Number"
+                    },
+                    "motorTermsOfUseId": {
+                        "type": "string",
+                        "description": "Motor Terms of Use ID"
+                    },
+                    "nameOfRegistrationAuthority": {
+                        "type": "string",
+                        "description": "Name of Registration Authority"
+                    },
+                    "taxToken": {
+                        "type": "string",
+                        "description": "Tax Token"
+                    }
+                },
+                "description": "Motor Details"
+            },
+            "Medical Type": {
+                "title": "Medical Type",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Medical type name",
+                        "example": "Medical, Non Medical"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "Medical type value",
+                        "example": "Medical, Non Medical"
+                    }
+                }
+            },
+            "Motor": {
+                "title": "Motor",
+                "type": "object",
+                "properties": {
+                    "avlsDiscount": {
+                        "type": "boolean",
+                        "description": "Whether AVLs discount is available",
+                        "example": true
+                    },
+                    "comprehensiveRate": {
+                        "type": "integer",
+                        "description": "Comprehensive rate",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "customerId": {
+                        "type": "integer",
+                        "description": "Customer ID",
+                        "format": "int32",
+                        "example": 70734
+                    },
+                    "exclusionPerilList": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    "fitnessExpiryDate": {
+                        "type": "string",
+                        "description": "Fitness expiry date",
+                        "example": "2023-07-19"
+                    },
+                    "loadingRate": {
+                        "type": "integer",
+                        "description": "Loading rate",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "lumpSumAmount": {
+                        "type": "integer",
+                        "description": "Lump sum amount",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "manufactureYear": {
+                        "type": "string",
+                        "description": "Manufacture year",
+                        "example": "2019"
+                    },
+                    "motorTermsOfUseId": {
+                        "type": "integer",
+                        "description": "Motor terms of use ID",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "mtrCcTon": {
+                        "type": "string",
+                        "description": "MTR CC ton type (CC or Ton)",
+                        "example": "CC"
+                    },
+                    "mtrCcTonValue": {
+                        "type": "integer",
+                        "description": "MTR CC ton value",
+                        "format": "int32",
+                        "example": 200
+                    },
+                    "mtrConductorAmount": {
+                        "type": "integer",
+                        "description": "Conductor amount",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "mtrConductorRate": {
+                        "type": "integer",
+                        "description": "Conductor rate",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "mtrDriverTimesMultiply": {
+                        "type": "integer",
+                        "description": "Multiplier for driver count",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "mtrGuideAmount": {
+                        "type": "integer",
+                        "description": "Guide amount",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "mtrGuideRate": {
+                        "type": "integer",
+                        "description": "Guide rate",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "mtrHelperTimesMultiply": {
+                        "type": "integer",
+                        "description": "Multiplier for helper count",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "mtrNoOfConductor": {
+                        "type": "integer",
+                        "description": "Number of conductors",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "mtrNoOfDriver": {
+                        "type": "integer",
+                        "description": "Number of drivers",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "mtrNoOfGuide": {
+                        "type": "integer",
+                        "description": "Number of guides",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "mtrNoOfHelper": {
+                        "type": "integer",
+                        "description": "Number of helpers",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "mtrNoOfPassenger": {
+                        "type": "integer",
+                        "description": "Number of passengers",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "mtrPassengerTimesMultiply": {
+                        "type": "integer",
+                        "description": "Multiplier for passenger count",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "mtrPlanName": {
+                        "type": "string",
+                        "description": "MTR plan name",
+                        "example": "Comprehensive"
+                    },
+                    "mtrVehicleId": {
+                        "type": "integer",
+                        "description": "MTR vehicle ID",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "mtrVehicleType": {
+                        "type": "string",
+                        "description": "MTR vehicle type",
+                        "example": "Private"
+                    },
+                    "namedDriver": {
+                        "type": "boolean",
+                        "description": "Whether named driver is available",
+                        "example": false
+                    },
+                    "ncbRate": {
+                        "type": "integer",
+                        "description": "No Claim Bonus rate",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "oppositePurposeUseLoading": {
+                        "type": "boolean",
+                        "description": "Whether loading is applicable for opposite purpose use",
+                        "example": true
+                    },
+                    "policyDuration": {
+                        "type": "string",
+                        "description": "Policy duration (short or full)",
+                        "example": "full"
+                    },
+                    "stampAmount": {
+                        "type": "integer",
+                        "description": "Stamp amount",
+                        "format": "int32",
+                        "example": 500
+                    },
+                    "stampDutyType": {
+                        "type": "string",
+                        "description": "Stamp duty type (Recoverable or Non-Recoverable)",
+                        "example": "Non-Recoverable"
+                    },
+                    "sumInsured": {
+                        "type": "integer",
+                        "description": "Sum insured amount",
+                        "format": "int32",
+                        "example": 2000000
+                    },
+                    "taxFreeVehicle": {
+                        "type": "boolean",
+                        "description": "Whether the vehicle is tax-free",
+                        "example": true
+                    },
+                    "taxToken": {
+                        "type": "string",
+                        "description": "Tax token number",
+                        "example": "3425345"
+                    },
+                    "techometerVehicle": {
+                        "type": "boolean",
+                        "description": "Whether the vehicle has a tachometer",
+                        "example": true
+                    },
+                    "totalDays": {
+                        "type": "integer",
+                        "description": "Total days for policy",
+                        "format": "int32",
+                        "example": 365
+                    },
+                    "vatRate": {
+                        "type": "integer",
+                        "description": "VAT rate",
+                        "format": "int32",
+                        "example": 15
+                    },
+                    "vehicleRegistrationNumber": {
+                        "type": "string",
+                        "description": "Vehicle registration number",
+                        "example": "323425"
+                    }
+                }
+            },
+            "Motor CC Name": {
+                "title": "Motor CC Name",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "CC name",
+                        "example": "NA,CC,TON,SEAT,HP"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "CC value",
+                        "example": "NA,CC,TON,SEAT,HP"
+                    }
+                }
+            },
+            "Motor Details": {
+                "title": "Motor Details",
+                "type": "object",
+                "properties": {
+                    "dropdown": {
+                        "type": "array",
+                        "description": "Prerequisite dropdown fields to get the products quotation.",
+                        "items": {
+                            "$ref": "#/components/schemas/Motor Dropdown Details"
+                        }
+                    },
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to get the products quotation.",
+                        "items": {
+                            "$ref": "#/components/schemas/Text Filed Motor"
+                        }
+                    }
+                }
+            },
+            "Motor Dropdown Details": {
+                "title": "Motor Dropdown Details",
+                "type": "object",
+                "properties": {
+                    "motorCCNames": {
+                        "type": "array",
+                        "description": "List of motor CC names",
+                        "items": {
+                            "$ref": "#/components/schemas/Motor CC Name"
+                        }
+                    },
+                    "motorPlanTypes": {
+                        "type": "array",
+                        "description": "List of motor plan types",
+                        "items": {
+                            "$ref": "#/components/schemas/Motor Plan Type"
+                        }
+                    },
+                    "mtrPerilExclusion": {
+                        "type": "array",
+                        "description": "List of motor peril exclusions",
+                        "items": {
+                            "$ref": "#/components/schemas/Motor Peril Exclusion"
+                        }
+                    },
+                    "mtrVehicleList": {
+                        "type": "array",
+                        "description": "List of motor vehicle details",
+                        "items": {
+                            "$ref": "#/components/schemas/Motor Vehicle"
+                        }
+                    },
+                    "termsOfUse": {
+                        "type": "array",
+                        "description": "Motor terms of uses.",
+                        "items": {
+                            "$ref": "#/components/schemas/Motor Terms Of Use"
+                        }
+                    },
+                    "vehicleTypes": {
+                        "type": "array",
+                        "description": "List of vehicle types",
+                        "items": {
+                            "$ref": "#/components/schemas/Vehicle Type"
+                        }
+                    }
+                }
+            },
+            "Motor Peril Exclusion": {
+                "title": "Motor Peril Exclusion",
+                "type": "object",
+                "properties": {
+                    "classCode": {
+                        "type": "string",
+                        "description": "Class code",
+                        "example": "MTR"
+                    },
+                    "deptCode": {
+                        "type": "string",
+                        "description": "Department code",
+                        "example": "MTR"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "Peril ID, Note: Need to give this id when reqest for quotation API is called",
+                        "format": "int64"
+                    },
+                    "perilCode": {
+                        "type": "string",
+                        "description": "Peril code",
+                        "example": "R&SD ,EQ (F & S) ,FLD & CYC "
+                    },
+                    "perilName": {
+                        "type": "string",
+                        "description": "Peril name",
+                        "example": "Riot And Strike, Earthquake, Flood And Cyclone"
+                    }
+                }
+            },
+            "Motor Plan Type": {
+                "title": "Motor Plan Type",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Plan type name",
+                        "example": "Comprehensive, Comprehensive (Fire Only), Comprehensive (Theft Only), Comprehensive (Fire And Theft), Act Liability"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "Plan type value",
+                        "example": "Comprehensive, Comprehensive (Fire Only), Comprehensive (Theft Only), Comprehensive (Fire And Theft), Act Liability"
+                    }
+                }
+            },
+            "Motor Terms Of Use": {
+                "title": "Motor Terms Of Use",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Terms of use id. Note: Need to give this id when reqest for quotation API is calle",
+                        "format": "int64"
+                    },
+                    "termsOfUseCode": {
+                        "type": "string",
+                        "description": "Place code",
+                        "example": "1233, 1255, 1256"
+                    },
+                    "termsOfUseName": {
+                        "type": "string",
+                        "description": "Purpose of use.",
+                        "example": "USE SOLELY FOR SOCIAL DOMESTIC AND PLEASURE PURPOSE, USE ONLY FOR SOCIAL PURPOSE AND IN CONNECTION WITH THE INSUREDS BUSINESS, USE ONLY IN CONNECTION WITH THE INSUREDS BUSINESS, USE ONLY UNDER A PRIVATE CARRIERS PERMIT WITHIN THE MEANING OF MOTOR VECHICLE ACT,1991, USE ONLY FOR SOCIAL DOMESTIC PLEASURES AND/OR PROFESSIONAL PURPOSE AND FOR THE INSUREDS BUSINESS, USE ONLY FOR SOCIAL DOMESTIC AND PLEASURE PURPOSE AND FOR THE INSUREDS BUSINESS OR PROFESSION, USE ONLY A PUBLIC CARRIERS PERMIT WITHIN THE MEANING OF THE MOTOR VEHICLE ACT,1991, USE ONLY UNDER A PUBLIC CARRIERS PERMIT WIYHIN THE MEANING OF THE MOTOR VEHICLE ACT,1991, USE ONLY UNDER A CONTRACT CARRIERS PERMIT WIYHIN THE MEANING OF THE MOTOR VEHICLE ACT,1991, USE FOR AGRICULTURAL AND FORESTY PURPOSES, USE ONLY FOR AMBULANCE PURPOSES, USE ONLY FOR DOMESTIC, PLEASURE AND/OR PROFESSIONAL PURPOSE AND FOR THE INSUREDS BUSINESS, USE ONLY FOR  OFFICIAL PURPOSES AND INCONNECTION WITH THE INSUREDS BUSINESS, USE ONLY FOR SOCIAL DOMESTIC, PLEASURE AND OFFICIAL  PURPOSES AND /OR IN CONNECTION WITH THE INSUREDS BUSINESS"
+                    }
+                }
+            },
+            "Motor Vehicle": {
+                "title": "Motor Vehicle",
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Vehicle description",
+                        "example": "Motor Cycle, Three wheeler, Private Car, Ambulance, Truck, Bus, Air Line Vehicles, Microbus, Four wheeler(tempo/ leguna), Agri(Pedestrian Controlled Tractor), Agri(Haulage upto two trailer confined to insured farm & concession), Agri(Haulage upto two trailer not confined to insured farm & concession), Taxi Car, Pickup, Covered Van, Delivery Van, Double Deck Bus, Excavator (Used Confined to Insured Own Premises), Lori, Trailer, Crane (Premanently Fitted Vehicle), Mobile shop and canteen (Vehicle), Motorized Rickshaw, Excavator (Used not Confined to Insured Own Premises), Crane (Goods Carrying Vehicle), Mobile shop and canteen (Trailer), Electric Vehicle, CNG"
+                    },
+                    "vehicleName": {
+                        "type": "string",
+                        "description": "Vehicle name",
+                        "example": "Motor Cycle, Three wheeler, Private Car, Ambulance, Truck, Bus, Air Line Vehicles, Microbus, Four wheeler(tempo/ leguna), Agri(Pedestrian Controlled Tractor), Agri(Haulage upto two trailer confined to insured farm & concession), Agri(Haulage upto two trailer not confined to insured farm & concession), Taxi Car, Pickup, Covered Van, Delivery Van, Double Deck Bus, Excavator (Used Confined to Insured Own Premises), Lori, Trailer, Crane (Premanently Fitted Vehicle), Mobile shop and canteen (Vehicle), Motorized Rickshaw, Excavator (Used not Confined to Insured Own Premises), Crane (Goods Carrying Vehicle), Mobile shop and canteen (Trailer), Electric Vehicle, CNG"
+                    }
+                }
+            },
+            "MtrPrerequisiteForDataSave": {
+                "title": "MtrPrerequisiteForDataSave",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldMtrForDataSave"
+                        }
+                    }
+                },
+                "description": "Motor Prerequisite For Data Save"
+            },
+            "NIBDetails": {
+                "title": "NIBDetails",
+                "type": "object",
+                "properties": {
+                    "construction": {
+                        "type": "string",
+                        "description": "Construction"
+                    },
+                    "nomineeDetails": {
+                        "type": "array",
+                        "description": "Nominee Details",
+                        "items": {
+                            "$ref": "#/components/schemas/NomineeDetails"
+                        }
+                    },
+                    "occupation": {
+                        "type": "string",
+                        "description": "Occupation"
+                    }
+                },
+                "description": "Nibedita Details"
+            },
+            "NibDropdownDetails": {
+                "title": "NibDropdownDetails",
+                "type": "object",
+                "properties": {
+                    "productCode": {
+                        "type": "string",
+                        "description": "Product code"
+                    },
+                    "productName": {
+                        "type": "string",
+                        "description": "Product name"
+                    },
+                    "sumInsuredList": {
+                        "type": "array",
+                        "description": "List of sum insured values",
+                        "items": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                },
+                "description": "Nibedita Dropdown Details"
+            },
+            "NibPrerequisiteForDataSave": {
+                "title": "NibPrerequisiteForDataSave",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldNibForDataSave"
+                        }
+                    }
+                },
+                "description": "Nibedita Prerequisite For Data Save"
+            },
+            "Nibedita Product": {
+                "title": "Nibedita Product",
+                "type": "object",
+                "properties": {
+                    "dropdown": {
+                        "type": "array",
+                        "description": "Prerequisite dropdown fields to get the products quotation.",
+                        "items": {
+                            "$ref": "#/components/schemas/NibDropdownDetails"
+                        }
+                    },
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to get the products quotation.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldNib"
+                        }
+                    }
+                }
+            },
+            "NomineeDetails": {
+                "title": "NomineeDetails",
+                "required": [
+                    "nomineeAddress",
+                    "nomineeDateOfBirth",
+                    "nomineeEmail",
+                    "nomineeMobile",
+                    "nomineeName",
+                    "nomineeNid",
+                    "nomineeRelation",
+                    "nomineeSharePct"
+                ],
+                "type": "object",
+                "properties": {
+                    "nomineeAddress": {
+                        "type": "string",
+                        "description": "Nominee Address",
+                        "example": "123 Main St, City"
+                    },
+                    "nomineeDateOfBirth": {
+                        "type": "string",
+                        "description": "Nominee Date of Birth",
+                        "example": "2023-12-25"
+                    },
+                    "nomineeEmail": {
+                        "type": "string",
+                        "description": "Nominee Email",
+                        "example": "nominee@example.com"
+                    },
+                    "nomineeMobile": {
+                        "type": "string",
+                        "description": "Nominee Mobile Number",
+                        "example": "0123456789"
+                    },
+                    "nomineeName": {
+                        "type": "string",
+                        "description": "Nominee Name",
+                        "example": "John Doe"
+                    },
+                    "nomineeNid": {
+                        "type": "string",
+                        "description": "Nominee NID",
+                        "example": "1234567890"
+                    },
+                    "nomineeRelation": {
+                        "type": "string",
+                        "description": "Nominee Relation",
+                        "example": "Spouse"
+                    },
+                    "nomineeSharePct": {
+                        "type": "integer",
+                        "description": "Nominee Share Percentage",
+                        "format": "int32",
+                        "example": 100
+                    }
+                },
+                "description": "Nominee Details"
+            },
+            "PACDetails": {
+                "title": "PACDetails",
+                "type": "object",
+                "properties": {
+                    "construction": {
+                        "type": "string",
+                        "description": "Construction"
+                    },
+                    "nomineeDetails": {
+                        "type": "array",
+                        "description": "Nominee Details",
+                        "items": {
+                            "$ref": "#/components/schemas/NomineeDetails"
+                        }
+                    },
+                    "occupation": {
+                        "type": "string",
+                        "description": "Occupation"
+                    }
+                },
+                "description": "Personal Accident Details"
+            },
+            "PPADetails": {
+                "title": "PPADetails",
+                "type": "object",
+                "properties": {
+                    "construction": {
+                        "type": "string",
+                        "description": "Construction"
+                    },
+                    "nomineeDetails": {
+                        "type": "array",
+                        "description": "Nominee Details",
+                        "items": {
+                            "$ref": "#/components/schemas/NomineeDetails"
+                        }
+                    },
+                    "occupation": {
+                        "type": "string",
+                        "description": "Occupation"
+                    }
+                },
+                "description": "People's Personal Accident Details"
+            },
+            "PacPrerequisiteForDataSave": {
+                "title": "PacPrerequisiteForDataSave",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldPacForDataSave"
+                        }
+                    }
+                },
+                "description": "Personal Accident Prerequisite for Data Save"
+            },
+            "People's Personal Accident": {
+                "title": "People's Personal Accident",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to get the products quotation.",
+                        "items": {
+                            "$ref": "#/components/schemas/Text Field Of Peoples Personal Accident"
+                        }
+                    }
+                }
+            },
+            "Personal Accident": {
+                "title": "Personal Accident",
+                "type": "object",
+                "properties": {
+                    "pacClassTypeCode": {
+                        "type": "string",
+                        "description": "PAC class type code",
+                        "example": "PAC123"
+                    },
+                    "pacCoverTypeCode": {
+                        "type": "string",
+                        "description": "PAC cover type code",
+                        "example": "COVER456"
+                    }
+                }
+            },
+            "Personal Accident Details": {
+                "title": "Personal Accident Details",
+                "type": "object",
+                "properties": {
+                    "dropdown": {
+                        "type": "array",
+                        "description": "Prerequisite dropdown fields to get the products quotation.",
+                        "items": {
+                            "$ref": "#/components/schemas/NibDropdownDetails"
+                        }
+                    },
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to get the products quotation.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldPac"
+                        }
+                    }
+                }
+            },
+            "Place Visit": {
+                "title": "Place Visit",
+                "type": "object",
+                "properties": {
+                    "placeVisit": {
+                        "type": "string",
+                        "description": "Place visit description",
+                        "example": "For Schengen Countries and Worldwide Excluding USA and Canada, For Schengen Countries and Worldwide Including USA and Canada, For Non Schengen Countries and Worldwide Excluding USA and Canada, For Non Schengen Countries and Worldwide Including USA and Canada"
+                    },
+                    "placeVisitCode": {
+                        "type": "string",
+                        "description": "Place visit code",
+                        "example": "A, B, H, I"
+                    }
+                }
+            },
+            "Plan Type": {
+                "title": "Plan Type",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Plan type name",
+                        "example": "A, B"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "Plan type value",
+                        "example": "A, B"
+                    }
+                }
+            },
+            "PolicyDuration": {
+                "title": "PolicyDuration",
+                "type": "object",
+                "properties": {
+                    "day": {
+                        "type": "integer",
+                        "description": "Number of days",
+                        "format": "int32",
+                        "example": 365
+                    },
+                    "month": {
+                        "type": "integer",
+                        "description": "Number of months",
+                        "format": "int32",
+                        "example": 12
+                    },
+                    "year": {
+                        "type": "integer",
+                        "description": "Number of years",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "yearMonthDay": {
+                        "type": "string",
+                        "description": "Formatted duration",
+                        "example": "year: 1, month: 12, day: 365"
+                    }
+                },
+                "description": "Policy Duration"
+            },
+            "PpaPrerequisiteForDataSave": {
+                "title": "PpaPrerequisiteForDataSave",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/TextFieldPpaForDataSave"
+                        }
+                    }
+                },
+                "description": "Prerequisite for Data Save"
+            },
+            "Product Details Response": {
+                "title": "Product Details Response",
+                "type": "object",
+                "properties": {
+                    "getQuotationPrerequisite": {
+                        "$ref": "#/components/schemas/Quotation Pre Requsite Response"
+                    },
+                    "productList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/productList"
+                        }
+                    }
+                }
+            },
+            "Product Specific Information": {
+                "title": "Product Specific Information",
+                "type": "object",
+                "properties": {
+                    "bnh": {
+                        "description": "BNH information",
+                        "$ref": "#/components/schemas/Business And Holidays"
+                    },
+                    "ens": {
+                        "description": "ENS information",
+                        "$ref": "#/components/schemas/Employment And Studies"
+                    },
+                    "mtr": {
+                        "description": "MTR information",
+                        "$ref": "#/components/schemas/Motor"
+                    },
+                    "pac": {
+                        "description": "PAC information",
+                        "$ref": "#/components/schemas/Personal Accident"
+                    }
+                }
+            },
+            "Quotation Pre Requsite Response": {
+                "title": "Quotation Pre Requsite Response",
+                "type": "object",
+                "properties": {
+                    "bnh": {
+                        "description": "BNH details",
+                        "$ref": "#/components/schemas/Business And Holidays Details",
+                        "example": "{\"placeVisitList\":[{\"placeVisit\":\"Hospital A\",\"placeVisitCode\":\"A\"}],\"planTypeList\":[{\"name\":\"Plan A\",\"value\":\"A\"}],\"medicalTypeList\":[{\"name\":\"Medical\",\"value\":\"Medical\"}]}"
+                    },
+                    "ens": {
+                        "description": "ENS details",
+                        "$ref": "#/components/schemas/Employment And Studies Details",
+                        "example": "{\"placeVisitList\":[{\"placeVisit\":\"Plan \\\"C\\\" : For Schengen Countries and Worldwide Excluding USA and Canada\",\"placeVisitCode\":\"A\"}],\"planTypeList\":[{\"name\":\"A\",\"value\":\"A\"}],\"medicalTypeList\":[{\"name\":\"Medical\",\"value\":\"Medical\"}],\"ensTypeList\":[{\"name\":\"Study\",\"value\":\"Study\"}]}"
+                    },
+                    "mtr": {
+                        "description": "MTR details",
+                        "$ref": "#/components/schemas/Motor Details",
+                        "example": "{\"motorPlanTypes\":[{\"name\":\"Plan A\",\"value\":\"A\"}],\"vehicleTypes\":[{\"name\":\"Car\",\"value\":\"A\"}],\"motorCCNames\":[{\"name\":\"CC1\",\"value\":\"A\"}],\"mtrVehicleList\":[{\"vehicleName\":\"Vehicle A\",\"description\":\"Description A\"}],\"mtrPerilExclusion\":[{\"id\":1,\"deptCode\":\"DeptA\",\"classCode\":\"ClassA\",\"perilCode\":\"PerilA\",\"perilName\":\"Peril NameA\"}]}"
+                    },
+                    "nib": {
+                        "description": "NIB products",
+                        "$ref": "#/components/schemas/Nibedita Product",
+                        "example": "[{\"productCode\":\"NIBEDITA_ECO\",\"productName\":\"NIBEDITA ECO\",\"sumInsuredList\":[50000,100000,150000,200000]},{\"productCode\":\"NIBEDITA_REGULAR\",\"productName\":\"NIBEDITA REGULAR\",\"sumInsuredList\":[100000,200000,300000,400000,500000,600000,700000,800000,900000,1000000]},{\"productCode\":\"NIBEDITA_PLUS\",\"productName\":\"NIBEDITA PLUS\",\"sumInsuredList\":[500000,1000000,2000000,3000000,4000000,5000000]}]"
+                    },
+                    "pac": {
+                        "description": "PAC details",
+                        "$ref": "#/components/schemas/Personal Accident Details",
+                        "example": "{\"pacClassDetailsList\":[{\"classCode\":\"A\",\"className\":\"Plan - A\",\"pacOccupationList\":[\"Accountants\",\"Bankers\",\"Barristers\",\"Medical Practitioners\",\"Mercantile Assistants\",\"Engaged solely in Executive\",\"Administrative\",\"Clerical duties\"]}],\"pacCoverTypeDetailsList\":[{\"coverTypeCode\":\"A\",\"coverTypeName\":\"TABLE-A- Personal Accidental death permanent & temporary disablement including Medical Expenses.\"}]}"
+                    },
+                    "ppa": {
+                        "description": "PPA details",
+                        "$ref": "#/components/schemas/People's Personal Accident"
+                    }
+                }
+            },
+            "Search Customer Request Body": {
+                "title": "Search Customer Request Body",
+                "required": [
+                    "customerGroupCode",
+                    "customerType",
+                    "searchText",
+                    "searchType"
+                ],
+                "type": "object",
+                "properties": {
+                    "customerGroupCode": {
+                        "type": "string",
+                        "description": "Customer Group Code (if customerType is business then have to provide group code)",
+                        "example": "UNILIVER, ISPAHANI"
+                    },
+                    "customerType": {
+                        "type": "string",
+                        "description": "Customer Type",
+                        "example": "Personal, Business"
+                    },
+                    "searchText": {
+                        "type": "string",
+                        "description": "Keyword for search customer based on the selected searchType",
+                        "example": "01711111111, 987654321"
+                    },
+                    "searchType": {
+                        "type": "string",
+                        "description": "Customer Search By Specific Selected Criteria",
+                        "example": "Mobile Number, BIN, TIN, NID"
+                    }
+                }
+            },
+            "SubProductOld": {
+                "title": "SubProductOld",
+                "type": "object",
+                "properties": {
+                    "ageLimitInfo": {
+                        "type": "string",
+                        "description": "Sub-Product Age Limit Information",
+                        "example": "Age limit is 16 years to 65 years"
+                    },
+                    "coverage": {
+                        "type": "string",
+                        "description": "Sub-Product Coverage",
+                        "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li>"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Sub-Product Description",
+                        "example": "<p>Providing affordable comprehensive insurance coverage to females. Ensuring best Insurance Service in Urban and Rural area</p>"
+                    },
+                    "exclusion": {
+                        "type": "string",
+                        "description": "Sub-Product Exclusion",
+                        "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre-existing disability. </li>"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "Sub-Product ID",
+                        "format": "int32"
+                    },
+                    "keyfeature": {
+                        "type": "string",
+                        "description": "Sub-Product Key Features",
+                        "example": "<ul><li> </li><li> Ensuring best available insurance facilities </li><li>"
+                    },
+                    "productCode": {
+                        "type": "string",
+                        "description": "Sub-Product Code"
+                    },
+                    "productInfo": {
+                        "type": "string",
+                        "description": "Sub-Product Information",
+                        "example": "NIBEDITA ECO"
+                    },
+                    "productName": {
+                        "type": "string",
+                        "description": "Sub-Product Name"
+                    },
+                    "sumInsuredInfo": {
+                        "type": "string",
+                        "description": "Sub-Product Sum Insured Information",
+                        "example": "BDT 50,000 to BDT 2,00,000"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Sub-Product Title",
+                        "example": "<h2>Comprehensive Insurance Policy For Women</h2>"
+                    }
+                }
+            },
+            "Text Field Employment And Studies": {
+                "title": "Text Field Employment And Studies",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "numberOfChild, conversionRateUsdToBdt, numberOfPerson, monthStay, coveredLimit"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                }
+            },
+            "Text Field Of Peoples Personal Accident": {
+                "title": "Text Field Of Peoples Personal Accident",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field."
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                }
+            },
+            "Text Filed Motor": {
+                "title": "Text Filed Motor",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "mtrCcTonValue, totalSeatCapacity, mtrNoOfDriver, mtrNoOfConductor, mtrNoOfGuide, mtrNoOfHelper, mtrNoOfPassenger, mtrConductorRate, mtrGuideRate, lumpSumAmount, taxFreeVehicle, techometerVehicle, namedDriver, loadingRate, ncbRate, mtrPassengerTimesMultiply, mtrDriverTimesMultiply, mtrHelperTimesMultiply"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                }
+            },
+            "TextFieldBnhForDataSave": {
+                "title": "TextFieldBnhForDataSave",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "custOccupation, custPasspostNo, custGender, interestInsured, reInsuredCountry, doctorId, planName, coveredLimit, insuredOccupation, employerName, employerAddress, officeTelephoneNo, nameOfTheUsualPhysician, physicianTelephoneNoOffice, physicianTelephoneNoHome, destCountryAddress, participant, visaType, sponsorName, destCountryCollege, destCountryOccupation, studyCourse, nextKinName, nextKinAddress, nextKinTelNo, nextKinRelationship, physicianHomeTelNo, regionOfCountry"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Business and Holidays Related text fields"
+            },
+            "TextFieldEnsForDataSave": {
+                "title": "TextFieldEnsForDataSave",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "custOccupation, custPasspostNo, custGender, interestInsured, reInsuredCountry, doctorId, planName, coveredLimit, insuredOccupation, employerName, employerAddress, officeTelephoneNo, nameOfTheUsualPhysician, physicianTelephoneNoOffice, physicianTelephoneNoHome, destCountryAddress, participant, visaType, sponsorName, destCountryCollege, destCountryOccupation, studyCourse, nextKinName, nextKinAddress, nextKinTelNo, nextKinRelationship, physicianHomeTelNo, regionOfCountry"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Employment and Studies Related text fields"
+            },
+            "TextFieldMtrForDataSave": {
+                "title": "TextFieldMtrForDataSave",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "motorEngineAndChassisNumber, motorMakeAndBodyType, manufactureYear, motorModelNumber, taxToken, fitnessExpiryDate, manufacturer, companyOrModelName, motorTermsOfUseId"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Motor Related text fields"
+            },
+            "TextFieldNib": {
+                "title": "TextFieldNib",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field."
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Nibedita Related text fields"
+            },
+            "TextFieldNibForDataSave": {
+                "title": "TextFieldNibForDataSave",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "occupation, construction"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Nibedita text fields for Data Save"
+            },
+            "TextFieldPac": {
+                "title": "TextFieldPac",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field."
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Personal Accident Related text fields"
+            },
+            "TextFieldPacForDataSave": {
+                "title": "TextFieldPacForDataSave",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "occupation, construction"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Personal Accident Related text fields for Data Save"
+            },
+            "TextFieldPpaForDataSave": {
+                "title": "TextFieldPpaForDataSave",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "occupation, construction"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "People's Personal Accident Related text fields for Data Save"
+            },
+            "Timestamp": {
+                "title": "Timestamp",
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "day": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "hours": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "minutes": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "month": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "nanos": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "seconds": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "time": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "timezoneOffset": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "year": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "User Authentication Request": {
+                "title": "User Authentication Request",
+                "required": [
+                    "password",
+                    "platform",
+                    "source",
+                    "username"
+                ],
+                "type": "object",
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "description": "User's password",
+                        "example": "12345678"
+                    },
+                    "platform": {
+                        "type": "string",
+                        "description": "Platform from which the request is made (e.g., WEB, APP)",
+                        "enum": [
+                            "APP",
+                            "WEB"
+                        ]
+                    },
+                    "source": {
+                        "type": "string",
+                        "description": "Source of authentication (e.g., EBL, ROBI, BRAC)",
+                        "enum": [
+                            "BRAC",
+                            "EBL",
+                            "ROBI"
+                        ]
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "User's username",
+                        "example": "19255"
+                    }
+                }
+            },
+            "User Authentication Response": {
+                "title": "User Authentication Response",
+                "type": "object",
+                "properties": {
+                    "accessToken": {
+                        "type": "string",
+                        "description": "Access Token",
+                        "example": "[token]"
+                    },
+                    "error": {
+                        "type": "array",
+                        "description": "List of errors",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "expiresIn": {
+                        "type": "string",
+                        "description": "Time in seconds until the token expires",
+                        "example": "2023-11-09 17:02:32.041"
+                    },
+                    "idToken": {
+                        "type": "string",
+                        "description": "ID Token",
+                        "example": "eyJraWQiOiJlOWNjZDMyYcFgU6PAHo3-9RkODkzNDMi"
+                    },
+                    "refreshToken": {
+                        "type": "string",
+                        "description": "Refresh Token",
+                        "example": "[token]"
+                    },
+                    "scope": {
+                        "type": "string",
+                        "description": "Scope"
+                    },
+                    "tokenType": {
+                        "type": "string",
+                        "description": "Token Type",
+                        "example": "Bearer"
+                    }
+                }
+            },
+            "User Refresh Token Response": {
+                "title": "User Refresh Token Response",
+                "type": "object",
+                "properties": {
+                    "accessToken": {
+                        "type": "string",
+                        "description": "Access Token",
+                        "example": "[token]"
+                    },
+                    "error": {
+                        "type": "array",
+                        "description": "List of errors",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "expiresIn": {
+                        "type": "string",
+                        "description": "Time in seconds until the token expires",
+                        "example": "2023-11-09 17:02:32.041"
+                    },
+                    "idToken": {
+                        "type": "string",
+                        "description": "ID Token",
+                        "example": "eyJraWQiOiJlOWNjZDMyYcFgU6PAHo3-9RkODkzNDMi"
+                    },
+                    "refreshToken": {
+                        "type": "string",
+                        "description": "Refresh Token",
+                        "example": "[token]"
+                    },
+                    "scope": {
+                        "type": "string",
+                        "description": "Scope"
+                    },
+                    "tokenType": {
+                        "type": "string",
+                        "description": "Token Type",
+                        "example": "Bearer"
+                    }
+                }
+            },
+            "Vehicle Type": {
+                "title": "Vehicle Type",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Vehicle type name",
+                        "example": "Private, Commercial"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "Vehicle type value",
+                        "example": "Private, Commercial"
+                    }
+                }
+            },
+            "productList": {
+                "title": "productList",
+                "type": "object",
+                "properties": {
+                    "ageLimitInfo": {
+                        "type": "string",
+                        "description": "Age Limit Information",
+                        "example": "Age limit is 16 years to 65 years"
+                    },
+                    "coverage": {
+                        "type": "string",
+                        "description": "Coverage",
+                        "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li>"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Product Description",
+                        "example": "<p>Providing affordable comprehensive insurance coverage to females. Ensuring best Insurance Service in Urban and Rural area</p>"
+                    },
+                    "exclusion": {
+                        "type": "string",
+                        "description": "Exclusion",
+                        "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre-existing disability. </li>"
+                    },
+                    "hasSubProduct": {
+                        "type": "boolean",
+                        "description": "Whether the product has sub-products",
+                        "example": false
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "Product ID",
+                        "format": "int32"
+                    },
+                    "keyfeature": {
+                        "type": "string",
+                        "description": "Key Features",
+                        "example": "<ul><li> </li><li> Ensuring best available insurance facilities </li><li>"
+                    },
+                    "productCode": {
+                        "type": "string",
+                        "description": "Product Code"
+                    },
+                    "productInfo": {
+                        "type": "string",
+                        "description": "Product Information",
+                        "example": "NIBEDITA"
+                    },
+                    "productName": {
+                        "type": "string",
+                        "description": "Product Name"
+                    },
+                    "subProductList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SubProductOld"
+                        }
+                    },
+                    "sumInsuredInfo": {
+                        "type": "string",
+                        "description": "Sum Insured Information",
+                        "example": "BDT 50,000 to BDT 2,00,000"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Product Title",
+                        "example": "<h2>Comprehensive Insurance Policy For Women</h2>"
+                    }
+                }
+            }
+        }
+    }
+}

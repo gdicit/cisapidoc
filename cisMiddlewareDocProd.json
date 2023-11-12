@@ -78,7 +78,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/DataPack«string»"
+                                    "$ref": "#/components/schemas/Data Object«string»"
                                 }
                             }
                         }
@@ -135,7 +135,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/DataPackSingle«Customer Response Body»"
+                                    "$ref": "#/components/schemas/Data Object Single«Customer Response Body»"
                                 }
                             }
                         }
@@ -192,7 +192,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/DataPackSingle«Add Document Response»"
+                                    "$ref": "#/components/schemas/Data Object Single«Add Document Response»"
                                 }
                             }
                         }
@@ -240,7 +240,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/DataPackSingle«ForDataSavePrerequisite»"
+                                    "$ref": "#/components/schemas/Data Object Single«Data Save Prerequisite»"
                                 }
                             }
                         }
@@ -345,7 +345,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/DataPackSingle«Quotation Pre Requsite Response»"
+                                    "$ref": "#/components/schemas/Data Object Single«Quotation Pre Requsite Response»"
                                 }
                             }
                         }
@@ -549,7 +549,7 @@
                     },
                     "ens": {
                         "description": "Employment and Studies related details",
-                        "$ref": "#/components/schemas/ENSDetails"
+                        "$ref": "#/components/schemas/Employment and Studies Details"
                     },
                     "forDataSave": {
                         "type": "object",
@@ -557,23 +557,23 @@
                     },
                     "loginUserInfo": {
                         "description": "Login User Information",
-                        "$ref": "#/components/schemas/LoginUserInfo"
+                        "$ref": "#/components/schemas/Login User Info"
                     },
                     "mtr": {
                         "description": "Motor product related details",
-                        "$ref": "#/components/schemas/MTRDetails"
+                        "$ref": "#/components/schemas/Motor Details"
                     },
                     "nib": {
                         "description": "Nibedita product related details",
-                        "$ref": "#/components/schemas/NIBDetails"
+                        "$ref": "#/components/schemas/Nibedita Details"
                     },
                     "pac": {
                         "description": "Personal Accident product related details",
-                        "$ref": "#/components/schemas/PACDetails"
+                        "$ref": "#/components/schemas/Personal Accident Details"
                     },
                     "ppa": {
                         "description": "People's Personal Accident product related details",
-                        "$ref": "#/components/schemas/PPADetails"
+                        "$ref": "#/components/schemas/People's Personal Accident Details"
                     }
                 }
             },
@@ -638,7 +638,8 @@
                             "$ref": "#/components/schemas/Business And Holidays Dropdown Details"
                         }
                     }
-                }
+                },
+                "description": "Business And Holidays Details"
             },
             "Business And Holidays Dropdown Details": {
                 "title": "Business And Holidays Dropdown Details",
@@ -665,7 +666,8 @@
                             "$ref": "#/components/schemas/Plan Type"
                         }
                     }
-                }
+                },
+                "description": "Business And Holidays Dropdown Details"
             },
             "Business and Holidays Details": {
                 "title": "Business and Holidays Details",
@@ -761,10 +763,37 @@
                         "type": "array",
                         "description": "Prerequisite text fields to save the document policy.",
                         "items": {
-                            "$ref": "#/components/schemas/TextFieldBnhForDataSave"
+                            "$ref": "#/components/schemas/Business and Holidays Related text fields"
                         }
                     }
-                }
+                },
+                "description": "Business and Holidays Prerequisite For Data Save"
+            },
+            "Business and Holidays Related text fields": {
+                "title": "Business and Holidays Related text fields",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "custOccupation, custPasspostNo, custGender, interestInsured, reInsuredCountry, doctorId, planName, coveredLimit, insuredOccupation, employerName, employerAddress, officeTelephoneNo, nameOfTheUsualPhysician, physicianTelephoneNoOffice, physicianTelephoneNoHome, destCountryAddress, participant, visaType, sponsorName, destCountryCollege, destCountryOccupation, studyCourse, nextKinName, nextKinAddress, nextKinTelNo, nextKinRelationship, physicianHomeTelNo, regionOfCountry"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Business and Holidays Related text fields"
             },
             "Customer Common Information": {
                 "title": "Customer Common Information",
@@ -1133,8 +1162,8 @@
                     }
                 }
             },
-            "DataPackSingle«Add Document Response»": {
-                "title": "DataPackSingle«Add Document Response»",
+            "Data Object Single«Add Document Response»": {
+                "title": "Data Object Single«Add Document Response»",
                 "type": "object",
                 "properties": {
                     "correlationID": {
@@ -1149,7 +1178,7 @@
                         "description": "For maintain asynchronous process"
                     },
                     "remarks": {
-                        "$ref": "#/components/schemas/DataRemarks"
+                        "$ref": "#/components/schemas/Remarks"
                     },
                     "result": {
                         "type": "boolean",
@@ -1161,11 +1190,10 @@
                         "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
-                },
-                "description": "Data Object Single"
+                }
             },
-            "DataPackSingle«Customer Response Body»": {
-                "title": "DataPackSingle«Customer Response Body»",
+            "Data Object Single«Customer Response Body»": {
+                "title": "Data Object Single«Customer Response Body»",
                 "type": "object",
                 "properties": {
                     "correlationID": {
@@ -1180,7 +1208,7 @@
                         "description": "For maintain asynchronous process"
                     },
                     "remarks": {
-                        "$ref": "#/components/schemas/DataRemarks"
+                        "$ref": "#/components/schemas/Remarks"
                     },
                     "result": {
                         "type": "boolean",
@@ -1192,11 +1220,10 @@
                         "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
-                },
-                "description": "Data Object Single"
+                }
             },
-            "DataPackSingle«ForDataSavePrerequisite»": {
-                "title": "DataPackSingle«ForDataSavePrerequisite»",
+            "Data Object Single«Data Save Prerequisite»": {
+                "title": "Data Object Single«Data Save Prerequisite»",
                 "type": "object",
                 "properties": {
                     "correlationID": {
@@ -1204,14 +1231,14 @@
                         "description": "For maintain asynchronous process"
                     },
                     "data": {
-                        "$ref": "#/components/schemas/ForDataSavePrerequisite"
+                        "$ref": "#/components/schemas/Data Save Prerequisite"
                     },
                     "messageID": {
                         "type": "string",
                         "description": "For maintain asynchronous process"
                     },
                     "remarks": {
-                        "$ref": "#/components/schemas/DataRemarks"
+                        "$ref": "#/components/schemas/Remarks"
                     },
                     "result": {
                         "type": "boolean",
@@ -1223,11 +1250,10 @@
                         "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
-                },
-                "description": "Data Object Single"
+                }
             },
-            "DataPackSingle«Quotation Pre Requsite Response»": {
-                "title": "DataPackSingle«Quotation Pre Requsite Response»",
+            "Data Object Single«Quotation Pre Requsite Response»": {
+                "title": "Data Object Single«Quotation Pre Requsite Response»",
                 "type": "object",
                 "properties": {
                     "correlationID": {
@@ -1242,7 +1268,7 @@
                         "description": "For maintain asynchronous process"
                     },
                     "remarks": {
-                        "$ref": "#/components/schemas/DataRemarks"
+                        "$ref": "#/components/schemas/Remarks"
                     },
                     "result": {
                         "type": "boolean",
@@ -1254,11 +1280,10 @@
                         "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
-                },
-                "description": "Data Object Single"
+                }
             },
-            "DataPack«string»": {
-                "title": "DataPack«string»",
+            "Data Object«string»": {
+                "title": "Data Object«string»",
                 "type": "object",
                 "properties": {
                     "correlationID": {
@@ -1276,7 +1301,7 @@
                         "description": "For maintain asynchronous process"
                     },
                     "remarks": {
-                        "$ref": "#/components/schemas/DataRemarks"
+                        "$ref": "#/components/schemas/Remarks"
                     },
                     "result": {
                         "type": "boolean",
@@ -1288,27 +1313,38 @@
                         "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
-                },
-                "description": "Data Object"
+                }
             },
-            "DataRemarks": {
-                "title": "DataRemarks",
+            "Data Save Prerequisite": {
+                "title": "Data Save Prerequisite",
                 "type": "object",
                 "properties": {
-                    "errors": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
+                    "bnh": {
+                        "description": "BNH details",
+                        "$ref": "#/components/schemas/Business and Holidays Prerequisite For Data Save"
                     },
-                    "success": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
+                    "ens": {
+                        "description": "ENS details",
+                        "$ref": "#/components/schemas/Employment and Studies Prerequisite For DataSave"
+                    },
+                    "mtr": {
+                        "description": "MTR details",
+                        "$ref": "#/components/schemas/Motor Prerequisite For Data Save"
+                    },
+                    "nib": {
+                        "description": "NIB products",
+                        "$ref": "#/components/schemas/Nibedita Prerequisite For Data Save"
+                    },
+                    "pac": {
+                        "description": "PAC details",
+                        "$ref": "#/components/schemas/Personal Accident Prerequisite for Data Save"
+                    },
+                    "ppa": {
+                        "description": "PPA details",
+                        "$ref": "#/components/schemas/Prerequisite for Data Save"
                     }
                 },
-                "description": "Remarks"
+                "description": "Data Save Prerequisite"
             },
             "Document Common Information": {
                 "title": "Document Common Information",
@@ -1353,8 +1389,138 @@
                     }
                 }
             },
-            "ENSDetails": {
-                "title": "ENSDetails",
+            "Employment And Studies": {
+                "title": "Employment And Studies",
+                "type": "object",
+                "properties": {
+                    "conversionRateUsdToBdt": {
+                        "type": "integer",
+                        "description": "Conversion rate from USD to BDT",
+                        "format": "int32",
+                        "example": 90
+                    },
+                    "coveredLimit": {
+                        "type": "integer",
+                        "description": "Covered limit",
+                        "format": "int32",
+                        "example": 125000
+                    },
+                    "dayStay": {
+                        "type": "integer",
+                        "description": "Number of days for stay",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "ensType": {
+                        "type": "string",
+                        "description": "ENS type",
+                        "example": "Employment"
+                    },
+                    "monthStay": {
+                        "type": "integer",
+                        "description": "Number of months for stay",
+                        "format": "int32",
+                        "example": 8
+                    },
+                    "numberOfChild": {
+                        "type": "integer",
+                        "description": "Number of children",
+                        "format": "int32",
+                        "example": 0
+                    },
+                    "numberOfPerson": {
+                        "type": "integer",
+                        "description": "Number of persons",
+                        "format": "int32",
+                        "example": 1
+                    },
+                    "placeVisitCode": {
+                        "type": "string",
+                        "description": "Place visit code",
+                        "example": "B"
+                    },
+                    "stampDutyType": {
+                        "type": "string",
+                        "description": "Stamp duty type (Recoverable or Non-Recoverable)",
+                        "example": "Recoverable"
+                    }
+                }
+            },
+            "Employment And Studies Details": {
+                "title": "Employment And Studies Details",
+                "type": "object",
+                "properties": {
+                    "dropdown": {
+                        "type": "array",
+                        "description": "Prerequisite dropdown fields to get the products quotation.",
+                        "items": {
+                            "$ref": "#/components/schemas/Employment And Studies Dropdown Details"
+                        }
+                    },
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to get the products quotation.",
+                        "items": {
+                            "$ref": "#/components/schemas/Text Field Employment And Studies"
+                        }
+                    }
+                },
+                "description": "Employment And Studies Details"
+            },
+            "Employment And Studies Dropdown Details": {
+                "title": "Employment And Studies Dropdown Details",
+                "type": "object",
+                "properties": {
+                    "ensTypeList": {
+                        "type": "array",
+                        "description": "List of ENS types",
+                        "items": {
+                            "$ref": "#/components/schemas/Employment And Studies Type"
+                        }
+                    },
+                    "medicalTypeList": {
+                        "type": "array",
+                        "description": "List of medical types",
+                        "items": {
+                            "$ref": "#/components/schemas/Medical Type"
+                        }
+                    },
+                    "placeVisitList": {
+                        "type": "array",
+                        "description": "List of place visit options",
+                        "items": {
+                            "$ref": "#/components/schemas/Place Visit"
+                        }
+                    },
+                    "planTypeList": {
+                        "type": "array",
+                        "description": "List of plan types",
+                        "items": {
+                            "$ref": "#/components/schemas/Plan Type"
+                        }
+                    }
+                },
+                "description": "Employment And Studies Dropdown Details"
+            },
+            "Employment And Studies Type": {
+                "title": "Employment And Studies Type",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "ENS type name",
+                        "example": "Study, Employment"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "ENS type value",
+                        "example": "Study, Employment"
+                    }
+                },
+                "description": "Employment And Studies Type"
+            },
+            "Employment and Studies Details": {
+                "title": "Employment and Studies Details",
                 "type": "object",
                 "properties": {
                     "coveredLimit": {
@@ -1437,184 +1603,51 @@
                         "type": "string",
                         "description": "Visa Type"
                     }
-                },
-                "description": "Employment and Studies Details"
-            },
-            "Employment And Studies": {
-                "title": "Employment And Studies",
-                "type": "object",
-                "properties": {
-                    "conversionRateUsdToBdt": {
-                        "type": "integer",
-                        "description": "Conversion rate from USD to BDT",
-                        "format": "int32",
-                        "example": 90
-                    },
-                    "coveredLimit": {
-                        "type": "integer",
-                        "description": "Covered limit",
-                        "format": "int32",
-                        "example": 125000
-                    },
-                    "dayStay": {
-                        "type": "integer",
-                        "description": "Number of days for stay",
-                        "format": "int32",
-                        "example": 0
-                    },
-                    "ensType": {
-                        "type": "string",
-                        "description": "ENS type",
-                        "example": "Employment"
-                    },
-                    "monthStay": {
-                        "type": "integer",
-                        "description": "Number of months for stay",
-                        "format": "int32",
-                        "example": 8
-                    },
-                    "numberOfChild": {
-                        "type": "integer",
-                        "description": "Number of children",
-                        "format": "int32",
-                        "example": 0
-                    },
-                    "numberOfPerson": {
-                        "type": "integer",
-                        "description": "Number of persons",
-                        "format": "int32",
-                        "example": 1
-                    },
-                    "placeVisitCode": {
-                        "type": "string",
-                        "description": "Place visit code",
-                        "example": "B"
-                    },
-                    "stampDutyType": {
-                        "type": "string",
-                        "description": "Stamp duty type (Recoverable or Non-Recoverable)",
-                        "example": "Recoverable"
-                    }
                 }
             },
-            "Employment And Studies Details": {
-                "title": "Employment And Studies Details",
-                "type": "object",
-                "properties": {
-                    "dropdown": {
-                        "type": "array",
-                        "description": "Prerequisite dropdown fields to get the products quotation.",
-                        "items": {
-                            "$ref": "#/components/schemas/Employment And Studies Dropdown Details"
-                        }
-                    },
-                    "textFields": {
-                        "type": "array",
-                        "description": "Prerequisite text fields to get the products quotation.",
-                        "items": {
-                            "$ref": "#/components/schemas/Text Field Employment And Studies"
-                        }
-                    }
-                }
-            },
-            "Employment And Studies Dropdown Details": {
-                "title": "Employment And Studies Dropdown Details",
-                "type": "object",
-                "properties": {
-                    "ensTypeList": {
-                        "type": "array",
-                        "description": "List of ENS types",
-                        "items": {
-                            "$ref": "#/components/schemas/Employment And Studies Type"
-                        }
-                    },
-                    "medicalTypeList": {
-                        "type": "array",
-                        "description": "List of medical types",
-                        "items": {
-                            "$ref": "#/components/schemas/Medical Type"
-                        }
-                    },
-                    "placeVisitList": {
-                        "type": "array",
-                        "description": "List of place visit options",
-                        "items": {
-                            "$ref": "#/components/schemas/Place Visit"
-                        }
-                    },
-                    "planTypeList": {
-                        "type": "array",
-                        "description": "List of plan types",
-                        "items": {
-                            "$ref": "#/components/schemas/Plan Type"
-                        }
-                    }
-                }
-            },
-            "Employment And Studies Type": {
-                "title": "Employment And Studies Type",
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "ENS type name",
-                        "example": "Study, Employment"
-                    },
-                    "value": {
-                        "type": "string",
-                        "description": "ENS type value",
-                        "example": "Study, Employment"
-                    }
-                }
-            },
-            "EnsPrerequisiteForDataSave": {
-                "title": "EnsPrerequisiteForDataSave",
+            "Employment and Studies Prerequisite For DataSave": {
+                "title": "Employment and Studies Prerequisite For DataSave",
                 "type": "object",
                 "properties": {
                     "textFields": {
                         "type": "array",
                         "description": "Prerequisite text fields to save the document policy.",
                         "items": {
-                            "$ref": "#/components/schemas/TextFieldEnsForDataSave"
+                            "$ref": "#/components/schemas/Employment and Studies Related text fields"
                         }
                     }
                 },
                 "description": "Employment and Studies Prerequisite For DataSave"
             },
+            "Employment and Studies Related text fields": {
+                "title": "Employment and Studies Related text fields",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "custOccupation, custPasspostNo, custGender, interestInsured, reInsuredCountry, doctorId, planName, coveredLimit, insuredOccupation, employerName, employerAddress, officeTelephoneNo, nameOfTheUsualPhysician, physicianTelephoneNoOffice, physicianTelephoneNoHome, destCountryAddress, participant, visaType, sponsorName, destCountryCollege, destCountryOccupation, studyCourse, nextKinName, nextKinAddress, nextKinTelNo, nextKinRelationship, physicianHomeTelNo, regionOfCountry"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Employment and Studies Related text fields"
+            },
             "ForDataSave": {
                 "title": "ForDataSave",
                 "type": "object"
-            },
-            "ForDataSavePrerequisite": {
-                "title": "ForDataSavePrerequisite",
-                "type": "object",
-                "properties": {
-                    "bnh": {
-                        "description": "BNH details",
-                        "$ref": "#/components/schemas/Business and Holidays Prerequisite For Data Save"
-                    },
-                    "ens": {
-                        "description": "ENS details",
-                        "$ref": "#/components/schemas/EnsPrerequisiteForDataSave"
-                    },
-                    "mtr": {
-                        "description": "MTR details",
-                        "$ref": "#/components/schemas/MtrPrerequisiteForDataSave"
-                    },
-                    "nib": {
-                        "description": "NIB products",
-                        "$ref": "#/components/schemas/NibPrerequisiteForDataSave"
-                    },
-                    "pac": {
-                        "description": "PAC details",
-                        "$ref": "#/components/schemas/PacPrerequisiteForDataSave"
-                    },
-                    "ppa": {
-                        "description": "PPA details",
-                        "$ref": "#/components/schemas/PpaPrerequisiteForDataSave"
-                    }
-                },
-                "description": "Data Save Prerequisite"
             },
             "Get Quotation Request Body": {
                 "title": "Get Quotation Request Body",
@@ -1651,7 +1684,7 @@
                     },
                     "forDataSavePrerequisite": {
                         "description": "Prerequisite fields for data savings both text fields and dropdown. Not related with quotation getting, but need when save the document.",
-                        "$ref": "#/components/schemas/ForDataSavePrerequisite"
+                        "$ref": "#/components/schemas/Data Save Prerequisite"
                     },
                     "grossPremium": {
                         "type": "number",
@@ -1667,7 +1700,7 @@
                     },
                     "policyDuration": {
                         "description": "Policy duration details",
-                        "$ref": "#/components/schemas/PolicyDuration"
+                        "$ref": "#/components/schemas/Policy Duration"
                     },
                     "policyValidFrom": {
                         "type": "string",
@@ -1690,6 +1723,47 @@
                         "description": "VAT amount",
                         "format": "double",
                         "example": 1365
+                    }
+                },
+                "description": "Get Quotation Response"
+            },
+            "Login User Info": {
+                "title": "Login User Info",
+                "required": [
+                    "employeeId",
+                    "name",
+                    "role"
+                ],
+                "type": "object",
+                "properties": {
+                    "branchCode": {
+                        "type": "string",
+                        "description": "Branch Code"
+                    },
+                    "clientCode": {
+                        "type": "string",
+                        "description": "Client Code"
+                    },
+                    "designation": {
+                        "type": "string",
+                        "description": "Designation"
+                    },
+                    "employeeId": {
+                        "type": "string",
+                        "description": "Employee ID"
+                    },
+                    "mobile": {
+                        "type": "string",
+                        "description": "Mobile Number"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name"
+                    },
+                    "role": {
+                        "type": "string",
+                        "description": "Role",
+                        "example": "Manager, RM, Sales"
                     }
                 }
             },
@@ -1734,94 +1808,6 @@
                     }
                 }
             },
-            "LoginUserInfo": {
-                "title": "LoginUserInfo",
-                "required": [
-                    "employeeId",
-                    "name",
-                    "role"
-                ],
-                "type": "object",
-                "properties": {
-                    "branchCode": {
-                        "type": "string",
-                        "description": "Branch Code"
-                    },
-                    "clientCode": {
-                        "type": "string",
-                        "description": "Client Code"
-                    },
-                    "designation": {
-                        "type": "string",
-                        "description": "Designation"
-                    },
-                    "employeeId": {
-                        "type": "string",
-                        "description": "Employee ID"
-                    },
-                    "mobile": {
-                        "type": "string",
-                        "description": "Mobile Number"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name"
-                    },
-                    "role": {
-                        "type": "string",
-                        "description": "Role",
-                        "example": "Manager, RM, Sales"
-                    }
-                },
-                "description": "Login User Info"
-            },
-            "MTRDetails": {
-                "title": "MTRDetails",
-                "type": "object",
-                "properties": {
-                    "companyOrModelName": {
-                        "type": "string",
-                        "description": "Company or Model Name"
-                    },
-                    "fitnessExpiryDate": {
-                        "type": "string",
-                        "description": "Fitness Expiry Date"
-                    },
-                    "manufactureYear": {
-                        "type": "string",
-                        "description": "Manufacture Year"
-                    },
-                    "manufacturer": {
-                        "type": "string",
-                        "description": "Manufacturer"
-                    },
-                    "motorEngineAndChassisNumber": {
-                        "type": "string",
-                        "description": "Motor Engine and Chassis Number"
-                    },
-                    "motorMakeAndBodyType": {
-                        "type": "string",
-                        "description": "Motor Make and Body Type"
-                    },
-                    "motorModelNumber": {
-                        "type": "string",
-                        "description": "Motor Model Number"
-                    },
-                    "motorTermsOfUseId": {
-                        "type": "string",
-                        "description": "Motor Terms of Use ID"
-                    },
-                    "nameOfRegistrationAuthority": {
-                        "type": "string",
-                        "description": "Name of Registration Authority"
-                    },
-                    "taxToken": {
-                        "type": "string",
-                        "description": "Tax Token"
-                    }
-                },
-                "description": "Motor Details"
-            },
             "Medical Type": {
                 "title": "Medical Type",
                 "type": "object",
@@ -1836,7 +1822,8 @@
                         "description": "Medical type value",
                         "example": "Medical, Non Medical"
                     }
-                }
+                },
+                "description": "Medical Type"
             },
             "Motor": {
                 "title": "Motor",
@@ -2079,7 +2066,8 @@
                         "description": "CC value",
                         "example": "NA,CC,TON,SEAT,HP"
                     }
-                }
+                },
+                "description": "Motor CC Name"
             },
             "Motor Details": {
                 "title": "Motor Details",
@@ -2099,7 +2087,8 @@
                             "$ref": "#/components/schemas/Text Filed Motor"
                         }
                     }
-                }
+                },
+                "description": "Motor Details"
             },
             "Motor Dropdown Details": {
                 "title": "Motor Dropdown Details",
@@ -2147,7 +2136,8 @@
                             "$ref": "#/components/schemas/Vehicle Type"
                         }
                     }
-                }
+                },
+                "description": "Motor Dropdown Details"
             },
             "Motor Peril Exclusion": {
                 "title": "Motor Peril Exclusion",
@@ -2178,7 +2168,8 @@
                         "description": "Peril name",
                         "example": "Riot And Strike, Earthquake, Flood And Cyclone"
                     }
-                }
+                },
+                "description": "Motor Peril Exclusion"
             },
             "Motor Plan Type": {
                 "title": "Motor Plan Type",
@@ -2194,7 +2185,48 @@
                         "description": "Plan type value",
                         "example": "Comprehensive, Comprehensive (Fire Only), Comprehensive (Theft Only), Comprehensive (Fire And Theft), Act Liability"
                     }
-                }
+                },
+                "description": "Motor Plan Type"
+            },
+            "Motor Prerequisite For Data Save": {
+                "title": "Motor Prerequisite For Data Save",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/Motor Related text fields"
+                        }
+                    }
+                },
+                "description": "Motor Prerequisite For Data Save"
+            },
+            "Motor Related text fields": {
+                "title": "Motor Related text fields",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "motorEngineAndChassisNumber, motorMakeAndBodyType, manufactureYear, motorModelNumber, taxToken, fitnessExpiryDate, manufacturer, companyOrModelName, motorTermsOfUseId"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Motor Related text fields"
             },
             "Motor Terms Of Use": {
                 "title": "Motor Terms Of Use",
@@ -2215,7 +2247,8 @@
                         "description": "Purpose of use.",
                         "example": "USE SOLELY FOR SOCIAL DOMESTIC AND PLEASURE PURPOSE, USE ONLY FOR SOCIAL PURPOSE AND IN CONNECTION WITH THE INSUREDS BUSINESS, USE ONLY IN CONNECTION WITH THE INSUREDS BUSINESS, USE ONLY UNDER A PRIVATE CARRIERS PERMIT WITHIN THE MEANING OF MOTOR VECHICLE ACT,1991, USE ONLY FOR SOCIAL DOMESTIC PLEASURES AND/OR PROFESSIONAL PURPOSE AND FOR THE INSUREDS BUSINESS, USE ONLY FOR SOCIAL DOMESTIC AND PLEASURE PURPOSE AND FOR THE INSUREDS BUSINESS OR PROFESSION, USE ONLY A PUBLIC CARRIERS PERMIT WITHIN THE MEANING OF THE MOTOR VEHICLE ACT,1991, USE ONLY UNDER A PUBLIC CARRIERS PERMIT WIYHIN THE MEANING OF THE MOTOR VEHICLE ACT,1991, USE ONLY UNDER A CONTRACT CARRIERS PERMIT WIYHIN THE MEANING OF THE MOTOR VEHICLE ACT,1991, USE FOR AGRICULTURAL AND FORESTY PURPOSES, USE ONLY FOR AMBULANCE PURPOSES, USE ONLY FOR DOMESTIC, PLEASURE AND/OR PROFESSIONAL PURPOSE AND FOR THE INSUREDS BUSINESS, USE ONLY FOR  OFFICIAL PURPOSES AND INCONNECTION WITH THE INSUREDS BUSINESS, USE ONLY FOR SOCIAL DOMESTIC, PLEASURE AND OFFICIAL  PURPOSES AND /OR IN CONNECTION WITH THE INSUREDS BUSINESS"
                     }
-                }
+                },
+                "description": "Motor Terms Of Use"
             },
             "Motor Vehicle": {
                 "title": "Motor Vehicle",
@@ -2231,24 +2264,11 @@
                         "description": "Vehicle name",
                         "example": "Motor Cycle, Three wheeler, Private Car, Ambulance, Truck, Bus, Air Line Vehicles, Microbus, Four wheeler(tempo/ leguna), Agri(Pedestrian Controlled Tractor), Agri(Haulage upto two trailer confined to insured farm & concession), Agri(Haulage upto two trailer not confined to insured farm & concession), Taxi Car, Pickup, Covered Van, Delivery Van, Double Deck Bus, Excavator (Used Confined to Insured Own Premises), Lori, Trailer, Crane (Premanently Fitted Vehicle), Mobile shop and canteen (Vehicle), Motorized Rickshaw, Excavator (Used not Confined to Insured Own Premises), Crane (Goods Carrying Vehicle), Mobile shop and canteen (Trailer), Electric Vehicle, CNG"
                     }
-                }
-            },
-            "MtrPrerequisiteForDataSave": {
-                "title": "MtrPrerequisiteForDataSave",
-                "type": "object",
-                "properties": {
-                    "textFields": {
-                        "type": "array",
-                        "description": "Prerequisite text fields to save the document policy.",
-                        "items": {
-                            "$ref": "#/components/schemas/TextFieldMtrForDataSave"
-                        }
-                    }
                 },
-                "description": "Motor Prerequisite For Data Save"
+                "description": "Motor Vehicle"
             },
-            "NIBDetails": {
-                "title": "NIBDetails",
+            "Nibedita Details": {
+                "title": "Nibedita Details",
                 "type": "object",
                 "properties": {
                     "construction": {
@@ -2266,11 +2286,10 @@
                         "type": "string",
                         "description": "Occupation"
                     }
-                },
-                "description": "Nibedita Details"
+                }
             },
-            "NibDropdownDetails": {
-                "title": "NibDropdownDetails",
+            "Nibedita Dropdown Details": {
+                "title": "Nibedita Dropdown Details",
                 "type": "object",
                 "properties": {
                     "productCode": {
@@ -2292,15 +2311,15 @@
                 },
                 "description": "Nibedita Dropdown Details"
             },
-            "NibPrerequisiteForDataSave": {
-                "title": "NibPrerequisiteForDataSave",
+            "Nibedita Prerequisite For Data Save": {
+                "title": "Nibedita Prerequisite For Data Save",
                 "type": "object",
                 "properties": {
                     "textFields": {
                         "type": "array",
                         "description": "Prerequisite text fields to save the document policy.",
                         "items": {
-                            "$ref": "#/components/schemas/TextFieldNibForDataSave"
+                            "$ref": "#/components/schemas/Nibedita text fields for Data Save"
                         }
                     }
                 },
@@ -2314,17 +2333,69 @@
                         "type": "array",
                         "description": "Prerequisite dropdown fields to get the products quotation.",
                         "items": {
-                            "$ref": "#/components/schemas/NibDropdownDetails"
+                            "$ref": "#/components/schemas/Nibedita Dropdown Details"
                         }
                     },
                     "textFields": {
                         "type": "array",
                         "description": "Prerequisite text fields to get the products quotation.",
                         "items": {
-                            "$ref": "#/components/schemas/TextFieldNib"
+                            "$ref": "#/components/schemas/Nibedita Related text fields"
                         }
                     }
-                }
+                },
+                "description": "Nibedita Product"
+            },
+            "Nibedita Related text fields": {
+                "title": "Nibedita Related text fields",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field."
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Nibedita Related text fields"
+            },
+            "Nibedita text fields for Data Save": {
+                "title": "Nibedita text fields for Data Save",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "occupation, construction"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Nibedita text fields for Data Save"
             },
             "NomineeDetails": {
                 "title": "NomineeDetails",
@@ -2384,64 +2455,6 @@
                 },
                 "description": "Nominee Details"
             },
-            "PACDetails": {
-                "title": "PACDetails",
-                "type": "object",
-                "properties": {
-                    "construction": {
-                        "type": "string",
-                        "description": "Construction"
-                    },
-                    "nomineeDetails": {
-                        "type": "array",
-                        "description": "Nominee Details",
-                        "items": {
-                            "$ref": "#/components/schemas/NomineeDetails"
-                        }
-                    },
-                    "occupation": {
-                        "type": "string",
-                        "description": "Occupation"
-                    }
-                },
-                "description": "Personal Accident Details"
-            },
-            "PPADetails": {
-                "title": "PPADetails",
-                "type": "object",
-                "properties": {
-                    "construction": {
-                        "type": "string",
-                        "description": "Construction"
-                    },
-                    "nomineeDetails": {
-                        "type": "array",
-                        "description": "Nominee Details",
-                        "items": {
-                            "$ref": "#/components/schemas/NomineeDetails"
-                        }
-                    },
-                    "occupation": {
-                        "type": "string",
-                        "description": "Occupation"
-                    }
-                },
-                "description": "People's Personal Accident Details"
-            },
-            "PacPrerequisiteForDataSave": {
-                "title": "PacPrerequisiteForDataSave",
-                "type": "object",
-                "properties": {
-                    "textFields": {
-                        "type": "array",
-                        "description": "Prerequisite text fields to save the document policy.",
-                        "items": {
-                            "$ref": "#/components/schemas/TextFieldPacForDataSave"
-                        }
-                    }
-                },
-                "description": "Personal Accident Prerequisite for Data Save"
-            },
             "People's Personal Accident": {
                 "title": "People's Personal Accident",
                 "type": "object",
@@ -2453,7 +2466,55 @@
                             "$ref": "#/components/schemas/Text Field Of Peoples Personal Accident"
                         }
                     }
+                },
+                "description": "People's Personal Accident"
+            },
+            "People's Personal Accident Details": {
+                "title": "People's Personal Accident Details",
+                "type": "object",
+                "properties": {
+                    "construction": {
+                        "type": "string",
+                        "description": "Construction"
+                    },
+                    "nomineeDetails": {
+                        "type": "array",
+                        "description": "Nominee Details",
+                        "items": {
+                            "$ref": "#/components/schemas/NomineeDetails"
+                        }
+                    },
+                    "occupation": {
+                        "type": "string",
+                        "description": "Occupation"
+                    }
                 }
+            },
+            "People's Personal Accident Related text fields for Data Save": {
+                "title": "People's Personal Accident Related text fields for Data Save",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "occupation, construction"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "People's Personal Accident Related text fields for Data Save"
             },
             "Personal Accident": {
                 "title": "Personal Accident",
@@ -2479,17 +2540,83 @@
                         "type": "array",
                         "description": "Prerequisite dropdown fields to get the products quotation.",
                         "items": {
-                            "$ref": "#/components/schemas/NibDropdownDetails"
+                            "$ref": "#/components/schemas/Nibedita Dropdown Details"
                         }
                     },
                     "textFields": {
                         "type": "array",
                         "description": "Prerequisite text fields to get the products quotation.",
                         "items": {
-                            "$ref": "#/components/schemas/TextFieldPac"
+                            "$ref": "#/components/schemas/Personal Accident Related text fields"
                         }
                     }
-                }
+                },
+                "description": "Personal Accident Details"
+            },
+            "Personal Accident Prerequisite for Data Save": {
+                "title": "Personal Accident Prerequisite for Data Save",
+                "type": "object",
+                "properties": {
+                    "textFields": {
+                        "type": "array",
+                        "description": "Prerequisite text fields to save the document policy.",
+                        "items": {
+                            "$ref": "#/components/schemas/Personal Accident Related text fields for Data Save"
+                        }
+                    }
+                },
+                "description": "Personal Accident Prerequisite for Data Save"
+            },
+            "Personal Accident Related text fields": {
+                "title": "Personal Accident Related text fields",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field."
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Personal Accident Related text fields"
+            },
+            "Personal Accident Related text fields for Data Save": {
+                "title": "Personal Accident Related text fields for Data Save",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string",
+                        "description": "Description of the text field."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "occupation, construction"
+                    },
+                    "required": {
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    }
+                },
+                "description": "Personal Accident Related text fields for Data Save"
             },
             "Place Visit": {
                 "title": "Place Visit",
@@ -2505,7 +2632,8 @@
                         "description": "Place visit code",
                         "example": "A, B, H, I"
                     }
-                }
+                },
+                "description": "Place Visit"
             },
             "Plan Type": {
                 "title": "Plan Type",
@@ -2521,10 +2649,11 @@
                         "description": "Plan type value",
                         "example": "A, B"
                     }
-                }
+                },
+                "description": "Plan Type"
             },
-            "PolicyDuration": {
-                "title": "PolicyDuration",
+            "Policy Duration": {
+                "title": "Policy Duration",
                 "type": "object",
                 "properties": {
                     "day": {
@@ -2553,15 +2682,15 @@
                 },
                 "description": "Policy Duration"
             },
-            "PpaPrerequisiteForDataSave": {
-                "title": "PpaPrerequisiteForDataSave",
+            "Prerequisite for Data Save": {
+                "title": "Prerequisite for Data Save",
                 "type": "object",
                 "properties": {
                     "textFields": {
                         "type": "array",
                         "description": "Prerequisite text fields to save the document policy.",
                         "items": {
-                            "$ref": "#/components/schemas/TextFieldPpaForDataSave"
+                            "$ref": "#/components/schemas/People's Personal Accident Related text fields for Data Save"
                         }
                     }
                 },
@@ -2577,8 +2706,78 @@
                     "productList": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/productList"
+                            "$ref": "#/components/schemas/Product List"
                         }
+                    }
+                }
+            },
+            "Product List": {
+                "title": "Product List",
+                "type": "object",
+                "properties": {
+                    "ageLimitInfo": {
+                        "type": "string",
+                        "description": "Age Limit Information",
+                        "example": "Age limit is 16 years to 65 years"
+                    },
+                    "coverage": {
+                        "type": "string",
+                        "description": "Coverage",
+                        "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li>"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Product Description",
+                        "example": "<p>Providing affordable comprehensive insurance coverage to females. Ensuring best Insurance Service in Urban and Rural area</p>"
+                    },
+                    "exclusion": {
+                        "type": "string",
+                        "description": "Exclusion",
+                        "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre-existing disability. </li>"
+                    },
+                    "hasSubProduct": {
+                        "type": "boolean",
+                        "description": "Whether the product has sub-products",
+                        "example": false
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "Product ID",
+                        "format": "int32"
+                    },
+                    "keyfeature": {
+                        "type": "string",
+                        "description": "Key Features",
+                        "example": "<ul><li> </li><li> Ensuring best available insurance facilities </li><li>"
+                    },
+                    "productCode": {
+                        "type": "string",
+                        "description": "Product Code"
+                    },
+                    "productInfo": {
+                        "type": "string",
+                        "description": "Product Information",
+                        "example": "NIBEDITA"
+                    },
+                    "productName": {
+                        "type": "string",
+                        "description": "Product Name"
+                    },
+                    "subProductList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SubProductOld"
+                        }
+                    },
+                    "sumInsuredInfo": {
+                        "type": "string",
+                        "description": "Sum Insured Information",
+                        "example": "BDT 50,000 to BDT 2,00,000"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Product Title",
+                        "example": "<h2>Comprehensive Insurance Policy For Women</h2>"
                     }
                 }
             },
@@ -2636,6 +2835,25 @@
                     "ppa": {
                         "description": "PPA details",
                         "$ref": "#/components/schemas/People's Personal Accident"
+                    }
+                },
+                "description": "Quotation Pre Requsite Response"
+            },
+            "Remarks": {
+                "title": "Remarks",
+                "type": "object",
+                "properties": {
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "success": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 }
             },
@@ -2753,7 +2971,8 @@
                         "description": "Type of the field.",
                         "example": "String, int, float, boolean"
                     }
-                }
+                },
+                "description": "Text Field Employment And Studies"
             },
             "Text Field Of Peoples Personal Accident": {
                 "title": "Text Field Of Peoples Personal Accident",
@@ -2777,7 +2996,8 @@
                         "description": "Type of the field.",
                         "example": "String, int, float, boolean"
                     }
-                }
+                },
+                "description": "Text Field Of Peoples Personal Accident"
             },
             "Text Filed Motor": {
                 "title": "Text Filed Motor",
@@ -2802,213 +3022,8 @@
                         "description": "Type of the field.",
                         "example": "String, int, float, boolean"
                     }
-                }
-            },
-            "TextFieldBnhForDataSave": {
-                "title": "TextFieldBnhForDataSave",
-                "type": "object",
-                "properties": {
-                    "descriptions": {
-                        "type": "string",
-                        "description": "Description of the text field."
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name of the field.",
-                        "example": "custOccupation, custPasspostNo, custGender, interestInsured, reInsuredCountry, doctorId, planName, coveredLimit, insuredOccupation, employerName, employerAddress, officeTelephoneNo, nameOfTheUsualPhysician, physicianTelephoneNoOffice, physicianTelephoneNoHome, destCountryAddress, participant, visaType, sponsorName, destCountryCollege, destCountryOccupation, studyCourse, nextKinName, nextKinAddress, nextKinTelNo, nextKinRelationship, physicianHomeTelNo, regionOfCountry"
-                    },
-                    "required": {
-                        "type": "boolean",
-                        "description": "Indicated whether the field is mandatory to give or not.",
-                        "example": false
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "Type of the field.",
-                        "example": "String, int, float, boolean"
-                    }
                 },
-                "description": "Business and Holidays Related text fields"
-            },
-            "TextFieldEnsForDataSave": {
-                "title": "TextFieldEnsForDataSave",
-                "type": "object",
-                "properties": {
-                    "descriptions": {
-                        "type": "string",
-                        "description": "Description of the text field."
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name of the field.",
-                        "example": "custOccupation, custPasspostNo, custGender, interestInsured, reInsuredCountry, doctorId, planName, coveredLimit, insuredOccupation, employerName, employerAddress, officeTelephoneNo, nameOfTheUsualPhysician, physicianTelephoneNoOffice, physicianTelephoneNoHome, destCountryAddress, participant, visaType, sponsorName, destCountryCollege, destCountryOccupation, studyCourse, nextKinName, nextKinAddress, nextKinTelNo, nextKinRelationship, physicianHomeTelNo, regionOfCountry"
-                    },
-                    "required": {
-                        "type": "boolean",
-                        "description": "Indicated whether the field is mandatory to give or not.",
-                        "example": false
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "Type of the field.",
-                        "example": "String, int, float, boolean"
-                    }
-                },
-                "description": "Employment and Studies Related text fields"
-            },
-            "TextFieldMtrForDataSave": {
-                "title": "TextFieldMtrForDataSave",
-                "type": "object",
-                "properties": {
-                    "descriptions": {
-                        "type": "string",
-                        "description": "Description of the text field."
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name of the field.",
-                        "example": "motorEngineAndChassisNumber, motorMakeAndBodyType, manufactureYear, motorModelNumber, taxToken, fitnessExpiryDate, manufacturer, companyOrModelName, motorTermsOfUseId"
-                    },
-                    "required": {
-                        "type": "boolean",
-                        "description": "Indicated whether the field is mandatory to give or not.",
-                        "example": false
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "Type of the field.",
-                        "example": "String, int, float, boolean"
-                    }
-                },
-                "description": "Motor Related text fields"
-            },
-            "TextFieldNib": {
-                "title": "TextFieldNib",
-                "type": "object",
-                "properties": {
-                    "descriptions": {
-                        "type": "string",
-                        "description": "Description of the text field."
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name of the field."
-                    },
-                    "required": {
-                        "type": "boolean",
-                        "description": "Indicated whether the field is mandatory to give or not.",
-                        "example": false
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "Type of the field.",
-                        "example": "String, int, float, boolean"
-                    }
-                },
-                "description": "Nibedita Related text fields"
-            },
-            "TextFieldNibForDataSave": {
-                "title": "TextFieldNibForDataSave",
-                "type": "object",
-                "properties": {
-                    "descriptions": {
-                        "type": "string",
-                        "description": "Description of the text field."
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name of the field.",
-                        "example": "occupation, construction"
-                    },
-                    "required": {
-                        "type": "boolean",
-                        "description": "Indicated whether the field is mandatory to give or not.",
-                        "example": false
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "Type of the field.",
-                        "example": "String, int, float, boolean"
-                    }
-                },
-                "description": "Nibedita text fields for Data Save"
-            },
-            "TextFieldPac": {
-                "title": "TextFieldPac",
-                "type": "object",
-                "properties": {
-                    "descriptions": {
-                        "type": "string",
-                        "description": "Description of the text field."
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name of the field."
-                    },
-                    "required": {
-                        "type": "boolean",
-                        "description": "Indicated whether the field is mandatory to give or not.",
-                        "example": false
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "Type of the field.",
-                        "example": "String, int, float, boolean"
-                    }
-                },
-                "description": "Personal Accident Related text fields"
-            },
-            "TextFieldPacForDataSave": {
-                "title": "TextFieldPacForDataSave",
-                "type": "object",
-                "properties": {
-                    "descriptions": {
-                        "type": "string",
-                        "description": "Description of the text field."
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name of the field.",
-                        "example": "occupation, construction"
-                    },
-                    "required": {
-                        "type": "boolean",
-                        "description": "Indicated whether the field is mandatory to give or not.",
-                        "example": false
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "Type of the field.",
-                        "example": "String, int, float, boolean"
-                    }
-                },
-                "description": "Personal Accident Related text fields for Data Save"
-            },
-            "TextFieldPpaForDataSave": {
-                "title": "TextFieldPpaForDataSave",
-                "type": "object",
-                "properties": {
-                    "descriptions": {
-                        "type": "string",
-                        "description": "Description of the text field."
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name of the field.",
-                        "example": "occupation, construction"
-                    },
-                    "required": {
-                        "type": "boolean",
-                        "description": "Indicated whether the field is mandatory to give or not.",
-                        "example": false
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "Type of the field.",
-                        "example": "String, int, float, boolean"
-                    }
-                },
-                "description": "People's Personal Accident Related text fields for Data Save"
+                "description": "Text Filed Motor"
             },
             "Timestamp": {
                 "title": "Timestamp",
@@ -3193,77 +3208,8 @@
                         "description": "Vehicle type value",
                         "example": "Private, Commercial"
                     }
-                }
-            },
-            "productList": {
-                "title": "productList",
-                "type": "object",
-                "properties": {
-                    "ageLimitInfo": {
-                        "type": "string",
-                        "description": "Age Limit Information",
-                        "example": "Age limit is 16 years to 65 years"
-                    },
-                    "coverage": {
-                        "type": "string",
-                        "description": "Coverage",
-                        "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Accidental Death </li>"
-                    },
-                    "description": {
-                        "type": "string",
-                        "description": "Product Description",
-                        "example": "<p>Providing affordable comprehensive insurance coverage to females. Ensuring best Insurance Service in Urban and Rural area</p>"
-                    },
-                    "exclusion": {
-                        "type": "string",
-                        "description": "Exclusion",
-                        "example": "<ul _ngcontent-bcn-c140><li _ngcontent-bcn-c140> Pre-existing disability. </li>"
-                    },
-                    "hasSubProduct": {
-                        "type": "boolean",
-                        "description": "Whether the product has sub-products",
-                        "example": false
-                    },
-                    "id": {
-                        "type": "integer",
-                        "description": "Product ID",
-                        "format": "int32"
-                    },
-                    "keyfeature": {
-                        "type": "string",
-                        "description": "Key Features",
-                        "example": "<ul><li> </li><li> Ensuring best available insurance facilities </li><li>"
-                    },
-                    "productCode": {
-                        "type": "string",
-                        "description": "Product Code"
-                    },
-                    "productInfo": {
-                        "type": "string",
-                        "description": "Product Information",
-                        "example": "NIBEDITA"
-                    },
-                    "productName": {
-                        "type": "string",
-                        "description": "Product Name"
-                    },
-                    "subProductList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/SubProductOld"
-                        }
-                    },
-                    "sumInsuredInfo": {
-                        "type": "string",
-                        "description": "Sum Insured Information",
-                        "example": "BDT 50,000 to BDT 2,00,000"
-                    },
-                    "title": {
-                        "type": "string",
-                        "description": "Product Title",
-                        "example": "<h2>Comprehensive Insurance Policy For Women</h2>"
-                    }
-                }
+                },
+                "description": "Vehicle Type"
             }
         }
     }
