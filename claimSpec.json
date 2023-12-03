@@ -1,0 +1,244 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "GDIC CIS MIDDLEWARE",
+    "description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system----production",
+    "version": "1.0.0-Production",
+    "contact": {
+      "description":"API is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client system will get access token. Access token will be needed for any other API calling of CIS system.",
+      "name": "GDIC IT",
+      "email": "itdev@green-delta.com",
+      "url": "https://green-delta.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://cisdev.green-delta.com:8282",
+      "description": "Production"
+    },
+    {
+      "description": "Sandbox",
+      "url": "https://cisdev.green-delta.com:8282"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+    
+  ],
+  "paths": {
+
+    "/user-authentication": {
+      "post": {
+        "summary": "User Authentication",
+        "description":"User Authentication decription note",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/UserAthenticationSuccess"
+          },
+          "400": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRequestBody"
+              }
+            }
+          }
+        },
+        
+        "security": [
+          {
+            "bearerAuth": []
+         }
+        ]
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserRequestBody": 
+      {
+        "description": "Request Body",
+        "type": "object",
+        "title": "User",
+        "properties": {
+          "username": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Please enter email or pf"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Please enter password"
+          },
+          "dataSource": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Request platform identify"
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ]
+      },
+      "UserResponseBody": {
+        "description": "Response Body",
+        "type": "object",
+        "title": "User",
+        "$ref": "#/components/responses/UserAthenticationSuccess"
+      }
+    
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "responses": {
+      "UserAthenticationSuccess": {
+        "description": "User Authentication Success Response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "Success",
+              "type": "object",
+              "description": "",
+              "x-tags": [
+                "Common"
+              ],
+              "properties": {
+                  "data": {
+                                    "type": "object",
+                                    "properties": {
+                                            "result": {
+                                                "type": "boolean",
+                                                "description": "Result could be 'true' or 'false' "
+                                            },
+                                            "token": {
+                                                "type": "string",
+                                                "description": "JWT Access Token"
+                                            },
+                                             "expiredDate": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "description": "Token expire date"
+                                            },
+                                             "model": {
+                                                "type": "array",
+                                                "description": "Empty object authentication request"
+                                            },
+                                             "remarks": {
+                                                "type": "array",
+                                                "default": [
+                                                    "Login Success!",
+                                                    "Example-1"
+                                                ],
+                                                "description": "Multiple remarks with comma seperator"
+                                            }
+                                        }
+                                },
+                                "messageID": {
+                                    "type": "string",
+                                    "description": "Unique id for every response"
+                                },
+                                "correlationID": {
+                                    "type": "string",
+                                    "description": "Unique id for asynchronous response"
+                                },
+                                "message": {
+                                    "type": "array",
+                                    "default": [
+                                                    "Login Successful: Valid user",
+                                                    "Example-1"
+                                                ],
+                                    "description": "Multiple messages with comma seperator"
+                                },
+                                 "responseCode": {
+                                    "type": "string",
+                                    "description": "Status code"
+                                },
+                                "timestamp": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "description": "response date time"
+                                }
+              },
+              "required": [
+                "result",
+                "token"
+              ]
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "title": "Error",
+              "type": "object",
+              "description": "A standard error object.",
+              "x-tags": [
+                "Common"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "A code."
+                },
+                "error": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "status",
+                "error"
+              ]
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Access token is missing or invalid"        
+      }
+    },
+    "examples": {
+      "user": {
+        "value": {
+          "username": 1726,
+          "password": "abcd1234",
+          "dataSource": "core"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Users"
+    }
+  ]
+}
