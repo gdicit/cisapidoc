@@ -13,7 +13,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://green-delta.com:7878",
+			"url": "https://cisdev.green-delta.com:7878",
 			"description": "Sandbox"
 		},
 		{
