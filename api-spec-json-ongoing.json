@@ -1501,10 +1501,6 @@ Response:
         "ensType":"", // product code?
         "loadingAmt":"", // default 0
         "regionOfCountry":"", // UI dropdown, related with quotation
-        "numberOfChild":"",
-        "numberOfPerson":"",
-        "conversionRateUsdToBdt":"",
-        "placeVisitCode":""
     }
 
         },
