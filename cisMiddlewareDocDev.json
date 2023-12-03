@@ -18,7 +18,7 @@
 		},
 		{
 			"description": "Production",
-			"url": "https://<production-host>:<port>"
+			"url": "https://cisdev.green-delta.com:7878"
 		}
 	],
     "tags": [
