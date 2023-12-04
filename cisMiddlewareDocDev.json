@@ -2406,6 +2406,10 @@
                     "description": {
                         "type": "string"
                     },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
                     "vehicleName": {
                         "type": "string"
                     }
@@ -3387,7 +3391,7 @@
                     "accessToken": {
                         "type": "string",
                         "description": "Access Token",
-                        "example": "[token]"
+                        "example": "eyJraWQiOiJlOWNjZDMyYcFgU6PAHo3-9RkODkzNDMi"
                     },
                     "expiresIn": {
                         "type": "string",
@@ -3402,7 +3406,7 @@
                     "refreshToken": {
                         "type": "string",
                         "description": "Refresh Token",
-                        "example": "[token]"
+                        "example": "eyJraWQiOiJlOWNjZDMyYcFgU6PAHo3-9RkODkzNDMi"
                     },
                     "remarks": {
                         "type": "array",
@@ -3416,8 +3420,8 @@
                         "description": "Scope"
                     },
                     "timestamp": {
+                        "type": "string",
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     },
                     "tokenType": {
