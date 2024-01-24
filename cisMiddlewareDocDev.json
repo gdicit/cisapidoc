@@ -27,6 +27,10 @@
             "description": "Document Master Controller"
         },
         {
+            "name": "DocumentDetails",
+            "description": "Get Document Details Controller"
+        },
+        {
             "name": "Product",
             "description": "Product Controller"
         },
@@ -48,70 +52,13 @@
         }
     ],
     "paths": {
-        "/api/add-customer": {
-            "post": {
-                "tags": [
-                    "Customer"
-                ],
-                "summary": "Add A New Customer",
-                "description": "Add a new customer and if successfull return a successfull message otherwise return error code and message.",
-                "operationId": "addCustomerUsingPOST",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "description": "Authentication Token",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Add Customrer Request"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Data Object«string»"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
-                    },
-                    "401": {
-                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
-                    },
-                    "412": {
-                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
-                    },
-                    "415": {
-                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
-                    },
-                    "500": {
-                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
-                    }
-                }
-            }
-        },
         "/api/search-customer": {
             "post": {
                 "tags": [
                     "Customer"
                 ],
                 "summary": "Search Customer by search parameteres",
-                "description": "Returns customer by given customerType, GroupCode, searchText",
+                "description": "Returns available customer by given parameters ex:(customerType, GroupCode, searchText etc.), when customer not found returns empty.",
                 "operationId": "searchCustomerUsingPOST",
                 "parameters": [
                     {
@@ -253,7 +200,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Data Object«DocumentInfoResponseVm»"
+                                    "$ref": "#/components/schemas/Data Object«SavedMasterResponse»"
                                 }
                             }
                         }
@@ -324,7 +271,7 @@
                 }
             }
         },
-        "/reports/{subDeptCode}": {
+        "/reports/doc": {
             "get": {
                 "tags": [
                     "document-print-pdf-controller"
@@ -338,16 +285,6 @@
                         "in": "header",
                         "description": "Authentication Token",
                         "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "subDeptCode",
-                        "in": "path",
-                        "description": "subDeptCode",
-                        "required": true,
-                        "style": "simple",
                         "schema": {
                             "type": "string"
                         }
@@ -370,6 +307,64 @@
                             "*/*": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Resource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/get-document-by-document-number": {
+            "get": {
+                "tags": [
+                    "DocumentDetails"
+                ],
+                "summary": "Get Document Details by document Number",
+                "description": "Returns the list of Document pre requsite.",
+                "operationId": "getDocumentByDocumentNumberUsingGET",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "docNo",
+                        "in": "query",
+                        "description": "docNo",
+                        "required": true,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object Single«string»"
                                 }
                             }
                         }
@@ -671,20 +666,6 @@
     },
     "components": {
         "schemas": {
-            "Add Customrer Request": {
-                "title": "Add Customrer Request",
-                "type": "object",
-                "properties": {
-                    "customerInfo": {
-                        "description": "Customer Information",
-                        "$ref": "#/components/schemas/Customer Information"
-                    },
-                    "loginUserInfo": {
-                        "description": "Login User Information",
-                        "$ref": "#/components/schemas/Login User Information"
-                    }
-                }
-            },
             "Add Document Request": {
                 "title": "Add Document Request",
                 "required": [
@@ -1207,7 +1188,7 @@
                     },
                     "customerId": {
                         "type": "integer",
-                        "description": "Customer auto increment id",
+                        "description": "Customer sequential auto increment id",
                         "format": "int64",
                         "example": 1234
                     },
@@ -1218,13 +1199,13 @@
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "Date of birth of the customer format: (YYYY-MM-DD)",
+                        "description": "Date of birth of the customer {format: (YYYY-MM-DD)}",
                         "format": "date",
                         "example": "1990-01-01T00:00:00.000+00:00"
                     },
                     "email": {
                         "type": "string",
-                        "description": "Email address of the customer",
+                        "description": "Valid email address of the customer",
                         "example": "test@example.com"
                     },
                     "exemptedExpiredDate": {
@@ -1247,23 +1228,14 @@
                         "description": "Gender of the customer",
                         "example": "Male, Female etc."
                     },
-                    "groupCode": {
-                        "type": "string",
-                        "description": "Customer group code",
-                        "example": "ABCD"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
                     "incomeSource": {
                         "type": "string",
-                        "description": "Source of customer's income",
+                        "description": "Customer's source of income",
                         "example": "Employment, Business etc."
                     },
                     "isExemptedCustomer": {
                         "type": "boolean",
-                        "description": "Customer is Exampted or not",
+                        "description": "Customer is Vat Exampted or not",
                         "example": false
                     },
                     "lastName": {
@@ -1279,12 +1251,12 @@
                     "mobileNo": {
                         "type": "string",
                         "description": "Mobile number of the customer",
-                        "example": "1234567890"
+                        "example": "01234567890"
                     },
                     "mobileNos": {
                         "type": "string",
-                        "description": "Mobile numbers of the customer",
-                        "example": "1234567890, 324234324234, 2342342343"
+                        "description": "Mobile numbers of the customer (if Customer have multiple mobile numbers)",
+                        "example": "01234567890, 0124234324234, 02342342343"
                     },
                     "motherName": {
                         "type": "string",
@@ -1303,7 +1275,7 @@
                     },
                     "nid": {
                         "type": "string",
-                        "description": "National ID number of the customer",
+                        "description": "National ID number (NID) of the customer",
                         "example": "1234567890"
                     },
                     "officeAddress": {
@@ -1315,12 +1287,6 @@
                         "type": "string",
                         "description": "Office contact number of the customer",
                         "example": "+1234567890"
-                    },
-                    "oldDbCustomerId": {
-                        "type": "integer",
-                        "description": "GOld Db Customer Id",
-                        "format": "int64",
-                        "example": 234252345
                     },
                     "passportExpireDate": {
                         "type": "string",
@@ -1497,6 +1463,31 @@
                     }
                 }
             },
+            "Data Object Single«string»": {
+                "title": "Data Object Single«string»",
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "string"
+                    },
+                    "remarks": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "description": "Time and date of the execution",
+                        "$ref": "#/components/schemas/Timestamp",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                }
+            },
             "Data Object«Customer Response Body»": {
                 "title": "Data Object«Customer Response Body»",
                 "type": "object",
@@ -1530,8 +1521,8 @@
                     }
                 }
             },
-            "Data Object«DocumentInfoResponseVm»": {
-                "title": "Data Object«DocumentInfoResponseVm»",
+            "Data Object«SavedMasterResponse»": {
+                "title": "Data Object«SavedMasterResponse»",
                 "type": "object",
                 "properties": {
                     "correlationID": {
@@ -1541,40 +1532,7 @@
                     "data": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/DocumentInfoResponseVm"
-                        }
-                    },
-                    "messageID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
-                    },
-                    "remarks": {
-                        "$ref": "#/components/schemas/Remarks"
-                    },
-                    "result": {
-                        "type": "boolean",
-                        "description": "Indicates whether the request execution status, true is success, false is failed.",
-                        "example": false
-                    },
-                    "timestamp": {
-                        "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp",
-                        "example": "2023-11-09 17:02:32.041"
-                    }
-                }
-            },
-            "Data Object«string»": {
-                "title": "Data Object«string»",
-                "type": "object",
-                "properties": {
-                    "correlationID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
-                    },
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
+                            "$ref": "#/components/schemas/SavedMasterResponse"
                         }
                     },
                     "messageID": {
@@ -1668,49 +1626,6 @@
                     "trxNumber": {
                         "type": "string",
                         "description": "Transaction Number"
-                    }
-                }
-            },
-            "DocumentInfoResponseVm": {
-                "title": "DocumentInfoResponseVm",
-                "type": "object",
-                "properties": {
-                    "attachmentList": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "docUrl": {
-                        "type": "string"
-                    },
-                    "documentNumber": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "mrNumber": {
-                        "type": "string"
-                    },
-                    "previousDocumentNumber": {
-                        "type": "string"
-                    },
-                    "previousReviewRemarks": {
-                        "type": "string"
-                    },
-                    "previousSerialNumber": {
-                        "type": "string"
-                    },
-                    "previousSpecialBillReferenceNumber": {
-                        "type": "string"
-                    },
-                    "specialBillReferenceUpdateNeeded": {
-                        "type": "boolean"
-                    },
-                    "updateNeeded": {
-                        "type": "boolean"
                     }
                 }
             },
@@ -2044,47 +1959,6 @@
                         "type": "string",
                         "description": "Role",
                         "example": "Manager, RM, Sales"
-                    }
-                }
-            },
-            "Login User Information": {
-                "title": "Login User Information",
-                "type": "object",
-                "properties": {
-                    "branch": {
-                        "type": "string",
-                        "description": "Working branch of the user",
-                        "example": "MKH, PBD etc."
-                    },
-                    "designation": {
-                        "type": "string",
-                        "description": "Designation of the loggedin user",
-                        "example": "Manager, RM etc."
-                    },
-                    "email": {
-                        "type": "string",
-                        "description": "Email address of the loggedin user",
-                        "example": "example@example.com"
-                    },
-                    "employeeId": {
-                        "type": "string",
-                        "description": "Employee ID",
-                        "example": "test-id"
-                    },
-                    "gender": {
-                        "type": "string",
-                        "description": "Gender of the loggedin user",
-                        "example": "Male, Female etc."
-                    },
-                    "mobile": {
-                        "type": "string",
-                        "description": "Mobile number of the loggedin user",
-                        "example": "017468714655"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name of the loggedin user",
-                        "example": "test-user"
                     }
                 }
             },
@@ -2973,6 +2847,49 @@
                     }
                 }
             },
+            "SavedMasterResponse": {
+                "title": "SavedMasterResponse",
+                "type": "object",
+                "properties": {
+                    "attachmentList": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "docUrl": {
+                        "type": "string"
+                    },
+                    "documentNumber": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "mrNumber": {
+                        "type": "string"
+                    },
+                    "previousDocumentNumber": {
+                        "type": "string"
+                    },
+                    "previousReviewRemarks": {
+                        "type": "string"
+                    },
+                    "previousSerialNumber": {
+                        "type": "string"
+                    },
+                    "previousSpecialBillReferenceNumber": {
+                        "type": "string"
+                    },
+                    "specialBillReferenceUpdateNeeded": {
+                        "type": "boolean"
+                    },
+                    "updateNeeded": {
+                        "type": "boolean"
+                    }
+                }
+            },
             "Search Customer Request Body": {
                 "title": "Search Customer Request Body",
                 "required": [
@@ -2985,22 +2902,22 @@
                 "properties": {
                     "customerGroupCode": {
                         "type": "string",
-                        "description": "Customer Group Code (if customerType is business then have to provide group code)",
+                        "description": "Customer Group Code (if customerType is business then must provide customer group code otherwise optionl)",
                         "example": "UNILIVER, ISPAHANI"
                     },
                     "customerType": {
                         "type": "string",
-                        "description": "Customer Type",
+                        "description": "Type of the Customer",
                         "example": "Personal, Business"
                     },
                     "searchText": {
                         "type": "string",
-                        "description": "Keyword for search customer based on the selected searchType",
+                        "description": "Keyword for search customer based on the selected searchType (if searchType is Mobile then searchText must be a valid mobile number)",
                         "example": "01711111111, 987654321"
                     },
                     "searchType": {
                         "type": "string",
-                        "description": "Customer Search By Specific Selected Criteria",
+                        "description": "Customer Search Type (Specific Selected Criteria)",
                         "example": "Mobile Number, BIN, TIN, NID"
                     }
                 }
@@ -3117,7 +3034,7 @@
                     },
                     "refreshToken": {
                         "type": "string",
-                        "description": "Refresh Token, which will be used for required for getting new Access Token when current access token expires.",
+                        "description": "Refresh Token, which is required for getting new Access Token when current access token expires.",
                         "example": "eyJraWQiOiJlOWNjZDMyYcFgU6PAHo3-9RkODkzNDMi"
                     },
                     "remarks": {
@@ -3129,7 +3046,7 @@
                     },
                     "scope": {
                         "type": "string",
-                        "description": "Scope of token: what user is allowed to perform."
+                        "description": "Scope of token, what user is allowed to perform."
                     },
                     "timestamp": {
                         "type": "string",
