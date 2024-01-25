@@ -336,7 +336,7 @@
                     "Quotation"
                 ],
                 "summary": "Get Quotation",
-                "description": "Returns specific product's quotation.",
+                "description": "Returns specific product's quotation",
                 "operationId": "getQuotationUsingPOST",
                 "parameters": [
                     {
@@ -393,7 +393,7 @@
                     "Quotation"
                 ],
                 "summary": "Get Quotation Pre Requisite",
-                "description": "Returns the list of quotation pre requsite.",
+                "description": "Returns the list of quotation pre-requsite",
                 "operationId": "getQuotationPreRequisiteUsingGET",
                 "parameters": [
                     {
@@ -2653,7 +2653,7 @@
                 "properties": {
                     "placeVisit": {
                         "type": "string",
-                        "description": "Place Visit (descriptive with county)O"
+                        "description": "Place Visit (descriptive with county)"
                     },
                     "placeVisitCode": {
                         "type": "string",
