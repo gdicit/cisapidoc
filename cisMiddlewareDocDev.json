@@ -1714,7 +1714,7 @@
                 "type": "object",
                 "properties": {
                     "customerInfo": {
-                        "description": "Common information",
+                        "description": "Customer information",
                         "$ref": "#/components/schemas/Customer Information"
                     },
                     "policyEndDate": {
