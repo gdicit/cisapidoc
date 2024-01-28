@@ -52,6 +52,63 @@
         }
     ],
     "paths": {
+        "/api/add-customer": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Add A New Customer",
+                "description": "Add a new customer and if successfull return a successfull message otherwise return error code and message.",
+                "operationId": "addCustomerUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Customer Information"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object«string»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
         "/api/search-customer": {
             "post": {
                 "tags": [
@@ -130,9 +187,23 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/Add Document Request"
+                                "required": [
+                                    "data"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "data": {
+                                        "type": "string",
+                                        "description": "data"
+                                    }
+                                }
+                            },
+                            "encoding": {
+                                "data": {
+                                    "contentType": "text/plain"
+                                }
                             }
                         }
                     }
@@ -273,13 +344,13 @@
             }
         },
         "/api/get-document-by-document-number": {
-            "get": {
+            "post": {
                 "tags": [
                     "DocumentDetails"
                 ],
                 "summary": "Get Document Details by document Number",
                 "description": "Returns the list of Document pre requsite.",
-                "operationId": "getDocumentByDocumentNumberUsingGET",
+                "operationId": "getDocumentByDocumentNumberUsingPOST",
                 "parameters": [
                     {
                         "name": "Authorization",
@@ -289,25 +360,24 @@
                         "schema": {
                             "type": "string"
                         }
-                    },
-                    {
-                        "name": "docNo",
-                        "in": "query",
-                        "description": "docNo",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
                     }
                 ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DocNoVm"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Data Object Single«string»"
+                                    "$ref": "#/components/schemas/Data Object Single«UnderwritingResponseVm»"
                                 }
                             }
                         }
@@ -609,49 +679,346 @@
     },
     "components": {
         "schemas": {
-            "Add Document Request": {
-                "title": "Add Document Request",
+            "AccMoneyReceiptVm": {
+                "title": "AccMoneyReceiptVm",
                 "required": [
-                    "customerInfo",
-                    "loginUserInfo"
+                    "actionCode",
+                    "mrStatus",
+                    "netPremium",
+                    "othersCharge",
+                    "paymentType",
+                    "stampAmount",
+                    "sumInsured",
+                    "vatAmount",
+                    "vatRate"
                 ],
                 "type": "object",
                 "properties": {
-                    "bnh": {
-                        "description": "Business & Holidays (B&H) related details",
-                        "$ref": "#/components/schemas/Business and Holidays Details"
+                    "actionCode": {
+                        "pattern": "\\bCREATE|UPDATE\\b",
+                        "type": "string"
                     },
-                    "commonInfo": {
-                        "description": "Common Payment Information for MR",
-                        "$ref": "#/components/schemas/Document Common Information For Payment"
+                    "approvedAt": {
+                        "$ref": "#/components/schemas/Timestamp"
                     },
-                    "customerInfo": {
-                        "description": "Customer Information",
-                        "$ref": "#/components/schemas/Customer Information"
+                    "approvedBy": {
+                        "type": "integer",
+                        "format": "int64"
                     },
-                    "ens": {
-                        "description": "Employment and Studies (E&S) related details",
-                        "$ref": "#/components/schemas/Employment and Studies Details"
+                    "approvedByName": {
+                        "type": "string"
                     },
-                    "forDataSave": {
-                        "type": "object",
-                        "description": "Exact quotation response will need to send in this object"
+                    "attachedMrIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
                     },
-                    "loginUserInfo": {
-                        "description": "Logged in User Information",
-                        "$ref": "#/components/schemas/Logged in User Infomation"
+                    "coinsuranceNetCoinsurer": {
+                        "type": "number",
+                        "format": "double"
                     },
-                    "mtr": {
-                        "description": "Motor product related details",
-                        "$ref": "#/components/schemas/Motor Details"
+                    "coinsuranceNetGdic": {
+                        "type": "number",
+                        "format": "double"
                     },
-                    "nib": {
-                        "description": "Nibedita product related details",
-                        "$ref": "#/components/schemas/Nibedita Details"
+                    "collectedBy": {
+                        "type": "integer",
+                        "format": "int64"
                     },
-                    "ppa": {
-                        "description": "People's Personal Accident (PPA) product related details",
-                        "$ref": "#/components/schemas/People's Personal Accident Details"
+                    "collectionAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "collectionByName": {
+                        "type": "string"
+                    },
+                    "collectionConfirmationDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "collectionConfirmedBy": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "collectionConfirmedByName": {
+                        "type": "string"
+                    },
+                    "collectionDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "collectionStatus": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "$ref": "#/components/schemas/Timestamp"
+                    },
+                    "createdBy": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdByName": {
+                        "type": "string"
+                    },
+                    "currencyRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currencyType": {
+                        "type": "string"
+                    },
+                    "depositSlipNo": {
+                        "type": "string"
+                    },
+                    "depositToAccountNumber": {
+                        "type": "string"
+                    },
+                    "depositToBank": {
+                        "$ref": "#/components/schemas/ComBankBranchVm"
+                    },
+                    "depositToBankBranch": {
+                        "$ref": "#/components/schemas/ComBankBranchVm"
+                    },
+                    "depositToBankBranchId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "depositToBankId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "detachedIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    "documentIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    "documentList": {
+                        "uniqueItems": true,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UnderwritingResponseVm"
+                        }
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "installmentNumberVmList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstallmentNumberVm"
+                        }
+                    },
+                    "installmentType": {
+                        "type": "string"
+                    },
+                    "insuranceType": {
+                        "type": "string"
+                    },
+                    "isCollectionConfirmed": {
+                        "type": "boolean"
+                    },
+                    "isFullOthersChargeCollected": {
+                        "type": "boolean"
+                    },
+                    "isFullServiceChargeCollected": {
+                        "type": "boolean"
+                    },
+                    "isFullStampCollected": {
+                        "type": "boolean"
+                    },
+                    "isFullvatCollected": {
+                        "type": "boolean"
+                    },
+                    "isRefund": {
+                        "type": "boolean"
+                    },
+                    "middlewareRequest": {
+                        "type": "boolean"
+                    },
+                    "modifiedAt": {
+                        "$ref": "#/components/schemas/Timestamp"
+                    },
+                    "modifiedBy": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "modifiedByName": {
+                        "type": "string"
+                    },
+                    "mrAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "mrDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "mrFileList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocFilesResponseVm"
+                        }
+                    },
+                    "mrNumber": {
+                        "type": "string"
+                    },
+                    "mrStatus": {
+                        "pattern": "\\bDRAFT|FINAL\\b",
+                        "type": "string"
+                    },
+                    "netPremium": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "othersCharge": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "paymentDetailsVmSet": {
+                        "uniqueItems": true,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AccPaymentDetailsVm"
+                        }
+                    },
+                    "paymentMode": {
+                        "type": "string"
+                    },
+                    "paymentModeVm": {
+                        "$ref": "#/components/schemas/PaymentModeVm"
+                    },
+                    "paymentType": {
+                        "pattern": "\\bFULL|PARTIAL|INSTALLMENT|LEADER_PORTION_ONLY\\b",
+                        "type": "string"
+                    },
+                    "paymentTypeVm": {
+                        "$ref": "#/components/schemas/PaymentTypeVm"
+                    },
+                    "refundMrVmList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/RefundMrVm"
+                        }
+                    },
+                    "refundParentMrDate": {
+                        "type": "string"
+                    },
+                    "refundParentMrNumber": {
+                        "type": "string"
+                    },
+                    "reviewRemarks": {
+                        "type": "string"
+                    },
+                    "serviceCharge": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "stampAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "stampDutyType": {
+                        "type": "string"
+                    },
+                    "stampRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "stampType": {
+                        "type": "string"
+                    },
+                    "sumInsured": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "totalNumberOfInstallment": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "umpMessage": {
+                        "type": "string"
+                    },
+                    "umpResult": {
+                        "type": "string"
+                    },
+                    "umpStatus": {
+                        "type": "string"
+                    },
+                    "umpSubmitDate": {
+                        "$ref": "#/components/schemas/Timestamp"
+                    },
+                    "umpTrackingNumber": {
+                        "type": "string"
+                    },
+                    "umpUrl": {
+                        "type": "string"
+                    },
+                    "vatAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "vatRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "vatType": {
+                        "type": "string"
+                    }
+                }
+            },
+            "AccPaymentDetailsVm": {
+                "title": "AccPaymentDetailsVm",
+                "type": "object",
+                "properties": {
+                    "bankId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "bankName": {
+                        "type": "string"
+                    },
+                    "branchId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "branchName": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "paymentBank": {
+                        "$ref": "#/components/schemas/ComBankBranchVm"
+                    },
+                    "paymentBankBranchId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "paymentBranch": {
+                        "$ref": "#/components/schemas/ComBankBranchVm"
+                    },
+                    "paymentDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "paymentNumber": {
+                        "type": "string"
+                    },
+                    "paymentRoutingNumber": {
+                        "type": "string"
                     }
                 }
             },
@@ -730,13 +1097,114 @@
                     }
                 }
             },
+            "ApprovedCovernoteListResponseVm": {
+                "title": "ApprovedCovernoteListResponseVm",
+                "type": "object",
+                "properties": {
+                    "documentNumber": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "BgDpDTO": {
+                "title": "BgDpDTO",
+                "type": "object",
+                "properties": {
+                    "amount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "bgDpDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "bgDpNumber": {
+                        "type": "string"
+                    },
+                    "consumedAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "expireDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "flag": {
+                        "type": "boolean"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "remainingAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            },
+            "BgDpHistorVm": {
+                "title": "BgDpHistorVm",
+                "type": "object",
+                "properties": {
+                    "actualAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "bankName": {
+                        "type": "string"
+                    },
+                    "bgDpId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "branchName": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "deductedAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "expiredDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "masterDocStatus": {
+                        "type": "string"
+                    },
+                    "policyAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "remainingAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            },
             "Business And Holidays": {
                 "title": "Business And Holidays",
                 "type": "object",
                 "properties": {
                     "coveredLimit": {
                         "type": "integer",
-                        "description": "Covered limit",
+                        "description": "Policy Covered limit",
                         "format": "int32",
                         "example": 125000
                     },
@@ -755,94 +1223,6 @@
                         "type": "string",
                         "description": "Policy duration (short or full)",
                         "example": "short"
-                    }
-                }
-            },
-            "Business and Holidays Details": {
-                "title": "Business and Holidays Details",
-                "type": "object",
-                "properties": {
-                    "coveredLimit": {
-                        "type": "integer",
-                        "description": "Covered Limit (the height limit of the coverage)",
-                        "format": "int64"
-                    },
-                    "custGender": {
-                        "type": "string",
-                        "description": "Customer Gender",
-                        "example": "Male, Female etc"
-                    },
-                    "custOccupation": {
-                        "type": "string",
-                        "description": "Customer Occupation"
-                    },
-                    "custPasspostNo": {
-                        "type": "string",
-                        "description": "Customer Passport Number"
-                    },
-                    "destCountryAddress": {
-                        "type": "string",
-                        "description": "Destination Country Address"
-                    },
-                    "doctorId": {
-                        "type": "string",
-                        "description": "Doctor ID"
-                    },
-                    "employerAddress": {
-                        "type": "string",
-                        "description": "Employer Address"
-                    },
-                    "employerName": {
-                        "type": "string",
-                        "description": "Employer Name"
-                    },
-                    "insuredOccupation": {
-                        "type": "string",
-                        "description": "Insured Occupation"
-                    },
-                    "interestInsured": {
-                        "type": "string",
-                        "description": "Interest Insured"
-                    },
-                    "medicalNonMedical": {
-                        "type": "string",
-                        "description": "Medical or Non-Medical"
-                    },
-                    "nameOfTheUsualPhysician": {
-                        "type": "string",
-                        "description": "Name of the Usual Physician"
-                    },
-                    "officeTelephoneNo": {
-                        "type": "string",
-                        "description": "Office Telephone Number"
-                    },
-                    "participant": {
-                        "type": "string",
-                        "description": "Participant Name"
-                    },
-                    "physicianTelephoneNoHome": {
-                        "type": "string",
-                        "description": "Physician Telephone Number (Home)"
-                    },
-                    "physicianTelephoneNoOffice": {
-                        "type": "string",
-                        "description": "Physician Telephone Number (Office)"
-                    },
-                    "planName": {
-                        "type": "string",
-                        "description": "Plan Name"
-                    },
-                    "planType": {
-                        "type": "string",
-                        "description": "Plan Type"
-                    },
-                    "reInsuredCountry": {
-                        "type": "string",
-                        "description": "Re-Insured Country"
-                    },
-                    "visaType": {
-                        "type": "string",
-                        "description": "Visa Type"
                     }
                 }
             },
@@ -885,6 +1265,515 @@
                     }
                 },
                 "description": "Business and Holidays Related text fields"
+            },
+            "BusinessSectorSubsectorVm": {
+                "title": "BusinessSectorSubsectorVm",
+                "type": "object",
+                "properties": {
+                    "address": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "oldCode": {
+                        "type": "string"
+                    },
+                    "phoneNumber": {
+                        "type": "string"
+                    },
+                    "refId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "refSectorName": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ClauseResponseVm": {
+                "title": "ClauseResponseVm",
+                "type": "object",
+                "properties": {
+                    "classCode": {
+                        "type": "string"
+                    },
+                    "clauseCode": {
+                        "type": "string"
+                    },
+                    "clauseId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "clauseName": {
+                        "type": "string"
+                    },
+                    "deptCode": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "isSpecialClause": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "CoInsuranceCompanyVm": {
+                "title": "CoInsuranceCompanyVm",
+                "type": "object",
+                "properties": {
+                    "companyAddress": {
+                        "type": "string"
+                    },
+                    "companyFullCode": {
+                        "type": "string"
+                    },
+                    "companyName": {
+                        "type": "string"
+                    },
+                    "companyShortCode": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "isOwnCompany": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "ComAgentInfoVm": {
+                "title": "ComAgentInfoVm",
+                "type": "object",
+                "properties": {
+                    "agencyCode": {
+                        "type": "string"
+                    },
+                    "bin": {
+                        "type": "string"
+                    },
+                    "cell": {
+                        "type": "string"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "dateOfExpiry": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "dateOfIssue": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "education": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "fatherName": {
+                        "type": "string"
+                    },
+                    "fax": {
+                        "type": "string"
+                    },
+                    "gender": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "idraCode": {
+                        "type": "string"
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "isLicenced": {
+                        "type": "boolean"
+                    },
+                    "licenceNew": {
+                        "type": "string"
+                    },
+                    "licenceOld": {
+                        "type": "string"
+                    },
+                    "mobileNumber": {
+                        "type": "string"
+                    },
+                    "motherName": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "nationality": {
+                        "type": "string"
+                    },
+                    "nid": {
+                        "type": "string"
+                    },
+                    "passportNo": {
+                        "type": "string"
+                    },
+                    "permanentAddress": {
+                        "type": "string"
+                    },
+                    "phoneHome": {
+                        "type": "string"
+                    },
+                    "phoneOffice": {
+                        "type": "string"
+                    },
+                    "presentAddress": {
+                        "type": "string"
+                    },
+                    "religion": {
+                        "type": "string"
+                    },
+                    "remarks1": {
+                        "type": "string"
+                    },
+                    "remarks2": {
+                        "type": "string"
+                    },
+                    "sex": {
+                        "type": "string"
+                    },
+                    "spouseName": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "tin": {
+                        "type": "string"
+                    },
+                    "uniqueAgentCode": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ComBankBranchVm": {
+                "title": "ComBankBranchVm",
+                "type": "object",
+                "properties": {
+                    "address": {
+                        "type": "string"
+                    },
+                    "branchList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ComBankBranchVm"
+                        }
+                    },
+                    "collectionAccountNumber": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "phoneNumber": {
+                        "type": "string"
+                    },
+                    "refBankName": {
+                        "type": "string"
+                    },
+                    "refId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "routingNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "zone": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ComBranchVm": {
+                "title": "ComBranchVm",
+                "type": "object",
+                "properties": {
+                    "branchAddress": {
+                        "type": "string"
+                    },
+                    "branchCode": {
+                        "type": "string"
+                    },
+                    "branchEmail": {
+                        "type": "string"
+                    },
+                    "branchMobile": {
+                        "type": "string"
+                    },
+                    "branchName": {
+                        "type": "string"
+                    },
+                    "branchTel": {
+                        "type": "string"
+                    },
+                    "district": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "ComCustomerContactNumberVm": {
+                "title": "ComCustomerContactNumberVm",
+                "type": "object",
+                "properties": {
+                    "contactNumber": {
+                        "type": "string"
+                    },
+                    "customer": {
+                        "$ref": "#/components/schemas/ComCustomerViewModel"
+                    },
+                    "customerId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "ComCustomerViewModel": {
+                "title": "ComCustomerViewModel",
+                "type": "object",
+                "properties": {
+                    "bgDp": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BgDpDTO"
+                        }
+                    },
+                    "bin": {
+                        "type": "string"
+                    },
+                    "birthRegNo": {
+                        "type": "string"
+                    },
+                    "companyRegAuthority": {
+                        "type": "string"
+                    },
+                    "companyType": {
+                        "type": "string"
+                    },
+                    "contactAddress": {
+                        "type": "string"
+                    },
+                    "contactPerson": {
+                        "type": "string"
+                    },
+                    "customerContactNumberVmList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ComCustomerContactNumberVm"
+                        }
+                    },
+                    "customerGroup": {
+                        "$ref": "#/components/schemas/CustomerGroupVm"
+                    },
+                    "customerType": {
+                        "type": "string"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "exemptedExpiredDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "fatherName": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "gender": {
+                        "type": "string"
+                    },
+                    "groupCode": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "incomeSource": {
+                        "type": "string"
+                    },
+                    "isExemptedCustomer": {
+                        "type": "boolean"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "mobileNo": {
+                        "type": "string"
+                    },
+                    "mobileNos": {
+                        "type": "string"
+                    },
+                    "motherName": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "nationality": {
+                        "type": "string"
+                    },
+                    "nid": {
+                        "type": "string"
+                    },
+                    "officeAddress": {
+                        "type": "string"
+                    },
+                    "officeContactNumber": {
+                        "type": "string"
+                    },
+                    "oldDbCustomerId": {
+                        "type": "string"
+                    },
+                    "passportExpireDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "passportNo": {
+                        "type": "string"
+                    },
+                    "permanentAddress": {
+                        "type": "string"
+                    },
+                    "presentAddress": {
+                        "type": "string"
+                    },
+                    "refCustomerId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "regIssueDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "spouseName": {
+                        "type": "string"
+                    },
+                    "tin": {
+                        "type": "string"
+                    },
+                    "tradeLicenceNo": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ComOldCisDocVm": {
+                "title": "ComOldCisDocVm",
+                "type": "object",
+                "properties": {
+                    "deptCode": {
+                        "type": "string"
+                    },
+                    "documentNumber": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "producerId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "producerPf": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CovernoteSummaryReportReturn": {
+                "title": "CovernoteSummaryReportReturn",
+                "type": "object",
+                "properties": {
+                    "additionalAddedndumVmList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocumentSummery"
+                        }
+                    },
+                    "convertedPolicyTotalValue": {
+                        "$ref": "#/components/schemas/DocCalculativeValueVm"
+                    },
+                    "convertedPolicyVmList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocumentSummery"
+                        }
+                    },
+                    "covernoteCurrentValue": {
+                        "$ref": "#/components/schemas/DocCalculativeValueVm"
+                    },
+                    "covernoteDetails": {
+                        "$ref": "#/components/schemas/DocumentSummery"
+                    },
+                    "covernoteNumber": {
+                        "type": "string"
+                    },
+                    "covernoteRemainingGross": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "covernoteRemainingNetPremium": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "covernoteRemainingSumInsured": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "covernoteRemainingValue": {
+                        "$ref": "#/components/schemas/DocCalculativeValueVm"
+                    },
+                    "covernoteTotalValue": {
+                        "$ref": "#/components/schemas/DocCalculativeValueVm"
+                    },
+                    "refundAddedndumVmList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocumentSummery"
+                        }
+                    },
+                    "totalRefundValue": {
+                        "$ref": "#/components/schemas/DocCalculativeValueVm"
+                    }
+                }
             },
             "Customer Information": {
                 "title": "Customer Information",
@@ -1246,6 +2135,19 @@
                     }
                 }
             },
+            "CustomerGroupVm": {
+                "title": "CustomerGroupVm",
+                "type": "object",
+                "properties": {
+                    "groupName": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
             "Data Object Single«Data Save Prerequisite»": {
                 "title": "Data Object Single«Data Save Prerequisite»",
                 "type": "object",
@@ -1346,12 +2248,12 @@
                     }
                 }
             },
-            "Data Object Single«string»": {
-                "title": "Data Object Single«string»",
+            "Data Object Single«UnderwritingResponseVm»": {
+                "title": "Data Object Single«UnderwritingResponseVm»",
                 "type": "object",
                 "properties": {
                     "data": {
-                        "type": "string"
+                        "$ref": "#/components/schemas/UnderwritingResponseVm"
                     },
                     "remarks": {
                         "type": "array",
@@ -1437,6 +2339,39 @@
                     }
                 }
             },
+            "Data Object«string»": {
+                "title": "Data Object«string»",
+                "type": "object",
+                "properties": {
+                    "correlationID": {
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "messageID": {
+                        "type": "string",
+                        "description": "For maintain asynchronous process"
+                    },
+                    "remarks": {
+                        "$ref": "#/components/schemas/Remarks"
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "description": "Time and date of the execution",
+                        "$ref": "#/components/schemas/Timestamp",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                }
+            },
             "Data Save Prerequisite": {
                 "title": "Data Save Prerequisite",
                 "type": "object",
@@ -1466,49 +2401,1333 @@
                         "$ref": "#/components/schemas/Prerequisite for Data Save"
                     }
                 },
-                "description": "Data Save Prerequisite"
+                "description": "These are some of 'Data Save Prerequisite' for (add-master-document) api calling where different type of prequsite are needed."
             },
-            "Document Common Information For Payment": {
-                "title": "Document Common Information For Payment",
+            "DocCalculativeValueVm": {
+                "title": "DocCalculativeValueVm",
+                "type": "object",
+                "properties": {
+                    "grossAmount": {
+                        "type": "string"
+                    },
+                    "netPremium": {
+                        "type": "string"
+                    },
+                    "stampAmount": {
+                        "type": "string"
+                    },
+                    "sumInsured": {
+                        "type": "string"
+                    },
+                    "vatAmount": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DocCoInsuranceVm": {
+                "title": "DocCoInsuranceVm",
+                "type": "object",
+                "properties": {
+                    "coInsuranceStatus": {
+                        "type": "string"
+                    },
+                    "coInsurarPaymentStatus": {
+                        "type": "boolean"
+                    },
+                    "coInsurerCompanyAddress": {
+                        "type": "string"
+                    },
+                    "coInsurerCompanyId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "coInsurerCompanyName": {
+                        "type": "string"
+                    },
+                    "coInsurerVatApplicableNet": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "coInsurerVatNonApplicableNet": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "company": {
+                        "$ref": "#/components/schemas/CoInsuranceCompanyVm"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "isLeader": {
+                        "type": "boolean"
+                    },
+                    "leaderDocumentNumber": {
+                        "type": "string"
+                    },
+                    "netPremiumOfCoInsurer": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "percentageOfCoInsurer": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "stampAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "sumInsuranceOfCoInsurer": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "totalAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "vatAmount": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
+            "DocCustomerContactVm": {
+                "title": "DocCustomerContactVm",
+                "type": "object",
+                "properties": {
+                    "contactNumber": {
+                        "type": "string"
+                    },
+                    "customerContactId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "masterDocId": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "DocEmployeeVm": {
+                "title": "DocEmployeeVm",
+                "type": "object",
+                "properties": {
+                    "address": {
+                        "type": "string"
+                    },
+                    "designation": {
+                        "type": "string"
+                    },
+                    "dob": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "fullname": {
+                        "type": "string"
+                    },
+                    "gender": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "mobile": {
+                        "type": "string"
+                    },
+                    "nid": {
+                        "type": "string"
+                    },
+                    "pfNo": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DocFilesResponseVm": {
+                "title": "DocFilesResponseVm",
+                "type": "object",
+                "properties": {
+                    "base64": {
+                        "type": "string"
+                    },
+                    "fileExtention": {
+                        "type": "string"
+                    },
+                    "fileFullName": {
+                        "type": "string"
+                    },
+                    "fileFullPath": {
+                        "type": "string"
+                    },
+                    "fileSizeKb": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "DocInterestVm": {
+                "title": "DocInterestVm",
                 "required": [
-                    "paymentBankName",
-                    "paymentBranchName",
-                    "paymentDate",
-                    "paymentMode",
-                    "paymentNumber",
-                    "paymentRoutingNumber",
-                    "trxNumber"
+                    "interestAmount",
+                    "perils"
                 ],
                 "type": "object",
                 "properties": {
-                    "paymentBankName": {
-                        "type": "string",
-                        "description": "Payment Bank Name"
+                    "floor": {
+                        "type": "string"
                     },
-                    "paymentBranchName": {
-                        "type": "string",
-                        "description": "Payment Branch Name"
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
                     },
-                    "paymentDate": {
+                    "interestAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "interestName": {
+                        "type": "string"
+                    },
+                    "location": {
+                        "type": "string"
+                    },
+                    "perils": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocPerilVm"
+                        }
+                    },
+                    "productClass": {
+                        "type": "string"
+                    },
+                    "referenceId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "roof": {
+                        "type": "string"
+                    },
+                    "wall": {
+                        "type": "string"
+                    },
+                    "yearOfManufacturing": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DocMarineDetailsInvoicesVm": {
+                "title": "DocMarineDetailsInvoicesVm",
+                "type": "object",
+                "properties": {
+                    "invoiceDate": {
                         "type": "string",
-                        "description": "Payment Date",
                         "format": "date"
                     },
-                    "paymentMode": {
-                        "type": "string",
-                        "description": "Payment Mode"
+                    "invoiceNo": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DocMarineDetailsVm": {
+                "title": "DocMarineDetailsVm",
+                "type": "object",
+                "properties": {
+                    "attachedCoverNoteAddendumDocNo": {
+                        "type": "string"
                     },
-                    "paymentNumber": {
-                        "type": "string",
-                        "description": "Payment Number"
+                    "attachedCoverNoteAddendumMrDate": {
+                        "type": "string"
                     },
-                    "paymentRoutingNumber": {
-                        "type": "string",
-                        "description": "Payment Routing Number"
+                    "attachedCoverNoteAddendumMrNo": {
+                        "type": "string"
                     },
-                    "trxNumber": {
+                    "attachedCoverNoteList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ApprovedCovernoteListResponseVm"
+                        }
+                    },
+                    "beneficiary": {
+                        "type": "string"
+                    },
+                    "billReceiptNo": {
+                        "type": "string"
+                    },
+                    "claimAgent": {
+                        "type": "string"
+                    },
+                    "claimAgentShort": {
+                        "type": "string"
+                    },
+                    "claimPayble": {
+                        "type": "string"
+                    },
+                    "claimPaybleAddress": {
+                        "type": "string"
+                    },
+                    "claimPaybleAt": {
+                        "type": "string"
+                    },
+                    "companyOffice": {
+                        "type": "string"
+                    },
+                    "consigneeAddress": {
+                        "type": "string"
+                    },
+                    "construction": {
+                        "type": "string"
+                    },
+                    "fcAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "fcCurrencyRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "fcCurrencyType": {
+                        "type": "string"
+                    },
+                    "geographicalLimit": {
+                        "type": "string"
+                    },
+                    "hasInvoice": {
+                        "type": "boolean"
+                    },
+                    "hasMultipleCovernote": {
+                        "type": "boolean"
+                    },
+                    "hasRisk": {
+                        "type": "boolean"
+                    },
+                    "hsCode": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "incidentalCostRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "interestCovered": {
+                        "type": "string"
+                    },
+                    "invoiceDate": {
+                        "type": "string"
+                    },
+                    "invoiceNo": {
+                        "type": "string"
+                    },
+                    "invoiceVmList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocMarineDetailsInvoicesVm"
+                        }
+                    },
+                    "isExport": {
+                        "type": "boolean"
+                    },
+                    "isInland": {
+                        "type": "boolean"
+                    },
+                    "isMinimumNetPremium": {
+                        "type": "boolean"
+                    },
+                    "isToleranceExcluded": {
+                        "type": "boolean"
+                    },
+                    "issuedPlace": {
+                        "type": "string"
+                    },
+                    "lcNo": {
+                        "type": "string"
+                    },
+                    "modeOfConveyance": {
+                        "type": "string"
+                    },
+                    "noOfConsignment": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "occupation": {
+                        "type": "string"
+                    },
+                    "owner": {
+                        "type": "string"
+                    },
+                    "partNo": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "premiumBillReceiveNo": {
+                        "type": "string"
+                    },
+                    "riskType": {
+                        "type": "string"
+                    },
+                    "sailingDate": {
                         "type": "string",
-                        "description": "Transaction Number"
+                        "format": "date"
+                    },
+                    "situation": {
+                        "type": "string"
+                    },
+                    "toleranceCostRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "vatExemptedCertificateNumber": {
+                        "type": "string"
+                    },
+                    "vesselName": {
+                        "type": "string"
+                    },
+                    "voyageFrom": {
+                        "type": "string"
+                    },
+                    "voyageTo": {
+                        "type": "string"
+                    },
+                    "voyageVia": {
+                        "type": "string"
+                    },
+                    "yearOfBuild": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "DocMiscHealthDetailsVm": {
+                "title": "DocMiscHealthDetailsVm",
+                "type": "object",
+                "properties": {
+                    "age": {
+                        "type": "string"
+                    },
+                    "construction": {
+                        "type": "string"
+                    },
+                    "docNomineeDetailsVmList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocMiscHealthNomineeDetailsVm"
+                        }
+                    },
+                    "hasNominee": {
+                        "type": "boolean"
+                    },
+                    "healthRemarks": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "isDeclaration": {
+                        "type": "boolean"
+                    },
+                    "isMinimumNetPremium": {
+                        "type": "boolean"
+                    },
+                    "issuedPlace": {
+                        "type": "string"
+                    },
+                    "occupation": {
+                        "type": "string"
+                    },
+                    "owner": {
+                        "type": "string"
+                    },
+                    "pacClassType": {
+                        "type": "string"
+                    },
+                    "pacCoverType": {
+                        "type": "string"
+                    },
+                    "pacOccupation": {
+                        "type": "string"
+                    },
+                    "perilRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "ppaAdditionalInfo": {
+                        "type": "string"
+                    },
+                    "prbAgentAddress": {
+                        "type": "string"
+                    },
+                    "prbAgentContactNumber": {
+                        "type": "string"
+                    },
+                    "prbAgentName": {
+                        "type": "string"
+                    },
+                    "riskType": {
+                        "type": "string"
+                    },
+                    "situation": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DocMiscHealthNomineeDetailsVm": {
+                "title": "DocMiscHealthNomineeDetailsVm",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "nomineeAddress": {
+                        "type": "string"
+                    },
+                    "nomineeDateOfBirth": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "nomineeEmail": {
+                        "type": "string"
+                    },
+                    "nomineeMobile": {
+                        "type": "string"
+                    },
+                    "nomineeName": {
+                        "type": "string"
+                    },
+                    "nomineeNid": {
+                        "type": "string"
+                    },
+                    "nomineeRelation": {
+                        "type": "string"
+                    },
+                    "nomineeSharePct": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
+            "DocMiscOthersDetailsVm": {
+                "title": "DocMiscOthersDetailsVm",
+                "type": "object",
+                "properties": {
+                    "additionalText": {
+                        "type": "string"
+                    },
+                    "ageOfAnimal": {
+                        "type": "string"
+                    },
+                    "block": {
+                        "type": "string"
+                    },
+                    "cattleType": {
+                        "type": "string"
+                    },
+                    "classOfEmployees": {
+                        "type": "string"
+                    },
+                    "construction": {
+                        "type": "string"
+                    },
+                    "countryOfRisk": {
+                        "type": "string"
+                    },
+                    "coveragePercentage": {
+                        "type": "string"
+                    },
+                    "coverageTrigger": {
+                        "type": "string"
+                    },
+                    "crop": {
+                        "type": "string"
+                    },
+                    "dag": {
+                        "type": "string"
+                    },
+                    "deductible": {
+                        "type": "string"
+                    },
+                    "driverClause": {
+                        "type": "string"
+                    },
+                    "durationOfLoanInvestment": {
+                        "type": "string"
+                    },
+                    "employeeNames": {
+                        "type": "string"
+                    },
+                    "estimatedNumberOfEmployees": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "exclusions": {
+                        "type": "string"
+                    },
+                    "floor": {
+                        "type": "string"
+                    },
+                    "gpsLocation": {
+                        "type": "string"
+                    },
+                    "guaranteedTurnover": {
+                        "type": "string"
+                    },
+                    "hasBankLoanDetails": {
+                        "type": "boolean"
+                    },
+                    "hasBankLockerInfo": {
+                        "type": "boolean"
+                    },
+                    "hasFgiDetails": {
+                        "type": "boolean"
+                    },
+                    "hasNominee": {
+                        "type": "boolean"
+                    },
+                    "hasWcaDetails": {
+                        "type": "boolean"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "indemnityPeriod": {
+                        "type": "string"
+                    },
+                    "isDeclaration": {
+                        "type": "boolean"
+                    },
+                    "isMinimumNetPremium": {
+                        "type": "boolean"
+                    },
+                    "issuedPlace": {
+                        "type": "string"
+                    },
+                    "khatiyan": {
+                        "type": "string"
+                    },
+                    "knrBenifitPerCoverPerson": {
+                        "type": "string"
+                    },
+                    "knrInsuredPerson": {
+                        "type": "string"
+                    },
+                    "landArea": {
+                        "type": "string"
+                    },
+                    "lawOfJurisdiction": {
+                        "type": "string"
+                    },
+                    "limitOfIndemnity": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "limitOfLegalLiability": {
+                        "type": "string"
+                    },
+                    "limitOfLiability": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "mouza": {
+                        "type": "string"
+                    },
+                    "noOfCattle": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "occupation": {
+                        "type": "string"
+                    },
+                    "oneAccidentLimit": {
+                        "type": "string"
+                    },
+                    "onePeriodAccidentLimit": {
+                        "type": "string"
+                    },
+                    "othersRemarks": {
+                        "type": "string"
+                    },
+                    "owner": {
+                        "type": "string"
+                    },
+                    "particularOfVehicles": {
+                        "type": "string"
+                    },
+                    "plantPerAcre": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "postShipmentRiskCovered": {
+                        "type": "string"
+                    },
+                    "preShipmentRiskCovered": {
+                        "type": "string"
+                    },
+                    "premisesLimit": {
+                        "type": "string"
+                    },
+                    "productToBeExported": {
+                        "type": "string"
+                    },
+                    "publicPlace": {
+                        "type": "string"
+                    },
+                    "referredWeatherStation": {
+                        "type": "string"
+                    },
+                    "remarksDeductible": {
+                        "type": "string"
+                    },
+                    "riskType": {
+                        "type": "string"
+                    },
+                    "roof": {
+                        "type": "string"
+                    },
+                    "season": {
+                        "type": "string"
+                    },
+                    "singleCarry": {
+                        "type": "string"
+                    },
+                    "situation": {
+                        "type": "string"
+                    },
+                    "tagNo": {
+                        "type": "string"
+                    },
+                    "totalAreaLand": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "totalNumberOfPlant": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "typesOfTrial": {
+                        "type": "string"
+                    },
+                    "unionName": {
+                        "type": "string"
+                    },
+                    "valueOfPlant": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "vesselName": {
+                        "type": "string"
+                    },
+                    "waitingPeriod": {
+                        "type": "string"
+                    },
+                    "wall": {
+                        "type": "string"
+                    },
+                    "weatherIndexClaimPayout": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DocMotorDetailsVm": {
+                "title": "DocMotorDetailsVm",
+                "required": [
+                    "actualComprehensiveRate",
+                    "avlsDiscountRate",
+                    "daysCount",
+                    "finalComprehensiveRate",
+                    "grossPremiumAfterPromoCode",
+                    "isAvlsDiscount",
+                    "isNamedDriver",
+                    "isOppositePurposeUseLoading",
+                    "isPrivateCarBelow750",
+                    "isTaxFreeVehicle",
+                    "isTechometerVehicle",
+                    "loadingRate",
+                    "manufactureYear",
+                    "motorMakeAndBodyType",
+                    "mtrCcTon",
+                    "mtrCcTonValue",
+                    "mtrDriverTimesMultiply",
+                    "mtrHelperTimesMultiply",
+                    "mtrNoOfDriver",
+                    "mtrNoOfHelper",
+                    "mtrNoOfPassenger",
+                    "mtrPassengerTimesMultiply",
+                    "mtrPerDriverRate",
+                    "mtrPerHelperRate",
+                    "mtrPerPassengerRate",
+                    "mtrPlanName",
+                    "mtrVehicleId",
+                    "mtrVehicleName",
+                    "mtrVehicleType",
+                    "namedDriverRate",
+                    "noClaimBonusRate",
+                    "oppositePurposeUseLoadingRate",
+                    "ownDamageBasic",
+                    "promoCode",
+                    "promoCodeDiscount",
+                    "taxFreeVehicleRate",
+                    "techometerDiscountRate"
+                ],
+                "type": "object",
+                "properties": {
+                    "actualComprehensiveRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "avlsDiscountAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "avlsDiscountRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "daysCount": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "finalComprehensiveRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "grossPremiumAfterPromoCode": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "isAvlsDiscount": {
+                        "type": "boolean"
+                    },
+                    "isNamedDriver": {
+                        "type": "boolean"
+                    },
+                    "isOppositePurposeUseLoading": {
+                        "type": "boolean"
+                    },
+                    "isPrivateCarBelow750": {
+                        "type": "boolean"
+                    },
+                    "isTaxFreeVehicle": {
+                        "type": "boolean"
+                    },
+                    "isTechometerVehicle": {
+                        "type": "boolean"
+                    },
+                    "loadingAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "loadingRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "manufactureYear": {
+                        "type": "string"
+                    },
+                    "motorEngineAndChassisNumber": {
+                        "type": "string"
+                    },
+                    "motorMakeAndBodyType": {
+                        "type": "string"
+                    },
+                    "motorRegistrationNumber": {
+                        "type": "string"
+                    },
+                    "motorTermsOfUseId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "mtrCcTon": {
+                        "type": "string"
+                    },
+                    "mtrCcTonValue": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "mtrDriverTimesMultiply": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "mtrHelperTimesMultiply": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "mtrNoOfDriver": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "mtrNoOfHelper": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "mtrNoOfPassenger": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "mtrPassengerTimesMultiply": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "mtrPerDriverRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "mtrPerHelperRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "mtrPerPassengerRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "mtrPlanName": {
+                        "type": "string"
+                    },
+                    "mtrVehicleId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "mtrVehicleName": {
+                        "type": "string"
+                    },
+                    "mtrVehicleType": {
+                        "type": "string"
+                    },
+                    "namedDriverAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "namedDriverRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "noClaimBonusAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "noClaimBonusRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "oppositePurposeUseLoadingAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "oppositePurposeUseLoadingRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "othersCharge": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "ownDamageBasic": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "ownDamagePremium": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "ownDamagePremiumTemp": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "ownDamagePremiumWithLoading": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "privateCarBelow750CcDiscountAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "privateCarBelow750CcDiscountRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "promoCode": {
+                        "type": "string"
+                    },
+                    "promoCodeDiscount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "shortPeriodRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "taxFreeVehicleLoadingAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "taxFreeVehicleRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "techometerDiscountAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "techometerDiscountRate": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
+            "DocNoVm": {
+                "title": "DocNoVm",
+                "required": [
+                    "docNo"
+                ],
+                "type": "object",
+                "properties": {
+                    "docNo": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DocPerilVm": {
+                "title": "DocPerilVm",
+                "required": [
+                    "perilAmount",
+                    "perilRate",
+                    "premium"
+                ],
+                "type": "object",
+                "properties": {
+                    "classCode": {
+                        "type": "string"
+                    },
+                    "deductible": {
+                        "type": "string"
+                    },
+                    "deptCode": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "indemnityPeriod": {
+                        "type": "string"
+                    },
+                    "isExclusion": {
+                        "type": "boolean"
+                    },
+                    "isProvisionalRate": {
+                        "type": "boolean"
+                    },
+                    "pacCoverType": {
+                        "type": "string"
+                    },
+                    "pacCoverTypeName": {
+                        "type": "string"
+                    },
+                    "pacOccupation": {
+                        "type": "string"
+                    },
+                    "perilAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "perilCode": {
+                        "type": "string"
+                    },
+                    "perilDiscountRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "perilId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "perilLoadingRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "perilName": {
+                        "type": "string"
+                    },
+                    "perilRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "perilShortRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "premium": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
+            "DocRiskCoveredVm": {
+                "title": "DocRiskCoveredVm",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "isSpecialRisk": {
+                        "type": "boolean"
+                    },
+                    "riskId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "riskName": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DocTravelDetailsVm": {
+                "title": "DocTravelDetailsVm",
+                "required": [
+                    "custAge",
+                    "custPasspostNo",
+                    "dateOfBirth"
+                ],
+                "type": "object",
+                "properties": {
+                    "conversionRateUsdToBdt": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "coveredLimit": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "custAge": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "custGender": {
+                        "type": "string"
+                    },
+                    "custOcu": {
+                        "type": "string"
+                    },
+                    "custPasspostNo": {
+                        "type": "string"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "dayStay": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "destCountry": {
+                        "type": "string"
+                    },
+                    "destCountryAddress": {
+                        "type": "string"
+                    },
+                    "doctorId": {
+                        "type": "string"
+                    },
+                    "employerAddress": {
+                        "type": "string"
+                    },
+                    "employerName": {
+                        "type": "string"
+                    },
+                    "ensType": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "insuredOccupation": {
+                        "type": "string"
+                    },
+                    "interestInsured": {
+                        "type": "string"
+                    },
+                    "issuedPlace": {
+                        "type": "string"
+                    },
+                    "issuingOffice": {
+                        "type": "string"
+                    },
+                    "loadingAmt": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "medicalNonMedical": {
+                        "type": "string"
+                    },
+                    "monthStay": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "nameOfTheUsualPhysician": {
+                        "type": "string"
+                    },
+                    "numberOfChild": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "numberOfPerson": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "officeTelephoneNo": {
+                        "type": "string"
+                    },
+                    "participant": {
+                        "type": "string"
+                    },
+                    "physicianTelephoneNoHome": {
+                        "type": "string"
+                    },
+                    "physicianTelephoneNoOffice": {
+                        "type": "string"
+                    },
+                    "placeVisit": {
+                        "type": "string"
+                    },
+                    "placeVisitCode": {
+                        "type": "string"
+                    },
+                    "planName": {
+                        "type": "string"
+                    },
+                    "planType": {
+                        "type": "string"
+                    },
+                    "reInsuredCountry": {
+                        "type": "string"
+                    },
+                    "regionOfCountry": {
+                        "type": "string"
+                    },
+                    "visaType": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DocumentFamilyVm": {
+                "title": "DocumentFamilyVm",
+                "type": "object",
+                "properties": {
+                    "childs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocumentParentChildVm"
+                        }
+                    },
+                    "givenDoc": {
+                        "$ref": "#/components/schemas/DocumentParentChildVm"
+                    },
+                    "historySummary": {
+                        "type": "string"
+                    },
+                    "parent": {
+                        "$ref": "#/components/schemas/DocumentParentChildVm"
+                    }
+                }
+            },
+            "DocumentParentChildVm": {
+                "title": "DocumentParentChildVm",
+                "type": "object",
+                "properties": {
+                    "ammendment": {
+                        "type": "boolean"
+                    },
+                    "approved": {
+                        "type": "boolean"
+                    },
+                    "childNo": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "docId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "documentNumber": {
+                        "type": "string"
+                    },
+                    "documentType": {
+                        "type": "string"
+                    },
+                    "hasMr": {
+                        "type": "boolean"
+                    },
+                    "moneyReceiptList": {
+                        "uniqueItems": true,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AccMoneyReceiptVm"
+                        }
+                    },
+                    "mrDate": {
+                        "type": "string"
+                    },
+                    "mrNumber": {
+                        "type": "string"
+                    },
+                    "referenceId": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "DocumentSummery": {
+                "title": "DocumentSummery",
+                "type": "object",
+                "properties": {
+                    "docId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "documentNumber": {
+                        "type": "string"
+                    },
+                    "grossAmount": {
+                        "type": "string"
+                    },
+                    "hasMr": {
+                        "type": "boolean"
+                    },
+                    "mrNumber": {
+                        "type": "string"
+                    },
+                    "netPremium": {
+                        "type": "string"
+                    },
+                    "stampAmount": {
+                        "type": "string"
+                    },
+                    "stampDutyType": {
+                        "type": "string"
+                    },
+                    "sumInsured": {
+                        "type": "string"
+                    },
+                    "vatAmount": {
+                        "type": "string"
+                    },
+                    "vatType": {
+                        "type": "string"
                     }
                 }
             },
@@ -1524,7 +3743,7 @@
                     },
                     "coveredLimit": {
                         "type": "integer",
-                        "description": "Covered limit, When ensType=Employment, Default: 0, When applicable value will be 125000",
+                        "description": "Policy Covered limit, When ensType=Employment, Default: 0, When applicable value will be 125000",
                         "format": "int64",
                         "example": 125000
                     },
@@ -1562,93 +3781,6 @@
                         "type": "string",
                         "description": "Place visit code",
                         "example": "B"
-                    }
-                }
-            },
-            "Employment and Studies Details": {
-                "title": "Employment and Studies Details",
-                "type": "object",
-                "properties": {
-                    "coveredLimit": {
-                        "type": "integer",
-                        "description": "Covered Limit",
-                        "format": "int64"
-                    },
-                    "custGender": {
-                        "type": "string",
-                        "description": "Customer Gender"
-                    },
-                    "custOccupation": {
-                        "type": "string",
-                        "description": "Customer Occupation"
-                    },
-                    "custPasspostNo": {
-                        "type": "string",
-                        "description": "Customer Passport Number"
-                    },
-                    "destCountryAddress": {
-                        "type": "string",
-                        "description": "Destination Country Address"
-                    },
-                    "doctorId": {
-                        "type": "string",
-                        "description": "Doctor ID"
-                    },
-                    "employerAddress": {
-                        "type": "string",
-                        "description": "Employer Address"
-                    },
-                    "employerName": {
-                        "type": "string",
-                        "description": "Employer Name"
-                    },
-                    "insuredOccupation": {
-                        "type": "string",
-                        "description": "Insured Occupation"
-                    },
-                    "interestInsured": {
-                        "type": "string",
-                        "description": "Interest Insured"
-                    },
-                    "medicalNonMedical": {
-                        "type": "string",
-                        "description": "Medical or Non-Medical"
-                    },
-                    "nameOfTheUsualPhysician": {
-                        "type": "string",
-                        "description": "Name of the Usual Physician"
-                    },
-                    "officeTelephoneNo": {
-                        "type": "string",
-                        "description": "Office Telephone Number"
-                    },
-                    "participant": {
-                        "type": "string",
-                        "description": "Participant Name"
-                    },
-                    "physicianTelephoneNoHome": {
-                        "type": "string",
-                        "description": "Physician Telephone Number (Home)"
-                    },
-                    "physicianTelephoneNoOffice": {
-                        "type": "string",
-                        "description": "Physician Telephone Number (Office)"
-                    },
-                    "planName": {
-                        "type": "string",
-                        "description": "Plan Name"
-                    },
-                    "planType": {
-                        "type": "string",
-                        "description": "Plan Type"
-                    },
-                    "reInsuredCountry": {
-                        "type": "string",
-                        "description": "Re-Insured Country"
-                    },
-                    "visaType": {
-                        "type": "string",
-                        "description": "Visa Type"
                     }
                 }
             },
@@ -1714,7 +3846,7 @@
                 "type": "object",
                 "properties": {
                     "customerInfo": {
-                        "description": "Common information",
+                        "description": "Customer information",
                         "$ref": "#/components/schemas/Customer Information"
                     },
                     "policyEndDate": {
@@ -1807,45 +3939,16 @@
                 "title": "InputStream",
                 "type": "object"
             },
-            "Logged in User Infomation": {
-                "title": "Logged in User Infomation",
-                "required": [
-                    "employeeId",
-                    "name",
-                    "role"
-                ],
+            "InstallmentNumberVm": {
+                "title": "InstallmentNumberVm",
                 "type": "object",
                 "properties": {
-                    "branchCode": {
-                        "type": "string",
-                        "description": "Branch Code",
-                        "example": "RSG, GLN, MKH etc"
-                    },
-                    "clientCode": {
-                        "type": "string",
-                        "description": "Client Code of the Organization",
-                        "example": "BRAC, MTB, EBL etc"
-                    },
-                    "designation": {
-                        "type": "string",
-                        "description": "Designation of the logged in user"
-                    },
-                    "employeeId": {
-                        "type": "string",
-                        "description": "Employee ID of the logged in user"
-                    },
-                    "mobile": {
-                        "type": "string",
-                        "description": "Mobile Number of the logged in user"
-                    },
                     "name": {
-                        "type": "string",
-                        "description": "Name of the Organization/User"
+                        "type": "string"
                     },
-                    "role": {
-                        "type": "string",
-                        "description": "Role of the logged in user",
-                        "example": "Manager, RM, Sales"
+                    "value": {
+                        "type": "integer",
+                        "format": "int32"
                     }
                 }
             },
@@ -1903,11 +4006,11 @@
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Name"
+                        "description": "Name of the Element"
                     },
                     "value": {
                         "type": "string",
-                        "description": "Value"
+                        "description": "Value value of the Element"
                     }
                 }
             },
@@ -1917,12 +4020,12 @@
                 "properties": {
                     "classCode": {
                         "type": "string",
-                        "description": "Class Code",
+                        "description": "Class Code (Predefined System 3 Digit Class Code)",
                         "example": "MTR"
                     },
                     "deptCode": {
                         "type": "string",
-                        "description": "Department code",
+                        "description": "Department code (Predefined System Dept Code)",
                         "example": "MTR"
                     },
                     "id": {
@@ -1932,12 +4035,12 @@
                     },
                     "perilCode": {
                         "type": "string",
-                        "description": "Peril Code",
+                        "description": "Peril Code (Predefined System Peril Code)",
                         "example": "EQ (F & S), FLD & CYC etc."
                     },
                     "perilName": {
                         "type": "string",
-                        "description": "Peril Name",
+                        "description": "Peril Name (Predefined System Peril Name)",
                         "example": "Flood And Cyclone, Earthquake etc."
                     }
                 }
@@ -1948,11 +4051,11 @@
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Name"
+                        "description": "Name of the Element"
                     },
                     "value": {
                         "type": "string",
-                        "description": "Value"
+                        "description": "Value value of the Element"
                     }
                 }
             },
@@ -1967,11 +4070,11 @@
                     },
                     "name": {
                         "type": "string",
-                        "description": "Name"
+                        "description": "Name of the Element"
                     },
                     "value": {
                         "type": "string",
-                        "description": "Value"
+                        "description": "Value value of the Element"
                     }
                 }
             },
@@ -1995,11 +4098,397 @@
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Name"
+                        "description": "Name of the Element"
                     },
                     "value": {
                         "type": "string",
-                        "description": "Value"
+                        "description": "Value value of the Element"
+                    }
+                }
+            },
+            "MasterDocResponseVm": {
+                "title": "MasterDocResponseVm",
+                "type": "object",
+                "properties": {
+                    "agentInfo": {
+                        "$ref": "#/components/schemas/ComAgentInfoVm"
+                    },
+                    "amendmentCauseCode": {
+                        "type": "string"
+                    },
+                    "amendmentCauseValue": {
+                        "type": "string"
+                    },
+                    "amendmentPremiumMode": {
+                        "type": "string"
+                    },
+                    "amendmentSumInsuredType": {
+                        "type": "string"
+                    },
+                    "amendmentType": {
+                        "type": "string"
+                    },
+                    "approvalStatus": {
+                        "type": "string"
+                    },
+                    "approvedAt": {
+                        "$ref": "#/components/schemas/Timestamp"
+                    },
+                    "approvedBy": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "approvedByName": {
+                        "type": "string"
+                    },
+                    "authorizedPerson": {
+                        "$ref": "#/components/schemas/DocEmployeeVm"
+                    },
+                    "body1": {
+                        "type": "string"
+                    },
+                    "body2": {
+                        "type": "string"
+                    },
+                    "branch": {
+                        "$ref": "#/components/schemas/ComBranchVm"
+                    },
+                    "businessSector": {
+                        "$ref": "#/components/schemas/BusinessSectorSubsectorVm"
+                    },
+                    "businessSectorSubsector": {
+                        "$ref": "#/components/schemas/BusinessSectorSubsectorVm"
+                    },
+                    "businessSource": {
+                        "type": "string"
+                    },
+                    "businessStatus": {
+                        "type": "string"
+                    },
+                    "businessType": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "$ref": "#/components/schemas/Timestamp"
+                    },
+                    "createdBy": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "createdByName": {
+                        "type": "string"
+                    },
+                    "currencyRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currencyType": {
+                        "type": "string"
+                    },
+                    "customer": {
+                        "$ref": "#/components/schemas/ComCustomerViewModel"
+                    },
+                    "customerName": {
+                        "type": "string"
+                    },
+                    "declarationAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "declarationRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "declarationType": {
+                        "type": "string"
+                    },
+                    "discountAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "discountRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "discountType": {
+                        "type": "string"
+                    },
+                    "docMarineDetailsVm": {
+                        "$ref": "#/components/schemas/DocMarineDetailsVm"
+                    },
+                    "docMiscHealthDetailsVm": {
+                        "$ref": "#/components/schemas/DocMiscHealthDetailsVm"
+                    },
+                    "docMiscOthersDetailsVm": {
+                        "$ref": "#/components/schemas/DocMiscOthersDetailsVm"
+                    },
+                    "docMotorDetailsVm": {
+                        "$ref": "#/components/schemas/DocMotorDetailsVm"
+                    },
+                    "docTravelDetailsVm": {
+                        "$ref": "#/components/schemas/DocTravelDetailsVm"
+                    },
+                    "documentDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "documentNumber": {
+                        "type": "string"
+                    },
+                    "documentNumberSuffix": {
+                        "type": "string"
+                    },
+                    "documentSerialNo": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "documentStatus": {
+                        "type": "string"
+                    },
+                    "documentType": {
+                        "type": "string"
+                    },
+                    "documentValidFrom": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "documentValidTo": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "grossPremium": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "hasBgDp": {
+                        "type": "boolean"
+                    },
+                    "hasClause": {
+                        "type": "boolean"
+                    },
+                    "hasCoInsurance": {
+                        "type": "boolean"
+                    },
+                    "hasDiscount": {
+                        "type": "boolean"
+                    },
+                    "hasMortgage": {
+                        "type": "boolean"
+                    },
+                    "hasMultipleMoneyReceipt": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "hasSpecialClause": {
+                        "type": "boolean"
+                    },
+                    "hasSpecialRisk": {
+                        "type": "boolean"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "insuranceType": {
+                        "type": "string"
+                    },
+                    "insuredAddress": {
+                        "type": "string"
+                    },
+                    "interestList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocInterestVm"
+                        }
+                    },
+                    "introducer": {
+                        "$ref": "#/components/schemas/DocEmployeeVm"
+                    },
+                    "isConvertedDocument": {
+                        "type": "boolean"
+                    },
+                    "isDeclaration": {
+                        "type": "boolean"
+                    },
+                    "isDocumentPrintAllow": {
+                        "type": "boolean"
+                    },
+                    "isGdicLeader": {
+                        "type": "boolean"
+                    },
+                    "isMixedVat": {
+                        "type": "boolean"
+                    },
+                    "isRefund": {
+                        "type": "boolean"
+                    },
+                    "isStampRecoverable": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "isVatExempted": {
+                        "type": "boolean"
+                    },
+                    "modifiedAt": {
+                        "$ref": "#/components/schemas/Timestamp"
+                    },
+                    "modifiedBy": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "modifiedByName": {
+                        "type": "string"
+                    },
+                    "moneyReceiptId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "netPremium": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "oldCisDocVm": {
+                        "$ref": "#/components/schemas/ComOldCisDocVm"
+                    },
+                    "oldCisDocumentNumber": {
+                        "type": "string"
+                    },
+                    "originId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "othersCharge": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "paymentModeList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PaymentModeVm"
+                        }
+                    },
+                    "paymentTypeList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PaymentTypeVm"
+                        }
+                    },
+                    "perilPremium": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "policyDuration": {
+                        "type": "string"
+                    },
+                    "producer": {
+                        "$ref": "#/components/schemas/DocEmployeeVm"
+                    },
+                    "product": {
+                        "$ref": "#/components/schemas/UsrProdSubModuleDepartmentViewModel"
+                    },
+                    "refDocBgDpNumber": {
+                        "type": "string"
+                    },
+                    "referenceId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "reviewRemarks": {
+                        "type": "string"
+                    },
+                    "securityCode": {
+                        "type": "string"
+                    },
+                    "selected": {
+                        "type": "boolean"
+                    },
+                    "serviceCharge": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "serviceProvider": {
+                        "$ref": "#/components/schemas/DocEmployeeVm"
+                    },
+                    "serviceProviderFullname": {
+                        "type": "string"
+                    },
+                    "serviceProviderPf": {
+                        "type": "string"
+                    },
+                    "shortPeriodDays": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "shortProrataPercentage": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "stampAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "stampDutyType": {
+                        "type": "string"
+                    },
+                    "stampRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "stampType": {
+                        "type": "string"
+                    },
+                    "sumInsured": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "totalDays": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "totalMonth": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "vatAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "vatApplicableAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "vatExemptedApprovalStatus": {
+                        "type": "string"
+                    },
+                    "vatNonApplicableAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "vatNonApplicableStatus": {
+                        "type": "string"
+                    },
+                    "vatRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "vatType": {
+                        "type": "string"
+                    }
+                }
+            },
+            "MortgageResponseVm": {
+                "title": "MortgageResponseVm",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "mortgageBank": {
+                        "$ref": "#/components/schemas/ComBankBranchVm"
+                    },
+                    "mortgageBankBranch": {
+                        "$ref": "#/components/schemas/ComBankBranchVm"
                     }
                 }
             },
@@ -2066,7 +4555,7 @@
                     },
                     "mtrCcTonValue": {
                         "type": "number",
-                        "description": "MTR CC ton value",
+                        "description": "MTR CC ton value (if vehicle is measured in CC then CC value or measured with TON then TON value)",
                         "format": "double",
                         "example": 200
                     },
@@ -2109,26 +4598,22 @@
                     "mtrNoOfConductor": {
                         "type": "integer",
                         "description": "Number of conductors",
-                        "format": "int32",
-                        "example": 0
+                        "format": "int32"
                     },
                     "mtrNoOfDriver": {
                         "type": "integer",
                         "description": "Number of drivers",
-                        "format": "int32",
-                        "example": 1
+                        "format": "int32"
                     },
                     "mtrNoOfGuide": {
                         "type": "integer",
                         "description": "Number of guides",
-                        "format": "int32",
-                        "example": 0
+                        "format": "int32"
                     },
                     "mtrNoOfHelper": {
                         "type": "integer",
                         "description": "Number of helpers",
-                        "format": "int32",
-                        "example": 0
+                        "format": "int32"
                     },
                     "mtrNoOfPassenger": {
                         "type": "integer",
@@ -2230,78 +4715,6 @@
                     }
                 }
             },
-            "Motor Details": {
-                "title": "Motor Details",
-                "type": "object",
-                "properties": {
-                    "companyOrModelName": {
-                        "type": "string",
-                        "description": "Company or Model Name of the vehicle"
-                    },
-                    "fitnessExpiryDate": {
-                        "type": "string",
-                        "description": "Fitness Expiry Date of the vehicle"
-                    },
-                    "manufactureYear": {
-                        "type": "string",
-                        "description": "Manufacture Year of the vehicle"
-                    },
-                    "manufacturer": {
-                        "type": "string",
-                        "description": "Manufacturer of the vehicle"
-                    },
-                    "motorEngineAndChassisNumber": {
-                        "type": "string",
-                        "description": "Motor Engine and Chassis Number"
-                    },
-                    "motorMakeAndBodyType": {
-                        "type": "string",
-                        "description": "Motor Make and Body Type of the vehicle"
-                    },
-                    "motorModelNumber": {
-                        "type": "string",
-                        "description": "Motor Model Number"
-                    },
-                    "motorRegistrationNumber": {
-                        "type": "string",
-                        "description": "Registration number of the vehicle"
-                    },
-                    "motorTermsOfUseId": {
-                        "type": "integer",
-                        "description": "Motor Terms of Use ID",
-                        "format": "int64"
-                    },
-                    "mtrCCTon": {
-                        "type": "string",
-                        "description": "Vechicle is measured in CC or TON"
-                    },
-                    "mtrCcTonValue": {
-                        "type": "number",
-                        "description": "Vehicle CC or TON value",
-                        "format": "double"
-                    },
-                    "mtrPlanName": {
-                        "type": "string",
-                        "description": "Plan Name"
-                    },
-                    "mtrVehicleType": {
-                        "type": "string",
-                        "description": "Vehicle Type (Private or Organization)"
-                    },
-                    "nameOfRegistrationAuthority": {
-                        "type": "string",
-                        "description": "Name of Registration Authority"
-                    },
-                    "nameOfTheVechile": {
-                        "type": "string",
-                        "description": "Name of the Vehicle"
-                    },
-                    "taxToken": {
-                        "type": "string",
-                        "description": "Tax Token of the vehicle"
-                    }
-                }
-            },
             "Motor Prerequisite For Data Save": {
                 "title": "Motor Prerequisite For Data Save",
                 "type": "object",
@@ -2342,27 +4755,6 @@
                 },
                 "description": "Motor Related text fields"
             },
-            "Nibedita Details": {
-                "title": "Nibedita Details",
-                "type": "object",
-                "properties": {
-                    "construction": {
-                        "type": "string",
-                        "description": "Customer Construction"
-                    },
-                    "nomineeDetails": {
-                        "type": "array",
-                        "description": "Nominee Details",
-                        "items": {
-                            "$ref": "#/components/schemas/NomineeDetails"
-                        }
-                    },
-                    "occupation": {
-                        "type": "string",
-                        "description": "Customer Occupation"
-                    }
-                }
-            },
             "Nibedita Prerequisite For Data Save": {
                 "title": "Nibedita Prerequisite For Data Save",
                 "type": "object",
@@ -2383,12 +4775,12 @@
                 "properties": {
                     "productCode": {
                         "type": "string",
-                        "description": "Product Code",
+                        "description": "Product Code (System Predefined Code)",
                         "example": "NIBEDITA_ORBIT, NIBEDITA_ECHO etc"
                     },
                     "productName": {
                         "type": "string",
-                        "description": "Product Name",
+                        "description": "Product Name (System Predefined Name)",
                         "example": "NIBEDITA ORBIT, NIBEDITA ECHO etc."
                     },
                     "sumInsuredList": {
@@ -2427,76 +4819,18 @@
                 },
                 "description": "Nibedita text fields for Data Save"
             },
-            "NomineeDetails": {
-                "title": "NomineeDetails",
-                "required": [
-                    "nomineeAddress",
-                    "nomineeDateOfBirth",
-                    "nomineeEmail",
-                    "nomineeMobile",
-                    "nomineeName",
-                    "nomineeNid",
-                    "nomineeRelation",
-                    "nomineeSharePct"
-                ],
-                "type": "object",
-                "properties": {
-                    "nomineeAddress": {
-                        "type": "string",
-                        "description": "Nominee Address",
-                        "example": "123 Main St, City"
-                    },
-                    "nomineeDateOfBirth": {
-                        "type": "string",
-                        "description": "Nominee Date of Birth",
-                        "example": "2023-12-25"
-                    },
-                    "nomineeEmail": {
-                        "type": "string",
-                        "description": "Nominee Valid Email Address",
-                        "example": "nominee@example.com"
-                    },
-                    "nomineeMobile": {
-                        "type": "string",
-                        "description": "Nominee Mobile Number",
-                        "example": "0123456789"
-                    },
-                    "nomineeName": {
-                        "type": "string",
-                        "description": "Nominee Name",
-                        "example": "John Doe"
-                    },
-                    "nomineeNid": {
-                        "type": "string",
-                        "description": "Nominee NID",
-                        "example": "1234567890"
-                    },
-                    "nomineeRelation": {
-                        "type": "string",
-                        "description": "Nominee Relation with the customer/client",
-                        "example": "Spouse"
-                    },
-                    "nomineeSharePct": {
-                        "type": "number",
-                        "description": "Nominee Share Percentage",
-                        "format": "double",
-                        "example": 50
-                    }
-                },
-                "description": "Nominee Details"
-            },
             "PAC Cover Type Details": {
                 "title": "PAC Cover Type Details",
                 "type": "object",
                 "properties": {
                     "coverTypeCode": {
                         "type": "string",
-                        "description": "Cover Type Code",
+                        "description": "Cover Type Code (Predefined System Code)",
                         "example": "A, B, C etc."
                     },
                     "coverTypeName": {
                         "type": "string",
-                        "description": "Cover Type Name (Descriptive)"
+                        "description": "Cover Type Name (Descriptive - Predefined System Name)"
                     }
                 }
             },
@@ -2506,7 +4840,7 @@
                 "properties": {
                     "pacClassDetailsList": {
                         "type": "array",
-                        "description": "PAC Class Details",
+                        "description": "PAC (Personal Accedent) Class Details",
                         "items": {
                             "$ref": "#/components/schemas/PAC Product Plan Details"
                         }
@@ -2526,12 +4860,12 @@
                 "properties": {
                     "classCode": {
                         "type": "string",
-                        "description": "Class Code",
+                        "description": "Class Code (Predefined System Code)",
                         "example": "A, B, C etc."
                     },
                     "className": {
                         "type": "string",
-                        "description": "Class Name",
+                        "description": "Class Name (Predefined System Class Name)",
                         "example": "Plan -A, Plan -B etc."
                     },
                     "pacOccupationList": {
@@ -2544,24 +4878,27 @@
                     }
                 }
             },
-            "People's Personal Accident Details": {
-                "title": "People's Personal Accident Details",
+            "PaymentModeVm": {
+                "title": "PaymentModeVm",
                 "type": "object",
                 "properties": {
-                    "construction": {
-                        "type": "string",
-                        "description": "Customer Construction"
+                    "name": {
+                        "type": "string"
                     },
-                    "nomineeDetails": {
-                        "type": "array",
-                        "description": "Nominee Details",
-                        "items": {
-                            "$ref": "#/components/schemas/NomineeDetails"
-                        }
+                    "value": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PaymentTypeVm": {
+                "title": "PaymentTypeVm",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
                     },
-                    "occupation": {
-                        "type": "string",
-                        "description": "Customer Occupation"
+                    "value": {
+                        "type": "string"
                     }
                 }
             },
@@ -2657,7 +4994,7 @@
                     },
                     "placeVisitCode": {
                         "type": "string",
-                        "description": "Place Visit Code",
+                        "description": "Place Visit Code (Predefined System Code)",
                         "example": "A, B, C etc."
                     }
                 }
@@ -2733,6 +5070,88 @@
                     }
                 }
             },
+            "RefundMrVm": {
+                "title": "RefundMrVm",
+                "type": "object",
+                "properties": {
+                    "branchCode": {
+                        "type": "string"
+                    },
+                    "currencyRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "currencyType": {
+                        "type": "string"
+                    },
+                    "currentBalance": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "mrAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "mrDate": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "mrNumber": {
+                        "type": "string"
+                    },
+                    "netPremium": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "othersCharge": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "refundDocumentNumber": {
+                        "type": "string"
+                    },
+                    "refundStatus": {
+                        "type": "string"
+                    },
+                    "serviceCharge": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "stampAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "stampDutyType": {
+                        "type": "string"
+                    },
+                    "stampRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "stampType": {
+                        "type": "string"
+                    },
+                    "sumInsured": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "vatAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "vatRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "vatType": {
+                        "type": "string"
+                    }
+                }
+            },
             "Remarks": {
                 "title": "Remarks",
                 "type": "object",
@@ -2794,6 +5213,11 @@
                         "items": {
                             "type": "string"
                         }
+                    },
+                    "customerEmail": {
+                        "type": "string",
+                        "description": "Customer Email address",
+                        "example": "customer@customer.com"
                     },
                     "docUrl": {
                         "type": "string",
@@ -2873,8 +5297,8 @@
                     },
                     "searchType": {
                         "type": "string",
-                        "description": "Customer Search Type (Specific Selected Criteria)",
-                        "example": "Mobile Number, BIN, TIN, NID"
+                        "description": "Customer Search Type referes (Specific Selected Criteria) based on selected customerType",
+                        "example": "For (PERSONAL -> nid, tin, birthRegNo, passportNo), (BUSINESS -> nid, tin, bin, mobileNo) one of these criteria must be selected"
                     }
                 }
             },
@@ -2986,6 +5410,195 @@
                     }
                 }
             },
+            "UnderwritingRemainingPremiumDetails": {
+                "title": "UnderwritingRemainingPremiumDetails",
+                "type": "object",
+                "properties": {
+                    "allowedInstallmentNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "hasCoInsurance": {
+                        "type": "boolean"
+                    },
+                    "isGdicLeader": {
+                        "type": "boolean"
+                    },
+                    "mrCount": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "netPremiumCoInsurer": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "netPremiumGdic": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "remainingNetPremium": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "remainingOthersCharge": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "remainingRemainingGross": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "remainingServiceCharge": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "remainingStampAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "remainingVatAmount": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
+            "UnderwritingResponseVm": {
+                "title": "UnderwritingResponseVm",
+                "required": [
+                    "masterDoc"
+                ],
+                "type": "object",
+                "properties": {
+                    "attachedCustomerContactMobileNo": {
+                        "type": "string"
+                    },
+                    "bgDpList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BgDpHistorVm"
+                        }
+                    },
+                    "clauseList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClauseResponseVm"
+                        }
+                    },
+                    "coInsuranceList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocCoInsuranceVm"
+                        }
+                    },
+                    "covernoteSummary": {
+                        "$ref": "#/components/schemas/CovernoteSummaryReportReturn"
+                    },
+                    "customerContactList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocCustomerContactVm"
+                        }
+                    },
+                    "customerSet": {
+                        "uniqueItems": true,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ComCustomerViewModel"
+                        }
+                    },
+                    "docFileList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocFilesResponseVm"
+                        }
+                    },
+                    "docHistory": {
+                        "$ref": "#/components/schemas/DocumentFamilyVm"
+                    },
+                    "interestList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocInterestVm"
+                        }
+                    },
+                    "isGdicLeader": {
+                        "type": "boolean"
+                    },
+                    "masterDoc": {
+                        "$ref": "#/components/schemas/MasterDocResponseVm"
+                    },
+                    "moneyReceiptList": {
+                        "uniqueItems": true,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AccMoneyReceiptVm"
+                        }
+                    },
+                    "mortgageList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MortgageResponseVm"
+                        }
+                    },
+                    "mrAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "mrCount": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "netPremiumCoInsurer": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "netPremiumGdic": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "othersCharge": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "remainingPremiumDetails": {
+                        "$ref": "#/components/schemas/UnderwritingRemainingPremiumDetails"
+                    },
+                    "riskCoveredList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocRiskCoveredVm"
+                        }
+                    },
+                    "serviceCharge": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "specialClauseList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClauseResponseVm"
+                        }
+                    },
+                    "specialRiskCoveredList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DocRiskCoveredVm"
+                        }
+                    },
+                    "stampAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "underwritingRemainingPremium": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "vatAmount": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
             "User Authentication Request": {
                 "title": "User Authentication Request",
                 "required": [
@@ -3075,6 +5688,28 @@
                         "type": "string",
                         "description": "Token Type",
                         "example": "Bearer "
+                    }
+                }
+            },
+            "UsrProdSubModuleDepartmentViewModel": {
+                "title": "UsrProdSubModuleDepartmentViewModel",
+                "type": "object",
+                "properties": {
+                    "classCode": {
+                        "type": "string"
+                    },
+                    "deptCode": {
+                        "type": "string"
+                    },
+                    "iconName": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "uiPath": {
+                        "type": "string"
                     }
                 }
             }
