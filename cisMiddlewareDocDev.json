@@ -183,22 +183,24 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Add Document Request"
-                            }
-                        },
                         "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/Add Document Request",
                                 "required": [
                                     "data"
+                                ],
+                                "optional":[
+                                    "files"
                                 ],
                                 "type": "object",
                                 "properties": {
                                     "data": {
                                         "type": "string",
-                                        "description": "data"
+                                        "description": "data",
+                                        "application/json": {
+                                            "schema": {
+                                                "$ref": "#/components/schemas/Add Document Request"
+                                            }
+                                        }
                                     }
                                 }
                             },
