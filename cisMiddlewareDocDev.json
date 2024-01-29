@@ -190,6 +190,7 @@
                         },
                         "multipart/form-data": {
                             "schema": {
+                                "$ref": "#/components/schemas/Add Document Request",
                                 "required": [
                                     "data"
                                 ],
@@ -197,8 +198,7 @@
                                 "properties": {
                                     "data": {
                                         "type": "string",
-                                        "description": "data",
-                                        "$ref": "#/components/schemas/Add Document Request"
+                                        "description": "data"
                                     }
                                 }
                             },
