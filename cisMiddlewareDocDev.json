@@ -13,7 +13,7 @@
     },
     "servers": [
         {
-            "url": "https://localhost:7878",
+            "url": "https://cisdev.green-delta.com:7878",
             "description": "Inferred Url"
         }
     ],
@@ -2560,8 +2560,8 @@
                         "example": false
                     },
                     "timestamp": {
+                        "type": "string",
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
                 }
@@ -2585,8 +2585,8 @@
                         "example": false
                     },
                     "timestamp": {
+                        "type": "string",
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
                 }
@@ -2610,8 +2610,8 @@
                         "example": false
                     },
                     "timestamp": {
+                        "type": "string",
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
                 }
@@ -2635,8 +2635,8 @@
                         "example": false
                     },
                     "timestamp": {
+                        "type": "string",
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
                 }
@@ -2660,8 +2660,8 @@
                         "example": false
                     },
                     "timestamp": {
+                        "type": "string",
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
                 }
@@ -2685,8 +2685,8 @@
                         "example": false
                     },
                     "timestamp": {
+                        "type": "string",
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
                 }
@@ -5369,6 +5369,13 @@
                         "description": "Dropdown values for Nibedita",
                         "$ref": "#/components/schemas/Nibedita Dropdown Details"
                     },
+                    "objectArrays": {
+                        "type": "array",
+                        "description": "For Nibedita Nominee can be multiple and will be save as arrays of object. In the object the nominee details will be provided",
+                        "items": {
+                            "$ref": "#/components/schemas/Object Arrays Details"
+                        }
+                    },
                     "textFields": {
                         "type": "array",
                         "description": "Common text fields array with type and description",
@@ -5461,6 +5468,31 @@
                     }
                 },
                 "description": "Nominee Details"
+            },
+            "Object Arrays Details": {
+                "title": "Object Arrays Details",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "objectProperties": {
+                        "type": "array",
+                        "description": "Object properties details",
+                        "items": {
+                            "$ref": "#/components/schemas/Common text field description"
+                        }
+                    },
+                    "required": {
+                        "type": "boolean"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
             },
             "PaymentModeVm": {
                 "title": "PaymentModeVm",
