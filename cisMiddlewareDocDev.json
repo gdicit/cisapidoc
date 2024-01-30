@@ -1,4 +1,4 @@
-{
+    {
     "openapi": "3.0.3",
     "info": {
         "title": "CIS Middleware Documentation",
@@ -533,7 +533,7 @@
                     "Quotation"
                 ],
                 "summary": "Get Quotation",
-                "description": "Returns specific product's quotation",
+                "description": "Returns specific product's quotation. Estimated cost for insurance coverage, outlining terms, premiums, and coverage details for consideration.",
                 "operationId": "getQuotationUsingPOST",
                 "parameters": [
                     {
@@ -590,7 +590,7 @@
                     "Quotation"
                 ],
                 "summary": "Get Quotation Pre Requisite",
-                "description": "Returns the list of quotation pre-requsite",
+                "description": "In order to get product quotation information, the user need to fillup some product specific data, which can be text field or drowdown. The value can be dynamic and these pre-requisite value can be fetched using this API.",
                 "operationId": "getQuotationPreRequisiteUsingGET",
                 "parameters": [
                     {
@@ -638,7 +638,7 @@
                     "Money Receipt"
                 ],
                 "summary": "Get Money Receipt Details by MR Number",
-                "description": "Returns the list of Money Receipt Details by MR Number.",
+                "description": "Returns the Money Receipt Details by MR Number.",
                 "operationId": "getMoneyReceiptDetailsByMrNumberUsingGET",
                 "parameters": [
                     {
@@ -2155,16 +2155,23 @@
                 "type": "object",
                 "properties": {
                     "descriptions": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Description of the text field."
                     },
                     "name": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "situation, occupation"
                     },
                     "required": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
                     },
                     "type": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
                     }
                 }
             },
@@ -2710,7 +2717,11 @@
                         "description": "For maintain asynchronous process"
                     },
                     "remarks": {
-                        "$ref": "#/components/schemas/Remarks"
+                        "type": "array",
+                        "description": "The success or error message will be send using this field.",
+                        "items": {
+                            "type": "string"
+                        }
                     },
                     "result": {
                         "type": "boolean",
@@ -2743,7 +2754,11 @@
                         "description": "For maintain asynchronous process"
                     },
                     "remarks": {
-                        "$ref": "#/components/schemas/Remarks"
+                        "type": "array",
+                        "description": "The success or error message will be send using this field.",
+                        "items": {
+                            "type": "string"
+                        }
                     },
                     "result": {
                         "type": "boolean",
@@ -2776,7 +2791,11 @@
                         "description": "For maintain asynchronous process"
                     },
                     "remarks": {
-                        "$ref": "#/components/schemas/Remarks"
+                        "type": "array",
+                        "description": "The success or error message will be send using this field.",
+                        "items": {
+                            "type": "string"
+                        }
                     },
                     "result": {
                         "type": "boolean",
@@ -4250,16 +4269,16 @@
                     "productCode": {
                         "pattern": "\\bNIBEDITA_ECO|NIBEDITA_REGULAR|NIBEDITA_PLUS|NIBEDITA_ORBIT|PAC|PPA|MTR|BNH|ENS\\b",
                         "type": "string",
-                        "description": "Product code",
-                        "example": "NIB"
+                        "description": "Product code system defined configuration data sent through get quotation prerequsite",
+                        "example": "NIB, MTR, ENS etc."
                     },
                     "productSpecificInfo": {
-                        "description": "Product-specific information",
+                        "description": "Specific product information like Nibedita info, Motor Info etc.",
                         "$ref": "#/components/schemas/Product Specific Information"
                     },
                     "sumInsured": {
                         "type": "integer",
-                        "description": "Sum insured amount",
+                        "description": "Sum insured amount (The sum insured amount refers to the maximum amount of money that the company agrees to pay out in the event of a covered loss or claim)",
                         "format": "int32"
                     }
                 }
@@ -5474,10 +5493,13 @@
                 "type": "object",
                 "properties": {
                     "descriptions": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Description of the text field."
                     },
                     "name": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Name of the field.",
+                        "example": "situation, occupation"
                     },
                     "objectProperties": {
                         "type": "array",
@@ -5487,10 +5509,14 @@
                         }
                     },
                     "required": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Indicated whether the field is mandatory to give or not.",
+                        "example": false
                     },
                     "type": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
                     }
                 }
             },
@@ -5773,24 +5799,6 @@
                     },
                     "vatType": {
                         "type": "string"
-                    }
-                }
-            },
-            "Remarks": {
-                "title": "Remarks",
-                "type": "object",
-                "properties": {
-                    "errors": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "success": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
                     }
                 }
             },
