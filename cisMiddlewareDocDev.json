@@ -41,10 +41,6 @@
         {
             "name": "User",
             "description": "User Login Controller"
-        },
-        {
-            "name": "document-print-pdf-controller",
-            "description": "Document Print Pdf Controller"
         }
     ],
     "paths": {
@@ -167,8 +163,8 @@
                 "tags": [
                     "Document"
                 ],
-                "summary": "Save the document",
-                "description": "Returns document number, Money Receipt number and PDF URL after save.",
+                "summary": "Save document",
+                "description": "Returns id, document number, Money Receipt number and PDF URL after save.",
                 "operationId": "addMasterDocumentTestUsingPOST_1",
                 "parameters": [
                     {
@@ -188,18 +184,18 @@
                                 "required": [
                                     "data"
                                 ],
-                                "optional":[
-                                    "files"
-                                ],
                                 "type": "object",
                                 "properties": {
                                     "data": {
                                         "type": "string",
-                                        "description": "data",
-                                        "application/json": {
-                                            "schema": {
-                                                "$ref": "#/components/schemas/Add Document Request"
-                                            }
+                                        "description": "The request body of 'add-master-document-dummy' API contains specific JSON format for 'data' parameter. It encapsulates information necessary for the API to process the request and produce the desired outcome. The 'data' parameter will contain specific JSON of the schema 'Add Document Request', Otherwise this will throw error or will not save the document."
+                                    },
+                                    "files": {
+                                        "type": "array",
+                                        "description": "This is an optional field to upload raw file/files (Max file size: 2MB). Format ex: PDF, JPG, PNG etc ",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
                                         }
                                     }
                                 }
@@ -208,6 +204,68 @@
                                 "data": {
                                     "contentType": "text/plain"
                                 }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object«Save Master Document Response»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/add-master-document-dummy": {
+            "post": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Save document dummy",
+                "description": "This is a dummy API only for showing the request body of 'add-master-document' - 'data' parameter.It doesn't do anything functional activity through CIS MIDDLEWARE.",
+                "operationId": "addMasterDocumentTestUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer [token]",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Add Document Request"
+                            }
+                        },
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Add Document Request"
                             }
                         }
                     }
@@ -298,13 +356,13 @@
                 }
             }
         },
-        "/api/get-document-pre-requisite": {
+        "/api/save-document-pre-requisite": {
             "get": {
                 "tags": [
                     "Document"
                 ],
-                "summary": "Get Document Pre Requisite",
-                "description": "Returns the list of Document pre requsite, which are needed for create a new document.",
+                "summary": "Save Document Pre Requisite",
+                "description": "After receiving a quotation, if a customer wishes to purchase the policy, certain input is required from the customer. This API, when called, dynamically populates the pre-required data necessary for policy purchase. The pre-requisite data is specific to the product and must be provided in the subsequent save API call to complete the purchase process.",
                 "operationId": "getDocumentPreRequisiteUsingGET",
                 "parameters": [
                     {
@@ -323,7 +381,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Data Object Single«Data Save Prerequisite»"
+                                    "$ref": "#/components/schemas/Data Object Single«Quotation Prerequsite Response»"
                                 }
                             }
                         }
@@ -447,55 +505,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Data Object Single«SearchMasterDocumentResponse»"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
-                    },
-                    "401": {
-                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
-                    },
-                    "412": {
-                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
-                    },
-                    "415": {
-                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
-                    },
-                    "500": {
-                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
-                    }
-                }
-            }
-        },
-        "/reports/doc": {
-            "get": {
-                "tags": [
-                    "document-print-pdf-controller"
-                ],
-                "summary": "Get document print preview",
-                "description": "Returns the document print preview.",
-                "operationId": "getDocumentPrintPreviewUsingGET",
-                "parameters": [
-                    {
-                        "name": "docNo",
-                        "in": "query",
-                        "description": "docNo",
-                        "required": true,
-                        "style": "form",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "*/*": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Resource"
                                 }
                             }
                         }
@@ -1644,6 +1653,19 @@
                     }
                 }
             },
+            "Business and Holidays Dropdown details": {
+                "title": "Business and Holidays Dropdown details",
+                "type": "object",
+                "properties": {
+                    "visitList": {
+                        "type": "array",
+                        "description": "Business and Holidays place visit code list array",
+                        "items": {
+                            "$ref": "#/components/schemas/Place Visit Model"
+                        }
+                    }
+                }
+            },
             "Business and Holidays Prerequisite For Data Save": {
                 "title": "Business and Holidays Prerequisite For Data Save",
                 "type": "object",
@@ -1657,6 +1679,23 @@
                     }
                 },
                 "description": "Business and Holidays Prerequisite For Data Save"
+            },
+            "Business and Holidays Quotation Prerequisite Details": {
+                "title": "Business and Holidays Quotation Prerequisite Details",
+                "type": "object",
+                "properties": {
+                    "dropdowns": {
+                        "description": "Dropdown values for Business and Holidays",
+                        "$ref": "#/components/schemas/Business and Holidays Dropdown details"
+                    },
+                    "textFields": {
+                        "type": "array",
+                        "description": "Common text fields array with type and description",
+                        "items": {
+                            "$ref": "#/components/schemas/Common text field description"
+                        }
+                    }
+                }
             },
             "Business and Holidays Related text fields": {
                 "title": "Business and Holidays Related text fields",
@@ -2111,6 +2150,24 @@
                     }
                 }
             },
+            "Common text field description": {
+                "title": "Common text field description",
+                "type": "object",
+                "properties": {
+                    "descriptions": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "required": {
+                        "type": "boolean"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            },
             "Customer Information": {
                 "title": "Customer Information",
                 "type": "object",
@@ -2509,31 +2566,6 @@
                     }
                 }
             },
-            "Data Object Single«Data Save Prerequisite»": {
-                "title": "Data Object Single«Data Save Prerequisite»",
-                "type": "object",
-                "properties": {
-                    "data": {
-                        "$ref": "#/components/schemas/Data Save Prerequisite"
-                    },
-                    "remarks": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "result": {
-                        "type": "boolean",
-                        "description": "Indicates whether the request execution status, true is success, false is failed.",
-                        "example": false
-                    },
-                    "timestamp": {
-                        "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp",
-                        "example": "2023-11-09 17:02:32.041"
-                    }
-                }
-            },
             "Data Object Single«Get Product List Response»": {
                 "title": "Data Object Single«Get Product List Response»",
                 "type": "object",
@@ -2686,8 +2718,8 @@
                         "example": false
                     },
                     "timestamp": {
+                        "type": "string",
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
                 }
@@ -2719,8 +2751,8 @@
                         "example": false
                     },
                     "timestamp": {
+                        "type": "string",
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
                 }
@@ -2752,8 +2784,8 @@
                         "example": false
                     },
                     "timestamp": {
+                        "type": "string",
                         "description": "Time and date of the execution",
-                        "$ref": "#/components/schemas/Timestamp",
                         "example": "2023-11-09 17:02:32.041"
                     }
                 }
@@ -3694,6 +3726,23 @@
                 },
                 "description": "Employment and Studies Prerequisite For DataSave"
             },
+            "Employment and Studies Quotation Prerequisite Details": {
+                "title": "Employment and Studies Quotation Prerequisite Details",
+                "type": "object",
+                "properties": {
+                    "dropdowns": {
+                        "description": "Dropdown values for Employment and Studies",
+                        "$ref": "#/components/schemas/EnsDropdownDetails"
+                    },
+                    "textFields": {
+                        "type": "array",
+                        "description": "Common text fields array with type and description",
+                        "items": {
+                            "$ref": "#/components/schemas/Common text field description"
+                        }
+                    }
+                }
+            },
             "Employment and Studies Related text fields": {
                 "title": "Employment and Studies Related text fields",
                 "type": "object",
@@ -3719,6 +3768,18 @@
                     }
                 },
                 "description": "Employment and Studies Related text fields"
+            },
+            "EnsDropdownDetails": {
+                "title": "EnsDropdownDetails",
+                "type": "object",
+                "properties": {
+                    "visitList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Place Visit Model"
+                        }
+                    }
+                }
             },
             "FireMasterDocVm": {
                 "title": "FireMasterDocVm",
@@ -4259,10 +4320,6 @@
                     }
                 },
                 "description": "Get Quotation Response"
-            },
-            "InputStream": {
-                "title": "InputStream",
-                "type": "object"
             },
             "InstallmentNumberVm": {
                 "title": "InstallmentNumberVm",
@@ -5189,6 +5246,23 @@
                 },
                 "description": "Motor Prerequisite For Data Save"
             },
+            "Motor Quotation Prerequisite Details": {
+                "title": "Motor Quotation Prerequisite Details",
+                "type": "object",
+                "properties": {
+                    "dropdowns": {
+                        "description": "Dropdown values for Motor",
+                        "$ref": "#/components/schemas/MTR (Motor) Quotation Pre-Requsite Response"
+                    },
+                    "textFields": {
+                        "type": "array",
+                        "description": "Common text fields array with type and description",
+                        "items": {
+                            "$ref": "#/components/schemas/Common text field description"
+                        }
+                    }
+                }
+            },
             "Motor Related text fields": {
                 "title": "Motor Related text fields",
                 "type": "object",
@@ -5236,6 +5310,19 @@
                     }
                 }
             },
+            "Nibedita Dropdown Details": {
+                "title": "Nibedita Dropdown Details",
+                "type": "object",
+                "properties": {
+                    "productList": {
+                        "type": "array",
+                        "description": "Product list for Nibedita",
+                        "items": {
+                            "$ref": "#/components/schemas/Nibedita Product Sum-Insured Details"
+                        }
+                    }
+                }
+            },
             "Nibedita Prerequisite For Data Save": {
                 "title": "Nibedita Prerequisite For Data Save",
                 "type": "object",
@@ -5270,6 +5357,23 @@
                         "items": {
                             "type": "integer",
                             "format": "int32"
+                        }
+                    }
+                }
+            },
+            "Nibedita Quotation Prerequisite": {
+                "title": "Nibedita Quotation Prerequisite",
+                "type": "object",
+                "properties": {
+                    "dropdowns": {
+                        "description": "Dropdown values for Nibedita",
+                        "$ref": "#/components/schemas/Nibedita Dropdown Details"
+                    },
+                    "textFields": {
+                        "type": "array",
+                        "description": "Common text fields array with type and description",
+                        "items": {
+                            "$ref": "#/components/schemas/Common text field description"
                         }
                     }
                 }
@@ -5357,65 +5461,6 @@
                     }
                 },
                 "description": "Nominee Details"
-            },
-            "PAC Cover Type Details": {
-                "title": "PAC Cover Type Details",
-                "type": "object",
-                "properties": {
-                    "coverTypeCode": {
-                        "type": "string",
-                        "description": "Cover Type Code (Predefined System Code)",
-                        "example": "A, B, C etc."
-                    },
-                    "coverTypeName": {
-                        "type": "string",
-                        "description": "Cover Type Name (Descriptive - Predefined System Name)"
-                    }
-                }
-            },
-            "PAC Product Details": {
-                "title": "PAC Product Details",
-                "type": "object",
-                "properties": {
-                    "pacClassDetailsList": {
-                        "type": "array",
-                        "description": "PAC (Personal Accedent) Class Details",
-                        "items": {
-                            "$ref": "#/components/schemas/PAC Product Plan Details"
-                        }
-                    },
-                    "pacCoverTypeDetailsList": {
-                        "type": "array",
-                        "description": "PAC Cover Type Details List",
-                        "items": {
-                            "$ref": "#/components/schemas/PAC Cover Type Details"
-                        }
-                    }
-                }
-            },
-            "PAC Product Plan Details": {
-                "title": "PAC Product Plan Details",
-                "type": "object",
-                "properties": {
-                    "classCode": {
-                        "type": "string",
-                        "description": "Class Code (Predefined System Code)",
-                        "example": "A, B, C etc."
-                    },
-                    "className": {
-                        "type": "string",
-                        "description": "Class Name (Predefined System Class Name)",
-                        "example": "Plan -A, Plan -B etc."
-                    },
-                    "pacOccupationList": {
-                        "type": "array",
-                        "description": "PAC occupation list",
-                        "example": "Accountants, Bankers etc.",
-                        "items": {
-                            "type": "string"
-                        }
-                    }
-                }
             },
             "PaymentModeVm": {
                 "title": "PaymentModeVm",
@@ -5600,33 +5645,20 @@
                 "type": "object",
                 "properties": {
                     "bnh": {
-                        "type": "array",
-                        "description": "BNH Place Visit list",
-                        "items": {
-                            "$ref": "#/components/schemas/Place Visit Model"
-                        }
+                        "description": "Business and Holidays related prerequisite details",
+                        "$ref": "#/components/schemas/Business and Holidays Quotation Prerequisite Details"
                     },
                     "ens": {
-                        "type": "array",
-                        "description": "ENS Place Visit List",
-                        "items": {
-                            "$ref": "#/components/schemas/Place Visit Model"
-                        }
+                        "description": "Employment and Studies related prerequisite details",
+                        "$ref": "#/components/schemas/Employment and Studies Quotation Prerequisite Details"
                     },
                     "mtr": {
-                        "description": "MTR Quotation pre-requsite Response",
-                        "$ref": "#/components/schemas/MTR (Motor) Quotation Pre-Requsite Response"
+                        "description": "Motor related prerequisite details",
+                        "$ref": "#/components/schemas/Motor Quotation Prerequisite Details"
                     },
                     "nib": {
-                        "type": "array",
-                        "description": "Nibedita Product SumInsured Details",
-                        "items": {
-                            "$ref": "#/components/schemas/Nibedita Product Sum-Insured Details"
-                        }
-                    },
-                    "pac": {
-                        "description": "PAC Product Details",
-                        "$ref": "#/components/schemas/PAC Product Details"
+                        "description": "Nibedita product related prerequisite details",
+                        "$ref": "#/components/schemas/Nibedita Quotation Prerequisite"
                     }
                 }
             },
@@ -5730,39 +5762,6 @@
                     }
                 }
             },
-            "Resource": {
-                "title": "Resource",
-                "type": "object",
-                "properties": {
-                    "description": {
-                        "type": "string"
-                    },
-                    "file": {
-                        "type": "string",
-                        "format": "binary"
-                    },
-                    "filename": {
-                        "type": "string"
-                    },
-                    "inputStream": {
-                        "$ref": "#/components/schemas/InputStream"
-                    },
-                    "open": {
-                        "type": "boolean"
-                    },
-                    "readable": {
-                        "type": "boolean"
-                    },
-                    "uri": {
-                        "type": "string",
-                        "format": "uri"
-                    },
-                    "url": {
-                        "type": "string",
-                        "format": "url"
-                    }
-                }
-            },
             "Save Master Document Response": {
                 "title": "Save Master Document Response",
                 "type": "object",
@@ -5833,7 +5832,6 @@
             "Search Customer Request Body": {
                 "title": "Search Customer Request Body",
                 "required": [
-                    "customerGroupCode",
                     "customerType",
                     "searchText",
                     "searchType"
@@ -5857,8 +5855,8 @@
                     },
                     "searchType": {
                         "type": "string",
-                        "description": "Customer Search Type referes (Specific Selected Criteria) based on selected customerType",
-                        "example": "For (PERSONAL -> nid, tin, birthRegNo, passportNo), (BUSINESS -> nid, tin, bin, mobileNo) one of these criteria must be selected"
+                        "description": "Customer Search Type referes (Specific Selected Criteria) based on selected customerType. SearchType must be within the given example list as it is.",
+                        "example": "For (PERSONAL -> nid, tin, birthRegNo, passportNo), (BUSINESS -> nid, tin, bin, mobileNo) one of these criteria must be selected."
                     }
                 }
             },
