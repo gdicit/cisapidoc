@@ -1,3 +1,4 @@
+
     {
     "openapi": "3.0.0",
     "x-explorer-enabled": false,
@@ -218,7 +219,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Data Object«Save Master Document Response»"
+                                    "$ref": "#/components/schemas/Data Object Single«Save Master Document Response»"
                                 }
                             }
                         }
@@ -413,8 +414,8 @@
                 "tags": [
                     "Document"
                 ],
-                "summary": "Get Document Details by search text",
-                "description": "Returns the list of Document by search text.",
+                "summary": "Returns document with details by search text",
+                "description": "Returns the list of Document by search text/keywords.",
                 "operationId": "searchMasterDocumentWithPaginationForMiddlewareUsingPOST",
                 "parameters": [
                     {
@@ -594,7 +595,7 @@
                     "Quotation"
                 ],
                 "summary": "Get Quotation Pre Requisite",
-                "description": "In order to get product quotation information, the user need to fillup some product specific data, which can be text field or drowdown. The value can be dynamic and these pre-requisite value can be fetched using this API.",
+                "description": "In order to get product quotation information, the user need to fillup some product specific data, which can be text field or drowdown. This API, when called, dynamically populates the pre-required data necessary for get quotation.",
                 "operationId": "getQuotationPreRequisiteUsingGET",
                 "parameters": [
                     {
@@ -1502,45 +1503,6 @@
                     }
                 }
             },
-            "BgDpDTO": {
-                "title": "BgDpDTO",
-                "type": "object",
-                "properties": {
-                    "amount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "bgDpDate": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "bgDpNumber": {
-                        "type": "string"
-                    },
-                    "consumedAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "expireDate": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "flag": {
-                        "type": "boolean"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "remainingAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "type": {
-                        "type": "string"
-                    }
-                }
-            },
             "Business And Holidays": {
                 "title": "Business And Holidays",
                 "type": "object",
@@ -1727,179 +1689,6 @@
                 },
                 "description": "Business and Holidays Related text fields"
             },
-            "BusinessSectorSubsectorVm": {
-                "title": "BusinessSectorSubsectorVm",
-                "type": "object",
-                "properties": {
-                    "address": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "oldCode": {
-                        "type": "string"
-                    },
-                    "phoneNumber": {
-                        "type": "string"
-                    },
-                    "refId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "refSectorName": {
-                        "type": "string"
-                    }
-                }
-            },
-            "ClauseResponseVm": {
-                "title": "ClauseResponseVm",
-                "type": "object",
-                "properties": {
-                    "classCode": {
-                        "type": "string"
-                    },
-                    "clauseCode": {
-                        "type": "string"
-                    },
-                    "clauseId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "clauseName": {
-                        "type": "string"
-                    },
-                    "deptCode": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "isSpecialClause": {
-                        "type": "boolean"
-                    }
-                }
-            },
-            "ComAgentInfoVm": {
-                "title": "ComAgentInfoVm",
-                "type": "object",
-                "properties": {
-                    "agencyCode": {
-                        "type": "string"
-                    },
-                    "bin": {
-                        "type": "string"
-                    },
-                    "cell": {
-                        "type": "string"
-                    },
-                    "dateOfBirth": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "dateOfExpiry": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "dateOfIssue": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "education": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "fatherName": {
-                        "type": "string"
-                    },
-                    "fax": {
-                        "type": "string"
-                    },
-                    "gender": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "idraCode": {
-                        "type": "string"
-                    },
-                    "isActive": {
-                        "type": "boolean"
-                    },
-                    "isLicenced": {
-                        "type": "boolean"
-                    },
-                    "licenceNew": {
-                        "type": "string"
-                    },
-                    "licenceOld": {
-                        "type": "string"
-                    },
-                    "mobileNumber": {
-                        "type": "string"
-                    },
-                    "motherName": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "nationality": {
-                        "type": "string"
-                    },
-                    "nid": {
-                        "type": "string"
-                    },
-                    "passportNo": {
-                        "type": "string"
-                    },
-                    "permanentAddress": {
-                        "type": "string"
-                    },
-                    "phoneHome": {
-                        "type": "string"
-                    },
-                    "phoneOffice": {
-                        "type": "string"
-                    },
-                    "presentAddress": {
-                        "type": "string"
-                    },
-                    "religion": {
-                        "type": "string"
-                    },
-                    "remarks1": {
-                        "type": "string"
-                    },
-                    "remarks2": {
-                        "type": "string"
-                    },
-                    "sex": {
-                        "type": "string"
-                    },
-                    "spouseName": {
-                        "type": "string"
-                    },
-                    "status": {
-                        "type": "string"
-                    },
-                    "tin": {
-                        "type": "string"
-                    },
-                    "uniqueAgentCode": {
-                        "type": "string"
-                    }
-                }
-            },
             "ComBankBranchVm": {
                 "title": "ComBankBranchVm",
                 "type": "object",
@@ -1942,222 +1731,15 @@
                     }
                 }
             },
-            "ComBranchVm": {
-                "title": "ComBranchVm",
-                "type": "object",
-                "properties": {
-                    "branchAddress": {
-                        "type": "string"
-                    },
-                    "branchCode": {
-                        "type": "string"
-                    },
-                    "branchEmail": {
-                        "type": "string"
-                    },
-                    "branchMobile": {
-                        "type": "string"
-                    },
-                    "branchName": {
-                        "type": "string"
-                    },
-                    "branchTel": {
-                        "type": "string"
-                    },
-                    "district": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                }
-            },
-            "ComCustomerContactNumberVm": {
-                "title": "ComCustomerContactNumberVm",
-                "type": "object",
-                "properties": {
-                    "contactNumber": {
-                        "type": "string"
-                    },
-                    "customer": {
-                        "$ref": "#/components/schemas/ComCustomerViewModel"
-                    },
-                    "customerId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                }
-            },
-            "ComCustomerViewModel": {
-                "title": "ComCustomerViewModel",
-                "type": "object",
-                "properties": {
-                    "bgDp": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/BgDpDTO"
-                        }
-                    },
-                    "bin": {
-                        "type": "string"
-                    },
-                    "birthRegNo": {
-                        "type": "string"
-                    },
-                    "companyRegAuthority": {
-                        "type": "string"
-                    },
-                    "companyType": {
-                        "type": "string"
-                    },
-                    "contactAddress": {
-                        "type": "string"
-                    },
-                    "contactPerson": {
-                        "type": "string"
-                    },
-                    "customerContactNumberVmList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ComCustomerContactNumberVm"
-                        }
-                    },
-                    "customerGroup": {
-                        "$ref": "#/components/schemas/CustomerGroupVm"
-                    },
-                    "customerType": {
-                        "type": "string"
-                    },
-                    "dateOfBirth": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "exemptedExpiredDate": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "fatherName": {
-                        "type": "string"
-                    },
-                    "firstName": {
-                        "type": "string"
-                    },
-                    "gender": {
-                        "type": "string"
-                    },
-                    "groupCode": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "incomeSource": {
-                        "type": "string"
-                    },
-                    "isExemptedCustomer": {
-                        "type": "boolean"
-                    },
-                    "lastName": {
-                        "type": "string"
-                    },
-                    "middleName": {
-                        "type": "string"
-                    },
-                    "mobileNo": {
-                        "type": "string"
-                    },
-                    "mobileNos": {
-                        "type": "string"
-                    },
-                    "motherName": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "nationality": {
-                        "type": "string"
-                    },
-                    "nid": {
-                        "type": "string"
-                    },
-                    "officeAddress": {
-                        "type": "string"
-                    },
-                    "officeContactNumber": {
-                        "type": "string"
-                    },
-                    "oldDbCustomerId": {
-                        "type": "string"
-                    },
-                    "passportExpireDate": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "passportNo": {
-                        "type": "string"
-                    },
-                    "permanentAddress": {
-                        "type": "string"
-                    },
-                    "presentAddress": {
-                        "type": "string"
-                    },
-                    "refCustomerId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "regIssueDate": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "spouseName": {
-                        "type": "string"
-                    },
-                    "tin": {
-                        "type": "string"
-                    },
-                    "tradeLicenceNo": {
-                        "type": "string"
-                    }
-                }
-            },
-            "ComOldCisDocVm": {
-                "title": "ComOldCisDocVm",
-                "type": "object",
-                "properties": {
-                    "deptCode": {
-                        "type": "string"
-                    },
-                    "documentNumber": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "producerId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "producerPf": {
-                        "type": "string"
-                    }
-                }
-            },
             "Common text field description": {
                 "title": "Common text field description",
                 "type": "object",
                 "properties": {
+                    "dataType": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    },
                     "descriptions": {
                         "type": "string",
                         "description": "Description of the text field."
@@ -2171,11 +1753,6 @@
                         "type": "boolean",
                         "description": "Indicated whether the field is mandatory to give or not.",
                         "example": false
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "Type of the field.",
-                        "example": "String, int, float, boolean"
                     }
                 }
             },
@@ -2543,19 +2120,6 @@
                     }
                 }
             },
-            "CustomerGroupVm": {
-                "title": "CustomerGroupVm",
-                "type": "object",
-                "properties": {
-                    "groupName": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                }
-            },
             "Data Object Single«AccMoneyReceiptVm»": {
                 "title": "Data Object Single«AccMoneyReceiptVm»",
                 "type": "object",
@@ -2637,6 +2201,31 @@
                 "properties": {
                     "data": {
                         "$ref": "#/components/schemas/Quotation Prerequsite Response"
+                    },
+                    "remarks": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "Time and date of the execution",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                }
+            },
+            "Data Object Single«Save Master Document Response»": {
+                "title": "Data Object Single«Save Master Document Response»",
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/Save Master Document Response"
                     },
                     "remarks": {
                         "type": "array",
@@ -2851,65 +2440,6 @@
                 },
                 "description": "These are some of 'Data Save Prerequisite' for (add-master-document) api calling where different type of prequsite are needed."
             },
-            "DocCustomerContactVm": {
-                "title": "DocCustomerContactVm",
-                "type": "object",
-                "properties": {
-                    "contactNumber": {
-                        "type": "string"
-                    },
-                    "customerContactId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "masterDocId": {
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                }
-            },
-            "DocEmployeeVm": {
-                "title": "DocEmployeeVm",
-                "type": "object",
-                "properties": {
-                    "address": {
-                        "type": "string"
-                    },
-                    "designation": {
-                        "type": "string"
-                    },
-                    "dob": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "fullname": {
-                        "type": "string"
-                    },
-                    "gender": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "mobile": {
-                        "type": "string"
-                    },
-                    "nid": {
-                        "type": "string"
-                    },
-                    "pfNo": {
-                        "type": "string"
-                    }
-                }
-            },
             "DocFilesResponseVm": {
                 "title": "DocFilesResponseVm",
                 "type": "object",
@@ -2936,625 +2466,14 @@
                     }
                 }
             },
-            "DocInterestVm": {
-                "title": "DocInterestVm",
-                "required": [
-                    "interestAmount",
-                    "perils"
-                ],
-                "type": "object",
-                "properties": {
-                    "floor": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "interestAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "interestName": {
-                        "type": "string"
-                    },
-                    "location": {
-                        "type": "string"
-                    },
-                    "perils": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/DocPerilVm"
-                        }
-                    },
-                    "productClass": {
-                        "type": "string"
-                    },
-                    "referenceId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "roof": {
-                        "type": "string"
-                    },
-                    "wall": {
-                        "type": "string"
-                    },
-                    "yearOfManufacturing": {
-                        "type": "string"
-                    }
-                }
-            },
-            "DocMiscHealthDetailsVm": {
-                "title": "DocMiscHealthDetailsVm",
-                "type": "object",
-                "properties": {
-                    "age": {
-                        "type": "string"
-                    },
-                    "construction": {
-                        "type": "string"
-                    },
-                    "docNomineeDetailsVmList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/DocMiscHealthNomineeDetailsVm"
-                        }
-                    },
-                    "hasNominee": {
-                        "type": "boolean"
-                    },
-                    "healthRemarks": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "isDeclaration": {
-                        "type": "boolean"
-                    },
-                    "isMinimumNetPremium": {
-                        "type": "boolean"
-                    },
-                    "issuedPlace": {
-                        "type": "string"
-                    },
-                    "occupation": {
-                        "type": "string"
-                    },
-                    "owner": {
-                        "type": "string"
-                    },
-                    "pacClassType": {
-                        "type": "string"
-                    },
-                    "pacCoverType": {
-                        "type": "string"
-                    },
-                    "pacOccupation": {
-                        "type": "string"
-                    },
-                    "perilRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "ppaAdditionalInfo": {
-                        "type": "string"
-                    },
-                    "prbAgentAddress": {
-                        "type": "string"
-                    },
-                    "prbAgentContactNumber": {
-                        "type": "string"
-                    },
-                    "prbAgentName": {
-                        "type": "string"
-                    },
-                    "riskType": {
-                        "type": "string"
-                    },
-                    "situation": {
-                        "type": "string"
-                    }
-                }
-            },
-            "DocMiscHealthNomineeDetailsVm": {
-                "title": "DocMiscHealthNomineeDetailsVm",
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "nomineeAddress": {
-                        "type": "string"
-                    },
-                    "nomineeDateOfBirth": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "nomineeEmail": {
-                        "type": "string"
-                    },
-                    "nomineeMobile": {
-                        "type": "string"
-                    },
-                    "nomineeName": {
-                        "type": "string"
-                    },
-                    "nomineeNid": {
-                        "type": "string"
-                    },
-                    "nomineeRelation": {
-                        "type": "string"
-                    },
-                    "nomineeSharePct": {
-                        "type": "number",
-                        "format": "double"
-                    }
-                }
-            },
-            "DocMotorDetailsVm": {
-                "title": "DocMotorDetailsVm",
-                "required": [
-                    "actualComprehensiveRate",
-                    "avlsDiscountRate",
-                    "daysCount",
-                    "finalComprehensiveRate",
-                    "grossPremiumAfterPromoCode",
-                    "isAvlsDiscount",
-                    "isNamedDriver",
-                    "isOppositePurposeUseLoading",
-                    "isPrivateCarBelow750",
-                    "isTaxFreeVehicle",
-                    "isTechometerVehicle",
-                    "loadingRate",
-                    "manufactureYear",
-                    "motorMakeAndBodyType",
-                    "mtrCcTon",
-                    "mtrCcTonValue",
-                    "mtrDriverTimesMultiply",
-                    "mtrHelperTimesMultiply",
-                    "mtrNoOfDriver",
-                    "mtrNoOfHelper",
-                    "mtrNoOfPassenger",
-                    "mtrPassengerTimesMultiply",
-                    "mtrPerDriverRate",
-                    "mtrPerHelperRate",
-                    "mtrPerPassengerRate",
-                    "mtrPlanName",
-                    "mtrVehicleId",
-                    "mtrVehicleName",
-                    "mtrVehicleType",
-                    "namedDriverRate",
-                    "noClaimBonusRate",
-                    "oppositePurposeUseLoadingRate",
-                    "ownDamageBasic",
-                    "promoCode",
-                    "promoCodeDiscount",
-                    "taxFreeVehicleRate",
-                    "techometerDiscountRate"
-                ],
-                "type": "object",
-                "properties": {
-                    "actualComprehensiveRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "avlsDiscountAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "avlsDiscountRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "daysCount": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "finalComprehensiveRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "grossPremiumAfterPromoCode": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "isAvlsDiscount": {
-                        "type": "boolean"
-                    },
-                    "isNamedDriver": {
-                        "type": "boolean"
-                    },
-                    "isOppositePurposeUseLoading": {
-                        "type": "boolean"
-                    },
-                    "isPrivateCarBelow750": {
-                        "type": "boolean"
-                    },
-                    "isTaxFreeVehicle": {
-                        "type": "boolean"
-                    },
-                    "isTechometerVehicle": {
-                        "type": "boolean"
-                    },
-                    "loadingAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "loadingRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "manufactureYear": {
-                        "type": "string"
-                    },
-                    "motorEngineAndChassisNumber": {
-                        "type": "string"
-                    },
-                    "motorMakeAndBodyType": {
-                        "type": "string"
-                    },
-                    "motorRegistrationNumber": {
-                        "type": "string"
-                    },
-                    "motorTermsOfUseId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "mtrCcTon": {
-                        "type": "string"
-                    },
-                    "mtrCcTonValue": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "mtrDriverTimesMultiply": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "mtrHelperTimesMultiply": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "mtrNoOfDriver": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "mtrNoOfHelper": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "mtrNoOfPassenger": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "mtrPassengerTimesMultiply": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "mtrPerDriverRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "mtrPerHelperRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "mtrPerPassengerRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "mtrPlanName": {
-                        "type": "string"
-                    },
-                    "mtrVehicleId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "mtrVehicleName": {
-                        "type": "string"
-                    },
-                    "mtrVehicleType": {
-                        "type": "string"
-                    },
-                    "namedDriverAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "namedDriverRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "noClaimBonusAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "noClaimBonusRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "oppositePurposeUseLoadingAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "oppositePurposeUseLoadingRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "othersCharge": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "ownDamageBasic": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "ownDamagePremium": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "ownDamagePremiumTemp": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "ownDamagePremiumWithLoading": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "privateCarBelow750CcDiscountAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "privateCarBelow750CcDiscountRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "promoCode": {
-                        "type": "string"
-                    },
-                    "promoCodeDiscount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "shortPeriodRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "taxFreeVehicleLoadingAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "taxFreeVehicleRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "techometerDiscountAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "techometerDiscountRate": {
-                        "type": "number",
-                        "format": "double"
-                    }
-                }
-            },
             "DocNoVm": {
                 "title": "DocNoVm",
-                "required": [
-                    "docNo"
-                ],
                 "type": "object",
                 "properties": {
                     "docNo": {
-                        "type": "string"
-                    }
-                }
-            },
-            "DocPerilVm": {
-                "title": "DocPerilVm",
-                "required": [
-                    "perilAmount",
-                    "perilRate",
-                    "premium"
-                ],
-                "type": "object",
-                "properties": {
-                    "classCode": {
-                        "type": "string"
-                    },
-                    "deductible": {
-                        "type": "string"
-                    },
-                    "deptCode": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "indemnityPeriod": {
-                        "type": "string"
-                    },
-                    "isExclusion": {
-                        "type": "boolean"
-                    },
-                    "isProvisionalRate": {
-                        "type": "boolean"
-                    },
-                    "pacCoverType": {
-                        "type": "string"
-                    },
-                    "pacCoverTypeName": {
-                        "type": "string"
-                    },
-                    "pacOccupation": {
-                        "type": "string"
-                    },
-                    "perilAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "perilCode": {
-                        "type": "string"
-                    },
-                    "perilDiscountRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "perilId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "perilLoadingRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "perilName": {
-                        "type": "string"
-                    },
-                    "perilRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "perilShortRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "premium": {
-                        "type": "number",
-                        "format": "double"
-                    }
-                }
-            },
-            "DocTravelDetailsVm": {
-                "title": "DocTravelDetailsVm",
-                "required": [
-                    "custAge",
-                    "custPasspostNo",
-                    "dateOfBirth"
-                ],
-                "type": "object",
-                "properties": {
-                    "conversionRateUsdToBdt": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "coveredLimit": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "custAge": {
-                        "type": "number",
-                        "format": "float"
-                    },
-                    "custGender": {
-                        "type": "string"
-                    },
-                    "custOcu": {
-                        "type": "string"
-                    },
-                    "custPasspostNo": {
-                        "type": "string"
-                    },
-                    "dateOfBirth": {
                         "type": "string",
-                        "format": "date"
-                    },
-                    "dayStay": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "destCountry": {
-                        "type": "string"
-                    },
-                    "destCountryAddress": {
-                        "type": "string"
-                    },
-                    "doctorId": {
-                        "type": "string"
-                    },
-                    "employerAddress": {
-                        "type": "string"
-                    },
-                    "employerName": {
-                        "type": "string"
-                    },
-                    "ensType": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "insuredOccupation": {
-                        "type": "string"
-                    },
-                    "interestInsured": {
-                        "type": "string"
-                    },
-                    "issuedPlace": {
-                        "type": "string"
-                    },
-                    "issuingOffice": {
-                        "type": "string"
-                    },
-                    "loadingAmt": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "medicalNonMedical": {
-                        "type": "string"
-                    },
-                    "monthStay": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "nameOfTheUsualPhysician": {
-                        "type": "string"
-                    },
-                    "numberOfChild": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "numberOfPerson": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "officeTelephoneNo": {
-                        "type": "string"
-                    },
-                    "participant": {
-                        "type": "string"
-                    },
-                    "physicianTelephoneNoHome": {
-                        "type": "string"
-                    },
-                    "physicianTelephoneNoOffice": {
-                        "type": "string"
-                    },
-                    "placeVisit": {
-                        "type": "string"
-                    },
-                    "placeVisitCode": {
-                        "type": "string"
-                    },
-                    "planName": {
-                        "type": "string"
-                    },
-                    "planType": {
-                        "type": "string"
-                    },
-                    "reInsuredCountry": {
-                        "type": "string"
-                    },
-                    "regionOfCountry": {
-                        "type": "string"
-                    },
-                    "visaType": {
-                        "type": "string"
+                        "description": "Document Number that you want to search",
+                        "example": "GDI/AHO/01/2024/NIB/P/570001"
                     }
                 }
             },
@@ -3805,6 +2724,7 @@
                 "properties": {
                     "visitList": {
                         "type": "array",
+                        "description": "Place Visit List",
                         "items": {
                             "$ref": "#/components/schemas/Place Visit Model"
                         }
@@ -3813,430 +2733,123 @@
             },
             "FireMasterDocVm": {
                 "title": "FireMasterDocVm",
-                "required": [
-                    "businessStatus",
-                    "businessType",
-                    "currencyRate",
-                    "currencyType",
-                    "customerIds",
-                    "discountAmount",
-                    "documentStatus",
-                    "documentType",
-                    "grossPremium",
-                    "hasBgDp",
-                    "hasClause",
-                    "hasCoInsurance",
-                    "hasMortgage",
-                    "isConvertedDocument",
-                    "netPremium",
-                    "othersCharge",
-                    "policyDuration",
-                    "serviceCharge",
-                    "stampAmount",
-                    "stampDutyType",
-                    "stampType",
-                    "sumInsured",
-                    "vatAmount",
-                    "vatType"
-                ],
                 "type": "object",
                 "properties": {
-                    "actions": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "agentCode": {
-                        "type": "string"
-                    },
-                    "agentId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "amendmentCauseCode": {
-                        "type": "string"
-                    },
-                    "amendmentCauseValue": {
-                        "type": "string"
-                    },
-                    "amendmentPremiumMode": {
-                        "type": "string"
-                    },
-                    "amendmentSumInsuredType": {
-                        "type": "string"
-                    },
-                    "amendmentType": {
-                        "type": "string"
-                    },
-                    "annualGrossProfit": {
-                        "type": "number",
-                        "format": "double"
-                    },
                     "approvalStatus": {
                         "type": "string"
                     },
-                    "authorizedSignatureId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "authorizedSignaturePf": {
-                        "type": "string"
-                    },
-                    "body1": {
-                        "type": "string"
-                    },
-                    "body2": {
-                        "type": "string"
-                    },
-                    "branchId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "businessSource": {
-                        "type": "string"
-                    },
-                    "businessStatus": {
-                        "maxLength": 2147483647,
-                        "minLength": 1,
-                        "type": "string"
-                    },
-                    "businessSubsectorId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "businessType": {
-                        "maxLength": 2147483647,
-                        "minLength": 1,
-                        "type": "string"
-                    },
                     "classCode": {
-                        "type": "string"
-                    },
-                    "conversions": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
+                        "type": "string",
+                        "description": "Class code is pre defined 3 characters system value refers to a specific class of a department.",
+                        "example": "MTR, IAR, FIR etc."
                     },
                     "currencyRate": {
                         "type": "number",
+                        "description": "Refers to the conversion amount to BDT",
                         "format": "double"
                     },
                     "currencyType": {
-                        "type": "string"
-                    },
-                    "customerGroup": {
-                        "type": "string"
-                    },
-                    "customerGroupId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "customerId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "customerIds": {
-                        "type": "array",
-                        "items": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
+                        "type": "string",
+                        "description": "Amount colleted by which currency."
                     },
                     "customerName": {
                         "type": "string"
                     },
-                    "customerType": {
-                        "type": "string"
-                    },
-                    "declarationAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "declarationPercent": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "declarationRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "declarationType": {
-                        "type": "string"
-                    },
-                    "deductible": {
-                        "type": "string"
-                    },
-                    "department": {
-                        "type": "string"
-                    },
                     "discountAmount": {
                         "type": "number",
+                        "description": "Amount of the discount",
                         "format": "double"
                     },
                     "discountRate": {
                         "type": "number",
+                        "description": "Rate of the privided discount.",
                         "format": "double"
                     },
                     "discountType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "If the insurer provides any discuntns then there will be discount type base on the sutiation",
+                        "example": "Fixed, Percent etc."
                     },
                     "documentDate": {
                         "type": "string",
+                        "description": "Document creation date",
                         "format": "date"
                     },
                     "documentNumber": {
-                        "type": "string"
-                    },
-                    "documentNumberSuffix": {
-                        "type": "string"
-                    },
-                    "documentStatus": {
-                        "maxLength": 2147483647,
-                        "minLength": 1,
-                        "type": "string"
-                    },
-                    "documentType": {
-                        "maxLength": 2147483647,
-                        "minLength": 1,
-                        "pattern": "\\bF|P|C|T|A|E|R|B|Q\\b",
-                        "type": "string"
+                        "type": "string",
+                        "description": "System generated unique document number"
                     },
                     "documentValidFrom": {
                         "type": "string",
+                        "description": "Document validity start date",
                         "format": "date"
                     },
                     "documentValidTo": {
                         "type": "string",
+                        "description": "Document validity end date",
                         "format": "date"
-                    },
-                    "exclusions": {
-                        "type": "string"
                     },
                     "grossPremium": {
                         "type": "number",
+                        "description": "The total/gross permium of the document like (net-premium + vat + stamp etc)",
                         "format": "double"
                     },
-                    "hasBgDp": {
-                        "type": "boolean"
-                    },
-                    "hasClause": {
-                        "type": "boolean"
-                    },
-                    "hasCoInsurance": {
-                        "type": "boolean"
-                    },
-                    "hasDiscount": {
-                        "type": "boolean"
-                    },
-                    "hasMortgage": {
-                        "type": "boolean"
-                    },
-                    "hasMultipleCustomer": {
-                        "type": "boolean"
-                    },
-                    "hasRiskCoveredConditions": {
-                        "type": "boolean"
-                    },
-                    "hasSpecialClause": {
-                        "type": "boolean"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "indemnityPeriod": {
-                        "type": "string"
-                    },
-                    "installmentNumber": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "insuranceType": {
-                        "type": "string"
-                    },
                     "insuredAddress": {
-                        "type": "string"
-                    },
-                    "introducerId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "introducerPf": {
-                        "type": "string"
-                    },
-                    "isApproved": {
-                        "type": "boolean"
-                    },
-                    "isConvertedDocument": {
-                        "type": "boolean"
-                    },
-                    "isDeclaration": {
-                        "type": "boolean"
-                    },
-                    "isDocumentPrintAllow": {
-                        "type": "boolean"
-                    },
-                    "isGdicLeader": {
-                        "type": "boolean"
-                    },
-                    "isMixedVat": {
-                        "type": "boolean"
-                    },
-                    "isMrCreationAllowed": {
-                        "type": "boolean"
-                    },
-                    "isRefund": {
-                        "type": "boolean"
-                    },
-                    "isVatExempted": {
-                        "type": "boolean"
-                    },
-                    "moneyReceiptId": {
-                        "type": "integer",
-                        "format": "int64"
+                        "type": "string",
+                        "description": "Customer valid address 'present/permanent'"
                     },
                     "mrCreationAllowed": {
                         "type": "boolean"
                     },
                     "netPremium": {
                         "type": "number",
+                        "description": "Refers to the amount of money an insurance company collects from policyholders for providing insurance coverage, excluding any taxes, fees, commissions, or other expenses associated with the insurance policy.",
                         "format": "double"
-                    },
-                    "oldCisDocumentNumber": {
-                        "type": "string"
-                    },
-                    "oldCisDocumentNumberId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "originId": {
-                        "type": "integer",
-                        "format": "int64"
                     },
                     "othersCharge": {
                         "type": "number",
+                        "description": "If the document have any other changes",
                         "format": "double"
-                    },
-                    "paymentStatus": {
-                        "type": "string"
-                    },
-                    "policyDuration": {
-                        "pattern": "\\bFULL|SHORT|PRORATA||\\b",
-                        "type": "string"
-                    },
-                    "policyYear": {
-                        "type": "string"
-                    },
-                    "producerId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "producerPf": {
-                        "type": "string"
-                    },
-                    "referenceId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "reviewRemarks": {
-                        "type": "string"
-                    },
-                    "serialNo": {
-                        "type": "integer",
-                        "format": "int32"
                     },
                     "serviceCharge": {
                         "type": "number",
-                        "format": "double"
-                    },
-                    "serviceProviderId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "serviceProviderPf": {
-                        "type": "string"
-                    },
-                    "shortPeriodDays": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "shortProrataPercentage": {
-                        "type": "number",
+                        "description": "service charge is a fee charged by a service provider for the services rendered to a customer or clien.",
                         "format": "double"
                     },
                     "stampAmount": {
                         "type": "number",
+                        "description": "Stamp amount of the doucment calculated using stamp rate",
                         "format": "double"
                     },
                     "stampDutyType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Type of stamp duity",
+                        "example": "Recoverable, Non-Recoverable etc."
                     },
                     "stampRate": {
                         "type": "number",
+                        "description": "Stamp rate of the document",
                         "format": "double"
                     },
                     "stampType": {
-                        "type": "string"
-                    },
-                    "standingCharges": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "subDepartment": {
-                        "type": "string"
-                    },
-                    "subModuleId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "subSectorCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "What type of stamp",
+                        "example": "Fixed, percent etc."
                     },
                     "sumInsured": {
                         "type": "number",
-                        "format": "double"
-                    },
-                    "totalDays": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "totalMonth": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "underwritingRemainingPremium": {
-                        "type": "number",
+                        "description": "Refers to the maximum amount of coverage provided by an insurance policy for a specific risk or peril.",
                         "format": "double"
                     },
                     "vatAmount": {
                         "type": "number",
-                        "format": "double"
-                    },
-                    "vatApplicableAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "vatExemptedApprovalStatus": {
-                        "type": "string"
-                    },
-                    "vatNonApplicableAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "vatNonApplicableStatus": {
-                        "type": "string"
-                    },
-                    "vatRate": {
-                        "type": "number",
+                        "description": "Vat amount based on the vat type",
                         "format": "double"
                     },
                     "vatType": {
-                        "type": "string"
-                    },
-                    "voluntaryDeductibles": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Types of VAT like if Exampted then no vat will be applicable",
+                        "example": "VAT, Exampted etc."
                     }
                 }
             },
@@ -4484,7 +3097,7 @@
                 "properties": {
                     "classCode": {
                         "type": "string",
-                        "description": "Class Code (Predefined System 3 Digit Class Code)",
+                        "description": "Class Code (Predefined System 3 Characters Class Code)",
                         "example": "MTR"
                     },
                     "deptCode": {
@@ -4593,27 +3206,6 @@
                 "title": "MasterDocResponseVm",
                 "type": "object",
                 "properties": {
-                    "agentInfo": {
-                        "$ref": "#/components/schemas/ComAgentInfoVm"
-                    },
-                    "amendmentCauseCode": {
-                        "type": "string"
-                    },
-                    "amendmentCauseValue": {
-                        "type": "string"
-                    },
-                    "amendmentPremiumMode": {
-                        "type": "string"
-                    },
-                    "amendmentSumInsuredType": {
-                        "type": "string"
-                    },
-                    "amendmentType": {
-                        "type": "string"
-                    },
-                    "approvalStatus": {
-                        "type": "string"
-                    },
                     "approvedAt": {
                         "$ref": "#/components/schemas/Timestamp"
                     },
@@ -4622,33 +3214,6 @@
                         "format": "int64"
                     },
                     "approvedByName": {
-                        "type": "string"
-                    },
-                    "authorizedPerson": {
-                        "$ref": "#/components/schemas/DocEmployeeVm"
-                    },
-                    "body1": {
-                        "type": "string"
-                    },
-                    "body2": {
-                        "type": "string"
-                    },
-                    "branch": {
-                        "$ref": "#/components/schemas/ComBranchVm"
-                    },
-                    "businessSector": {
-                        "$ref": "#/components/schemas/BusinessSectorSubsectorVm"
-                    },
-                    "businessSectorSubsector": {
-                        "$ref": "#/components/schemas/BusinessSectorSubsectorVm"
-                    },
-                    "businessSource": {
-                        "type": "string"
-                    },
-                    "businessStatus": {
-                        "type": "string"
-                    },
-                    "businessType": {
                         "type": "string"
                     },
                     "createdAt": {
@@ -4661,150 +3226,48 @@
                     "createdByName": {
                         "type": "string"
                     },
-                    "currencyRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "currencyType": {
-                        "type": "string"
-                    },
-                    "customer": {
-                        "$ref": "#/components/schemas/ComCustomerViewModel"
-                    },
                     "customerName": {
-                        "type": "string"
-                    },
-                    "declarationAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "declarationRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "declarationType": {
-                        "type": "string"
-                    },
-                    "discountAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "discountRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "discountType": {
-                        "type": "string"
-                    },
-                    "docMiscHealthDetailsVm": {
-                        "$ref": "#/components/schemas/DocMiscHealthDetailsVm"
-                    },
-                    "docMotorDetailsVm": {
-                        "$ref": "#/components/schemas/DocMotorDetailsVm"
-                    },
-                    "docTravelDetailsVm": {
-                        "$ref": "#/components/schemas/DocTravelDetailsVm"
+                        "type": "string",
+                        "description": "Customer name/Client name"
                     },
                     "documentDate": {
                         "type": "string",
+                        "description": "Document final submission date",
                         "format": "date"
                     },
                     "documentNumber": {
-                        "type": "string"
-                    },
-                    "documentNumberSuffix": {
-                        "type": "string"
-                    },
-                    "documentSerialNo": {
-                        "type": "integer",
-                        "format": "int32"
+                        "type": "string",
+                        "description": "Unique document indetification number.",
+                        "example": "GDI/AHO/01/2024/NIB/P/570001"
                     },
                     "documentStatus": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Document status refers to the current status of the document.",
+                        "example": "DRAFT, FINAL, APPROVE etc."
                     },
                     "documentType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Document type (Pre-Defined 1 character code).",
+                        "example": "P -> Policy, T -> Cirtificate etc."
                     },
                     "documentValidFrom": {
                         "type": "string",
+                        "description": "Document validity start date",
                         "format": "date"
                     },
                     "documentValidTo": {
                         "type": "string",
+                        "description": "Document validity end date",
                         "format": "date"
                     },
                     "grossPremium": {
                         "type": "number",
+                        "description": "The total/gross permium of the document like (net-premium + vat + stamp etc)",
                         "format": "double"
                     },
-                    "hasBgDp": {
-                        "type": "boolean"
-                    },
-                    "hasClause": {
-                        "type": "boolean"
-                    },
-                    "hasCoInsurance": {
-                        "type": "boolean"
-                    },
-                    "hasDiscount": {
-                        "type": "boolean"
-                    },
-                    "hasMortgage": {
-                        "type": "boolean"
-                    },
-                    "hasMultipleMoneyReceipt": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "hasSpecialClause": {
-                        "type": "boolean"
-                    },
-                    "hasSpecialRisk": {
-                        "type": "boolean"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "insuranceType": {
-                        "type": "string"
-                    },
                     "insuredAddress": {
-                        "type": "string"
-                    },
-                    "interestList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/DocInterestVm"
-                        }
-                    },
-                    "introducer": {
-                        "$ref": "#/components/schemas/DocEmployeeVm"
-                    },
-                    "isConvertedDocument": {
-                        "type": "boolean"
-                    },
-                    "isDeclaration": {
-                        "type": "boolean"
-                    },
-                    "isDocumentPrintAllow": {
-                        "type": "boolean"
-                    },
-                    "isGdicLeader": {
-                        "type": "boolean"
-                    },
-                    "isMixedVat": {
-                        "type": "boolean"
-                    },
-                    "isRefund": {
-                        "type": "boolean"
-                    },
-                    "isStampRecoverable": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "isVatExempted": {
-                        "type": "boolean"
+                        "type": "string",
+                        "description": "Customer valid address (Present / Permanent)"
                     },
                     "modifiedAt": {
                         "$ref": "#/components/schemas/Timestamp"
@@ -4818,151 +3281,63 @@
                     },
                     "netPremium": {
                         "type": "number",
+                        "description": "Refers to the amount of money an insurance company collects from policyholders for providing insurance coverage, excluding any taxes, fees, commissions, or other expenses associated with the insurance policy.",
                         "format": "double"
-                    },
-                    "oldCisDocVm": {
-                        "$ref": "#/components/schemas/ComOldCisDocVm"
-                    },
-                    "oldCisDocumentNumber": {
-                        "type": "string"
-                    },
-                    "othersCharge": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "perilPremium": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "policyDuration": {
-                        "type": "string"
-                    },
-                    "producer": {
-                        "$ref": "#/components/schemas/DocEmployeeVm"
-                    },
-                    "product": {
-                        "$ref": "#/components/schemas/UsrProdSubModuleDepartmentViewModel"
-                    },
-                    "refDocBgDpNumber": {
-                        "type": "string"
-                    },
-                    "reviewRemarks": {
-                        "type": "string"
-                    },
-                    "securityCode": {
-                        "type": "string"
                     },
                     "selected": {
                         "type": "boolean"
                     },
-                    "serviceCharge": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "serviceProvider": {
-                        "$ref": "#/components/schemas/DocEmployeeVm"
-                    },
-                    "serviceProviderFullname": {
-                        "type": "string"
-                    },
-                    "serviceProviderPf": {
-                        "type": "string"
-                    },
-                    "shortPeriodDays": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "shortProrataPercentage": {
-                        "type": "number",
-                        "format": "double"
-                    },
                     "stampAmount": {
                         "type": "number",
+                        "description": "Stamp amount of the doucment calculated using stamp rate",
                         "format": "double"
-                    },
-                    "stampDutyType": {
-                        "type": "string"
-                    },
-                    "stampRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "stampType": {
-                        "type": "string"
-                    },
-                    "sumInsured": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "totalDays": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "totalMonth": {
-                        "type": "integer",
-                        "format": "int32"
                     },
                     "vatAmount": {
                         "type": "number",
+                        "description": "Vat amount based on the vat type",
                         "format": "double"
-                    },
-                    "vatApplicableAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "vatExemptedApprovalStatus": {
-                        "type": "string"
-                    },
-                    "vatNonApplicableAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "vatNonApplicableStatus": {
-                        "type": "string"
-                    },
-                    "vatRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "vatType": {
-                        "type": "string"
                     }
                 }
             },
             "MiddlewareSearchDocVm": {
                 "title": "MiddlewareSearchDocVm",
-                "required": [
-                    "approvalStatus",
-                    "productCode",
-                    "searchText"
-                ],
                 "type": "object",
                 "properties": {
                     "approvalStatus": {
                         "pattern": "\\bDRAFT|FINAL|APPROVE||\\b",
-                        "type": "string"
+                        "type": "string",
+                        "description": "System defined code that refers the current status of the document.",
+                        "example": "APPROVE, DRAFT, FINAL etc."
                     },
                     "endDate": {
                         "type": "string",
+                        "description": "Document date that referes the search will end from.",
                         "format": "date"
                     },
                     "fromDate": {
                         "type": "string",
+                        "description": "Document date that referes the search will begin from.",
                         "format": "date"
                     },
                     "page": {
                         "type": "integer",
+                        "description": "How many page you want to search liek 1 page or 10 pages.",
                         "format": "int32"
                     },
                     "productCode": {
                         "pattern": "\\bPAC|PPA|NIB|MTR|B&H|E&S||\\b",
-                        "type": "string"
+                        "type": "string",
+                        "description": "System Defind 3 digit product code.",
+                        "example": "PAC, PPA, NIB, MTR etc."
                     },
                     "searchText": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Search keywords like documentNumber.",
+                        "example": "GDI/AHO/01/2024/NIB/P/570001"
                     },
                     "size": {
                         "type": "integer",
+                        "description": "The total number of search result you want.",
                         "format": "int32"
                     }
                 }
@@ -4971,6 +3346,11 @@
                 "title": "Motor Details",
                 "type": "object",
                 "properties": {
+                    "brandCode": {
+                        "type": "string",
+                        "description": "Brand code of the vechile (predefined pre-requsite value from quotation).",
+                        "example": "Yeahama, Toyota etc."
+                    },
                     "companyOrModelName": {
                         "type": "string",
                         "description": "Company or Model Name of the vehicle"
@@ -5007,23 +3387,6 @@
                         "type": "integer",
                         "description": "Motor Terms of Use ID (System Defined ID)",
                         "format": "int64"
-                    },
-                    "mtrCCTon": {
-                        "type": "string",
-                        "description": "Vechicle is measured in CC or TON"
-                    },
-                    "mtrCcTonValue": {
-                        "type": "number",
-                        "description": "Vehicle CC or TON value",
-                        "format": "double"
-                    },
-                    "mtrPlanName": {
-                        "type": "string",
-                        "description": "Plan Name (Predefined System Configuration Data)"
-                    },
-                    "mtrVehicleType": {
-                        "type": "string",
-                        "description": "Vehicle Type (Private or Organization)"
                     },
                     "nameOfRegistrationAuthority": {
                         "type": "string",
@@ -5419,6 +3782,11 @@
                 "title": "Nibedita text fields for Data Save",
                 "type": "object",
                 "properties": {
+                    "dataType": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    },
                     "descriptions": {
                         "type": "string",
                         "description": "Description of the text field."
@@ -5432,11 +3800,6 @@
                         "type": "boolean",
                         "description": "Indicated whether the field is mandatory to give or not.",
                         "example": false
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "Type of the field.",
-                        "example": "String, int, float, boolean"
                     }
                 },
                 "description": "Nibedita text fields for Data Save"
@@ -5503,6 +3866,11 @@
                 "title": "Object Arrays Details",
                 "type": "object",
                 "properties": {
+                    "dataType": {
+                        "type": "string",
+                        "description": "Type of the field.",
+                        "example": "String, int, float, boolean"
+                    },
                     "descriptions": {
                         "type": "string",
                         "description": "Description of the text field."
@@ -5523,11 +3891,6 @@
                         "type": "boolean",
                         "description": "Indicated whether the field is mandatory to give or not.",
                         "example": false
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "Type of the field.",
-                        "example": "String, int, float, boolean"
                     }
                 }
             },
@@ -5817,9 +4180,10 @@
                 "title": "Save Master Document Response",
                 "type": "object",
                 "properties": {
-                    "attachmentList": {
+                    "acknowledgedFileList": {
                         "type": "array",
                         "description": "List of attached files with the document",
+                        "example": "abc.jpg, xyz.pdf",
                         "items": {
                             "type": "string"
                         }
@@ -5838,6 +4202,12 @@
                         "type": "string",
                         "description": "Document Number",
                         "example": "GDI/AHO/01/2024/MTR/T/480001"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "id of the saved document",
+                        "format": "int64",
+                        "example": 1234
                     },
                     "mrNumber": {
                         "type": "string",
@@ -5883,16 +4253,19 @@
                 "properties": {
                     "masterDocList": {
                         "type": "array",
+                        "description": "Search Document List based on the search text/parameter.",
                         "items": {
                             "$ref": "#/components/schemas/FireMasterDocVm"
                         }
                     },
                     "pageCount": {
                         "type": "integer",
+                        "description": "The total number of pages available in the search results.",
                         "format": "int32"
                     },
                     "totalCount": {
                         "type": "integer",
+                        "description": "The total number of search results matching the given search criteria across all pages.",
                         "format": "int64"
                     }
                 }
@@ -6007,42 +4380,10 @@
             },
             "UnderwritingResponseVm": {
                 "title": "UnderwritingResponseVm",
-                "required": [
-                    "masterDoc"
-                ],
                 "type": "object",
                 "properties": {
-                    "attachedCustomerContactMobileNo": {
-                        "type": "string"
-                    },
-                    "clauseList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ClauseResponseVm"
-                        }
-                    },
-                    "customerContactList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/DocCustomerContactVm"
-                        }
-                    },
-                    "docFileList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/DocFilesResponseVm"
-                        }
-                    },
-                    "interestList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/DocInterestVm"
-                        }
-                    },
-                    "isGdicLeader": {
-                        "type": "boolean"
-                    },
                     "masterDoc": {
+                        "description": "Master Document Response that holds values like net-premium, gross-premium etc.",
                         "$ref": "#/components/schemas/MasterDocResponseVm"
                     },
                     "moneyReceiptList": {
@@ -6054,44 +4395,27 @@
                     },
                     "mrAmount": {
                         "type": "number",
+                        "description": "Money Receipt amount that would be collected refered to the document or already collected.",
                         "format": "double"
-                    },
-                    "mrCount": {
-                        "type": "integer",
-                        "format": "int32"
                     },
                     "netPremiumCoInsurer": {
                         "type": "number",
+                        "description": "Net-Premium of CoInsurer (except GDIC) portion.",
                         "format": "double"
                     },
                     "netPremiumGdic": {
                         "type": "number",
+                        "description": "Net-Premium of GDIC (Green Delta Insurnace Company) portion.",
                         "format": "double"
-                    },
-                    "othersCharge": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "serviceCharge": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "specialClauseList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ClauseResponseVm"
-                        }
                     },
                     "stampAmount": {
                         "type": "number",
-                        "format": "double"
-                    },
-                    "underwritingRemainingPremium": {
-                        "type": "number",
+                        "description": "Stamp amount of the doucment calculated using stamp rate",
                         "format": "double"
                     },
                     "vatAmount": {
                         "type": "number",
+                        "description": "Vat amount based on the vat type",
                         "format": "double"
                     }
                 }
@@ -6185,22 +4509,6 @@
                         "type": "string",
                         "description": "Token Type",
                         "example": "Bearer "
-                    }
-                }
-            },
-            "UsrProdSubModuleDepartmentViewModel": {
-                "title": "UsrProdSubModuleDepartmentViewModel",
-                "type": "object",
-                "properties": {
-                    "classCode": {
-                        "type": "string"
-                    },
-                    "deptCode": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
                     }
                 }
             }
