@@ -16,10 +16,6 @@
         {
             "url": "https://cisdev.green-delta.com:7878",
             "description": "Sandbox"
-        },
-        {
-            "description": "Production",
-            "url": "https://cisdev.green-delta.com:7878"
         }
     ],
     "tags": [
