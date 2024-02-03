@@ -1,20 +1,20 @@
-   {
-    "openapi": "3.0.0",
-    "x-explorer-enabled": false,
+    {
+    "openapi": "3.0.3",
     "info": {
         "title": "CIS Middleware Documentation",
-        "description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system\n\n\n\nAPI is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client will get an access token. Access token will be needed for any other API calling of CIS middleware.",
+        "description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system",
         "contact": {
             "name": "GDIC IT",
             "url": "https://green-delta.com",
             "email": "itdev@green-delta.com"
         },
-        "version": "1.0.0"
+        "license": {},
+        "version": "1.0.1"
     },
     "servers": [
         {
             "url": "https://cisdev.green-delta.com:7878",
-            "description": "Sandbox"
+            "description": "Inferred Url"
         }
     ],
     "tags": [
@@ -2302,6 +2302,13 @@
                 "title": "EnsDropdownDetails",
                 "type": "object",
                 "properties": {
+                    "ensTypeList": {
+                        "type": "array",
+                        "description": "Type of the policy, Study or Employment",
+                        "items": {
+                            "$ref": "#/components/schemas/NameValueVm"
+                        }
+                    },
                     "visitList": {
                         "type": "array",
                         "description": "Place Visit List",
@@ -3261,6 +3268,20 @@
                     }
                 },
                 "description": "Motor Related text fields"
+            },
+            "NameValueVm": {
+                "title": "NameValueVm",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the Element"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "Value value of the Element"
+                    }
+                }
             },
             "Nibedita Details": {
                 "title": "Nibedita Details",
