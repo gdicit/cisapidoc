@@ -1,5 +1,4 @@
-
-    {
+   {
     "openapi": "3.0.0",
     "x-explorer-enabled": false,
     "info": {
@@ -962,7 +961,8 @@
                 "title": "Add Document Request",
                 "required": [
                     "customerInfo",
-                    "loginUserInfo"
+                    "loginUserInfo",
+                    "transactionId"
                 ],
                 "type": "object",
                 "properties": {
@@ -1001,6 +1001,10 @@
                     "ppa": {
                         "description": "People's Personal Accident (PPA) product related details",
                         "$ref": "#/components/schemas/People's Personal Accident Details"
+                    },
+                    "transactionId": {
+                        "type": "string",
+                        "description": "This API requires a unique transactional id to trace the requests and also checking for duplicate request. transactionId is mandatory, unique and can not be null."
                     }
                 }
             },
