@@ -1,4 +1,4 @@
- {
+    {
     "openapi": "3.0.3",
     "info": {
         "title": "CIS Middleware Documentation",
@@ -1793,19 +1793,11 @@
                 "title": "Data Object«Customer Response Body»",
                 "type": "object",
                 "properties": {
-                    "correlationID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
-                    },
                     "data": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Customer Response Body"
                         }
-                    },
-                    "messageID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
                     },
                     "remarks": {
                         "type": "array",
@@ -1830,10 +1822,6 @@
                 "title": "Data Object«Map«string,object»»",
                 "type": "object",
                 "properties": {
-                    "correlationID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
-                    },
                     "data": {
                         "type": "array",
                         "items": {
@@ -1842,10 +1830,6 @@
                                 "type": "object"
                             }
                         }
-                    },
-                    "messageID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
                     },
                     "remarks": {
                         "type": "array",
@@ -1870,19 +1854,11 @@
                 "title": "Data Object«Save Master Document Response»",
                 "type": "object",
                 "properties": {
-                    "correlationID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
-                    },
                     "data": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Save Master Document Response"
                         }
-                    },
-                    "messageID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
                     },
                     "remarks": {
                         "type": "array",
