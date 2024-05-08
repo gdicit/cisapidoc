@@ -1,4 +1,4 @@
-    {
+{
     "openapi": "3.0.3",
     "info": {
         "title": "CIS Middleware Documentation",
@@ -8,12 +8,11 @@
             "url": "https://green-delta.com",
             "email": "itdev@green-delta.com"
         },
-        "license": {},
-        "version": "1.0.1"
+        "version": "1.0.0"
     },
     "servers": [
         {
-            "url": "https://cisdev.green-delta.com:7878",
+            "url": "https://localhost:7878",
             "description": "Inferred Url"
         }
     ],
@@ -941,6 +940,10 @@
                     "forDataSave": {
                         "type": "object",
                         "description": "Exact quotation response (get-quotation api response 'forDataSave' portion) must be send in this object"
+                    },
+                    "ghi": {
+                        "description": "Ghoup Health Insurance related details",
+                        "$ref": "#/components/schemas/Nibedita Details"
                     },
                     "loginUserInfo": {
                         "description": "Logged in User Information",
@@ -2342,7 +2345,7 @@
                         "example": "2023-08-09T00:00:00.000+00:00"
                     },
                     "productCode": {
-                        "pattern": "\\bNIBEDITA_ECO|NIBEDITA_REGULAR|NIBEDITA_PLUS|NIBEDITA_ORBIT|PAC|PPA|MTR|BNH|ENS\\b",
+                        "pattern": "\\bNIBEDITA_ECO|NIBEDITA_REGULAR|NIBEDITA_PLUS|NIBEDITA_ORBIT|PAC|PPA|MTR|BNH|ENS|GREEN_DELTA_PROTISRUTI|SHUROKKHA_ALLROUNDER\\b",
                         "type": "string",
                         "description": "Product code system defined configuration data sent through get quotation prerequsite",
                         "example": "NIB, MTR, ENS etc."
@@ -3161,7 +3164,7 @@
                 "properties": {
                     "productList": {
                         "type": "array",
-                        "description": "Product list for Nibedita",
+                        "description": "Product list for Nibedita/GHI",
                         "items": {
                             "$ref": "#/components/schemas/Nibedita Product Sum-Insured Details"
                         }
@@ -3189,12 +3192,12 @@
                     "productCode": {
                         "type": "string",
                         "description": "Product Code (System Predefined Code)",
-                        "example": "NIBEDITA_ORBIT, NIBEDITA_ECHO etc"
+                        "example": "NIBEDITA_ORBIT, NIBEDITA_ECHO, GREEN_DELTA_PROTISRUTI etc"
                     },
                     "productName": {
                         "type": "string",
                         "description": "Product Name (System Predefined Name)",
-                        "example": "NIBEDITA ORBIT, NIBEDITA ECHO etc."
+                        "example": "NIBEDITA ORBIT, NIBEDITA ECHO, Green Delta Protisruti etc."
                     },
                     "sumInsuredList": {
                         "type": "array",
@@ -3211,7 +3214,7 @@
                 "type": "object",
                 "properties": {
                     "dropdowns": {
-                        "description": "Dropdown values for Nibedita",
+                        "description": "Dropdown values for Nibedita/GHI",
                         "$ref": "#/components/schemas/Nibedita Dropdown Details"
                     },
                     "objectArrays": {
@@ -3512,12 +3515,20 @@
                         "description": "Employment and Studies related prerequisite details",
                         "$ref": "#/components/schemas/Employment and Studies Quotation Prerequisite Details"
                     },
+                    "ghi": {
+                        "description": "GHI product related prerequisite details",
+                        "$ref": "#/components/schemas/Nibedita Quotation Prerequisite"
+                    },
                     "mtr": {
                         "description": "Motor related prerequisite details",
                         "$ref": "#/components/schemas/Motor Quotation Prerequisite Details"
                     },
                     "nib": {
-                        "description": "Nibedita product related prerequisite details",
+                        "description": "NIB product related prerequisite details",
+                        "$ref": "#/components/schemas/Nibedita Quotation Prerequisite"
+                    },
+                    "ppa": {
+                        "description": "Peoples personal accident related prerequisite details",
                         "$ref": "#/components/schemas/Nibedita Quotation Prerequisite"
                     }
                 }
