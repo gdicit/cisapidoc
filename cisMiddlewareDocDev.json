@@ -2,14 +2,13 @@
     "openapi": "3.0.3",
     "info": {
         "title": "CIS Middleware Documentation",
-        "description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system",
+        "description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system\n\n\n\nAPI is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client will get an access token. Access token will be needed for any other API calling of CIS middleware.",
         "contact": {
             "name": "GDIC IT",
             "url": "https://green-delta.com",
             "email": "itdev@green-delta.com"
         },
-        "license": {},
-        "version": "1.0.1"
+        "version": "1.0.0"
     },
     "servers": [
         {
@@ -638,7 +637,7 @@
                     "Money Receipt"
                 ],
                 "summary": "Get Money Receipt Details by MR Number",
-                "description": "Returns the Money Receipt Details by MR Number.",
+                "description": "Retrieve financial transaction details using unique Money Receipt number identifier.",
                 "operationId": "getMoneyReceiptDetailsByMrNumberUsingGET",
                 "parameters": [
                     {
@@ -838,487 +837,67 @@
             "AccMoneyReceiptVm": {
                 "title": "AccMoneyReceiptVm",
                 "required": [
-                    "actionCode",
-                    "mrStatus",
-                    "netPremium",
-                    "othersCharge",
-                    "paymentType",
-                    "stampAmount",
-                    "sumInsured",
                     "vatAmount",
                     "vatRate"
                 ],
                 "type": "object",
                 "properties": {
-                    "actionCode": {
-                        "pattern": "\\bCREATE|UPDATE\\b",
-                        "type": "string"
-                    },
-                    "approvedAt": {
-                        "$ref": "#/components/schemas/Timestamp"
-                    },
-                    "approvedBy": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "approvedByName": {
-                        "type": "string"
-                    },
-                    "attachedMrIds": {
-                        "type": "array",
-                        "items": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    },
-                    "coinsuranceNetCoinsurer": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "coinsuranceNetGdic": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "collectedBy": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "collectionAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "collectionByName": {
-                        "type": "string"
-                    },
-                    "collectionConfirmationDate": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "collectionConfirmedBy": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "collectionConfirmedByName": {
-                        "type": "string"
-                    },
-                    "collectionDate": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "collectionStatus": {
-                        "type": "string"
-                    },
-                    "createdAt": {
-                        "$ref": "#/components/schemas/Timestamp"
-                    },
-                    "createdBy": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "createdByName": {
-                        "type": "string"
-                    },
                     "currencyRate": {
                         "type": "number",
+                        "description": "Refers to the exchange rate between two currencies if the currencyType is not BDT. It will always converted to BDT from other currency.",
                         "format": "double"
                     },
                     "currencyType": {
-                        "type": "string"
-                    },
-                    "depositSlipNo": {
-                        "type": "string"
-                    },
-                    "depositToAccountNumber": {
-                        "type": "string"
-                    },
-                    "depositToBank": {
-                        "$ref": "#/components/schemas/ComBankBranchVm"
-                    },
-                    "depositToBankBranch": {
-                        "$ref": "#/components/schemas/ComBankBranchVm"
-                    },
-                    "depositToBankBranchId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "depositToBankId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "detachedIds": {
-                        "type": "array",
-                        "items": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    },
-                    "documentIds": {
-                        "type": "array",
-                        "items": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    },
-                    "documentList": {
-                        "uniqueItems": true,
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/UnderwritingResponseVm"
-                        }
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "installmentNumberVmList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/InstallmentNumberVm"
-                        }
-                    },
-                    "installmentType": {
-                        "type": "string"
-                    },
-                    "insuranceType": {
-                        "type": "string"
-                    },
-                    "isCollectionConfirmed": {
-                        "type": "boolean"
-                    },
-                    "isFullOthersChargeCollected": {
-                        "type": "boolean"
-                    },
-                    "isFullServiceChargeCollected": {
-                        "type": "boolean"
-                    },
-                    "isFullStampCollected": {
-                        "type": "boolean"
-                    },
-                    "isFullvatCollected": {
-                        "type": "boolean"
-                    },
-                    "isRefund": {
-                        "type": "boolean"
-                    },
-                    "middlewareRequest": {
-                        "type": "boolean"
-                    },
-                    "modifiedAt": {
-                        "$ref": "#/components/schemas/Timestamp"
-                    },
-                    "modifiedBy": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "modifiedByName": {
-                        "type": "string"
-                    },
-                    "mrAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "mrDate": {
                         "type": "string",
-                        "format": "date"
-                    },
-                    "mrFileList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/DocFilesResponseVm"
-                        }
-                    },
-                    "mrNumber": {
-                        "type": "string"
-                    },
-                    "mrStatus": {
-                        "pattern": "\\bDRAFT|FINAL\\b",
-                        "type": "string"
-                    },
-                    "netPremium": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "othersCharge": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "paymentDetailsVmSet": {
-                        "uniqueItems": true,
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/AccPaymentDetailsVm"
-                        }
-                    },
-                    "paymentMode": {
-                        "type": "string"
-                    },
-                    "paymentModeVm": {
-                        "$ref": "#/components/schemas/PaymentModeVm"
-                    },
-                    "paymentType": {
-                        "pattern": "\\bFULL|PARTIAL|INSTALLMENT|LEADER_PORTION_ONLY\\b",
-                        "type": "string"
-                    },
-                    "paymentTypeVm": {
-                        "$ref": "#/components/schemas/PaymentTypeVm"
-                    },
-                    "refundMrVmList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/RefundMrVm"
-                        }
-                    },
-                    "refundParentMrDate": {
-                        "type": "string"
-                    },
-                    "refundParentMrNumber": {
-                        "type": "string"
-                    },
-                    "reviewRemarks": {
-                        "type": "string"
-                    },
-                    "serviceCharge": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "stampAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "stampDutyType": {
-                        "type": "string"
-                    },
-                    "stampRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "stampType": {
-                        "type": "string"
-                    },
-                    "sumInsured": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "totalNumberOfInstallment": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "umpMessage": {
-                        "type": "string"
-                    },
-                    "umpResult": {
-                        "type": "string"
-                    },
-                    "umpStatus": {
-                        "type": "string"
-                    },
-                    "umpSubmitDate": {
-                        "$ref": "#/components/schemas/Timestamp"
-                    },
-                    "umpTrackingNumber": {
-                        "type": "string"
-                    },
-                    "umpUrl": {
-                        "type": "string"
-                    },
-                    "vatAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "vatRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "vatType": {
-                        "type": "string"
-                    }
-                }
-            },
-            "AccMoneyReceiptVm0": {
-                "title": "AccMoneyReceiptVm0",
-                "required": [
-                    "mrStatus",
-                    "netPremium",
-                    "othersCharge",
-                    "paymentType",
-                    "stampAmount",
-                    "sumInsured",
-                    "vatAmount",
-                    "vatRate"
-                ],
-                "type": "object",
-                "properties": {
-                    "coinsuranceNetCoinsurer": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "coinsuranceNetGdic": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "collectedBy": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "collectionAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "collectionByName": {
-                        "type": "string"
-                    },
-                    "collectionConfirmationDate": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "collectionConfirmedBy": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "collectionConfirmedByName": {
-                        "type": "string"
-                    },
-                    "collectionDate": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "collectionStatus": {
-                        "type": "string"
-                    },
-                    "currencyRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "currencyType": {
-                        "type": "string"
-                    },
-                    "depositSlipNo": {
-                        "type": "string"
-                    },
-                    "depositToAccountNumber": {
-                        "type": "string"
-                    },
-                    "depositToBank": {
-                        "$ref": "#/components/schemas/ComBankBranchVm"
-                    },
-                    "depositToBankBranch": {
-                        "$ref": "#/components/schemas/ComBankBranchVm"
-                    },
-                    "depositToBankBranchId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "depositToBankId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "documentList": {
-                        "uniqueItems": true,
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/UnderwritingResponseVm"
-                        }
+                        "description": "Refers to the specific currency denomination used in financial transaction.",
+                        "example": "USE, BDT, EURO etc."
                     },
                     "documentNumber": {
-                        "type": "string"
-                    },
-                    "insuranceType": {
-                        "type": "string"
-                    },
-                    "isCollectionConfirmed": {
-                        "type": "boolean"
-                    },
-                    "isMiddlewareRequest": {
-                        "type": "boolean"
+                        "type": "string",
+                        "description": "Document/Documents number that/those are associated with the money receipt number."
                     },
                     "middlewareRequest": {
                         "type": "boolean"
                     },
                     "mrAmount": {
                         "type": "number",
+                        "description": "the total sum of money received or collected for a particular transaction or financial activity. (net-premium + vat + stamp + charges) etc.",
                         "format": "double"
                     },
                     "mrDate": {
                         "type": "string",
+                        "description": "Money Receipt Creation/Final Submission Date",
                         "format": "date"
                     },
                     "mrNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Unique system generated number to identify money receipt"
                     },
                     "mrStatus": {
                         "pattern": "\\bDRAFT|FINAL\\b",
-                        "type": "string"
+                        "type": "string",
+                        "description": "Money Receipt status or the currenct situation of the money receipt"
                     },
                     "netPremium": {
                         "type": "number",
+                        "description": "Refers to the total amount of premium charged by an insurance company to provide coverage for a specific insurance policy, excluding any taxes, fees, or commissions",
                         "format": "double"
-                    },
-                    "othersCharge": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "paymentDetailsVmSet": {
-                        "uniqueItems": true,
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/AccPaymentDetailsVm"
-                        }
-                    },
-                    "paymentMode": {
-                        "type": "string"
                     },
                     "paymentType": {
                         "pattern": "\\bFULL|PARTIAL|INSTALLMENT|LEADER_PORTION_ONLY\\b",
-                        "type": "string"
-                    },
-                    "refundParentMrDate": {
-                        "type": "string"
-                    },
-                    "refundParentMrNumber": {
-                        "type": "string"
-                    },
-                    "reviewRemarks": {
-                        "type": "string"
-                    },
-                    "serviceCharge": {
-                        "type": "number",
-                        "format": "double"
+                        "type": "string",
+                        "description": "Amount payment type (pre-configured system value)",
+                        "example": "FULL, PARTIAL, INSTALLMENT etc."
                     },
                     "stampAmount": {
                         "type": "number",
+                        "description": "Stamp amount of the doucment calculated using stamp rate",
                         "format": "double"
-                    },
-                    "stampDutyType": {
-                        "type": "string"
-                    },
-                    "stampRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "stampType": {
-                        "type": "string"
                     },
                     "sumInsured": {
                         "type": "number",
+                        "description": "The maximum amount of coverage provided by an insurance policy for a specific risk or asset.",
                         "format": "double"
-                    },
-                    "umpMessage": {
-                        "type": "string"
-                    },
-                    "umpResult": {
-                        "type": "string"
-                    },
-                    "umpStatus": {
-                        "type": "string"
-                    },
-                    "umpSubmitDate": {
-                        "$ref": "#/components/schemas/Timestamp"
-                    },
-                    "umpTrackingNumber": {
-                        "type": "string"
-                    },
-                    "umpUrl": {
-                        "type": "string"
                     },
                     "vatAmount": {
                         "type": "number",
@@ -1329,50 +908,6 @@
                         "format": "double"
                     },
                     "vatType": {
-                        "type": "string"
-                    }
-                }
-            },
-            "AccPaymentDetailsVm": {
-                "title": "AccPaymentDetailsVm",
-                "type": "object",
-                "properties": {
-                    "bankId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "bankName": {
-                        "type": "string"
-                    },
-                    "branchId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "branchName": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "paymentBank": {
-                        "$ref": "#/components/schemas/ComBankBranchVm"
-                    },
-                    "paymentBankBranchId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "paymentBranch": {
-                        "$ref": "#/components/schemas/ComBankBranchVm"
-                    },
-                    "paymentDate": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "paymentNumber": {
-                        "type": "string"
-                    },
-                    "paymentRoutingNumber": {
                         "type": "string"
                     }
                 }
@@ -1381,7 +916,8 @@
                 "title": "Add Document Request",
                 "required": [
                     "customerInfo",
-                    "loginUserInfo"
+                    "loginUserInfo",
+                    "messageId"
                 ],
                 "type": "object",
                 "properties": {
@@ -1405,9 +941,17 @@
                         "type": "object",
                         "description": "Exact quotation response (get-quotation api response 'forDataSave' portion) must be send in this object"
                     },
+                    "ghi": {
+                        "description": "Ghoup Health Insurance related details",
+                        "$ref": "#/components/schemas/Nibedita Details"
+                    },
                     "loginUserInfo": {
                         "description": "Logged in User Information",
                         "$ref": "#/components/schemas/Logged in User Infomation"
+                    },
+                    "messageId": {
+                        "type": "string",
+                        "description": "This API requires a unique message id to trace the requests and also checking for duplicate request. messageId is mandatory, unique and can not be null."
                     },
                     "mtr": {
                         "description": "Motor product related details",
@@ -1683,48 +1227,6 @@
                     }
                 },
                 "description": "Business and Holidays Related text fields"
-            },
-            "ComBankBranchVm": {
-                "title": "ComBankBranchVm",
-                "type": "object",
-                "properties": {
-                    "address": {
-                        "type": "string"
-                    },
-                    "branchList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ComBankBranchVm"
-                        }
-                    },
-                    "collectionAccountNumber": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "phoneNumber": {
-                        "type": "string"
-                    },
-                    "refBankName": {
-                        "type": "string"
-                    },
-                    "refId": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "routingNumber": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "zone": {
-                        "type": "string"
-                    }
-                }
             },
             "Common text field description": {
                 "title": "Common text field description",
@@ -2120,7 +1622,7 @@
                 "type": "object",
                 "properties": {
                     "data": {
-                        "$ref": "#/components/schemas/AccMoneyReceiptVm0"
+                        "$ref": "#/components/schemas/AccMoneyReceiptVm"
                     },
                     "remarks": {
                         "type": "array",
@@ -2294,19 +1796,11 @@
                 "title": "Data Object«Customer Response Body»",
                 "type": "object",
                 "properties": {
-                    "correlationID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
-                    },
                     "data": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Customer Response Body"
                         }
-                    },
-                    "messageID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
                     },
                     "remarks": {
                         "type": "array",
@@ -2331,10 +1825,6 @@
                 "title": "Data Object«Map«string,object»»",
                 "type": "object",
                 "properties": {
-                    "correlationID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
-                    },
                     "data": {
                         "type": "array",
                         "items": {
@@ -2343,10 +1833,6 @@
                                 "type": "object"
                             }
                         }
-                    },
-                    "messageID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
                     },
                     "remarks": {
                         "type": "array",
@@ -2371,19 +1857,11 @@
                 "title": "Data Object«Save Master Document Response»",
                 "type": "object",
                 "properties": {
-                    "correlationID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
-                    },
                     "data": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Save Master Document Response"
                         }
-                    },
-                    "messageID": {
-                        "type": "string",
-                        "description": "For maintain asynchronous process"
                     },
                     "remarks": {
                         "type": "array",
@@ -2434,32 +1912,6 @@
                     }
                 },
                 "description": "These are some of 'Data Save Prerequisite' for (add-master-document) api calling where different type of prequsite are needed."
-            },
-            "DocFilesResponseVm": {
-                "title": "DocFilesResponseVm",
-                "type": "object",
-                "properties": {
-                    "base64": {
-                        "type": "string"
-                    },
-                    "fileExtention": {
-                        "type": "string"
-                    },
-                    "fileFullName": {
-                        "type": "string"
-                    },
-                    "fileFullPath": {
-                        "type": "string"
-                    },
-                    "fileSizeKb": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    }
-                }
             },
             "DocNoVm": {
                 "title": "DocNoVm",
@@ -2717,6 +2169,13 @@
                 "title": "EnsDropdownDetails",
                 "type": "object",
                 "properties": {
+                    "ensTypeList": {
+                        "type": "array",
+                        "description": "Type of the policy, Study or Employment",
+                        "items": {
+                            "$ref": "#/components/schemas/NameValueVm"
+                        }
+                    },
                     "visitList": {
                         "type": "array",
                         "description": "Place Visit List",
@@ -2886,7 +2345,7 @@
                         "example": "2023-08-09T00:00:00.000+00:00"
                     },
                     "productCode": {
-                        "pattern": "\\bNIBEDITA_ECO|NIBEDITA_REGULAR|NIBEDITA_PLUS|NIBEDITA_ORBIT|PAC|PPA|MTR|BNH|ENS\\b",
+                        "pattern": "\\bNIBEDITA_ECO|NIBEDITA_REGULAR|NIBEDITA_PLUS|NIBEDITA_ORBIT|PAC|PPA|MTR|BNH|ENS|GREEN_DELTA_PROTISRUTI|SHUROKKHA_ALLROUNDER\\b",
                         "type": "string",
                         "description": "Product code system defined configuration data sent through get quotation prerequsite",
                         "example": "NIB, MTR, ENS etc."
@@ -2958,19 +2417,6 @@
                     }
                 },
                 "description": "Get Quotation Response"
-            },
-            "InstallmentNumberVm": {
-                "title": "InstallmentNumberVm",
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string"
-                    },
-                    "value": {
-                        "type": "integer",
-                        "format": "int32"
-                    }
-                }
             },
             "Logged in User Infomation": {
                 "title": "Logged in User Infomation",
@@ -3677,6 +3123,20 @@
                 },
                 "description": "Motor Related text fields"
             },
+            "NameValueVm": {
+                "title": "NameValueVm",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the Element"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "Value value of the Element"
+                    }
+                }
+            },
             "Nibedita Details": {
                 "title": "Nibedita Details",
                 "type": "object",
@@ -3704,7 +3164,7 @@
                 "properties": {
                     "productList": {
                         "type": "array",
-                        "description": "Product list for Nibedita",
+                        "description": "Product list for Nibedita/GHI",
                         "items": {
                             "$ref": "#/components/schemas/Nibedita Product Sum-Insured Details"
                         }
@@ -3732,12 +3192,12 @@
                     "productCode": {
                         "type": "string",
                         "description": "Product Code (System Predefined Code)",
-                        "example": "NIBEDITA_ORBIT, NIBEDITA_ECHO etc"
+                        "example": "NIBEDITA_ORBIT, NIBEDITA_ECHO, GREEN_DELTA_PROTISRUTI etc"
                     },
                     "productName": {
                         "type": "string",
                         "description": "Product Name (System Predefined Name)",
-                        "example": "NIBEDITA ORBIT, NIBEDITA ECHO etc."
+                        "example": "NIBEDITA ORBIT, NIBEDITA ECHO, Green Delta Protisruti etc."
                     },
                     "sumInsuredList": {
                         "type": "array",
@@ -3754,7 +3214,7 @@
                 "type": "object",
                 "properties": {
                     "dropdowns": {
-                        "description": "Dropdown values for Nibedita",
+                        "description": "Dropdown values for Nibedita/GHI",
                         "$ref": "#/components/schemas/Nibedita Dropdown Details"
                     },
                     "objectArrays": {
@@ -3886,30 +3346,6 @@
                         "type": "boolean",
                         "description": "Indicated whether the field is mandatory to give or not.",
                         "example": false
-                    }
-                }
-            },
-            "PaymentModeVm": {
-                "title": "PaymentModeVm",
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string"
-                    },
-                    "value": {
-                        "type": "string"
-                    }
-                }
-            },
-            "PaymentTypeVm": {
-                "title": "PaymentTypeVm",
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string"
-                    },
-                    "value": {
-                        "type": "string"
                     }
                 }
             },
@@ -4079,95 +3515,21 @@
                         "description": "Employment and Studies related prerequisite details",
                         "$ref": "#/components/schemas/Employment and Studies Quotation Prerequisite Details"
                     },
+                    "ghi": {
+                        "description": "GHI product related prerequisite details",
+                        "$ref": "#/components/schemas/Nibedita Quotation Prerequisite"
+                    },
                     "mtr": {
                         "description": "Motor related prerequisite details",
                         "$ref": "#/components/schemas/Motor Quotation Prerequisite Details"
                     },
                     "nib": {
-                        "description": "Nibedita product related prerequisite details",
+                        "description": "NIB product related prerequisite details",
                         "$ref": "#/components/schemas/Nibedita Quotation Prerequisite"
-                    }
-                }
-            },
-            "RefundMrVm": {
-                "title": "RefundMrVm",
-                "type": "object",
-                "properties": {
-                    "branchCode": {
-                        "type": "string"
                     },
-                    "currencyRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "currencyType": {
-                        "type": "string"
-                    },
-                    "currentBalance": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "id": {
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    "mrAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "mrDate": {
-                        "type": "string",
-                        "format": "date"
-                    },
-                    "mrNumber": {
-                        "type": "string"
-                    },
-                    "netPremium": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "othersCharge": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "refundDocumentNumber": {
-                        "type": "string"
-                    },
-                    "refundStatus": {
-                        "type": "string"
-                    },
-                    "serviceCharge": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "stampAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "stampDutyType": {
-                        "type": "string"
-                    },
-                    "stampRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "stampType": {
-                        "type": "string"
-                    },
-                    "sumInsured": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "vatAmount": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "vatRate": {
-                        "type": "number",
-                        "format": "double"
-                    },
-                    "vatType": {
-                        "type": "string"
+                    "ppa": {
+                        "description": "Peoples personal accident related prerequisite details",
+                        "$ref": "#/components/schemas/Nibedita Quotation Prerequisite"
                     }
                 }
             },
@@ -4187,6 +3549,11 @@
                         "type": "string",
                         "description": "Customer Email address",
                         "example": "customer@customer.com"
+                    },
+                    "customerName": {
+                        "type": "string",
+                        "description": "Name of the customer",
+                        "example": "John Doe"
                     },
                     "docUrl": {
                         "type": "string",
@@ -4381,36 +3748,9 @@
                         "description": "Master Document Response that holds values like net-premium, gross-premium etc.",
                         "$ref": "#/components/schemas/MasterDocResponseVm"
                     },
-                    "moneyReceiptList": {
-                        "uniqueItems": true,
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/AccMoneyReceiptVm"
-                        }
-                    },
-                    "mrAmount": {
-                        "type": "number",
-                        "description": "Money Receipt amount that would be collected refered to the document or already collected.",
-                        "format": "double"
-                    },
                     "netPremiumCoInsurer": {
                         "type": "number",
                         "description": "Net-Premium of CoInsurer (except GDIC) portion.",
-                        "format": "double"
-                    },
-                    "netPremiumGdic": {
-                        "type": "number",
-                        "description": "Net-Premium of GDIC (Green Delta Insurnace Company) portion.",
-                        "format": "double"
-                    },
-                    "stampAmount": {
-                        "type": "number",
-                        "description": "Stamp amount of the doucment calculated using stamp rate",
-                        "format": "double"
-                    },
-                    "vatAmount": {
-                        "type": "number",
-                        "description": "Vat amount based on the vat type",
                         "format": "double"
                     }
                 }
