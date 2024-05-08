@@ -12,10 +12,14 @@
     },
     "servers": [
         {
-            "url": "https://localhost:7878",
-            "description": "Inferred Url"
+          "url": "https://cisdev.green-delta.com:7878",
+          "description": "Production"
+        },
+        {
+          "description": "Sandbox",
+          "url": "https://cisdev.green-delta.com:7878"
         }
-    ],
+      ],
     "tags": [
         {
             "name": "Customer",
