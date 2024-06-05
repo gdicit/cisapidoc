@@ -47,6 +47,177 @@
         }
     ],
     "paths": {
+        "/api/claims/loss-claim-merge": {
+            "post": {
+                "tags": [
+                    "Claims"
+                ],
+                "summary": "Get TPA Loss Claims Request",
+                "description": "Receive and Sync Loss Claim's data From TPA",
+                "operationId": "LossClaimsDataSyncUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object Single«ClaimsMergeResponse»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/claims/paid-claim-merge": {
+            "post": {
+                "tags": [
+                    "Claims"
+                ],
+                "summary": "Get TPA Paid Claim Request",
+                "description": "Receive and Sync Paid Claim's data From TPA",
+                "operationId": "paidClaimsDataSyncUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object Single«ClaimsMergeResponse»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/claims/rejected-claim-merge": {
+            "post": {
+                "tags": [
+                    "Claims"
+                ],
+                "summary": "Get TPA Rejected Claim Request",
+                "description": "Receive and Sync Rejected Claim's data From TPA",
+                "operationId": "regectedClaimsDataSyncUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object Single«ClaimsMergeResponse»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
         "/api/add-customer": {
             "post": {
                 "tags": [
@@ -1232,6 +1403,93 @@
                 },
                 "description": "Business and Holidays Related text fields"
             },
+            "ClaimsMergeResponse": {
+                "title": "ClaimsMergeResponse",
+                "type": "object",
+                "properties": {
+                    "cessionno": {
+                        "type": "string"
+                    },
+                    "claimedAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "claimsClassCode": {
+                        "type": "string"
+                    },
+                    "coinsurerShare": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "dateOfIntimation": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "dateOfLoss": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "docAdditional": {
+                        "type": "string"
+                    },
+                    "estimatedLoss": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "gdicShare": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "lossId": {
+                        "type": "string"
+                    },
+                    "lossNo": {
+                        "type": "string"
+                    },
+                    "lossNoNumber": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "lossSubmitStatus": {
+                        "type": "string"
+                    },
+                    "lossYear": {
+                        "type": "string"
+                    },
+                    "masterDocId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "natureOfLoss": {
+                        "type": "string"
+                    },
+                    "natureOfLossId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "payableTo": {
+                        "type": "string"
+                    },
+                    "receivableFromCoinsurance": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "remarks": {
+                        "type": "string"
+                    },
+                    "surveyorId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "surveyorName": {
+                        "type": "string"
+                    }
+                }
+            },
             "Common text field description": {
                 "title": "Common text field description",
                 "type": "object",
@@ -1627,6 +1885,31 @@
                 "properties": {
                     "data": {
                         "$ref": "#/components/schemas/AccMoneyReceiptVm"
+                    },
+                    "remarks": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "Time and date of the execution",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                }
+            },
+            "Data Object Single«ClaimsMergeResponse»": {
+                "title": "Data Object Single«ClaimsMergeResponse»",
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/ClaimsMergeResponse"
                     },
                     "remarks": {
                         "type": "array",
@@ -3217,17 +3500,6 @@
                 "title": "Nibedita Quotation Prerequisite",
                 "type": "object",
                 "properties": {
-                    "dropdowns": {
-                        "description": "Dropdown values for Nibedita/GHI",
-                        "$ref": "#/components/schemas/Nibedita Dropdown Details"
-                    },
-                    "objectArrays": {
-                        "type": "array",
-                        "description": "For Nibedita Nominee can be multiple and will be save as arrays of object. In the object the nominee details will be provided",
-                        "items": {
-                            "$ref": "#/components/schemas/Object Arrays Details"
-                        }
-                    },
                     "textFields": {
                         "type": "array",
                         "description": "Common text fields array with type and description",
@@ -3268,7 +3540,6 @@
                 "required": [
                     "nomineeAddress",
                     "nomineeDateOfBirth",
-                    "nomineeEmail",
                     "nomineeMobile",
                     "nomineeName",
                     "nomineeNid",
