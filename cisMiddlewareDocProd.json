@@ -12,14 +12,14 @@
     },
     "servers": [
         {
-          "url": "https://cisdev.green-delta.com:7878",
-          "description": "Production"
+            "url": "https://cisdev.green-delta.com:7878",
+            "description": "Production"
         },
         {
-          "description": "Sandbox",
-          "url": "https://cisdev.green-delta.com:7878"
+            "description": "Sandbox",
+            "url": "https://cisdev.green-delta.com:7878"
         }
-      ],
+    ],
     "tags": [
         {
             "name": "Customer",
@@ -1090,7 +1090,6 @@
             "Add Document Request": {
                 "title": "Add Document Request",
                 "required": [
-                    "customerInfo",
                     "loginUserInfo",
                     "messageId"
                 ],
@@ -1105,8 +1104,7 @@
                         "$ref": "#/components/schemas/Document Common Information For Payment"
                     },
                     "customerInfo": {
-                        "description": "Customer Information",
-                        "$ref": "#/components/schemas/Customer Information"
+                        "$ref": "#/components/schemas/Customer Information For Document"
                     },
                     "ens": {
                         "description": "Employment and Studies (E&S) related details",
@@ -1517,6 +1515,284 @@
             },
             "Customer Information": {
                 "title": "Customer Information",
+                "required": [
+                    "customerType",
+                    "dateOfBirth",
+                    "mobileNo"
+                ],
+                "type": "object",
+                "properties": {
+                    "bin": {
+                        "type": "string",
+                        "description": "BIN (Business Identification Number)",
+                        "example": "4265457564523"
+                    },
+                    "birthRegNo": {
+                        "type": "string",
+                        "description": "Birth registration number of the customer"
+                    },
+                    "companyRegAuthority": {
+                        "type": "string",
+                        "description": "Company registration authority"
+                    },
+                    "companyType": {
+                        "type": "string",
+                        "description": "Type of company",
+                        "example": "REGISTERED, UNREGISTERED"
+                    },
+                    "contactAddress": {
+                        "type": "string",
+                        "description": "Contact address of the customer"
+                    },
+                    "contactPerson": {
+                        "type": "string",
+                        "description": "The user designated by Customer who will serve as the primary contact person"
+                    },
+                    "customerGroupCode": {
+                        "type": "string",
+                        "description": "Customer group code"
+                    },
+                    "customerType": {
+                        "type": "string",
+                        "description": "Type of customer {when customer is PERSONAL NID, Passport or Birth Reg no is required, and when BUSINESS there are ceitain logical required fields like (Registerd=BIN) (Proprietorship/Sole Trader = BIN or NID) (Partnership Firm=BIN or NID) (Society=NID) (Trade Org=NID) (NGO/Charitable Org = BIN or NID) (Foreign Org=BIN or NID)}",
+                        "example": "BUSINESS, INDIVIDUAL"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "Date of birth of the customer format: (YYYY-MM-DD) (required for both new customer and existing customer)",
+                        "example": "1990-01-01"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the customer"
+                    },
+                    "fatherName": {
+                        "type": "string",
+                        "description": "Father's name of the customer"
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "First name of the customer"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender of the customer",
+                        "example": "Male, Female etc."
+                    },
+                    "incomeSource": {
+                        "type": "string",
+                        "description": "Customer source of income"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Last name of the customer"
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "Middle name of the customer"
+                    },
+                    "mobileNo": {
+                        "type": "string",
+                        "description": "Customer Valid Mobile Number (required for both new customer and existing customer)"
+                    },
+                    "motherName": {
+                        "type": "string",
+                        "description": "Mother's name of the customer"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Full name of the customer"
+                    },
+                    "nationality": {
+                        "type": "string",
+                        "description": "Nationality of the customer"
+                    },
+                    "nid": {
+                        "type": "string",
+                        "description": "National ID number of the customer"
+                    },
+                    "officeAddress": {
+                        "type": "string",
+                        "description": "Office address of the customer"
+                    },
+                    "officeContactNumber": {
+                        "type": "string",
+                        "description": "Office contact number of the customer"
+                    },
+                    "passportExpireDate": {
+                        "type": "string",
+                        "description": "Passport expiration date format: (YYYY-MM-DD) (if passport number is given then expiry date must be given)",
+                        "example": "1990-01-01"
+                    },
+                    "passportNo": {
+                        "type": "string",
+                        "description": "Passport number of the customer if any"
+                    },
+                    "permanentAddress": {
+                        "type": "string",
+                        "description": "Permanent address of the customer"
+                    },
+                    "presentAddress": {
+                        "type": "string",
+                        "description": "Present address of the customer"
+                    },
+                    "regIssueDate": {
+                        "type": "string",
+                        "description": "Registration issue date format: (YYYY-MM-DD)",
+                        "example": "1990-01-01"
+                    },
+                    "spouseName": {
+                        "type": "string",
+                        "description": "Spouse's name of the customer if any"
+                    },
+                    "tin": {
+                        "type": "string",
+                        "description": "Taxpayer Identification Number (TIN)",
+                        "example": "95751147656"
+                    },
+                    "tradeLicenceNo": {
+                        "type": "string",
+                        "description": "Trade license number of the customer if any"
+                    }
+                }
+            },
+            "Customer Information For Document": {
+                "title": "Customer Information For Document",
+                "type": "object",
+                "properties": {
+                    "bin": {
+                        "type": "string",
+                        "description": "BIN (Business Identification Number). Mandatory for business customers."
+                    },
+                    "birthRegNo": {
+                        "type": "string",
+                        "description": "Birth registration number (optional)."
+                    },
+                    "companyRegAuthority": {
+                        "type": "string",
+                        "description": "Company registration authority (optional)."
+                    },
+                    "companyType": {
+                        "type": "string",
+                        "description": "Type of company (e.g., REGISTERED). Required for business customers."
+                    },
+                    "contactAddress": {
+                        "type": "string",
+                        "description": "Contact address (optional)."
+                    },
+                    "contactPerson": {
+                        "type": "string",
+                        "description": "Contact person (optional)."
+                    },
+                    "customerGroupCode": {
+                        "type": "string",
+                        "description": "Customer group code (e.g., UNILIVER). Required for business customers."
+                    },
+                    "customerId": {
+                        "type": "integer",
+                        "description": "Customer ID. It will depend on whether it's a new customer or an existing one. customerId will given for existing customer otherwise it will be null",
+                        "format": "int64"
+                    },
+                    "customerType": {
+                        "type": "string",
+                        "description": "Type of customer (e.g., BUSINESS). Required for business customers."
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "Date of birth of the customer. Required for new PERSONAL customer."
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the customer. Optional for personal/business customers."
+                    },
+                    "fatherName": {
+                        "type": "string",
+                        "description": "Father's name. Optional for personal/business customers."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "First name of the customer. Required for new PERSONAL customer. "
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender of the customer. Mandatory for personal customers. Required for new PERSONAL customer."
+                    },
+                    "incomeSource": {
+                        "type": "string",
+                        "description": "Source of income (optional)."
+                    },
+                    "insuredAddress": {
+                        "type": "string",
+                        "description": "Insured address. Mandatory for both existing and new customers. By default it can be customers permanent address. User can change the address as it will be consider as mailing address"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Last name of the customer (optional)."
+                    },
+                    "mobileNo": {
+                        "type": "string",
+                        "description": "Mobile number of the customer. Mandatory for both personal and business customers."
+                    },
+                    "motherName": {
+                        "type": "string",
+                        "description": "Mother's name. Optional for personal/business customers."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Full name of the customer. Required for new customer."
+                    },
+                    "nationality": {
+                        "type": "string",
+                        "description": "Nationality of the customer (optional)."
+                    },
+                    "nid": {
+                        "type": "string",
+                        "description": "NID (National Identification Number) (optional)."
+                    },
+                    "officeAddress": {
+                        "type": "string",
+                        "description": "Office address (optional)."
+                    },
+                    "officeContactNumber": {
+                        "type": "string",
+                        "description": "Office contact number (optional)."
+                    },
+                    "passportExpireDate": {
+                        "type": "string",
+                        "description": "Passport expiration date (if applicable). Mandatory when passport number (passportNo) is given."
+                    },
+                    "passportNo": {
+                        "type": "string",
+                        "description": "Passport number (if available) of the customer."
+                    },
+                    "permanentAddress": {
+                        "type": "string",
+                        "description": "Permanent address of the customer. Required for both personal and business customers."
+                    },
+                    "presentAddress": {
+                        "type": "string",
+                        "description": "Present address of the customer (optional)."
+                    },
+                    "regIssueDate": {
+                        "type": "string",
+                        "description": "Registration issue date (optional)."
+                    },
+                    "spouseName": {
+                        "type": "string",
+                        "description": "Spouse's name. Optional for personal/business customers."
+                    },
+                    "tin": {
+                        "type": "string",
+                        "description": "TIN (Taxpayer Identification Number) (optional)."
+                    },
+                    "tradeLicenceNo": {
+                        "type": "string",
+                        "description": "Trade license number (optional)."
+                    }
+                }
+            },
+            "Customer Information For Quotation": {
+                "title": "Customer Information For Quotation",
                 "type": "object",
                 "properties": {
                     "bin": {
@@ -2616,8 +2892,7 @@
                 "type": "object",
                 "properties": {
                     "customerInfo": {
-                        "description": "Customer information",
-                        "$ref": "#/components/schemas/Customer Information"
+                        "$ref": "#/components/schemas/Customer Information For Quotation"
                     },
                     "policyEndDate": {
                         "type": "string",
