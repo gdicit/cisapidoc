@@ -20,47 +20,14 @@
             "url": "https://cisdev.green-delta.com:7878"
         }
     ],
-    "tags": [
-        {
-            "name": "Agent",
-            "description": "Agent Controller"
-        },
-        {
-            "name": "Claims",
-            "description": "Claims Controller"
-        },
-        {
-            "name": "Customer",
-            "description": "Customer Controller"
-        },
-        {
-            "name": "Document",
-            "description": "Document Master Controller"
-        },
-        {
-            "name": "Money Receipt",
-            "description": "Money Receipt Controller"
-        },
-        {
-            "name": "Product",
-            "description": "Product Controller"
-        },
-        {
-            "name": "Quotation",
-            "description": "Get Product Quotation Controller"
-        },
-        {
-            "name": "User",
-            "description": "User Login Controller"
-        }
-    ],
+    "tags": [],
     "paths": {
         "/api/agent/get-agent-by-agencycode-for-crm": {
             "post": {
                 "tags": [
                     "Agent"
                 ],
-                "summary": "Get agent infromation and all documents by the agent",
+                "summary": "Search Agent By AgencyCode - CRM",
                 "description": "if agent found this will return agent information along with all his/her related documents",
                 "operationId": "getAgentInfoByAgencyCodeUsingPOST",
                 "parameters": [
@@ -117,7 +84,7 @@
                 "tags": [
                     "Claims"
                 ],
-                "summary": "Get claims loss detailed infomation",
+                "summary": "Search Claims By ClaimsLossId - CRM",
                 "description": "Get claims loss information by claimsLossId",
                 "operationId": "getClaimsDetailsByClaimsNumberForCRMUsingPOST",
                 "parameters": [
@@ -459,7 +426,7 @@
                 "tags": [
                     "Customer"
                 ],
-                "summary": "Search Customer by search parameteres",
+                "summary": "Search Customer by Mobile/Document No - CRM",
                 "description": "Returns available customer by given parameters ex:(mobile number, document number), when customer not found returns empty.",
                 "operationId": "searchCustomerForCRMUsingPOST",
                 "parameters": [
@@ -714,7 +681,7 @@
                 "tags": [
                     "Document"
                 ],
-                "summary": "Returns document with details by search text",
+                "summary": "Search Document By DocNo - CRM",
                 "description": "Returns Document by search text/keywords with associated data like claims, nominee etc.",
                 "operationId": "getDocumentByDocumentNumberForCRMUsingPOST",
                 "parameters": [
