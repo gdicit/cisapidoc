@@ -12,15 +12,23 @@
     },
     "servers": [
         {
-          "url": "https://cisdev.green-delta.com:7878",
-          "description": "Production"
+            "url": "https://cisdev.green-delta.com:7878",
+            "description": "Production"
         },
         {
-          "description": "Sandbox",
-          "url": "https://cisdev.green-delta.com:7878"
+            "description": "Sandbox",
+            "url": "https://cisdev.green-delta.com:7878"
         }
-      ],
+    ],
     "tags": [
+        {
+            "name": "Agent",
+            "description": "Agent Controller"
+        },
+        {
+            "name": "Claims",
+            "description": "Claims Controller"
+        },
         {
             "name": "Customer",
             "description": "Customer Controller"
@@ -47,6 +55,291 @@
         }
     ],
     "paths": {
+        "/api/agent/get-agent-by-agencycode-for-crm": {
+            "post": {
+                "tags": [
+                    "Agent"
+                ],
+                "summary": "Get agent infromation and all documents by the agent",
+                "description": "if agent found this will return agent information along with all his/her related documents",
+                "operationId": "getAgentInfoByAgencyCodeUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Agent Request Model"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object Single«Agent response with related documents»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/claims/get-claim-by-claim-loss-id-for-crm": {
+            "post": {
+                "tags": [
+                    "Claims"
+                ],
+                "summary": "Get claims loss detailed infomation",
+                "description": "Get claims loss information by claimsLossId",
+                "operationId": "getClaimsDetailsByClaimsNumberForCRMUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Claims Request Model"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object Single«ClaimsResponseCRMIndividualVM»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/claims/loss-claim-merge": {
+            "post": {
+                "tags": [
+                    "Claims"
+                ],
+                "summary": "Get TPA Loss Claims Request",
+                "description": "Receive and Sync Loss Claim's data From TPA",
+                "operationId": "LossClaimsDataSyncUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object Single«ClaimsMergeResponse»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/claims/paid-claim-merge": {
+            "post": {
+                "tags": [
+                    "Claims"
+                ],
+                "summary": "Get TPA Paid Claim Request",
+                "description": "Receive and Sync Paid Claim's data From TPA",
+                "operationId": "paidClaimsDataSyncUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object Single«ClaimsMergeResponse»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/claims/rejected-claim-merge": {
+            "post": {
+                "tags": [
+                    "Claims"
+                ],
+                "summary": "Get TPA Rejected Claim Request",
+                "description": "Receive and Sync Rejected Claim's data From TPA",
+                "operationId": "regectedClaimsDataSyncUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object Single«ClaimsMergeResponse»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
         "/api/add-customer": {
             "post": {
                 "tags": [
@@ -139,6 +432,63 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Data Object«Customer Response Body»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/search-customer-crm": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Search Customer by search parameteres",
+                "description": "Returns available customer by given parameters ex:(mobile number, document number), when customer not found returns empty.",
+                "operationId": "searchCustomerForCRMUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer [token]",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CRMCustomerRequestVM"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object«Customer Response Body For CRM»"
                                 }
                             }
                         }
@@ -337,6 +687,63 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Data Object Single«UnderwritingResponseVm»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/get-document-by-document-number-for-crm": {
+            "post": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Returns document with details by search text",
+                "description": "Returns Document by search text/keywords with associated data like claims, nominee etc.",
+                "operationId": "getDocumentByDocumentNumberForCRMUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DocNoVm"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object Single«Underwriting Document Response for CRM»"
                                 }
                             }
                         }
@@ -919,7 +1326,6 @@
             "Add Document Request": {
                 "title": "Add Document Request",
                 "required": [
-                    "customerInfo",
                     "loginUserInfo",
                     "messageId"
                 ],
@@ -934,8 +1340,7 @@
                         "$ref": "#/components/schemas/Document Common Information For Payment"
                     },
                     "customerInfo": {
-                        "description": "Customer Information",
-                        "$ref": "#/components/schemas/Customer Information"
+                        "$ref": "#/components/schemas/Customer Information For Document"
                     },
                     "ens": {
                         "description": "Employment and Studies (E&S) related details",
@@ -968,6 +1373,166 @@
                     "ppa": {
                         "description": "People's Personal Accident (PPA) product related details",
                         "$ref": "#/components/schemas/People's Personal Accident Details"
+                    }
+                }
+            },
+            "Agent Request Model": {
+                "title": "Agent Request Model",
+                "type": "object",
+                "properties": {
+                    "agencyCode": {
+                        "type": "string",
+                        "description": "Agency code of the agent",
+                        "example": "agent123"
+                    }
+                }
+            },
+            "Agent response": {
+                "title": "Agent response",
+                "type": "object",
+                "properties": {
+                    "agencyCode": {
+                        "type": "string",
+                        "description": "Agency code of the agent",
+                        "example": "AG12345"
+                    },
+                    "dateOfExpiry": {
+                        "type": "string",
+                        "description": "Date of expiry of the agent's license",
+                        "example": "2024-12-31"
+                    },
+                    "dateOfIssue": {
+                        "type": "string",
+                        "description": "Date of issue of the agent's license",
+                        "example": "2020-01-01"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the agent",
+                        "example": "john.doe@example.com"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender of the agent",
+                        "example": "Male"
+                    },
+                    "idraCode": {
+                        "type": "string",
+                        "description": "IDRA code of the agent",
+                        "example": "IDRA7890"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Indicates if the agent is currently active",
+                        "example": true
+                    },
+                    "mobileNumber": {
+                        "type": "string",
+                        "description": "Mobile number of the agent",
+                        "example": "+8801612345678"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the agent",
+                        "example": "John Doe"
+                    },
+                    "permanentAddress": {
+                        "type": "string",
+                        "description": "Permanent address of the agent",
+                        "example": "456 Elm St, Townsville"
+                    },
+                    "presentAddress": {
+                        "type": "string",
+                        "description": "Present address of the agent",
+                        "example": "123 Main St, Cityville"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Status of the agent",
+                        "example": "Active"
+                    },
+                    "uniqueAgentCode": {
+                        "type": "string",
+                        "description": "Unique code assigned to the agent",
+                        "example": "UAG987654"
+                    }
+                }
+            },
+            "Agent response with related documents": {
+                "title": "Agent response with related documents",
+                "type": "object",
+                "properties": {
+                    "agencyCode": {
+                        "type": "string",
+                        "description": "Agency code of the agent",
+                        "example": "AG12345"
+                    },
+                    "dateOfExpiry": {
+                        "type": "string",
+                        "description": "Date of expiry of the agent's license",
+                        "example": "2024-12-31"
+                    },
+                    "dateOfIssue": {
+                        "type": "string",
+                        "description": "Date of issue of the agent's license",
+                        "example": "2020-01-01"
+                    },
+                    "documents": {
+                        "type": "array",
+                        "description": "All document list for the agent",
+                        "items": {
+                            "$ref": "#/components/schemas/Document Number with Validity"
+                        }
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the agent",
+                        "example": "john.doe@example.com"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender of the agent",
+                        "example": "Male"
+                    },
+                    "idraCode": {
+                        "type": "string",
+                        "description": "IDRA code of the agent",
+                        "example": "IDRA7890"
+                    },
+                    "isActive": {
+                        "type": "boolean",
+                        "description": "Indicates if the agent is currently active",
+                        "example": true
+                    },
+                    "mobileNumber": {
+                        "type": "string",
+                        "description": "Mobile number of the agent",
+                        "example": "+8801612345678"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the agent",
+                        "example": "John Doe"
+                    },
+                    "permanentAddress": {
+                        "type": "string",
+                        "description": "Permanent address of the agent",
+                        "example": "456 Elm St, Townsville"
+                    },
+                    "presentAddress": {
+                        "type": "string",
+                        "description": "Present address of the agent",
+                        "example": "123 Main St, Cityville"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Status of the agent",
+                        "example": "Active"
+                    },
+                    "uniqueAgentCode": {
+                        "type": "string",
+                        "description": "Unique code assigned to the agent",
+                        "example": "UAG987654"
                     }
                 }
             },
@@ -1043,6 +1608,32 @@
                         "type": "string",
                         "description": "Title of the product",
                         "example": "Full length title of the proudct"
+                    }
+                }
+            },
+            "AggregatorClientBranchResponseVm": {
+                "title": "AggregatorClientBranchResponseVm",
+                "type": "object",
+                "properties": {
+                    "clientBranchList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AggregatorClientBranchResponseVm"
+                        }
+                    },
+                    "clientCode": {
+                        "type": "string"
+                    },
+                    "clientName": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "refId": {
+                        "type": "integer",
+                        "format": "int64"
                     }
                 }
             },
@@ -1232,6 +1823,256 @@
                 },
                 "description": "Business and Holidays Related text fields"
             },
+            "CRMCustomerRequestVM": {
+                "title": "CRMCustomerRequestVM",
+                "required": [
+                    "searchFieldType",
+                    "searchText"
+                ],
+                "type": "object",
+                "properties": {
+                    "searchFieldType": {
+                        "type": "array",
+                        "description": "Type of the search fields, can be mobile number, document number, or both",
+                        "example": "MOBILE_NUMBER, DOCUMENT_NUMBER",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "DOCUMENT_NUMBER",
+                                "MOBILE_NUMBER"
+                            ]
+                        }
+                    },
+                    "searchText": {
+                        "type": "string",
+                        "description": "Value corresponding to the selected searchFieldType",
+                        "example": "01711111111, GDI/AHO/08/2024/FIR/P/000001"
+                    }
+                }
+            },
+            "Claims Request Model": {
+                "title": "Claims Request Model",
+                "type": "object",
+                "properties": {
+                    "claimsLossId": {
+                        "type": "string",
+                        "description": "ClaimsLossId of the Claim",
+                        "example": "FCL/2024/000001"
+                    }
+                }
+            },
+            "Claims response for any claims loss": {
+                "title": "Claims response for any claims loss",
+                "type": "object",
+                "properties": {
+                    "claimedAmount": {
+                        "type": "number",
+                        "description": "Amount claimed by the insured",
+                        "format": "double",
+                        "example": 15000
+                    },
+                    "claimsClassCode": {
+                        "type": "string",
+                        "description": "Code representing the class of the claim",
+                        "example": "CLASS_A"
+                    },
+                    "dateOfIntimation": {
+                        "type": "string",
+                        "description": "Date when the loss was intimated",
+                        "example": "2024-01-15"
+                    },
+                    "dateOfLoss": {
+                        "type": "string",
+                        "description": "Date when the loss occurred",
+                        "example": "2024-01-10"
+                    },
+                    "dateOfPayment": {
+                        "type": "string",
+                        "description": "Date when the payment was made",
+                        "example": "2024-02-01"
+                    },
+                    "lossId": {
+                        "type": "string",
+                        "description": "Unique identifier for the loss",
+                        "example": "LOSS123456"
+                    },
+                    "lossYear": {
+                        "type": "integer",
+                        "description": "Year of the loss",
+                        "format": "int32",
+                        "example": 2024
+                    },
+                    "natureOfLoss": {
+                        "type": "string",
+                        "description": "Nature of the loss",
+                        "example": "Fire Damage"
+                    },
+                    "natureOfLossDescription": {
+                        "type": "string",
+                        "description": "Detailed description of the nature of loss",
+                        "example": "The fire caused significant damage to the warehouse."
+                    },
+                    "paidAmount": {
+                        "type": "number",
+                        "description": "Amount paid to the insured",
+                        "format": "double",
+                        "example": 12000
+                    }
+                }
+            },
+            "ClaimsMergeResponse": {
+                "title": "ClaimsMergeResponse",
+                "type": "object",
+                "properties": {
+                    "cessionno": {
+                        "type": "string"
+                    },
+                    "claimedAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "claimsClassCode": {
+                        "type": "string"
+                    },
+                    "coinsurerShare": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "dateOfIntimation": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "dateOfLoss": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "docAdditional": {
+                        "type": "string"
+                    },
+                    "estimatedLoss": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "gdicShare": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "lossId": {
+                        "type": "string"
+                    },
+                    "lossNo": {
+                        "type": "string"
+                    },
+                    "lossNoNumber": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "lossSubmitStatus": {
+                        "type": "string"
+                    },
+                    "lossYear": {
+                        "type": "string"
+                    },
+                    "masterDocId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "natureOfLoss": {
+                        "type": "string"
+                    },
+                    "natureOfLossId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "payableTo": {
+                        "type": "string"
+                    },
+                    "receivableFromCoinsurance": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "remarks": {
+                        "type": "string"
+                    },
+                    "surveyorId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "surveyorName": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ClaimsResponseCRMIndividualVM": {
+                "title": "ClaimsResponseCRMIndividualVM",
+                "type": "object",
+                "properties": {
+                    "claimedAmount": {
+                        "type": "number",
+                        "description": "Amount claimed by the insured",
+                        "format": "double",
+                        "example": 15000
+                    },
+                    "claimsClassCode": {
+                        "type": "string",
+                        "description": "Code representing the class of the claim",
+                        "example": "CLASS_A"
+                    },
+                    "dateOfIntimation": {
+                        "type": "string",
+                        "description": "Date when the loss was intimated",
+                        "example": "2024-01-15"
+                    },
+                    "dateOfLoss": {
+                        "type": "string",
+                        "description": "Date when the loss occurred",
+                        "example": "2024-01-10"
+                    },
+                    "dateOfPayment": {
+                        "type": "string",
+                        "description": "Date when the payment was made",
+                        "example": "2024-02-01"
+                    },
+                    "documents": {
+                        "type": "array",
+                        "description": "All tagged documents with the claim",
+                        "items": {
+                            "$ref": "#/components/schemas/Document Number with Validity"
+                        }
+                    },
+                    "lossId": {
+                        "type": "string",
+                        "description": "Unique identifier for the loss",
+                        "example": "LOSS123456"
+                    },
+                    "lossYear": {
+                        "type": "integer",
+                        "description": "Year of the loss",
+                        "format": "int32",
+                        "example": 2024
+                    },
+                    "natureOfLoss": {
+                        "type": "string",
+                        "description": "Nature of the loss",
+                        "example": "Fire Damage"
+                    },
+                    "natureOfLossDescription": {
+                        "type": "string",
+                        "description": "Detailed description of the nature of loss",
+                        "example": "The fire caused significant damage to the warehouse."
+                    },
+                    "paidAmount": {
+                        "type": "number",
+                        "description": "Amount paid to the insured",
+                        "format": "double",
+                        "example": 12000
+                    }
+                }
+            },
             "Common text field description": {
                 "title": "Common text field description",
                 "type": "object",
@@ -1259,6 +2100,284 @@
             },
             "Customer Information": {
                 "title": "Customer Information",
+                "required": [
+                    "customerType",
+                    "dateOfBirth",
+                    "mobileNo"
+                ],
+                "type": "object",
+                "properties": {
+                    "bin": {
+                        "type": "string",
+                        "description": "BIN (Business Identification Number)",
+                        "example": "4265457564523"
+                    },
+                    "birthRegNo": {
+                        "type": "string",
+                        "description": "Birth registration number of the customer"
+                    },
+                    "companyRegAuthority": {
+                        "type": "string",
+                        "description": "Company registration authority"
+                    },
+                    "companyType": {
+                        "type": "string",
+                        "description": "Type of company",
+                        "example": "REGISTERED, UNREGISTERED"
+                    },
+                    "contactAddress": {
+                        "type": "string",
+                        "description": "Contact address of the customer"
+                    },
+                    "contactPerson": {
+                        "type": "string",
+                        "description": "The user designated by Customer who will serve as the primary contact person"
+                    },
+                    "customerGroupCode": {
+                        "type": "string",
+                        "description": "Customer group code"
+                    },
+                    "customerType": {
+                        "type": "string",
+                        "description": "Type of customer {when customer is PERSONAL NID, Passport or Birth Reg no is required, and when BUSINESS there are ceitain logical required fields like (Registerd=BIN) (Proprietorship/Sole Trader = BIN or NID) (Partnership Firm=BIN or NID) (Society=NID) (Trade Org=NID) (NGO/Charitable Org = BIN or NID) (Foreign Org=BIN or NID)}",
+                        "example": "BUSINESS, INDIVIDUAL"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "Date of birth of the customer format: (YYYY-MM-DD) (required for both new customer and existing customer)",
+                        "example": "1990-01-01"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the customer"
+                    },
+                    "fatherName": {
+                        "type": "string",
+                        "description": "Father's name of the customer"
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "First name of the customer"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender of the customer",
+                        "example": "Male, Female etc."
+                    },
+                    "incomeSource": {
+                        "type": "string",
+                        "description": "Customer source of income"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Last name of the customer"
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "Middle name of the customer"
+                    },
+                    "mobileNo": {
+                        "type": "string",
+                        "description": "Customer Valid Mobile Number (required for both new customer and existing customer)"
+                    },
+                    "motherName": {
+                        "type": "string",
+                        "description": "Mother's name of the customer"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Full name of the customer"
+                    },
+                    "nationality": {
+                        "type": "string",
+                        "description": "Nationality of the customer"
+                    },
+                    "nid": {
+                        "type": "string",
+                        "description": "National ID number of the customer"
+                    },
+                    "officeAddress": {
+                        "type": "string",
+                        "description": "Office address of the customer"
+                    },
+                    "officeContactNumber": {
+                        "type": "string",
+                        "description": "Office contact number of the customer"
+                    },
+                    "passportExpireDate": {
+                        "type": "string",
+                        "description": "Passport expiration date format: (YYYY-MM-DD) (if passport number is given then expiry date must be given)",
+                        "example": "1990-01-01"
+                    },
+                    "passportNo": {
+                        "type": "string",
+                        "description": "Passport number of the customer if any"
+                    },
+                    "permanentAddress": {
+                        "type": "string",
+                        "description": "Permanent address of the customer"
+                    },
+                    "presentAddress": {
+                        "type": "string",
+                        "description": "Present address of the customer"
+                    },
+                    "regIssueDate": {
+                        "type": "string",
+                        "description": "Registration issue date format: (YYYY-MM-DD)",
+                        "example": "1990-01-01"
+                    },
+                    "spouseName": {
+                        "type": "string",
+                        "description": "Spouse's name of the customer if any"
+                    },
+                    "tin": {
+                        "type": "string",
+                        "description": "Taxpayer Identification Number (TIN)",
+                        "example": "95751147656"
+                    },
+                    "tradeLicenceNo": {
+                        "type": "string",
+                        "description": "Trade license number of the customer if any"
+                    }
+                }
+            },
+            "Customer Information For Document": {
+                "title": "Customer Information For Document",
+                "type": "object",
+                "properties": {
+                    "bin": {
+                        "type": "string",
+                        "description": "BIN (Business Identification Number). Mandatory for business customers."
+                    },
+                    "birthRegNo": {
+                        "type": "string",
+                        "description": "Birth registration number (optional)."
+                    },
+                    "companyRegAuthority": {
+                        "type": "string",
+                        "description": "Company registration authority (optional)."
+                    },
+                    "companyType": {
+                        "type": "string",
+                        "description": "Type of company (e.g., REGISTERED). Required for business customers."
+                    },
+                    "contactAddress": {
+                        "type": "string",
+                        "description": "Contact address (optional)."
+                    },
+                    "contactPerson": {
+                        "type": "string",
+                        "description": "Contact person (optional)."
+                    },
+                    "customerGroupCode": {
+                        "type": "string",
+                        "description": "Customer group code (e.g., UNILIVER). Required for business customers."
+                    },
+                    "customerId": {
+                        "type": "integer",
+                        "description": "Customer ID. It will depend on whether it's a new customer or an existing one. customerId will given for existing customer otherwise it will be null",
+                        "format": "int64"
+                    },
+                    "customerType": {
+                        "type": "string",
+                        "description": "Type of customer (e.g., BUSINESS). Required for business customers."
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "Date of birth of the customer. Required for new PERSONAL customer."
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the customer. Optional for personal/business customers."
+                    },
+                    "fatherName": {
+                        "type": "string",
+                        "description": "Father's name. Optional for personal/business customers."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "First name of the customer. Required for new PERSONAL customer. "
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender of the customer. Mandatory for personal customers. Required for new PERSONAL customer."
+                    },
+                    "incomeSource": {
+                        "type": "string",
+                        "description": "Source of income (optional)."
+                    },
+                    "insuredAddress": {
+                        "type": "string",
+                        "description": "Insured address. Mandatory for both existing and new customers. By default it can be customers permanent address. User can change the address as it will be consider as mailing address"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Last name of the customer (optional)."
+                    },
+                    "mobileNo": {
+                        "type": "string",
+                        "description": "Mobile number of the customer. Mandatory for both personal and business customers."
+                    },
+                    "motherName": {
+                        "type": "string",
+                        "description": "Mother's name. Optional for personal/business customers."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Full name of the customer. Required for new customer."
+                    },
+                    "nationality": {
+                        "type": "string",
+                        "description": "Nationality of the customer (optional)."
+                    },
+                    "nid": {
+                        "type": "string",
+                        "description": "NID (National Identification Number) (optional)."
+                    },
+                    "officeAddress": {
+                        "type": "string",
+                        "description": "Office address (optional)."
+                    },
+                    "officeContactNumber": {
+                        "type": "string",
+                        "description": "Office contact number (optional)."
+                    },
+                    "passportExpireDate": {
+                        "type": "string",
+                        "description": "Passport expiration date (if applicable). Mandatory when passport number (passportNo) is given."
+                    },
+                    "passportNo": {
+                        "type": "string",
+                        "description": "Passport number (if available) of the customer."
+                    },
+                    "permanentAddress": {
+                        "type": "string",
+                        "description": "Permanent address of the customer. Required for both personal and business customers."
+                    },
+                    "presentAddress": {
+                        "type": "string",
+                        "description": "Present address of the customer (optional)."
+                    },
+                    "regIssueDate": {
+                        "type": "string",
+                        "description": "Registration issue date (optional)."
+                    },
+                    "spouseName": {
+                        "type": "string",
+                        "description": "Spouse's name. Optional for personal/business customers."
+                    },
+                    "tin": {
+                        "type": "string",
+                        "description": "TIN (Taxpayer Identification Number) (optional)."
+                    },
+                    "tradeLicenceNo": {
+                        "type": "string",
+                        "description": "Trade license number (optional)."
+                    }
+                }
+            },
+            "Customer Information For Quotation": {
+                "title": "Customer Information For Quotation",
                 "type": "object",
                 "properties": {
                     "bin": {
@@ -1621,12 +2740,191 @@
                     }
                 }
             },
+            "Customer Response Body For CRM": {
+                "title": "Customer Response Body For CRM",
+                "type": "object",
+                "properties": {
+                    "bin": {
+                        "type": "string",
+                        "description": "BIN (Business Identification Number) of the customer",
+                        "example": "123456789"
+                    },
+                    "birthRegNo": {
+                        "type": "string",
+                        "description": "Birth registration number of the customer",
+                        "example": "B9876543"
+                    },
+                    "contactAddress": {
+                        "type": "string",
+                        "description": "Contact address for the customer",
+                        "example": "789 Third St, City, Country"
+                    },
+                    "contactPerson": {
+                        "type": "string",
+                        "description": "Contact person for the customer",
+                        "example": "John Doe"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "Date of birth of the customer {format: (YYYY-MM-DD)}",
+                        "format": "date",
+                        "example": "1990-01-01T00:00:00.000+00:00"
+                    },
+                    "documentNumbers": {
+                        "type": "array",
+                        "description": "Customer Purchased Policy Numbers",
+                        "items": {
+                            "$ref": "#/components/schemas/Document Number with Validity"
+                        }
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Valid email address of the customer",
+                        "example": "test@example.com"
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "First Name Of The Customer",
+                        "example": "Abdur"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender of the customer",
+                        "example": "Male, Female etc."
+                    },
+                    "incomeSource": {
+                        "type": "string",
+                        "description": "Customer's source of income",
+                        "example": "Employment, Business etc."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Last Name Of The Customer",
+                        "example": "Sujon"
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "Middle Name Of The Customer",
+                        "example": "Rahman"
+                    },
+                    "mobileNo": {
+                        "type": "string",
+                        "description": "Mobile number of the customer",
+                        "example": "01234567890"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Full name of the customer",
+                        "example": "Abdur Rahman Sujon"
+                    },
+                    "nationality": {
+                        "type": "string",
+                        "description": "Nationality of the customer",
+                        "example": "Bangladeshi, US, Canada etc."
+                    },
+                    "nid": {
+                        "type": "string",
+                        "description": "National ID number (NID) of the customer",
+                        "example": "1234567890"
+                    },
+                    "permanentAddress": {
+                        "type": "string",
+                        "description": "Permanent address of the customer",
+                        "example": "456 Second St, City, Country"
+                    },
+                    "presentAddress": {
+                        "type": "string",
+                        "description": "Present address of the customer",
+                        "example": "123 Main St, City, Country"
+                    },
+                    "tin": {
+                        "type": "string",
+                        "description": "TIN (Tax Identification Number) of the customer",
+                        "example": "987654321"
+                    }
+                }
+            },
             "Data Object Single«AccMoneyReceiptVm»": {
                 "title": "Data Object Single«AccMoneyReceiptVm»",
                 "type": "object",
                 "properties": {
                     "data": {
                         "$ref": "#/components/schemas/AccMoneyReceiptVm"
+                    },
+                    "remarks": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "Time and date of the execution",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                }
+            },
+            "Data Object Single«Agent response with related documents»": {
+                "title": "Data Object Single«Agent response with related documents»",
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/Agent response with related documents"
+                    },
+                    "remarks": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "Time and date of the execution",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                }
+            },
+            "Data Object Single«ClaimsMergeResponse»": {
+                "title": "Data Object Single«ClaimsMergeResponse»",
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/ClaimsMergeResponse"
+                    },
+                    "remarks": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "Time and date of the execution",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                }
+            },
+            "Data Object Single«ClaimsResponseCRMIndividualVM»": {
+                "title": "Data Object Single«ClaimsResponseCRMIndividualVM»",
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/ClaimsResponseCRMIndividualVM"
                     },
                     "remarks": {
                         "type": "array",
@@ -1771,6 +3069,31 @@
                     }
                 }
             },
+            "Data Object Single«Underwriting Document Response for CRM»": {
+                "title": "Data Object Single«Underwriting Document Response for CRM»",
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/Underwriting Document Response for CRM"
+                    },
+                    "remarks": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "Time and date of the execution",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                }
+            },
             "Data Object Single«UnderwritingResponseVm»": {
                 "title": "Data Object Single«UnderwritingResponseVm»",
                 "type": "object",
@@ -1780,6 +3103,35 @@
                     },
                     "remarks": {
                         "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "Time and date of the execution",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                }
+            },
+            "Data Object«Customer Response Body For CRM»": {
+                "title": "Data Object«Customer Response Body For CRM»",
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Customer Response Body For CRM"
+                        }
+                    },
+                    "remarks": {
+                        "type": "array",
+                        "description": "The success or error message will be send using this field.",
                         "items": {
                             "type": "string"
                         }
@@ -1969,6 +3321,27 @@
                     "trxNumber": {
                         "type": "string",
                         "description": "Transaction Number"
+                    }
+                }
+            },
+            "Document Number with Validity": {
+                "title": "Document Number with Validity",
+                "type": "object",
+                "properties": {
+                    "documentNumber": {
+                        "type": "string",
+                        "description": "Customer Purchased Document Number",
+                        "example": "GDI/AHO/08/2024/FIR/P/000001"
+                    },
+                    "documentValidFrom": {
+                        "type": "string",
+                        "description": "Document validity start date",
+                        "format": "date"
+                    },
+                    "documentValidTo": {
+                        "type": "string",
+                        "description": "Document validity end date",
+                        "format": "date"
                     }
                 }
             },
@@ -2333,8 +3706,7 @@
                 "type": "object",
                 "properties": {
                     "customerInfo": {
-                        "description": "Customer information",
-                        "$ref": "#/components/schemas/Customer Information"
+                        "$ref": "#/components/schemas/Customer Information For Quotation"
                     },
                     "policyEndDate": {
                         "type": "string",
@@ -2436,10 +3808,53 @@
                         "description": "Branch Code (Predefined 3 digits system value)",
                         "example": "RSG, GLN, MKH etc"
                     },
+                    "clientBranchId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
                     "clientCode": {
                         "type": "string",
                         "description": "Client Code of the Organization (Aggregator)",
                         "example": "BRAC, MTB, EBL etc"
+                    },
+                    "clientId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "corporateAddress": {
+                        "type": "string",
+                        "description": "If Corporate Client policy then corporate address.",
+                        "example": "Road: 01, Block:A, Mohakhali, Dhaka"
+                    },
+                    "corporateDistrict": {
+                        "type": "string",
+                        "description": "If Corporate Client policy then corporate location district.",
+                        "example": "Dhaka, Munshiganj, Cumilla"
+                    },
+                    "corporateEmpDesignation": {
+                        "type": "string",
+                        "description": "If Corporate Client policy then corporate employee designation",
+                        "example": "Road: 01, Block:A, Mohakhali, Dhaka"
+                    },
+                    "corporateEmpId": {
+                        "type": "string",
+                        "description": "If Corporate Client policy then corporate Employee ID.",
+                        "example": "ID001, ID002"
+                    },
+                    "corporateEmpName": {
+                        "type": "string",
+                        "description": "If Corporate Client policy then corporate Employee Name.",
+                        "example": "Mr. Name 1, Mr. Name 2"
+                    },
+                    "corporateName": {
+                        "type": "string",
+                        "description": "If Corporate Client policy then corporate Name.",
+                        "example": "CompanyA, CompanyB"
+                    },
+                    "corporatePolicyStatus": {
+                        "type": "string",
+                        "description": "If Corporate Client policy then Value is YES else NO (Predefined YES/NO)",
+                        "example": "YES, NO"
                     },
                     "designation": {
                         "type": "string",
@@ -2644,6 +4059,115 @@
                     "value": {
                         "type": "string",
                         "description": "Value value of the Element"
+                    }
+                }
+            },
+            "Master Document Response For CRM": {
+                "title": "Master Document Response For CRM",
+                "type": "object",
+                "properties": {
+                    "agents": {
+                        "type": "array",
+                        "description": "List of Agents of the associate document if present.",
+                        "items": {
+                            "$ref": "#/components/schemas/Agent response"
+                        }
+                    },
+                    "amendmend": {
+                        "type": "array",
+                        "description": "List of Endrossments of the associate document if present.",
+                        "items": {
+                            "$ref": "#/components/schemas/Master Document Response For CRM"
+                        }
+                    },
+                    "amendmentType": {
+                        "type": "string",
+                        "description": "When the document is type Endrossment/Addendum, this shows its change type.",
+                        "example": "FINANCIAL, NON_FINANCIAL"
+                    },
+                    "approvalStatus": {
+                        "type": "string",
+                        "description": "the document is approved or not by the authority"
+                    },
+                    "claims": {
+                        "type": "array",
+                        "description": "List of claims for the associate document",
+                        "items": {
+                            "$ref": "#/components/schemas/Claims response for any claims loss"
+                        }
+                    },
+                    "currencyType": {
+                        "type": "string",
+                        "description": "currency type of the document.",
+                        "example": "BDT, USD etc."
+                    },
+                    "customerName": {
+                        "type": "string",
+                        "description": "Customer name/Client name"
+                    },
+                    "documentDate": {
+                        "type": "string",
+                        "description": "Document final submission date",
+                        "format": "date"
+                    },
+                    "documentNumber": {
+                        "type": "string",
+                        "description": "Unique document indetification number.",
+                        "example": "GDI/AHO/01/2024/NIB/P/570001"
+                    },
+                    "documentStatus": {
+                        "type": "string",
+                        "description": "Document status refers to the current status of the document.",
+                        "example": "DRAFT, FINAL, APPROVE etc."
+                    },
+                    "documentType": {
+                        "type": "string",
+                        "description": "Document type (Pre-Defined 1 character code).",
+                        "example": "P -> Policy, T -> Cirtificate etc."
+                    },
+                    "documentValidFrom": {
+                        "type": "string",
+                        "description": "Document validity start date",
+                        "format": "date"
+                    },
+                    "documentValidTo": {
+                        "type": "string",
+                        "description": "Document validity end date",
+                        "format": "date"
+                    },
+                    "grossPremium": {
+                        "type": "number",
+                        "description": "The total/gross permium of the document like (net-premium + vat + stamp etc)",
+                        "format": "double"
+                    },
+                    "hasCoInsurance": {
+                        "type": "boolean",
+                        "description": "this document has any co-insurer or not",
+                        "example": false
+                    },
+                    "insuredAddress": {
+                        "type": "string",
+                        "description": "Customer valid address (Present / Permanent)"
+                    },
+                    "netPremium": {
+                        "type": "number",
+                        "description": "Refers to the amount of money an insurance company collects from policyholders for providing insurance coverage, excluding any taxes, fees, commissions, or other expenses associated with the insurance policy.",
+                        "format": "double"
+                    },
+                    "stampAmount": {
+                        "type": "number",
+                        "description": "Stamp amount of the doucment calculated using stamp rate",
+                        "format": "double"
+                    },
+                    "sumInsured": {
+                        "type": "number",
+                        "description": "the total asset value",
+                        "format": "double"
+                    },
+                    "vatAmount": {
+                        "type": "number",
+                        "description": "Vat amount based on the vat type",
+                        "format": "double"
                     }
                 }
             },
@@ -3268,7 +4792,6 @@
                 "required": [
                     "nomineeAddress",
                     "nomineeDateOfBirth",
-                    "nomineeEmail",
                     "nomineeMobile",
                     "nomineeName",
                     "nomineeNid",
@@ -3515,6 +5038,10 @@
                         "description": "Business and Holidays related prerequisite details",
                         "$ref": "#/components/schemas/Business and Holidays Quotation Prerequisite Details"
                     },
+                    "clientBankBranch": {
+                        "description": "Common client branch list",
+                        "$ref": "#/components/schemas/AggregatorClientBranchResponseVm"
+                    },
                     "ens": {
                         "description": "Employment and Studies related prerequisite details",
                         "$ref": "#/components/schemas/Employment and Studies Quotation Prerequisite Details"
@@ -3744,6 +5271,16 @@
                     }
                 }
             },
+            "Underwriting Document Response for CRM": {
+                "title": "Underwriting Document Response for CRM",
+                "type": "object",
+                "properties": {
+                    "masterDoc": {
+                        "description": "Master Document Response that holds values like net-premium, gross-premium etc.",
+                        "$ref": "#/components/schemas/Master Document Response For CRM"
+                    }
+                }
+            },
             "UnderwritingResponseVm": {
                 "title": "UnderwritingResponseVm",
                 "type": "object",
@@ -3787,7 +5324,7 @@
                     },
                     "source": {
                         "type": "string",
-                        "description": "Source of authentication (e.g., EBL, ROBI, BRAC, MTR)",
+                        "description": "Source of authentication (e.g., EBL, ROBI, BBL, MTR)",
                         "enum": [
                             "BRAC",
                             "EBL",
