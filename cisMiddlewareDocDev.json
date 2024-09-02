@@ -2,25 +2,59 @@
     "openapi": "3.0.3",
     "info": {
         "title": "CIS Middleware Documentation",
-        "description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system\n\n\n\nAPI is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client will get an access token. Access token will be needed for any other API calling of CIS middleware.",
+        "description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system\\n\\n\\n\\nAPI is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client will get an access token. Access token will be needed for any other API calling of CIS middleware.",
         "contact": {
             "name": "GDIC IT",
             "url": "https://green-delta.com",
             "email": "itdev@green-delta.com"
         },
-        "version": "1.0.0"
+        "license": {},
+        "version": "1.0.1"
     },
     "servers": [
         {
-            "url": "https://cisdev.green-delta.com:7878",
-            "description": "Production"
-        },
-        {
-            "description": "Sandbox",
-            "url": "https://cisdev.green-delta.com:7878"
+            "url": "https://localhost:7878",
+            "description": "Inferred Url"
         }
     ],
-    "tags": [],
+    "tags": [
+        {
+            "name": "Agent",
+            "description": "Agent Controller"
+        },
+        {
+            "name": "Claims",
+            "description": "Claims Controller"
+        },
+        {
+            "name": "Customer",
+            "description": "Customer Controller"
+        },
+        {
+            "name": "Document",
+            "description": "Document Master Controller"
+        },
+        {
+            "name": "LIMS",
+            "description": "Agri Lims Controller"
+        },
+        {
+            "name": "Money Receipt",
+            "description": "Money Receipt Controller"
+        },
+        {
+            "name": "Product",
+            "description": "Product Controller"
+        },
+        {
+            "name": "Quotation",
+            "description": "Get Product Quotation Controller"
+        },
+        {
+            "name": "User",
+            "description": "User Login Controller"
+        }
+    ],
     "paths": {
         "/api/agent/get-agent-by-agencycode-for-crm": {
             "post": {
@@ -57,6 +91,52 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Data Object Single«Agent response with related documents»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/lims/doCommand": {
+            "post": {
+                "tags": [
+                    "LIMS"
+                ],
+                "summary": "Agri LIMS Request",
+                "description": "Receive LIMS request from LIMS portal",
+                "operationId": "agriLimsRequestUsingPOST",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestMessage"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseMessage"
                                 }
                             }
                         }
@@ -485,7 +565,7 @@
                 ],
                 "summary": "Save document",
                 "description": "Returns id, document number, Money Receipt number and PDF URL after save.",
-                "operationId": "addMasterDocumentTestUsingPOST_1",
+                "operationId": "addMasterDocumentUsingPOST",
                 "parameters": [
                     {
                         "name": "Authorization",
@@ -1293,6 +1373,7 @@
             "Add Document Request": {
                 "title": "Add Document Request",
                 "required": [
+                    "customerInfoForDocument",
                     "loginUserInfo",
                     "messageId"
                 ],
@@ -1309,6 +1390,10 @@
                     "customerInfo": {
                         "$ref": "#/components/schemas/Customer Information For Document"
                     },
+                    "customerInfoForDocument": {
+                        "description": "Customer Information",
+                        "$ref": "#/components/schemas/Customer Information For Document"
+                    },
                     "ens": {
                         "description": "Employment and Studies (E&S) related details",
                         "$ref": "#/components/schemas/Employment and Studies Details"
@@ -1320,6 +1405,10 @@
                     "ghi": {
                         "description": "Ghoup Health Insurance related details",
                         "$ref": "#/components/schemas/Nibedita Details"
+                    },
+                    "insuredAddress": {
+                        "type": "string",
+                        "description": "InsuredAddress / DeliveryAddress of the customer"
                     },
                     "loginUserInfo": {
                         "description": "Logged in User Information",
@@ -1604,6 +1693,397 @@
                     }
                 }
             },
+            "AgriBanAndPreInfo": {
+                "title": "AgriBanAndPreInfo",
+                "type": "object",
+                "properties": {
+                    "bankAccountNo": {
+                        "type": "string"
+                    },
+                    "bankBranchName": {
+                        "type": "string"
+                    },
+                    "bankName": {
+                        "type": "string"
+                    },
+                    "loanEndDate": {
+                        "type": "string"
+                    },
+                    "loanStartDate": {
+                        "type": "string"
+                    },
+                    "noOfLivestock": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "sumInsured": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "totalGrossPremium": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "totalLoanAmount": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "totalNetPremium": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "totalVat": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "typeOfLivestock": {
+                        "type": "string"
+                    }
+                }
+            },
+            "AgriCustomerInfo": {
+                "title": "AgriCustomerInfo",
+                "type": "object",
+                "properties": {
+                    "beneficialoPolicy": {
+                        "type": "string"
+                    },
+                    "bin": {
+                        "type": "string"
+                    },
+                    "birthRegistrationNo": {
+                        "type": "string"
+                    },
+                    "branchCode": {
+                        "type": "string"
+                    },
+                    "comments": {
+                        "type": "string"
+                    },
+                    "companyType": {
+                        "type": "string"
+                    },
+                    "contactPerson": {
+                        "type": "string"
+                    },
+                    "contractAddress": {
+                        "type": "string"
+                    },
+                    "customerID": {
+                        "type": "string"
+                    },
+                    "customerType": {
+                        "type": "string"
+                    },
+                    "dateOfBirth": {
+                        "type": "string"
+                    },
+                    "docDate": {
+                        "type": "string"
+                    },
+                    "drivingExpairyDate": {
+                        "type": "string"
+                    },
+                    "drivingLinceseNo": {
+                        "type": "string"
+                    },
+                    "editDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "farmAddress": {
+                        "type": "string"
+                    },
+                    "fatherName": {
+                        "type": "string"
+                    },
+                    "fax": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "flag": {
+                        "type": "string"
+                    },
+                    "gender": {
+                        "type": "string"
+                    },
+                    "groupCode": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "lockStatus": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "mobileNo": {
+                        "type": "string"
+                    },
+                    "mobileVender": {
+                        "type": "string"
+                    },
+                    "motherName": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "nationalID": {
+                        "type": "string"
+                    },
+                    "nationality": {
+                        "type": "string"
+                    },
+                    "occupation": {
+                        "type": "string"
+                    },
+                    "occupationAddress": {
+                        "type": "string"
+                    },
+                    "officeAddress": {
+                        "type": "string"
+                    },
+                    "officeName": {
+                        "type": "string"
+                    },
+                    "officeTelephone": {
+                        "type": "string"
+                    },
+                    "officialDesignation": {
+                        "type": "string"
+                    },
+                    "passportExpairyDate": {
+                        "type": "string"
+                    },
+                    "passportNo": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "permanentAddress": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "presentAddress": {
+                        "type": "string"
+                    },
+                    "previousDocID": {
+                        "type": "string"
+                    },
+                    "producer": {
+                        "type": "string"
+                    },
+                    "provenSourceOfIncome": {
+                        "type": "string"
+                    },
+                    "registrationAuthority": {
+                        "type": "string"
+                    },
+                    "registrationCopy": {
+                        "type": "string"
+                    },
+                    "registrationIssueDate": {
+                        "type": "string"
+                    },
+                    "registrationIssuePlace": {
+                        "type": "string"
+                    },
+                    "registrationNo": {
+                        "type": "string"
+                    },
+                    "residenceTelephone": {
+                        "type": "string"
+                    },
+                    "residentStatus": {
+                        "type": "string"
+                    },
+                    "servicingBranch": {
+                        "type": "string"
+                    },
+                    "sourceOfIncome": {
+                        "type": "string"
+                    },
+                    "spouseName": {
+                        "type": "string"
+                    },
+                    "tin": {
+                        "type": "string"
+                    },
+                    "tradeLicense": {
+                        "type": "string"
+                    },
+                    "tradeLicenseNo": {
+                        "type": "string"
+                    },
+                    "typeOfBusiness": {
+                        "type": "string"
+                    },
+                    "union": {
+                        "type": "string"
+                    },
+                    "upozilaOrThana": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "village": {
+                        "type": "string"
+                    },
+                    "zila": {
+                        "type": "string"
+                    }
+                }
+            },
+            "AgriLivestockInfo": {
+                "title": "AgriLivestockInfo",
+                "type": "object",
+                "properties": {
+                    "ageMonth": {
+                        "type": "string"
+                    },
+                    "ageYear": {
+                        "type": "string"
+                    },
+                    "cattleGender": {
+                        "type": "string"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "farmCatagory": {
+                        "type": "string"
+                    },
+                    "fromDate": {
+                        "type": "string"
+                    },
+                    "grossPremium": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "healthCardNo": {
+                        "type": "string"
+                    },
+                    "heightFeet": {
+                        "type": "string"
+                    },
+                    "heightInches": {
+                        "type": "string"
+                    },
+                    "loanAmount": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "marketPrice": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "netPremium": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "purchasePrice": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "tagID": {
+                        "type": "string"
+                    },
+                    "toDate": {
+                        "type": "string"
+                    },
+                    "vat": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "weight": {
+                        "type": "number",
+                        "format": "float"
+                    }
+                }
+            },
+            "AgriMultiplePolicyData": {
+                "title": "AgriMultiplePolicyData",
+                "type": "object",
+                "properties": {
+                    "docID": {
+                        "type": "string"
+                    },
+                    "livestock": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CattleDescription"
+                        }
+                    },
+                    "policyEndDate": {
+                        "type": "string"
+                    },
+                    "policyID": {
+                        "type": "string"
+                    },
+                    "policyLockStatus": {
+                        "type": "boolean"
+                    },
+                    "policyStartDate": {
+                        "type": "string"
+                    }
+                }
+            },
+            "AgriMultiplePolicyInfoResponse": {
+                "title": "AgriMultiplePolicyInfoResponse",
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AgriMultiplePolicyData"
+                        }
+                    }
+                }
+            },
+            "AgriRequest": {
+                "title": "AgriRequest",
+                "type": "object",
+                "properties": {
+                    "bankAndPremium": {
+                        "$ref": "#/components/schemas/AgriBanAndPreInfo"
+                    },
+                    "customer": {
+                        "$ref": "#/components/schemas/AgriCustomerInfo"
+                    },
+                    "dummyPolicyID": {
+                        "type": "string"
+                    },
+                    "livestock": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AgriLivestockInfo"
+                        }
+                    },
+                    "policyDuration": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
             "Business And Holidays": {
                 "title": "Business And Holidays",
                 "type": "object",
@@ -1814,6 +2294,92 @@
                         "type": "string",
                         "description": "Value corresponding to the selected searchFieldType",
                         "example": "01711111111, GDI/AHO/08/2024/FIR/P/000001"
+                    }
+                }
+            },
+            "CattleDescription": {
+                "title": "CattleDescription",
+                "type": "object",
+                "properties": {
+                    "ageMonth": {
+                        "type": "string"
+                    },
+                    "ageYear": {
+                        "type": "string"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "coveragePeriodMonthly": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "docNo": {
+                        "type": "string"
+                    },
+                    "dummyPolicyID": {
+                        "type": "string"
+                    },
+                    "duration": {
+                        "type": "string"
+                    },
+                    "farmCatagory": {
+                        "type": "string"
+                    },
+                    "fromDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "gender": {
+                        "type": "string"
+                    },
+                    "grossPremium": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "healthCardNo": {
+                        "type": "string"
+                    },
+                    "heightFeet": {
+                        "type": "string"
+                    },
+                    "heightInches": {
+                        "type": "string"
+                    },
+                    "loanAmount": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "marketPrice": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "netPremium": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "premiumRate": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "purchasePrice": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "tagNo": {
+                        "type": "string"
+                    },
+                    "toDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "vat": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "weight": {
+                        "type": "number",
+                        "format": "float"
                     }
                 }
             },
@@ -4708,17 +5274,6 @@
                 "title": "Nibedita Quotation Prerequisite",
                 "type": "object",
                 "properties": {
-                    "dropdowns": {
-                        "description": "Dropdown values for Nibedita/GHI",
-                        "$ref": "#/components/schemas/Nibedita Dropdown Details"
-                    },
-                    "objectArrays": {
-                        "type": "array",
-                        "description": "For Nibedita Nominee can be multiple and will be save as arrays of object. In the object the nominee details will be provided",
-                        "items": {
-                            "$ref": "#/components/schemas/Object Arrays Details"
-                        }
-                    },
                     "textFields": {
                         "type": "array",
                         "description": "Common text fields array with type and description",
@@ -5028,6 +5583,180 @@
                     "ppa": {
                         "description": "Peoples personal accident related prerequisite details",
                         "$ref": "#/components/schemas/Nibedita Quotation Prerequisite"
+                    }
+                }
+            },
+            "ReplyStatus": {
+                "title": "ReplyStatus",
+                "type": "object",
+                "properties": {
+                    "remarks": {
+                        "type": "string"
+                    },
+                    "result": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Request": {
+                "title": "Request",
+                "type": "object",
+                "properties": {
+                    "agriculture": {
+                        "$ref": "#/components/schemas/AgriRequest"
+                    },
+                    "docID": {
+                        "type": "string"
+                    },
+                    "docIDs": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "mrNo": {
+                        "type": "string"
+                    },
+                    "nID": {
+                        "type": "string"
+                    }
+                }
+            },
+            "RequestMessage": {
+                "title": "RequestMessage",
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "enum": [
+                            "DEFAULT_VALUE",
+                            "change",
+                            "create",
+                            "delete",
+                            "get",
+                            "reply"
+                        ]
+                    },
+                    "api": {
+                        "type": "string",
+                        "enum": [
+                            "DEFAULT_VALUE",
+                            "agri",
+                            "agriMultiplePolicyInfo",
+                            "agriSinglePolicyInfo",
+                            "claimInfo",
+                            "claimLoss",
+                            "claimPaid",
+                            "customerInfo",
+                            "customerInfoWithDocInfo",
+                            "customerLogin",
+                            "documentInfo",
+                            "documentInterest",
+                            "documentMortgagee",
+                            "documentPeril",
+                            "findDoc",
+                            "isPersonalAccidentExist",
+                            "moneyReceipt",
+                            "motor",
+                            "motorInfo",
+                            "personalAccident",
+                            "shortDocumentInfo",
+                            "travel",
+                            "travelInfo"
+                        ]
+                    },
+                    "asyncReplyFlag": {
+                        "type": "boolean"
+                    },
+                    "correlationID": {
+                        "type": "string"
+                    },
+                    "messageID": {
+                        "type": "string"
+                    },
+                    "replyAddress": {
+                        "type": "string"
+                    },
+                    "request": {
+                        "$ref": "#/components/schemas/Request"
+                    },
+                    "source": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Response": {
+                "title": "Response",
+                "type": "object",
+                "properties": {
+                    "agriMultiplePolicyInfoResponse": {
+                        "$ref": "#/components/schemas/AgriMultiplePolicyInfoResponse"
+                    }
+                }
+            },
+            "ResponseMessage": {
+                "title": "ResponseMessage",
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "enum": [
+                            "DEFAULT_VALUE",
+                            "change",
+                            "create",
+                            "delete",
+                            "get",
+                            "reply"
+                        ]
+                    },
+                    "api": {
+                        "type": "string",
+                        "enum": [
+                            "DEFAULT_VALUE",
+                            "agri",
+                            "agriMultiplePolicyInfo",
+                            "agriSinglePolicyInfo",
+                            "claimInfo",
+                            "claimLoss",
+                            "claimPaid",
+                            "customerInfo",
+                            "customerInfoWithDocInfo",
+                            "customerLogin",
+                            "documentInfo",
+                            "documentInterest",
+                            "documentMortgagee",
+                            "documentPeril",
+                            "findDoc",
+                            "isPersonalAccidentExist",
+                            "moneyReceipt",
+                            "motor",
+                            "motorInfo",
+                            "personalAccident",
+                            "shortDocumentInfo",
+                            "travel",
+                            "travelInfo"
+                        ]
+                    },
+                    "correlationID": {
+                        "type": "string"
+                    },
+                    "messageID": {
+                        "type": "string"
+                    },
+                    "replyStatus": {
+                        "$ref": "#/components/schemas/ReplyStatus"
+                    },
+                    "response": {
+                        "$ref": "#/components/schemas/Response"
+                    },
+                    "source": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string"
                     }
                 }
             },
