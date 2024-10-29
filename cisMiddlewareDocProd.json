@@ -4255,7 +4255,7 @@
             "example": "2023-08-09T00:00:00.000+00:00"
           },
           "productCode": {
-            "pattern": "\\bNIBEDITA_ECO|NIBEDITA_REGULAR|NIBEDITA_PLUS|NIBEDITA_ORBIT|PAC|PPA|MTR|BNH|ENS|GREEN_DELTA_PROTISRUTI|SHUROKKHA_ALLROUNDER\\b",
+            "pattern": "\\bNIBEDITA_ECO|NIBEDITA_REGULAR|NIBEDITA_PLUS|NIBEDITA_ORBIT|PAC|PPA|MTR|BNH|ENS|GREEN_DELTA_PROTISRUTI|SHUROKKHA_ALLROUNDER|SHUROKKHA_365\\b",
             "type": "string",
             "description": "Product code system defined configuration data sent through get quotation prerequsite",
             "example": "NIB, MTR, ENS etc."
@@ -4575,6 +4575,11 @@
           "description": {
             "type": "string",
             "description": "Description of the Vehicle"
+          },
+          "id": {
+            "type": "integer",
+            "description": "Identity value of vehicle",
+            "format": "int64"
           },
           "vehicleName": {
             "type": "string",
@@ -5275,6 +5280,17 @@
         "title": "Nibedita Quotation Prerequisite",
         "type": "object",
         "properties": {
+          "dropdowns": {
+            "description": "Dropdown values for Nibedita/GHI",
+            "$ref": "#/components/schemas/Nibedita Dropdown Details"
+          },
+          "objectArrays": {
+            "type": "array",
+            "description": "For Nibedita Nominee can be multiple and will be save as arrays of object. In the object the nominee details will be provided",
+            "items": {
+              "$ref": "#/components/schemas/Object Arrays Details"
+            }
+          },
           "textFields": {
             "type": "array",
             "description": "Common text fields array with type and description",
