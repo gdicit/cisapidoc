@@ -2,7 +2,7 @@
     "openapi": "3.0.3",
     "info": {
         "title": "CIS Middleware Documentation",
-        "description": "Dev: The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system\\n\\n\\n\\nAPI is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client will get an access token. Access token will be needed for any other API calling of CIS middleware.",
+        "description": "Dev 101: The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system\\n\\n\\n\\nAPI is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client will get an access token. Access token will be needed for any other API calling of CIS middleware.",
         "contact": {
             "name": "GDIC IT",
             "url": "https://green-delta.com",
@@ -3199,71 +3199,20 @@
                 "title": "Customer Response Body For CRM",
                 "type": "object",
                 "properties": {
-                    "bin": {
-                        "type": "string",
-                        "description": "BIN (Business Identification Number) of the customer",
-                        "example": "123456789"
+                    "customers": {
+                        "uniqueItems": true,
+                        "type": "array",
+                        "description": "Set of customer details associated with the receipt",
+                        "items": {
+                            "$ref": "#/components/schemas/Search Customer Response Body For CRM"
+                        }
                     },
-                    "birthRegNo": {
-                        "type": "string",
-                        "description": "Birth registration number of the customer",
-                        "example": "B9876543"
-                    },
-                    "contactAddress": {
-                        "type": "string",
-                        "description": "Contact address for the customer",
-                        "example": "789 Third St, City, Country"
-                    },
-                    "contactPerson": {
-                        "type": "string",
-                        "description": "Contact person for the customer",
-                        "example": "John Doe"
-                    },
-                    "dateOfBirth": {
-                        "type": "string",
-                        "description": "Date of birth of the customer {format: (YYYY-MM-DD)}",
-                        "format": "date",
-                        "example": "1990-01-01T00:00:00.000+00:00"
-                    },
-                    "gender": {
-                        "type": "string",
-                        "description": "Gender of the customer",
-                        "example": "Male, Female etc."
-                    },
-                    "incomeSource": {
-                        "type": "string",
-                        "description": "Customer's source of income",
-                        "example": "Employment, Business etc."
-                    },
-                    "mobileNo": {
-                        "type": "string",
-                        "description": "Mobile number of the customer",
-                        "example": "01234567890"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Full name of the customer",
-                        "example": "Abdur Rahman Sujon"
-                    },
-                    "nid": {
-                        "type": "string",
-                        "description": "National ID number (NID) of the customer",
-                        "example": "1234567890"
-                    },
-                    "permanentAddress": {
-                        "type": "string",
-                        "description": "Permanent address of the customer",
-                        "example": "456 Second St, City, Country"
-                    },
-                    "presentAddress": {
-                        "type": "string",
-                        "description": "Present address of the customer",
-                        "example": "123 Main St, City, Country"
-                    },
-                    "tin": {
-                        "type": "string",
-                        "description": "TIN (Tax Identification Number) of the customer",
-                        "example": "987654321"
+                    "documents": {
+                        "type": "array",
+                        "description": "List of document details relevant to the Money Receipt",
+                        "items": {
+                            "$ref": "#/components/schemas/Document Information For Money Receipt"
+                        }
                     }
                 }
             },
@@ -3890,12 +3839,12 @@
                     "documentNumber": {
                         "type": "string",
                         "description": "Unique identifier for the document",
-                        "example": "DOC123456"
+                        "example": "GDI/AHO/08/2024/FIR/P/000001"
                     },
                     "documentType": {
                         "type": "string",
-                        "description": "Type of document, such as 'Invoice', 'Receipt', 'Contract'",
-                        "example": "Invoice"
+                        "description": "Type of document, such as 'P' for type Policy, 'E' for type Endorsement",
+                        "example": "P"
                     },
                     "documentValidFrom": {
                         "type": "string",
@@ -5315,6 +5264,17 @@
                 "title": "Nibedita Quotation Prerequisite",
                 "type": "object",
                 "properties": {
+                    "dropdowns": {
+                        "description": "Dropdown values for Nibedita/GHI",
+                        "$ref": "#/components/schemas/Nibedita Dropdown Details"
+                    },
+                    "objectArrays": {
+                        "type": "array",
+                        "description": "For Nibedita Nominee can be multiple and will be save as arrays of object. In the object the nominee details will be provided",
+                        "items": {
+                            "$ref": "#/components/schemas/Object Arrays Details"
+                        }
+                    },
                     "textFields": {
                         "type": "array",
                         "description": "Common text fields array with type and description",
@@ -5916,6 +5876,78 @@
                     }
                 }
             },
+            "Search Customer Response Body For CRM": {
+                "title": "Search Customer Response Body For CRM",
+                "type": "object",
+                "properties": {
+                    "bin": {
+                        "type": "string",
+                        "description": "BIN (Business Identification Number) of the customer",
+                        "example": "123456789"
+                    },
+                    "birthRegNo": {
+                        "type": "string",
+                        "description": "Birth registration number of the customer",
+                        "example": "B9876543"
+                    },
+                    "contactAddress": {
+                        "type": "string",
+                        "description": "Contact address for the customer",
+                        "example": "789 Third St, City, Country"
+                    },
+                    "contactPerson": {
+                        "type": "string",
+                        "description": "Contact person for the customer",
+                        "example": "John Doe"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "Date of birth of the customer {format: (YYYY-MM-DD)}",
+                        "format": "date",
+                        "example": "1990-01-01T00:00:00.000+00:00"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender of the customer",
+                        "example": "Male, Female etc."
+                    },
+                    "incomeSource": {
+                        "type": "string",
+                        "description": "Customer's source of income",
+                        "example": "Employment, Business etc."
+                    },
+                    "mobileNo": {
+                        "type": "string",
+                        "description": "Mobile number of the customer",
+                        "example": "01234567890"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Full name of the customer",
+                        "example": "Abdur Rahman Sujon"
+                    },
+                    "nid": {
+                        "type": "string",
+                        "description": "National ID number (NID) of the customer",
+                        "example": "1234567890"
+                    },
+                    "permanentAddress": {
+                        "type": "string",
+                        "description": "Permanent address of the customer",
+                        "example": "456 Second St, City, Country"
+                    },
+                    "presentAddress": {
+                        "type": "string",
+                        "description": "Present address of the customer",
+                        "example": "123 Main St, City, Country"
+                    },
+                    "tin": {
+                        "type": "string",
+                        "description": "TIN (Tax Identification Number) of the customer",
+                        "example": "987654321"
+                    }
+                }
+            },
             "SearchMasterDocumentResponse": {
                 "title": "SearchMasterDocumentResponse",
                 "type": "object",
@@ -6072,7 +6104,7 @@
                     "customerList": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/Customer Response Body For CRM"
+                            "$ref": "#/components/schemas/Search Customer Response Body For CRM"
                         }
                     },
                     "documentDate": {
