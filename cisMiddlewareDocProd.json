@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "CIS Middleware Documentation",
-    "description": "PROD The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system\\n\\n\\n\\nAPI is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client will get an access token. Access token will be needed for any other API calling of CIS middleware.",
+    "description": "PROD 102: The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system\\n\\n\\n\\nAPI is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client will get an access token. Access token will be needed for any other API calling of CIS middleware.",
     "contact": {
       "name": "GDIC IT",
       "url": "https://green-delta.com",
@@ -2382,7 +2382,7 @@
                         "minLength": 1,
                         "type": "string",
                         "description": "ClaimsLossId of the Claim",
-                        "example": "FCL/2024/000001"
+                        "example": "MCL-000018/2024"
                     }
                 }
             },
@@ -2399,7 +2399,7 @@
                     "claimsLossId": {
                         "type": "string",
                         "description": "Unique identifier for the claims loss",
-                        "example": "CL123456"
+                        "example": "MCL-000018/202"
                     },
                     "dateOfIntimation": {
                         "type": "string",
@@ -3199,71 +3199,20 @@
                 "title": "Customer Response Body For CRM",
                 "type": "object",
                 "properties": {
-                    "bin": {
-                        "type": "string",
-                        "description": "BIN (Business Identification Number) of the customer",
-                        "example": "123456789"
+                    "customers": {
+                        "uniqueItems": true,
+                        "type": "array",
+                        "description": "Set of customer details",
+                        "items": {
+                            "$ref": "#/components/schemas/Search Customer Response Body For CRM"
+                        }
                     },
-                    "birthRegNo": {
-                        "type": "string",
-                        "description": "Birth registration number of the customer",
-                        "example": "B9876543"
-                    },
-                    "contactAddress": {
-                        "type": "string",
-                        "description": "Contact address for the customer",
-                        "example": "789 Third St, City, Country"
-                    },
-                    "contactPerson": {
-                        "type": "string",
-                        "description": "Contact person for the customer",
-                        "example": "John Doe"
-                    },
-                    "dateOfBirth": {
-                        "type": "string",
-                        "description": "Date of birth of the customer {format: (YYYY-MM-DD)}",
-                        "format": "date",
-                        "example": "1990-01-01T00:00:00.000+00:00"
-                    },
-                    "gender": {
-                        "type": "string",
-                        "description": "Gender of the customer",
-                        "example": "Male, Female etc."
-                    },
-                    "incomeSource": {
-                        "type": "string",
-                        "description": "Customer's source of income",
-                        "example": "Employment, Business etc."
-                    },
-                    "mobileNo": {
-                        "type": "string",
-                        "description": "Mobile number of the customer",
-                        "example": "01234567890"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Full name of the customer",
-                        "example": "Abdur Rahman Sujon"
-                    },
-                    "nid": {
-                        "type": "string",
-                        "description": "National ID number (NID) of the customer",
-                        "example": "1234567890"
-                    },
-                    "permanentAddress": {
-                        "type": "string",
-                        "description": "Permanent address of the customer",
-                        "example": "456 Second St, City, Country"
-                    },
-                    "presentAddress": {
-                        "type": "string",
-                        "description": "Present address of the customer",
-                        "example": "123 Main St, City, Country"
-                    },
-                    "tin": {
-                        "type": "string",
-                        "description": "TIN (Tax Identification Number) of the customer",
-                        "example": "987654321"
+                    "documents": {
+                        "type": "array",
+                        "description": "List of document details relevant to the Customer",
+                        "items": {
+                            "$ref": "#/components/schemas/Document Information For Money Receipt"
+                        }
                     }
                 }
             },
@@ -3740,47 +3689,67 @@
                 },
                 "description": "These are some of 'Data Save Prerequisite' for (add-master-document) api calling where different type of prequsite are needed."
             },
-            "DepositeDetailsVm": {
-                "title": "DepositeDetailsVm",
+            "Deposite Details": {
+                "title": "Deposite Details",
                 "type": "object",
                 "properties": {
                     "collectionAccountNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Account number from which the collection was made",
+                        "example": "0987654321"
                     },
                     "collectionAmount": {
                         "type": "number",
-                        "format": "double"
+                        "description": "Total amount collected for the deposit",
+                        "format": "double",
+                        "example": 5000
                     },
                     "depositBankName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Name of the bank where the deposit was made",
+                        "example": "First National Bank"
                     },
                     "depositSlipNo": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Unique slip number for the deposit transaction",
+                        "example": "SLIP001234"
                     },
                     "depositToAccountNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Account number where the deposit was made",
+                        "example": "1234567890"
                     },
                     "depositeBranchName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Name of the branch where the deposit transaction was completed",
+                        "example": "Main Street Branch"
                     }
                 }
             },
-            "DetailsVm": {
-                "title": "DetailsVm",
+            "Details": {
+                "title": "Details",
                 "type": "object",
                 "properties": {
                     "paymentBankName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Name of the bank where the payment was processed",
+                        "example": "Global Bank"
                     },
                     "paymentBranchName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Name of the branch where the payment was made",
+                        "example": "Downtown Branch"
                     },
                     "paymentDate": {
                         "type": "string",
-                        "format": "date"
+                        "description": "Date when the payment was made {format: (YYYY-MM-DD)}",
+                        "format": "date",
+                        "example": "2024-11-01T00:00:00.000+00:00"
                     },
                     "paymentNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Unique identifier or reference number for the payment",
+                        "example": "PAY123456"
                     }
                 }
             },
@@ -3793,7 +3762,7 @@
                         "minLength": 1,
                         "type": "string",
                         "description": "Document Number that you want to search",
-                        "example": "GDI/AHO/01/2024/NIB/P/570001"
+                        "example": "GDI/AHO/10/2024/MAR/C/910033"
                     }
                 }
             },
@@ -3852,8 +3821,8 @@
                     },
                     "documentType": {
                         "type": "string",
-                        "description": "Type of document, e.g., 'Policy', 'Certificate', 'Endorsement'",
-                        "example": "Policy"
+                        "description": "Type of document, e.g., 'P=Policy', 'T=Certificate', 'E=Endorsement'",
+                        "example": "P"
                     },
                     "documentValidFrom": {
                         "type": "string",
@@ -3883,29 +3852,29 @@
                 "properties": {
                     "documentDate": {
                         "type": "string",
-                        "description": "Date the document was issued",
+                        "description": "Date the document was issued {format: (YYYY-MM-DD)}",
                         "format": "date",
                         "example": "2024-11-01T00:00:00.000+00:00"
                     },
                     "documentNumber": {
                         "type": "string",
                         "description": "Unique identifier for the document",
-                        "example": "DOC123456"
+                        "example": "GDI/AHO/08/2024/FIR/P/000001"
                     },
                     "documentType": {
                         "type": "string",
-                        "description": "Type of document, such as 'Invoice', 'Receipt', 'Contract'",
-                        "example": "Invoice"
+                        "description": "Type of document, such as 'P' for type Policy, 'E' for type Endorsement",
+                        "example": "P"
                     },
                     "documentValidFrom": {
                         "type": "string",
-                        "description": "Date from which the document is valid",
+                        "description": "Date from which the document is valid {format: (YYYY-MM-DD)}",
                         "format": "date",
                         "example": "2024-11-01T00:00:00.000+00:00"
                     },
                     "documentValidTo": {
                         "type": "string",
-                        "description": "Date until which the document remains valid",
+                        "description": "Date until which the document remains valid {format: (YYYY-MM-DD)}",
                         "format": "date",
                         "example": "2025-11-01T00:00:00.000+00:00"
                     }
@@ -4820,15 +4789,15 @@
                     "currencyType": {
                         "type": "string",
                         "description": "Currency type used in the transaction",
-                        "example": "USD"
+                        "example": "BDT"
                     },
                     "depositeDetail": {
                         "description": "Details of the deposit associated with the Money Receipt",
-                        "$ref": "#/components/schemas/DepositeDetailsVm"
+                        "$ref": "#/components/schemas/Deposite Details"
                     },
                     "documents": {
                         "type": "array",
-                        "description": "List of documents relevant to the Money Receipt transaction",
+                        "description": "List of documents relevant to the Money Receipt",
                         "items": {
                             "$ref": "#/components/schemas/Document Information For Money Receipt"
                         }
@@ -4841,29 +4810,29 @@
                     },
                     "mrDate": {
                         "type": "string",
-                        "description": "Date when the Money Receipt was issued",
+                        "description": "Date when the Money Receipt was issued {format: (YYYY-MM-DD)}",
                         "format": "date",
                         "example": "2024-11-01T00:00:00.000+00:00"
                     },
                     "mrNumber": {
                         "type": "string",
-                        "description": "MR Number needed to retrieve Money Receipt details",
-                        "example": "9000001"
+                        "description": "Money Receipt Number",
+                        "example": "91014083"
                     },
                     "netPremium": {
                         "type": "number",
-                        "description": "Net premium calculated after applying discounts",
+                        "description": "Net premium amount if Money Receipt",
                         "format": "double",
                         "example": 1200
                     },
                     "paymentDetails": {
                         "description": "Detailed payment information associated with the Money Receipt",
-                        "$ref": "#/components/schemas/PaymentDetailsVm"
+                        "$ref": "#/components/schemas/Payment Details"
                     },
                     "paymentType": {
                         "type": "string",
-                        "description": "Type of payment made, e.g., 'BFTN', 'EFTN', 'CHEQUE'",
-                        "example": "BFTN"
+                        "description": "Type of payment made, e.g., 'FULL', 'INSTALLMENT'",
+                        "example": "FULL"
                     },
                     "stampAmount": {
                         "type": "number",
@@ -4879,7 +4848,7 @@
                     },
                     "vatAmount": {
                         "type": "number",
-                        "description": "Value-added tax (VAT) amount applicable on the transaction",
+                        "description": "Value-added tax (VAT) amount applicable on the Net Premium",
                         "format": "double",
                         "example": 180
                     }
@@ -5439,42 +5408,55 @@
                     }
                 }
             },
-            "OtherDocumentsResponseVm": {
-                "title": "OtherDocumentsResponseVm",
+            "Other Documents Response": {
+                "title": "Other Documents Response",
                 "type": "object",
                 "properties": {
                     "documentDate": {
                         "type": "string",
-                        "format": "date"
+                        "description": "Date the document was issued format: YYYY-MM-DD",
+                        "format": "date",
+                        "example": "2024-11-01T00:00:00.000+00:00"
                     },
                     "documentNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Unique identifier for the document",
+                        "example": "GDI/AHO/10/2024/MAR/C/910037"
                     },
                     "documentType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Type of the document, such as P=Policy, C=Certificate, E=Endorsement",
+                        "example": "P"
                     },
                     "documentValidFrom": {
                         "type": "string",
-                        "format": "date"
+                        "description": "Start date from which the document is valid format: YYYY-MM-DD",
+                        "format": "date",
+                        "example": "2024-11-01T00:00:00.000+00:00"
                     },
                     "documentValidTo": {
                         "type": "string",
-                        "format": "date"
+                        "description": "End date until which the document remains valid format: YYYY-MM-DD",
+                        "format": "date",
+                        "example": "2025-11-01T00:00:00.000+00:00"
                     }
                 }
             },
-            "PaymentDetailsVm": {
-                "title": "PaymentDetailsVm",
+            "Payment Details": {
+                "title": "Payment Details",
                 "type": "object",
                 "properties": {
                     "details": {
                         "type": "array",
+                        "description": "List of detailed payment information relevant to this transaction",
                         "items": {
-                            "$ref": "#/components/schemas/DetailsVm"
+                            "$ref": "#/components/schemas/Details"
                         }
                     },
                     "paymentMode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Mode of payment used, such as 'BFTN', 'EFTN', or 'CHEQUE'",
+                        "example": "BFTN"
                     }
                 }
             },
@@ -5916,6 +5898,78 @@
                     }
                 }
             },
+            "Search Customer Response Body For CRM": {
+                "title": "Search Customer Response Body For CRM",
+                "type": "object",
+                "properties": {
+                    "bin": {
+                        "type": "string",
+                        "description": "BIN (Business Identification Number) of the customer",
+                        "example": "123456789"
+                    },
+                    "birthRegNo": {
+                        "type": "string",
+                        "description": "Birth registration number of the customer",
+                        "example": "B9876543"
+                    },
+                    "contactAddress": {
+                        "type": "string",
+                        "description": "Contact address for the customer",
+                        "example": "789 Third St, City, Country"
+                    },
+                    "contactPerson": {
+                        "type": "string",
+                        "description": "Contact person for the customer",
+                        "example": "John Doe"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "Date of birth of the customer {format: (YYYY-MM-DD)}",
+                        "format": "date",
+                        "example": "1990-01-01T00:00:00.000+00:00"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender of the customer",
+                        "example": "Male, Female etc."
+                    },
+                    "incomeSource": {
+                        "type": "string",
+                        "description": "Customer's source of income",
+                        "example": "Employment, Business etc."
+                    },
+                    "mobileNo": {
+                        "type": "string",
+                        "description": "Mobile number of the customer",
+                        "example": "01234567890"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Full name of the customer",
+                        "example": "Abdur Rahman Sujon"
+                    },
+                    "nid": {
+                        "type": "string",
+                        "description": "National ID number (NID) of the customer",
+                        "example": "1234567890"
+                    },
+                    "permanentAddress": {
+                        "type": "string",
+                        "description": "Permanent address of the customer",
+                        "example": "456 Second St, City, Country"
+                    },
+                    "presentAddress": {
+                        "type": "string",
+                        "description": "Present address of the customer",
+                        "example": "123 Main St, City, Country"
+                    },
+                    "tin": {
+                        "type": "string",
+                        "description": "TIN (Tax Identification Number) of the customer",
+                        "example": "987654321"
+                    }
+                }
+            },
             "SearchMasterDocumentResponse": {
                 "title": "SearchMasterDocumentResponse",
                 "type": "object",
@@ -6053,69 +6107,96 @@
                 "properties": {
                     "agents": {
                         "type": "array",
+                        "description": "List of agents associated with the document",
                         "items": {
                             "$ref": "#/components/schemas/AgentResponseVm"
                         }
                     },
                     "amendmentPremiumMode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Mode of premium payment for the amendment like Addition or Refund",
+                        "example": "Addition"
                     },
                     "amendmentType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Type of amendment made to the policy like Finacial or Non-Financial",
+                        "example": "Finacial"
                     },
                     "claims": {
                         "type": "array",
+                        "description": "List of claims associated with the document",
                         "items": {
                             "$ref": "#/components/schemas/Claims Response Information"
                         }
                     },
                     "customerList": {
                         "type": "array",
+                        "description": "List of customer details associated with the document",
                         "items": {
-                            "$ref": "#/components/schemas/Customer Response Body For CRM"
+                            "$ref": "#/components/schemas/Search Customer Response Body For CRM"
                         }
                     },
                     "documentDate": {
                         "type": "string",
-                        "format": "date"
+                        "description": "Date the document was issued format: YYYY-MM-DD",
+                        "format": "date",
+                        "example": "2024-11-01T00:00:00.000+00:00"
                     },
                     "documentNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Unique identifier for the document",
+                        "example": "GDI/AHO/10/2024/MAR/C/910033"
                     },
                     "documentType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Type of the document, such as P=Policy, C=Certificate, E=Endorsement",
+                        "example": "P"
                     },
                     "documentValidFrom": {
                         "type": "string",
-                        "format": "date"
+                        "description": "Start date from which the document is valid format: YYYY-MM-DD",
+                        "format": "date",
+                        "example": "2024-11-01T00:00:00.000+00:00"
                     },
                     "documentValidTo": {
                         "type": "string",
-                        "format": "date"
+                        "description": "End date until which the document remains valid format: YYYY-MM-DD",
+                        "format": "date",
+                        "example": "2025-11-01T00:00:00.000+00:00"
                     },
                     "documentsHistory": {
                         "type": "array",
+                        "description": "History of documents related to this document",
+                        "example": "[{\"documentNumber\": \"\", \"documentType\": \"DOC234567\"}]",
                         "items": {
-                            "$ref": "#/components/schemas/OtherDocumentsResponseVm"
+                            "$ref": "#/components/schemas/Other Documents Response"
                         }
                     },
                     "grossPremium": {
                         "type": "number",
-                        "format": "double"
+                        "description": "Gross premium amount of the document",
+                        "format": "double",
+                        "example": 1500
                     },
                     "mrList": {
                         "type": "array",
+                        "description": "List of Money Receipt (MR) numbers associated with this document",
+                        "example": "[\"91014056\", \"91014057\", \"91014058\"]",
                         "items": {
                             "type": "string"
                         }
                     },
                     "netPremium": {
                         "type": "number",
-                        "format": "double"
+                        "description": "Net premium amount as per the document",
+                        "format": "double",
+                        "example": 1200
                     },
                     "sumInsured": {
                         "type": "number",
-                        "format": "double"
+                        "description": "Total sum insured as per the document",
+                        "format": "double",
+                        "example": 50000
                     }
                 }
             },
