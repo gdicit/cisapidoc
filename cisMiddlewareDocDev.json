@@ -1499,7 +1499,30 @@
                         "minLength": 1,
                         "type": "string",
                         "description": "Agency code of the agent, Can not be null, must be given while calling the API.",
-                        "example": "agent123"
+                        "example": "20"
+                    }
+                }
+            },
+            "Agent branch wise details=": {
+                "title": "Agent branch wise details=",
+                "type": "object",
+                "properties": {
+                    "branchCode": {
+                        "type": "string",
+                        "description": "Unique code for Branch",
+                        "example": "PBD"
+                    },
+                    "branchName": {
+                        "type": "string",
+                        "description": "Branch full name",
+                        "example": "Principle Branch Dhaka"
+                    },
+                    "documents": {
+                        "type": "array",
+                        "description": "Branch wise document list details",
+                        "items": {
+                            "$ref": "#/components/schemas/Document Number with Validity"
+                        }
                     }
                 }
             },
@@ -1512,6 +1535,13 @@
                         "description": "Agency code of the agent",
                         "example": "AG12345"
                     },
+                    "branches": {
+                        "type": "array",
+                        "description": "Branch wise document list",
+                        "items": {
+                            "$ref": "#/components/schemas/Agent branch wise details="
+                        }
+                    },
                     "dateOfExpiry": {
                         "type": "string",
                         "description": "Date of expiry of the agent's license",
@@ -1521,13 +1551,6 @@
                         "type": "string",
                         "description": "Date of issue of the agent's license",
                         "example": "2020-01-01"
-                    },
-                    "documents": {
-                        "type": "array",
-                        "description": "All document list for the agent",
-                        "items": {
-                            "$ref": "#/components/schemas/Document Number with Validity"
-                        }
                     },
                     "email": {
                         "type": "string",
@@ -3228,13 +3251,13 @@
                         "maxLength": 2147483647,
                         "minLength": 1,
                         "type": "string",
-                        "description": "Value corresponding to the selected searchFieldType",
+                        "description": "Value corresponding to the selected searchType.",
                         "example": "01711111111, GDI/AHO/08/2024/FIR/P/000001"
                     },
                     "searchType": {
                         "pattern": "\\bMOBILE_NUMBER|DOCUMENT_NUMBER\\b",
                         "type": "string",
-                        "description": "Type of the search fields, can be mobile number, document number, or both",
+                        "description": "Type of the search fields, can be mobile number, document number",
                         "example": "MOBILE_NUMBER, DOCUMENT_NUMBER"
                     }
                 }
@@ -4772,7 +4795,7 @@
                         "minLength": 1,
                         "type": "string",
                         "description": "mrNumber is needed to in order to get Money Receipt details",
-                        "example": "9000001"
+                        "example": "91014099"
                     }
                 }
             },
@@ -5284,6 +5307,17 @@
                 "title": "Nibedita Quotation Prerequisite",
                 "type": "object",
                 "properties": {
+                    "dropdowns": {
+                        "description": "Dropdown values for Nibedita/GHI",
+                        "$ref": "#/components/schemas/Nibedita Dropdown Details"
+                    },
+                    "objectArrays": {
+                        "type": "array",
+                        "description": "For Nibedita Nominee can be multiple and will be save as arrays of object. In the object the nominee details will be provided",
+                        "items": {
+                            "$ref": "#/components/schemas/Object Arrays Details"
+                        }
+                    },
                     "textFields": {
                         "type": "array",
                         "description": "Common text fields array with type and description",
@@ -5889,7 +5923,7 @@
                     "searchText": {
                         "type": "string",
                         "description": "Keyword for search customer based on the selected searchType (if searchType is Mobile then searchText must be a valid mobile number)",
-                        "example": "01711111111, 987654321"
+                        "example": "01969037346, 987654321"
                     },
                     "searchType": {
                         "type": "string",
