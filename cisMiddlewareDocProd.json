@@ -21,10 +21,14 @@
       "url": "https://cisdev.green-delta.com"
     }
   ],
-    "tags": [
+     "tags": [
         {
             "name": "Agent",
             "description": "Agent Controller"
+        },
+        {
+            "name": "Bank And Branch",
+            "description": "Bank Branch Controller"
         },
         {
             "name": "Claims",
@@ -41,6 +45,10 @@
         {
             "name": "LIMS",
             "description": "Agri Lims Controller"
+        },
+        {
+            "name": "LIMS Customer Controller",
+            "description": "Lims Customer Controller"
         },
         {
             "name": "Money Receipt",
@@ -125,11 +133,22 @@
                 "summary": "Agri LIMS Request",
                 "description": "Receive LIMS request from LIMS portal",
                 "operationId": "agriLimsRequestUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/RequestMessage"
+                                "$ref": "#/components/schemas/LIMS Request Body"
                             }
                         }
                     }
@@ -141,6 +160,54 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ResponseMessage"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
+        "/api/get-bank-and-branch-list": {
+            "get": {
+                "tags": [
+                    "Bank And Branch"
+                ],
+                "summary": "Get All Available Bank And Branch List",
+                "description": "All bank and it's branches which will be used for mortgage and other tasks.",
+                "operationId": "getBankBranchListUsingGET",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object«Bank»"
                                 }
                             }
                         }
@@ -1093,6 +1160,63 @@
                 }
             }
         },
+        "/api/get-customer-by-id-for-lims-middleware": {
+            "post": {
+                "tags": [
+                    "LIMS Customer Controller"
+                ],
+                "summary": "Get lims customer by id for middleware ",
+                "description": "Validate the customer provided by lims",
+                "operationId": "getCustomerByIdFromLimsMiddlewareUsingPOST",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Authentication Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GetCustomerByIdReqVm"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Data Object«Get Customer By ID for LIMS middleware»"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request, i.e. The client's request is malformed or contains errors, making it impossible for the server to understand or process the request."
+                    },
+                    "401": {
+                        "description": "Unauthorized, i.e. \t\tThe client's request is missing valid authentication credentials, or the provided credentials are invalid or insufficient to access the requested resource."
+                    },
+                    "412": {
+                        "description": "Precondition failed, i.e. The server received a client request with specific preconditions that were not met."
+                    },
+                    "415": {
+                        "description": "Method not allowed, i.e. The server cannot process the client's request because the provided media type or content format is not supported or acceptable."
+                    },
+                    "500": {
+                        "description": "Internal Server Error, i.e. The server encountered an unexpected error or condition that prevented it from processing the client's request."
+                    }
+                }
+            }
+        },
         "/api/get-money-receipt-by-mr-number": {
             "get": {
                 "tags": [
@@ -1733,329 +1857,6 @@
                     }
                 }
             },
-            "AgriBanAndPreInfo": {
-                "title": "AgriBanAndPreInfo",
-                "type": "object",
-                "properties": {
-                    "bankAccountNo": {
-                        "type": "string"
-                    },
-                    "bankBranchName": {
-                        "type": "string"
-                    },
-                    "bankName": {
-                        "type": "string"
-                    },
-                    "loanEndDate": {
-                        "type": "string"
-                    },
-                    "loanStartDate": {
-                        "type": "string"
-                    },
-                    "noOfLivestock": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "sumInsured": {
-                        "type": "number",
-                        "format": "float"
-                    },
-                    "totalGrossPremium": {
-                        "type": "number",
-                        "format": "float"
-                    },
-                    "totalLoanAmount": {
-                        "type": "number",
-                        "format": "float"
-                    },
-                    "totalNetPremium": {
-                        "type": "number",
-                        "format": "float"
-                    },
-                    "totalVat": {
-                        "type": "number",
-                        "format": "float"
-                    },
-                    "typeOfLivestock": {
-                        "type": "string"
-                    }
-                }
-            },
-            "AgriCustomerInfo": {
-                "title": "AgriCustomerInfo",
-                "type": "object",
-                "properties": {
-                    "beneficialoPolicy": {
-                        "type": "string"
-                    },
-                    "bin": {
-                        "type": "string"
-                    },
-                    "birthRegistrationNo": {
-                        "type": "string"
-                    },
-                    "branchCode": {
-                        "type": "string"
-                    },
-                    "comments": {
-                        "type": "string"
-                    },
-                    "companyType": {
-                        "type": "string"
-                    },
-                    "contactPerson": {
-                        "type": "string"
-                    },
-                    "contractAddress": {
-                        "type": "string"
-                    },
-                    "customerID": {
-                        "type": "string"
-                    },
-                    "customerType": {
-                        "type": "string"
-                    },
-                    "dateOfBirth": {
-                        "type": "string"
-                    },
-                    "docDate": {
-                        "type": "string"
-                    },
-                    "drivingExpairyDate": {
-                        "type": "string"
-                    },
-                    "drivingLinceseNo": {
-                        "type": "string"
-                    },
-                    "editDate": {
-                        "type": "string",
-                        "format": "date-time"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "farmAddress": {
-                        "type": "string"
-                    },
-                    "fatherName": {
-                        "type": "string"
-                    },
-                    "fax": {
-                        "type": "string"
-                    },
-                    "firstName": {
-                        "type": "string"
-                    },
-                    "flag": {
-                        "type": "string"
-                    },
-                    "gender": {
-                        "type": "string"
-                    },
-                    "groupCode": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "string"
-                    },
-                    "lastName": {
-                        "type": "string"
-                    },
-                    "lockStatus": {
-                        "type": "string"
-                    },
-                    "middleName": {
-                        "type": "string"
-                    },
-                    "mobileNo": {
-                        "type": "string"
-                    },
-                    "mobileVender": {
-                        "type": "string"
-                    },
-                    "motherName": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "nationalID": {
-                        "type": "string"
-                    },
-                    "nationality": {
-                        "type": "string"
-                    },
-                    "occupation": {
-                        "type": "string"
-                    },
-                    "occupationAddress": {
-                        "type": "string"
-                    },
-                    "officeAddress": {
-                        "type": "string"
-                    },
-                    "officeName": {
-                        "type": "string"
-                    },
-                    "officeTelephone": {
-                        "type": "string"
-                    },
-                    "officialDesignation": {
-                        "type": "string"
-                    },
-                    "passportExpairyDate": {
-                        "type": "string"
-                    },
-                    "passportNo": {
-                        "type": "string"
-                    },
-                    "password": {
-                        "type": "string"
-                    },
-                    "permanentAddress": {
-                        "type": "string"
-                    },
-                    "phone": {
-                        "type": "string"
-                    },
-                    "presentAddress": {
-                        "type": "string"
-                    },
-                    "previousDocID": {
-                        "type": "string"
-                    },
-                    "producer": {
-                        "type": "string"
-                    },
-                    "provenSourceOfIncome": {
-                        "type": "string"
-                    },
-                    "registrationAuthority": {
-                        "type": "string"
-                    },
-                    "registrationCopy": {
-                        "type": "string"
-                    },
-                    "registrationIssueDate": {
-                        "type": "string"
-                    },
-                    "registrationIssuePlace": {
-                        "type": "string"
-                    },
-                    "registrationNo": {
-                        "type": "string"
-                    },
-                    "residenceTelephone": {
-                        "type": "string"
-                    },
-                    "residentStatus": {
-                        "type": "string"
-                    },
-                    "servicingBranch": {
-                        "type": "string"
-                    },
-                    "sourceOfIncome": {
-                        "type": "string"
-                    },
-                    "spouseName": {
-                        "type": "string"
-                    },
-                    "tin": {
-                        "type": "string"
-                    },
-                    "tradeLicense": {
-                        "type": "string"
-                    },
-                    "tradeLicenseNo": {
-                        "type": "string"
-                    },
-                    "typeOfBusiness": {
-                        "type": "string"
-                    },
-                    "union": {
-                        "type": "string"
-                    },
-                    "upozilaOrThana": {
-                        "type": "string"
-                    },
-                    "username": {
-                        "type": "string"
-                    },
-                    "village": {
-                        "type": "string"
-                    },
-                    "zila": {
-                        "type": "string"
-                    }
-                }
-            },
-            "AgriLivestockInfo": {
-                "title": "AgriLivestockInfo",
-                "type": "object",
-                "properties": {
-                    "ageMonth": {
-                        "type": "string"
-                    },
-                    "ageYear": {
-                        "type": "string"
-                    },
-                    "cattleGender": {
-                        "type": "string"
-                    },
-                    "color": {
-                        "type": "string"
-                    },
-                    "farmCatagory": {
-                        "type": "string"
-                    },
-                    "fromDate": {
-                        "type": "string"
-                    },
-                    "grossPremium": {
-                        "type": "number",
-                        "format": "float"
-                    },
-                    "healthCardNo": {
-                        "type": "string"
-                    },
-                    "heightFeet": {
-                        "type": "string"
-                    },
-                    "heightInches": {
-                        "type": "string"
-                    },
-                    "loanAmount": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "marketPrice": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "netPremium": {
-                        "type": "number",
-                        "format": "float"
-                    },
-                    "purchasePrice": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "tagID": {
-                        "type": "string"
-                    },
-                    "toDate": {
-                        "type": "string"
-                    },
-                    "vat": {
-                        "type": "number",
-                        "format": "float"
-                    },
-                    "weight": {
-                        "type": "number",
-                        "format": "float"
-                    }
-                }
-            },
             "AgriMultiplePolicyData": {
                 "title": "AgriMultiplePolicyData",
                 "type": "object",
@@ -2099,28 +1900,48 @@
                     }
                 }
             },
-            "AgriRequest": {
-                "title": "AgriRequest",
+            "Bank": {
+                "title": "Bank",
                 "type": "object",
                 "properties": {
-                    "bankAndPremium": {
-                        "$ref": "#/components/schemas/AgriBanAndPreInfo"
+                    "address": {
+                        "type": "string",
+                        "description": "Address of the bank"
                     },
-                    "customer": {
-                        "$ref": "#/components/schemas/AgriCustomerInfo"
-                    },
-                    "dummyPolicyID": {
-                        "type": "string"
-                    },
-                    "livestock": {
+                    "branchList": {
                         "type": "array",
+                        "description": "List of associated branches of the bank",
                         "items": {
-                            "$ref": "#/components/schemas/AgriLivestockInfo"
+                            "$ref": "#/components/schemas/Branch"
                         }
                     },
-                    "policyDuration": {
+                    "id": {
                         "type": "integer",
-                        "format": "int32"
+                        "description": "Unique identifier for the bank",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the bank"
+                    }
+                }
+            },
+            "Branch": {
+                "title": "Branch",
+                "type": "object",
+                "properties": {
+                    "address": {
+                        "type": "string",
+                        "description": "Address of the branch"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "description": "Unique identifier for the branch",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the branch"
                     }
                 }
             },
@@ -3057,6 +2878,10 @@
                         "description": "Contact person for the customer",
                         "example": "John Doe"
                     },
+                    "customerContactId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
                     "customerGroupCode": {
                         "type": "string",
                         "description": "Customer group code",
@@ -3562,6 +3387,35 @@
                     }
                 }
             },
+            "Data Object«Bank»": {
+                "title": "Data Object«Bank»",
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Bank"
+                        }
+                    },
+                    "remarks": {
+                        "type": "array",
+                        "description": "The success or error message will be send using this field.",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "Time and date of the execution",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                }
+            },
             "Data Object«Customer Response Body For CRM»": {
                 "title": "Data Object«Customer Response Body For CRM»",
                 "type": "object",
@@ -3599,6 +3453,35 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Customer Response Body"
+                        }
+                    },
+                    "remarks": {
+                        "type": "array",
+                        "description": "The success or error message will be send using this field.",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "result": {
+                        "type": "boolean",
+                        "description": "Indicates whether the request execution status, true is success, false is failed.",
+                        "example": false
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "Time and date of the execution",
+                        "example": "2023-11-09 17:02:32.041"
+                    }
+                }
+            },
+            "Data Object«Get Customer By ID for LIMS middleware»": {
+                "title": "Data Object«Get Customer By ID for LIMS middleware»",
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Get Customer By ID for LIMS middleware"
                         }
                     },
                     "remarks": {
@@ -4263,6 +4146,24 @@
                     }
                 }
             },
+            "Get Customer By ID for LIMS middleware": {
+                "title": "Get Customer By ID for LIMS middleware",
+                "type": "object",
+                "properties": {
+                    "customerContactid": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "customerId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "status": {
+                        "type": "boolean",
+                        "example": false
+                    }
+                }
+            },
             "Get Product List Response": {
                 "title": "Get Product List Response",
                 "type": "object",
@@ -4300,7 +4201,7 @@
                         "example": "2023-08-09T00:00:00.000+00:00"
                     },
                     "productCode": {
-                        "pattern": "\\bNIBEDITA_ECO|NIBEDITA_REGULAR|NIBEDITA_PLUS|NIBEDITA_ORBIT|PAC|PPA|MTR|BNH|ENS|GREEN_DELTA_PROTISRUTI|SHUROKKHA_ALLROUNDER|SHUROKKHA_365\\b",
+                        "pattern": "\\bNIBEDITA_ECO|NIBEDITA_REGULAR|NIBEDITA_PLUS|NIBEDITA_ORBIT|PAC|PPA|MTR|BNH|ENS|GREEN_DELTA_PROTISRUTI|SHUROKKHA_ALLROUNDER|SHUROKKHA_365|CAT_INSURANCE_PLAN_A|CAT_INSURANCE_PLAN_B|CAT_INSURANCE_PLAN_C\\b",
                         "type": "string",
                         "description": "Product code system defined configuration data sent through get quotation prerequsite",
                         "example": "NIB, MTR, ENS etc."
@@ -4372,6 +4273,668 @@
                     }
                 },
                 "description": "Get Quotation Response"
+            },
+            "GetCustomerByIdReqVm": {
+                "title": "GetCustomerByIdReqVm",
+                "required": [
+                    "customerId"
+                ],
+                "type": "object",
+                "properties": {
+                    "customerId": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "Json Body": {
+                "title": "Json Body",
+                "type": "object",
+                "properties": {
+                    "bankAndPremium": {
+                        "description": "Bank and cattle summary object",
+                        "$ref": "#/components/schemas/LiveStock common info and Cattle summary"
+                    },
+                    "customer": {
+                        "description": "Customer Object",
+                        "$ref": "#/components/schemas/LIMS Document Customer Body"
+                    },
+                    "livestock": {
+                        "type": "array",
+                        "description": "Livestock details list",
+                        "items": {
+                            "$ref": "#/components/schemas/LiveStock Details"
+                        }
+                    },
+                    "policyDuration": {
+                        "type": "integer",
+                        "description": "Duration of the policy",
+                        "format": "int32"
+                    }
+                }
+            },
+            "LIMS Document Customer Body": {
+                "title": "LIMS Document Customer Body",
+                "type": "object",
+                "properties": {
+                    "beneficialoPolicy": {
+                        "type": "string",
+                        "description": "Policy for beneficial ownership.",
+                        "example": "Ownership Policy"
+                    },
+                    "bin": {
+                        "type": "string",
+                        "description": "Business Identification Number (BIN) of the customer.",
+                        "example": "BIN123456"
+                    },
+                    "birthRegNo": {
+                        "type": "string",
+                        "description": "Birth registration number of the customer.",
+                        "example": "BRN-12345678"
+                    },
+                    "birthRegistrationNo": {
+                        "type": "string",
+                        "description": "Birth registration number (alternative field).",
+                        "example": "BRN-87654321"
+                    },
+                    "branchCode": {
+                        "type": "string",
+                        "description": "Branch code where the customer is registered.",
+                        "example": "BR-001"
+                    },
+                    "comments": {
+                        "type": "string",
+                        "description": "Additional comments regarding the customer.",
+                        "example": "VIP Customer"
+                    },
+                    "companyType": {
+                        "type": "string",
+                        "description": "Type of company the customer is associated with.",
+                        "example": "Private Limited"
+                    },
+                    "contactPerson": {
+                        "type": "string",
+                        "description": "Contact person for the customer, if applicable.",
+                        "example": "Jane Smith"
+                    },
+                    "contractAddress": {
+                        "type": "string",
+                        "description": "Contact address of the customer.",
+                        "example": "789 Market Street, City"
+                    },
+                    "customerGroupCode": {
+                        "type": "string",
+                        "description": "Code identifying the customer group.",
+                        "example": "CUST-GRP-01"
+                    },
+                    "customerId": {
+                        "type": "integer",
+                        "description": "Unique ID of the customer.",
+                        "format": "int64",
+                        "example": 123456789
+                    },
+                    "customerType": {
+                        "type": "string",
+                        "description": "Type of customer.",
+                        "example": "Individual"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "Date of birth of the customer.",
+                        "example": "1990-01-01"
+                    },
+                    "docDate": {
+                        "type": "string",
+                        "description": "The date of the document",
+                        "example": "2024-12-02T12:00:00Z"
+                    },
+                    "drivingExpairyDate": {
+                        "type": "string",
+                        "description": "Driving license expiration date.",
+                        "example": "2025-12-31"
+                    },
+                    "drivingLinceseNo": {
+                        "type": "string",
+                        "description": "Driving license number of the customer.",
+                        "example": "DL123456"
+                    },
+                    "editDate": {
+                        "type": "string",
+                        "description": "Last edit date of the customer record.",
+                        "format": "date"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the customer.",
+                        "example": "john.doe@example.com"
+                    },
+                    "farmAddress": {
+                        "type": "string",
+                        "description": "The address of the farm associated with the document.",
+                        "example": "123 Farm Lane, District Name"
+                    },
+                    "fatherName": {
+                        "type": "string",
+                        "description": "Father's name of the customer.",
+                        "example": "Robert Doe"
+                    },
+                    "fax": {
+                        "type": "string",
+                        "description": "Fax number of the customer.",
+                        "example": "+880123456789"
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "First name of the customer.",
+                        "example": "John"
+                    },
+                    "flag": {
+                        "type": "string",
+                        "description": "Flag indicating additional customer status or activity.",
+                        "example": "Active"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender of the individual associated with the document.",
+                        "example": "Male"
+                    },
+                    "groupCode": {
+                        "type": "string",
+                        "description": "Group code associated with the customer.",
+                        "example": "GRP-1234"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "Last name of the customer.",
+                        "example": "Doe"
+                    },
+                    "lockStatus": {
+                        "type": "string",
+                        "description": "Lock status of the customer profile.",
+                        "example": "LOCKED"
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "Middle name of the customer, if applicable.",
+                        "example": "William"
+                    },
+                    "mobileNo": {
+                        "type": "string",
+                        "description": "Mobile number of the customer.",
+                        "example": "+880123456789"
+                    },
+                    "mobileVender": {
+                        "type": "string",
+                        "description": "Mobile vendor or service provider.",
+                        "example": "Grameenphone"
+                    },
+                    "motherName": {
+                        "type": "string",
+                        "description": "Mother's name of the customer.",
+                        "example": "Mary Doe"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Full name of the customer.",
+                        "example": "John Doe"
+                    },
+                    "nationality": {
+                        "type": "string",
+                        "description": "Nationality of the customer.",
+                        "example": "Bangladeshi"
+                    },
+                    "nid": {
+                        "type": "string",
+                        "description": "National Identification Number (NID) of the customer.",
+                        "example": "1234567890"
+                    },
+                    "occupation": {
+                        "type": "string",
+                        "description": "Occupation of the customer.",
+                        "example": "Software Engineer"
+                    },
+                    "occupationAddress": {
+                        "type": "string",
+                        "description": "Address associated with the occupation of the customer.",
+                        "example": "Office Address"
+                    },
+                    "officeAddress": {
+                        "type": "string",
+                        "description": "Office address of the customer.",
+                        "example": "Office Building, City"
+                    },
+                    "officeName": {
+                        "type": "string",
+                        "description": "Office name associated with the customer.",
+                        "example": "Tech Solutions Ltd."
+                    },
+                    "officeTelephone": {
+                        "type": "string",
+                        "description": "Office telephone number of the customer.",
+                        "example": "+880987654321"
+                    },
+                    "officialDesignation": {
+                        "type": "string",
+                        "description": "Official designation of the customer.",
+                        "example": "Manager"
+                    },
+                    "passportExpairyDate": {
+                        "type": "string",
+                        "description": "Passport expiration date (alternative field).",
+                        "example": "2030-12-31"
+                    },
+                    "passportExpireDate": {
+                        "type": "string",
+                        "description": "Passport expiration date.",
+                        "format": "date",
+                        "example": "2030-12-31T00:00:00.000+00:00"
+                    },
+                    "passportNo": {
+                        "type": "string",
+                        "description": "Passport number of the customer.",
+                        "example": "P1234567"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Password for the customer account.",
+                        "example": "securepassword123"
+                    },
+                    "permanentAddress": {
+                        "type": "string",
+                        "description": "Permanent residential address of the customer.",
+                        "example": "456 Main Avenue, City"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "Phone number of the customer.",
+                        "example": "+880123456789"
+                    },
+                    "presentAddress": {
+                        "type": "string",
+                        "description": "Present residential address of the customer.",
+                        "example": "123 Main Street, City"
+                    },
+                    "previousDocID": {
+                        "type": "string",
+                        "description": "The ID of the previous document, if applicable, used for tracking document versions or history.",
+                        "example": "DOC-45678"
+                    },
+                    "producer": {
+                        "type": "string",
+                        "description": "Producer associated with the customer profile.",
+                        "example": "Producer Name"
+                    },
+                    "provenSourceOfIncome": {
+                        "type": "string",
+                        "description": "Proof of income source for the customer.",
+                        "example": "Salary Slip"
+                    },
+                    "registrationAuthority": {
+                        "type": "string",
+                        "description": "Registration authority name.",
+                        "example": "Company Registration Authority"
+                    },
+                    "registrationCopy": {
+                        "type": "string",
+                        "description": "Copy of the registration document.",
+                        "example": "registration-copy.pdf"
+                    },
+                    "registrationIssueDate": {
+                        "type": "string",
+                        "description": "Date when the registration was issued.",
+                        "example": "2020-01-01"
+                    },
+                    "registrationIssuePlace": {
+                        "type": "string",
+                        "description": "Place where the registration was issued.",
+                        "example": "Dhaka"
+                    },
+                    "registrationNo": {
+                        "type": "string",
+                        "description": "The unique registration number associated with the document.",
+                        "example": "REG-12345"
+                    },
+                    "residenceTelephone": {
+                        "type": "string",
+                        "description": "Residence telephone number of the customer.",
+                        "example": "+880234567890"
+                    },
+                    "residentStatus": {
+                        "type": "string",
+                        "description": "Residential status of the customer.",
+                        "example": "Resident"
+                    },
+                    "servicingBranch": {
+                        "type": "string",
+                        "description": "Branch responsible for servicing the customer.",
+                        "example": "SRV-BR-002"
+                    },
+                    "sourceOfIncome": {
+                        "type": "string",
+                        "description": "Source of income for the customer.",
+                        "example": "Salary"
+                    },
+                    "spouseName": {
+                        "type": "string",
+                        "description": "Spouse's name of the customer, if applicable.",
+                        "example": "Anna Doe"
+                    },
+                    "tin": {
+                        "type": "string",
+                        "description": "Tax Identification Number (TIN) of the customer.",
+                        "example": "TIN123456"
+                    },
+                    "tradeLicense": {
+                        "type": "string",
+                        "description": "Trade license document of the customer.",
+                        "example": "trade-license.pdf"
+                    },
+                    "tradeLicenseNo": {
+                        "type": "string",
+                        "description": "Trade license number of the customer, if applicable.",
+                        "example": "TL12345"
+                    },
+                    "typeOfBusiness": {
+                        "type": "string",
+                        "description": "Type of business the customer is involved in.",
+                        "example": "Retail"
+                    },
+                    "union": {
+                        "type": "string",
+                        "description": "The union council area where the farm or individual is located.",
+                        "example": "Union Name"
+                    },
+                    "upozilaOrThana": {
+                        "type": "string",
+                        "description": "The sub-district (Upozila or Thana) where the farm or individual is located.",
+                        "example": "Mohammadpur"
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "Username for the customer account.",
+                        "example": "john_doe"
+                    },
+                    "village": {
+                        "type": "string",
+                        "description": "The village where the farm or individual is located.",
+                        "example": "Village Name"
+                    },
+                    "zila": {
+                        "type": "string",
+                        "description": "The district (Zila) where the farm or individual is located.",
+                        "example": "Dhaka"
+                    }
+                }
+            },
+            "LIMS Request Body": {
+                "title": "LIMS Request Body",
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "description": "The action to be performed, represented by an enum of possible API actions.",
+                        "enum": [
+                            "DEFAULT_VALUE",
+                            "change",
+                            "create",
+                            "delete",
+                            "get",
+                            "reply"
+                        ]
+                    },
+                    "api": {
+                        "type": "string",
+                        "description": "The name of the API endpoint or feature, represented by an enum.",
+                        "enum": [
+                            "DEFAULT_VALUE",
+                            "agri",
+                            "agriMultiplePolicyInfo",
+                            "agriSinglePolicyInfo",
+                            "claimInfo",
+                            "claimLoss",
+                            "claimPaid",
+                            "customerInfo",
+                            "customerInfoWithDocInfo",
+                            "customerLogin",
+                            "documentInfo",
+                            "documentInterest",
+                            "documentMortgagee",
+                            "documentPeril",
+                            "findDoc",
+                            "isPersonalAccidentExist",
+                            "moneyReceipt",
+                            "motor",
+                            "motorInfo",
+                            "personalAccident",
+                            "shortDocumentInfo",
+                            "travel",
+                            "travelInfo"
+                        ]
+                    },
+                    "asyncReplyFlag": {
+                        "type": "boolean",
+                        "description": "Flag indicating whether the reply is asynchronous.",
+                        "example": true
+                    },
+                    "correlationID": {
+                        "type": "string",
+                        "description": "An identifier used for correlating related messages, such as requests and replies.",
+                        "example": "123e4567-e89b-12d3-a456-426614174001"
+                    },
+                    "messageID": {
+                        "type": "string",
+                        "description": "A unique identifier for the message, useful for tracking and logging purposes.",
+                        "example": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    "replyAddress": {
+                        "type": "string",
+                        "description": "The address where asynchronous replies should be sent, typically a queue or topic name.",
+                        "example": "queue/reply-address"
+                    },
+                    "request": {
+                        "description": "The payload or request body, containing the actual data for the API operation.",
+                        "$ref": "#/components/schemas/Payload of the request"
+                    },
+                    "source": {
+                        "type": "string",
+                        "description": "The source of the API request, indicating the originating system or service.",
+                        "example": "BNOV"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "description": "The timestamp of the request in ISO 8601 format, indicating when it was generated.",
+                        "example": "2024-12-02T10:15:30Z"
+                    }
+                }
+            },
+            "LiveStock Details": {
+                "title": "LiveStock Details",
+                "type": "object",
+                "properties": {
+                    "ageMonth": {
+                        "type": "string",
+                        "description": "Age of the cattle in months, for more granular detail.",
+                        "example": "6"
+                    },
+                    "ageYear": {
+                        "type": "string",
+                        "description": "Age of the cattle in years.",
+                        "example": "2"
+                    },
+                    "cattleGender": {
+                        "type": "string",
+                        "description": "Gender of the cattle.",
+                        "example": "Female"
+                    },
+                    "color": {
+                        "type": "string",
+                        "description": "Color of the cattle.",
+                        "example": "Brown"
+                    },
+                    "farmCatagory": {
+                        "type": "string",
+                        "description": "Category of the farm where the cattle is located.",
+                        "example": "Dairy"
+                    },
+                    "fromDate": {
+                        "type": "string",
+                        "description": "Start date of the insurance coverage in ISO 8601 format.",
+                        "example": "2024-01-01"
+                    },
+                    "grossPremium": {
+                        "type": "number",
+                        "description": "Gross premium including VAT for the cattle insurance.",
+                        "format": "float",
+                        "example": 2300
+                    },
+                    "healthCardNo": {
+                        "type": "string",
+                        "description": "Health card number associated with the cattle.",
+                        "example": "HC123456"
+                    },
+                    "heightFeet": {
+                        "type": "string",
+                        "description": "Height of the cattle in feet.",
+                        "example": "4"
+                    },
+                    "heightInches": {
+                        "type": "string",
+                        "description": "Height of the cattle in inches.",
+                        "example": "6"
+                    },
+                    "loanAmount": {
+                        "type": "integer",
+                        "description": "Loan amount associated with the cattle.",
+                        "format": "int32",
+                        "example": 50000
+                    },
+                    "marketPrice": {
+                        "type": "integer",
+                        "description": "Current market price of the cattle.",
+                        "format": "int32",
+                        "example": 55000
+                    },
+                    "netPremium": {
+                        "type": "number",
+                        "description": "Net premium for insuring the cattle.",
+                        "format": "float",
+                        "example": 2000
+                    },
+                    "purchasePrice": {
+                        "type": "integer",
+                        "description": "Purchase price of the cattle.",
+                        "format": "int32",
+                        "example": 45000
+                    },
+                    "tagID": {
+                        "type": "string",
+                        "description": "Unique identifier for the cattle, typically a tag or RFID number.",
+                        "example": "TAG123456"
+                    },
+                    "toDate": {
+                        "type": "string",
+                        "description": "End date of the insurance coverage in ISO 8601 format.",
+                        "example": "2025-01-01"
+                    },
+                    "vat": {
+                        "type": "number",
+                        "description": "Value-added tax (VAT) applied to the premium.",
+                        "format": "float",
+                        "example": 300
+                    },
+                    "weight": {
+                        "type": "number",
+                        "description": "Weight of the cattle in kilograms.",
+                        "format": "float",
+                        "example": 250.5
+                    }
+                }
+            },
+            "LiveStock common info and Cattle summary": {
+                "title": "LiveStock common info and Cattle summary",
+                "type": "object",
+                "properties": {
+                    "bankAccountNo": {
+                        "type": "string",
+                        "description": "Bank account number associated with the loan.",
+                        "example": "1234567890"
+                    },
+                    "bankBranchId": {
+                        "type": "integer",
+                        "description": "Unique identifier for the bank branch.",
+                        "format": "int64",
+                        "example": 2001
+                    },
+                    "bankBranchName": {
+                        "type": "string",
+                        "description": "Name of the bank branch.",
+                        "example": "Main Branch"
+                    },
+                    "bankId": {
+                        "type": "integer",
+                        "description": "Unique identifier for the bank.",
+                        "format": "int64",
+                        "example": 1001
+                    },
+                    "bankName": {
+                        "type": "string",
+                        "description": "Name of the bank.",
+                        "example": "State Bank of Example"
+                    },
+                    "loanEndDate": {
+                        "type": "string",
+                        "description": "Date when the loan ends, in ISO 8601 format.",
+                        "format": "date",
+                        "example": "2029-12-31T00:00:00.000+00:00"
+                    },
+                    "loanStartDate": {
+                        "type": "string",
+                        "description": "Date when the loan starts, in ISO 8601 format.",
+                        "format": "date",
+                        "example": "2024-01-01T00:00:00.000+00:00"
+                    },
+                    "noOfLivestock": {
+                        "type": "integer",
+                        "description": "Number of livestock insured under the loan.",
+                        "format": "int32",
+                        "example": 50
+                    },
+                    "sumInsured": {
+                        "type": "number",
+                        "description": "Sum insured under the loan coverage.",
+                        "format": "float",
+                        "example": 500000
+                    },
+                    "totalGrossPremium": {
+                        "type": "number",
+                        "description": "Total gross premium amount for the insurance.",
+                        "format": "float",
+                        "example": 12000
+                    },
+                    "totalLoanAmount": {
+                        "type": "number",
+                        "description": "Total loan amount in the applicable currency.",
+                        "format": "float",
+                        "example": 500000
+                    },
+                    "totalNetPremium": {
+                        "type": "number",
+                        "description": "Total net premium amount for the insurance.",
+                        "format": "float",
+                        "example": 10000
+                    },
+                    "totalVat": {
+                        "type": "number",
+                        "description": "Total VAT applied to the insurance premium.",
+                        "format": "float",
+                        "example": 2000
+                    },
+                    "typeOfLivestock": {
+                        "type": "string",
+                        "description": "Type of livestock covered under the loan.",
+                        "example": "Cattle"
+                    }
+                }
             },
             "Logged in User Infomation": {
                 "title": "Logged in User Infomation",
@@ -5249,6 +5812,15 @@
                     "occupation": {
                         "type": "string",
                         "description": "Customer Occupation"
+                    },
+                    "petAge": {
+                        "type": "number",
+                        "description": "Pet age based on selected petAgeType, number field",
+                        "format": "double"
+                    },
+                    "petAgeType": {
+                        "type": "string",
+                        "description": "Pet Age Type for Pet Insurance, Example: Year, Month, Week, Days"
                     }
                 }
             },
@@ -5476,6 +6048,31 @@
                     }
                 }
             },
+            "Payload of the request": {
+                "title": "Payload of the request",
+                "type": "object",
+                "properties": {
+                    "agriculture": {
+                        "description": "Save Document Request Body",
+                        "$ref": "#/components/schemas/Json Body"
+                    },
+                    "docIDs": {
+                        "type": "array",
+                        "description": "List Document Numbers",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "mrNo": {
+                        "type": "string",
+                        "description": "money receipt number"
+                    },
+                    "nID": {
+                        "type": "string",
+                        "description": "National Identification number"
+                    }
+                }
+            },
             "Payment Details": {
                 "title": "Payment Details",
                 "type": "object",
@@ -5690,96 +6287,6 @@
                         "type": "string"
                     },
                     "result": {
-                        "type": "string"
-                    }
-                }
-            },
-            "Request": {
-                "title": "Request",
-                "type": "object",
-                "properties": {
-                    "agriculture": {
-                        "$ref": "#/components/schemas/AgriRequest"
-                    },
-                    "docID": {
-                        "type": "string"
-                    },
-                    "docIDs": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "mrNo": {
-                        "type": "string"
-                    },
-                    "nID": {
-                        "type": "string"
-                    }
-                }
-            },
-            "RequestMessage": {
-                "title": "RequestMessage",
-                "type": "object",
-                "properties": {
-                    "action": {
-                        "type": "string",
-                        "enum": [
-                            "DEFAULT_VALUE",
-                            "change",
-                            "create",
-                            "delete",
-                            "get",
-                            "reply"
-                        ]
-                    },
-                    "api": {
-                        "type": "string",
-                        "enum": [
-                            "DEFAULT_VALUE",
-                            "agri",
-                            "agriMultiplePolicyInfo",
-                            "agriSinglePolicyInfo",
-                            "claimInfo",
-                            "claimLoss",
-                            "claimPaid",
-                            "customerInfo",
-                            "customerInfoWithDocInfo",
-                            "customerLogin",
-                            "documentInfo",
-                            "documentInterest",
-                            "documentMortgagee",
-                            "documentPeril",
-                            "findDoc",
-                            "isPersonalAccidentExist",
-                            "moneyReceipt",
-                            "motor",
-                            "motorInfo",
-                            "personalAccident",
-                            "shortDocumentInfo",
-                            "travel",
-                            "travelInfo"
-                        ]
-                    },
-                    "asyncReplyFlag": {
-                        "type": "boolean"
-                    },
-                    "correlationID": {
-                        "type": "string"
-                    },
-                    "messageID": {
-                        "type": "string"
-                    },
-                    "replyAddress": {
-                        "type": "string"
-                    },
-                    "request": {
-                        "$ref": "#/components/schemas/Request"
-                    },
-                    "source": {
-                        "type": "string"
-                    },
-                    "timestamp": {
                         "type": "string"
                     }
                 }
@@ -6267,11 +6774,12 @@
                         "example": "12345678"
                     },
                     "platform": {
-                        "pattern": "\\bWEB|APP\\b",
+                        "pattern": "\\bWEB|APP|BNOV\\b",
                         "type": "string",
-                        "description": "Platform from which the request is being generated (e.g., WEB, APP)",
+                        "description": "Platform from which the request is being generated (e.g., WEB, APP, BNOV)",
                         "enum": [
                             "APP",
+                            "BNOV",
                             "WEB"
                         ]
                     },
