@@ -11,10 +11,14 @@
     "license": {},
     "version": "1.0.1"
   },
- "servers": [
+  "servers": [
     {
-      "url": "https://localhost:7878",
-      "description": "Inferred Url"
+      "url": "https://cisdev.green-delta.com",
+      "description": "Production"
+    },
+    {
+      "description": "Sandbox",
+      "url": "https://cisdev.green-delta.com"
     }
   ],
   "tags": [
@@ -3900,8 +3904,8 @@
           },
           "stampDutyType": {
             "type": "string",
-            "description": "Type of stamp duty applied, e.g., 'FIXED', 'PERCENTAGE'",
-            "example": "PERCENTAGE"
+            "description": "Type of stamp duty applied, e.g., 'Recoverable', 'Non-recoverable'",
+            "example": "Recoverable"
           },
           "stampRate": {
             "type": "number",
@@ -3929,8 +3933,8 @@
           },
           "vatType": {
             "type": "string",
-            "description": "Type of VAT applied, e.g., 'STANDARD', 'REDUCED', 'EXEMPT'",
-            "example": "STANDARD"
+            "description": "Type of VAT applied, e.g., 'VAT', 'EXEMPTED'",
+            "example": "VAT"
           }
         }
       },
@@ -4608,7 +4612,7 @@
             "description": "Code identifying the customer group.",
             "example": "CUST-GRP-01"
           },
-          "customerId": {
+          "customerID": {
             "type": "integer",
             "description": "Unique ID of the customer.",
             "format": "int64",
@@ -6146,6 +6150,17 @@
         "title": "Nibedita Quotation Prerequisite",
         "type": "object",
         "properties": {
+          "dropdowns": {
+            "description": "Dropdown values for Nibedita/GHI",
+            "$ref": "#/components/schemas/Nibedita Dropdown Details"
+          },
+          "objectArrays": {
+            "type": "array",
+            "description": "For Nibedita Nominee can be multiple and will be save as arrays of object. In the object the nominee details will be provided",
+            "items": {
+              "$ref": "#/components/schemas/Object Arrays Details"
+            }
+          },
           "textFields": {
             "type": "array",
             "description": "Common text fields array with type and description",
