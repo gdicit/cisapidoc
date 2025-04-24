@@ -1618,14 +1618,17 @@
       "Add Document Request": {
         "title": "Add Document Request",
         "required": [
+          "commonInfo",
           "customerInfo",
+          "forDataSave",
+          "insuredAddress",
           "loginUserInfo",
           "messageId"
         ],
         "type": "object",
         "properties": {
           "bnh": {
-            "description": "Business & Holidays (B&H) related details",
+            "description": "When document is Business & Holidays (B&H), only then bnh related details is required",
             "$ref": "#/components/schemas/Business and Holidays Details"
           },
           "commonInfo": {
@@ -1637,7 +1640,7 @@
             "$ref": "#/components/schemas/Customer Information For Document"
           },
           "ens": {
-            "description": "Employment and Studies (E&S) related details",
+            "description": "When document is Employment and Studies (E&S), only then ens related details is required",
             "$ref": "#/components/schemas/Employment and Studies Details"
           },
           "forDataSave": {
@@ -1645,7 +1648,7 @@
             "description": "Exact quotation response (get-quotation api response 'forDataSave' portion) must be send in this object"
           },
           "ghi": {
-            "description": "Ghoup Health Insurance related details",
+            "description": "When document is Ghoup Health Insurance (GHI), only then ghi related details is required",
             "$ref": "#/components/schemas/Nibedita Details"
           },
           "insuredAddress": {
@@ -1661,15 +1664,15 @@
             "description": "This API requires a unique message id to trace the requests and also checking for duplicate request. messageId is mandatory, unique and can not be null."
           },
           "mtr": {
-            "description": "Motor product related details",
+            "description": "When document is Motor, only then mtr related details is required",
             "$ref": "#/components/schemas/Motor Details"
           },
           "nib": {
-            "description": "Nibedita product related details",
+            "description": "When document is Nibedita, only then product related details is required",
             "$ref": "#/components/schemas/Nibedita Details"
           },
           "ppa": {
-            "description": "People's Personal Accident (PPA) product related details",
+            "description": "When document is People's Personal Accident (PPA), only then ppa related details is required",
             "$ref": "#/components/schemas/People's Personal Accident Details"
           }
         }
@@ -2007,6 +2010,12 @@
       },
       "Business And Holidays": {
         "title": "Business And Holidays",
+        "required": [
+          "coveredLimit",
+          "dayStay",
+          "placeVisitCode",
+          "policyDuration"
+        ],
         "type": "object",
         "properties": {
           "coveredLimit": {
@@ -2035,6 +2044,11 @@
       },
       "Business and Holidays Details": {
         "title": "Business and Holidays Details",
+        "required": [
+          "custPasspostNo",
+          "medicalNonMedical",
+          "planType"
+        ],
         "type": "object",
         "properties": {
           "coveredLimit": {
@@ -2300,6 +2314,11 @@
             "format": "double",
             "example": 10000
           },
+          "claimsClassCode": {
+            "type": "string",
+            "description": "Claims Class Code",
+            "example": "MCL, FCL etc"
+          },
           "claimsLossId": {
             "type": "string",
             "description": "Unique identifier for the claims loss",
@@ -2336,6 +2355,11 @@
             "type": "string",
             "description": "Description or nature of the loss",
             "example": "Fire damage"
+          },
+          "osStatus": {
+            "type": "string",
+            "description": "Outstanding status of the claims",
+            "example": "Outstanding, Paid etc."
           },
           "paidAmount": {
             "type": "number",
@@ -2432,6 +2456,68 @@
           }
         }
       },
+      "Co-Insurer Object": {
+        "title": "Co-Insurer Object",
+        "type": "object",
+        "properties": {
+          "coInsuranceStatus": {
+            "type": "string",
+            "description": "Status of the co-insurance agreement (e.g., ACTIVE, CANCELLED)."
+          },
+          "coInsurarPaymentStatus": {
+            "type": "boolean",
+            "description": "Indicates whether the co-insurer has paid their share.",
+            "example": false
+          },
+          "coInsurerCompanyAddress": {
+            "type": "string",
+            "description": "Official address of the co-insurer company."
+          },
+          "coInsurerCompanyName": {
+            "type": "string",
+            "description": "Name of the co-insurer company."
+          },
+          "coInsurerVatApplicableNet": {
+            "type": "number",
+            "description": "VAT amount applicable on the net premium.",
+            "format": "double"
+          },
+          "coInsurerVatNonApplicableNet": {
+            "type": "number",
+            "description": "VAT amount that is non-applicable (e.g., exempted).",
+            "format": "double"
+          },
+          "isLeader": {
+            "type": "boolean",
+            "description": "Indicates whether this co-insurer is the lead.",
+            "example": false
+          },
+          "leaderDocumentNumber": {
+            "type": "string",
+            "description": "Document number of the leader insurer."
+          },
+          "netPremiumOfCoInsurer": {
+            "type": "number",
+            "description": "Net premium amount allocated to this co-insurer.",
+            "format": "double"
+          },
+          "paymentDate": {
+            "type": "string",
+            "description": "The date when the payment was made by the co-insurer.",
+            "format": "date"
+          },
+          "percentageOfCoInsurer": {
+            "type": "number",
+            "description": "Percentage share of the co-insurer (e.g., 25.0 for 25%).",
+            "format": "double"
+          },
+          "sumInsuranceOfCoInsurer": {
+            "type": "number",
+            "description": "Total sum insured for the co-insurer.",
+            "format": "double"
+          }
+        }
+      },
       "Common text field description": {
         "title": "Common text field description",
         "type": "object",
@@ -2468,12 +2554,12 @@
         "properties": {
           "bin": {
             "type": "string",
-            "description": "BIN (Business Identification Number)",
+            "description": "When customerType is BUSINESS then BIN (Business Identification Number) is a required field",
             "example": "4265457564523"
           },
           "birthRegNo": {
             "type": "string",
-            "description": "Birth registration number of the customer"
+            "description": "If customerType is PERSONAL and passportNo or nid is not given then birthRegNo is a required field"
           },
           "companyRegAuthority": {
             "type": "string",
@@ -2481,7 +2567,7 @@
           },
           "companyType": {
             "type": "string",
-            "description": "Type of company",
+            "description": "When customerType is BUSINESS then companyType is required. companyType means : Type of the company",
             "example": "REGISTERED, UNREGISTERED"
           },
           "contactAddress": {
@@ -2494,7 +2580,7 @@
           },
           "customerGroupCode": {
             "type": "string",
-            "description": "Customer group code"
+            "description": "When customerType is BUSINESS then customerGroupCode is required, customerGroupCode means: group code of the customer"
           },
           "customerType": {
             "type": "string",
@@ -2553,7 +2639,7 @@
           },
           "nid": {
             "type": "string",
-            "description": "National ID number of the customer"
+            "description": "If customerType is PERSONAL and passportNo or birthRegNo is not given then nid is a required field"
           },
           "officeAddress": {
             "type": "string",
@@ -2570,7 +2656,7 @@
           },
           "passportNo": {
             "type": "string",
-            "description": "Passport number of the customer if any"
+            "description": "If customerType is PERSONAL and NID or birthRegNo is not given then passportNo is a required field"
           },
           "permanentAddress": {
             "type": "string",
@@ -2602,6 +2688,10 @@
       },
       "Customer Information For Document": {
         "title": "Customer Information For Document",
+        "required": [
+          "insuredAddress",
+          "mobileNo"
+        ],
         "type": "object",
         "properties": {
           "bin": {
@@ -2634,7 +2724,7 @@
           },
           "customerId": {
             "type": "integer",
-            "description": "Customer ID. It will depend on whether it's a new customer or an existing one. customerId will given for existing customer otherwise it will be null",
+            "description": "Customer ID. It will depend on whether it's a new customer or an existing one. customerId msut be given for existing customer otherwise it will be null",
             "format": "int64"
           },
           "customerType": {
@@ -3845,6 +3935,16 @@
         "title": "Document Information For Money Receipt",
         "type": "object",
         "properties": {
+          "businessSource": {
+            "type": "string",
+            "description": "businessSource of the document",
+            "example": "A, B, etc"
+          },
+          "classCode": {
+            "type": "string",
+            "description": "classCode of the document",
+            "example": "FIR, IAR, MAR, etc"
+          },
           "currencyRate": {
             "type": "number",
             "description": "Exchange rate of the currency against base currency",
@@ -3855,6 +3955,11 @@
             "type": "string",
             "description": "Currency type for the transaction, e.g., USD, BDT, EUR",
             "example": "USD"
+          },
+          "deptCode": {
+            "type": "string",
+            "description": "deptCode of the document",
+            "example": "Fire, Marine, Motor, etc"
           },
           "documentDate": {
             "type": "string",
@@ -3961,6 +4066,11 @@
       },
       "Employment And Studies": {
         "title": "Employment And Studies",
+        "required": [
+          "coveredLimit",
+          "ensType",
+          "placeVisitCode"
+        ],
         "type": "object",
         "properties": {
           "conversionRateUsdToBdt": {
@@ -4014,6 +4124,11 @@
       },
       "Employment and Studies Details": {
         "title": "Employment and Studies Details",
+        "required": [
+          "medicalNonMedical",
+          "planName",
+          "planType"
+        ],
         "type": "object",
         "properties": {
           "coveredLimit": {
@@ -4413,6 +4528,13 @@
       },
       "Get Quotation Request Body": {
         "title": "Get Quotation Request Body",
+        "required": [
+          "policyEndDate",
+          "policyStartDate",
+          "productCode",
+          "productSpecificInfo",
+          "sumInsured"
+        ],
         "type": "object",
         "properties": {
           "customerInfo": {
@@ -4437,7 +4559,7 @@
           },
           "productSpecificInfo": {
             "description": "Specific product information like Nibedita info, Motor Info etc.",
-            "$ref": "#/components/schemas/Product Specific Information"
+            "$ref": "#/components/schemas/Product Specific Information For Get Quotation"
           },
           "sumInsured": {
             "type": "integer",
@@ -4512,6 +4634,7 @@
         "properties": {
           "customerId": {
             "type": "integer",
+            "description": "Id of the customer which can not be null or empty",
             "format": "int64"
           }
         }
@@ -5195,18 +5318,10 @@
             "description": "Branch Code (Predefined 3 digits system value)",
             "example": "RSG, GLN, MKH etc"
           },
-          "clientBranchId": {
-            "type": "integer",
-            "format": "int64"
-          },
           "clientCode": {
             "type": "string",
             "description": "Client Code of the Organization (Aggregator)",
             "example": "BRAC, MTB, EBL etc"
-          },
-          "clientId": {
-            "type": "integer",
-            "format": "int64"
           },
           "corporateAddress": {
             "type": "string",
@@ -5596,13 +5711,14 @@
       },
       "Money Receipt Get Request Model": {
         "title": "Money Receipt Get Request Model",
+        "required": [
+          "mrNumber"
+        ],
         "type": "object",
         "properties": {
           "mrNumber": {
-            "maxLength": 2147483647,
-            "minLength": 1,
             "type": "string",
-            "description": "mrNumber is needed to in order to get Money Receipt details",
+            "description": "mrNumber is needed to in order to get Money Receipt details (mrNumber can not be null or empty)",
             "example": "91014099"
           }
         }
@@ -5687,6 +5803,12 @@
       },
       "Motor Details": {
         "title": "Motor Details",
+        "required": [
+          "motorEngineAndChassisNumber",
+          "motorRegistrationNumber",
+          "motorTermsOfUseId",
+          "nameOfRegistrationAuthority"
+        ],
         "type": "object",
         "properties": {
           "brandCode": {
@@ -5761,6 +5883,23 @@
       },
       "Motor Quotation Model": {
         "title": "Motor Quotation Model",
+        "required": [
+          "avlsDiscount",
+          "motorTermsOfUseId",
+          "mtrCcTon",
+          "mtrCcTonValue",
+          "mtrNoOfDriver",
+          "mtrPlanName",
+          "mtrVehicleId",
+          "mtrVehicleType",
+          "namedDriver",
+          "policyDuration",
+          "stampDutyType",
+          "sumInsured",
+          "taxFreeVehicle",
+          "techometerVehicle",
+          "totalDays"
+        ],
         "type": "object",
         "properties": {
           "avlsDiscount": {
@@ -6199,11 +6338,7 @@
       "NomineeDetails": {
         "title": "NomineeDetails",
         "required": [
-          "nomineeAddress",
-          "nomineeDateOfBirth",
-          "nomineeMobile",
           "nomineeName",
-          "nomineeNid",
           "nomineeRelation",
           "nomineeSharePct"
         ],
@@ -6364,6 +6499,9 @@
       },
       "People's Personal Accident Details": {
         "title": "People's Personal Accident Details",
+        "required": [
+          "nomineeDetails"
+        ],
         "type": "object",
         "properties": {
           "construction": {
@@ -6411,6 +6549,10 @@
       },
       "Personal Accident": {
         "title": "Personal Accident",
+        "required": [
+          "pacClassTypeCode",
+          "pacCoverTypeCode"
+        ],
         "type": "object",
         "properties": {
           "pacClassTypeCode": {
@@ -6494,8 +6636,8 @@
         },
         "description": "Prerequisite for Data Save"
       },
-      "Product Specific Information": {
-        "title": "Product Specific Information",
+      "Product Specific Information For Get Quotation": {
+        "title": "Product Specific Information For Get Quotation",
         "type": "object",
         "properties": {
           "bnh": {
@@ -6714,6 +6856,13 @@
         "title": "Search Customer Response Body For CRM",
         "type": "object",
         "properties": {
+          "alternativeContactNumbers": {
+            "type": "array",
+            "description": "Alternative contact numbers of the customer",
+            "items": {
+              "type": "string"
+            }
+          },
           "bin": {
             "type": "string",
             "description": "BIN (Business Identification Number) of the customer",
@@ -6739,6 +6888,11 @@
             "description": "Date of birth of the customer {format: (YYYY-MM-DD)}",
             "format": "date",
             "example": "1990-01-01T00:00:00.000+00:00"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email of the customer",
+            "example": "test@test.com"
           },
           "gender": {
             "type": "string",
@@ -6934,11 +7088,24 @@
             "description": "Type of amendment made to the policy like Finacial or Non-Financial",
             "example": "Finacial"
           },
+          "businessSource": {
+            "type": "number",
+            "description": "From where the business came from",
+            "format": "double",
+            "example": 75
+          },
           "claims": {
             "type": "array",
             "description": "List of claims associated with the document",
             "items": {
               "$ref": "#/components/schemas/Claims Response Information"
+            }
+          },
+          "coInsuranceList": {
+            "type": "array",
+            "description": "List of co insurer of the document",
+            "items": {
+              "$ref": "#/components/schemas/Co-Insurer Object"
             }
           },
           "currencyRate": {
@@ -6958,6 +7125,10 @@
             "items": {
               "$ref": "#/components/schemas/Search Customer Response Body For CRM"
             }
+          },
+          "deptCode": {
+            "type": "string",
+            "description": "Which department this document belongs to"
           },
           "documentDate": {
             "type": "string",
