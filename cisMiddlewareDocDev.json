@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "CIS Middleware Documentation",
-    "description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system\\n\\n\\n\\nAPI is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client will get an access token. Access token will be needed for any other API calling of CIS middleware.",
+    "description": "The purpose of this document is to describe data communication between Aggregator/Partner and GDIC CIS system\n\n\n\nAPI is designed to accept service request in JSON format over HTTPS. JSON message is the body of HTTPS-GET or HTTPS-POST request. Once the request is processed, response is also provided in JSON format. Please note that content type and user authentication must be provided in the HTTPS-POST request. In authentication response client will get an access token. Access token will be needed for any other API calling of CIS middleware.",
     "contact": {
       "name": "GDIC IT",
       "url": "https://green-delta.com",
@@ -21,7 +21,7 @@
       "url": "https://cisdev.green-delta.com"
     }
   ],
-  "tags": [
+ "tags": [
     {
       "name": "Agent",
       "description": "Agent Controller"
@@ -2308,6 +2308,11 @@
         "title": "Claims Response Information",
         "type": "object",
         "properties": {
+          "branch": {
+            "type": "string",
+            "description": "Branch Code of the document",
+            "example": "AHO, GLN etc."
+          },
           "claimedAmount": {
             "type": "number",
             "description": "Amount claimed for the loss",
@@ -2345,6 +2350,17 @@
           "document": {
             "description": "Associated document details for the claim",
             "$ref": "#/components/schemas/Document Information"
+          },
+          "estimatedLoss": {
+            "type": "number",
+            "description": "Estimated loss of the claim",
+            "format": "double",
+            "example": 10000
+          },
+          "insuredName": {
+            "type": "string",
+            "description": "Customer/insured name",
+            "example": "John Doe"
           },
           "lossYear": {
             "type": "string",
@@ -3899,6 +3915,12 @@
         "title": "Document Information",
         "type": "object",
         "properties": {
+          "documentDate": {
+            "type": "string",
+            "description": "Date of creation of the document",
+            "format": "date",
+            "example": "2024-01-01T00:00:00.000+00:00"
+          },
           "documentNumber": {
             "type": "string",
             "description": "Unique identifier for the document",
@@ -5318,10 +5340,25 @@
             "description": "Branch Code (Predefined 3 digits system value)",
             "example": "RSG, GLN, MKH etc"
           },
+          "clientBranchName": {
+            "type": "string",
+            "description": "Client branch name (Aggregator branch)",
+            "example": "Gulshan 1, Banani Branch etc"
+          },
           "clientCode": {
             "type": "string",
             "description": "Client Code of the Organization (Aggregator)",
             "example": "BRAC, MTB, EBL etc"
+          },
+          "clientId": {
+            "type": "integer",
+            "description": "Client auto increment id",
+            "format": "int64"
+          },
+          "clientName": {
+            "type": "string",
+            "description": "Client name (Aggregator)",
+            "example": "BRAC Bank PLC, Mutual Trust Bank PLC, Eastern Bank PLC etc"
           },
           "corporateAddress": {
             "type": "string",
@@ -5367,6 +5404,10 @@
             "type": "string",
             "description": "Employee ID of the logged in user",
             "example": "EMP123, EMP455 etc."
+          },
+          "employeeName": {
+            "type": "string",
+            "description": "employee name"
           },
           "mobile": {
             "type": "string",
@@ -5727,6 +5768,22 @@
         "title": "Money Receipt Get Response Model",
         "type": "object",
         "properties": {
+          "coinsuranceNetCoinsurer": {
+            "type": "number",
+            "description": "CoInsurer part from the full amount",
+            "format": "double",
+            "example": 10
+          },
+          "coinsuranceNetGdic": {
+            "type": "number",
+            "description": "GDIC part from the full amount",
+            "format": "double",
+            "example": 10
+          },
+          "commissionBillNumber": {
+            "type": "string",
+            "description": "Commission bill number of the money receipt"
+          },
           "currencyRate": {
             "type": "number",
             "description": "Exchange rate applicable if a foreign currency was used, Default 1 when BDT.",
@@ -5781,6 +5838,13 @@
             "description": "Type of payment made, e.g., 'FULL', 'INSTALLMENT'",
             "example": "FULL"
           },
+          "refuldList": {
+            "type": "array",
+            "description": "Refund list relevent to the Money Receipt",
+            "items": {
+              "$ref": "#/components/schemas/MoneyReceiptRefundVm"
+            }
+          },
           "stampAmount": {
             "type": "number",
             "description": "Stamp duty amount included in the Money Receipt",
@@ -5798,6 +5862,104 @@
             "description": "Value-added tax (VAT) amount applicable on the Net Premium",
             "format": "double",
             "example": 180
+          }
+        }
+      },
+      "MoneyReceiptRefundVm": {
+        "title": "MoneyReceiptRefundVm",
+        "type": "object",
+        "properties": {
+          "approvalStatus": {
+            "type": "string",
+            "description": "Approval status of the refund."
+          },
+          "branchCode": {
+            "type": "string",
+            "description": "Branch code where the refund was processed."
+          },
+          "coinsuranceNetCoinsurer": {
+            "type": "number",
+            "description": "Coinsurance share for net coinsurer.",
+            "format": "double"
+          },
+          "hasParentMrCollection": {
+            "type": "boolean",
+            "description": "Indicates if the money receipt is part of a parent collection.",
+            "example": false
+          },
+          "mrAmount": {
+            "type": "number",
+            "description": "Amount in the money receipt.",
+            "format": "double"
+          },
+          "mrDate": {
+            "type": "string",
+            "description": "Date of the money receipt.",
+            "format": "date-time"
+          },
+          "mrNumber": {
+            "type": "string",
+            "description": "Money receipt number."
+          },
+          "netPremium": {
+            "type": "number",
+            "description": "Net premium amount.",
+            "format": "double"
+          },
+          "othersCharge": {
+            "type": "number",
+            "description": "Other charges applied.",
+            "format": "double"
+          },
+          "refundStatus": {
+            "type": "string",
+            "description": "Current status of the refund."
+          },
+          "reviewRemarks": {
+            "type": "string",
+            "description": "Remarks added during review."
+          },
+          "serviceCharge": {
+            "type": "number",
+            "description": "Service charge applied.",
+            "format": "double"
+          },
+          "stampAmount": {
+            "type": "number",
+            "description": "Total stamp duty amount.",
+            "format": "double"
+          },
+          "stampDutyType": {
+            "type": "string",
+            "description": "Type of stamp duty applied."
+          },
+          "stampRate": {
+            "type": "number",
+            "description": "Rate of stamp duty (in percentage).",
+            "format": "double"
+          },
+          "stampType": {
+            "type": "string",
+            "description": "Stamp type used."
+          },
+          "sumInsured": {
+            "type": "number",
+            "description": "Sum insured for the policy.",
+            "format": "double"
+          },
+          "vatAmount": {
+            "type": "number",
+            "description": "Total VAT amount.",
+            "format": "double"
+          },
+          "vatRate": {
+            "type": "number",
+            "description": "VAT rate applied (in percentage).",
+            "format": "double"
+          },
+          "vatType": {
+            "type": "string",
+            "description": "Type of VAT applied."
           }
         }
       },
@@ -7089,10 +7251,9 @@
             "example": "Finacial"
           },
           "businessSource": {
-            "type": "number",
+            "type": "string",
             "description": "From where the business came from",
-            "format": "double",
-            "example": 75
+            "example": "B, A etc."
           },
           "claims": {
             "type": "array",
@@ -7186,6 +7347,10 @@
             "format": "double",
             "example": 1200
           },
+          "planType": {
+            "type": "string",
+            "description": "Motor plan type"
+          },
           "stampAmount": {
             "type": "number",
             "description": "Total stamp duty amount calculated",
@@ -7225,6 +7390,10 @@
             "type": "string",
             "description": "Type of VAT applied, such as STANDARD, REDUCED, or EXEMPT",
             "example": "STANDARD"
+          },
+          "vehicheType": {
+            "type": "string",
+            "description": "Motor vehicle type"
           }
         }
       },
