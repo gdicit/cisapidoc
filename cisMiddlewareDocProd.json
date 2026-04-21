@@ -1446,7 +1446,7 @@
           "User"
         ],
         "summary": "Refresh token",
-        "description": "\"Refresh Token\" is a crucial operation that facilitates prolonged user sessions. It allows users to obtain a new access token without re-entering their credentials. This operation takes a valid refresh token as input and, if authenticated, issues a fresh access token, maintaining the user's authenticated state. By seamlessly refreshing tokens, this operation enhances security and user experience by minimizing the need for frequent logins while ensuring continuous access to protected resources.",
+        "description": "\"Refresh Token\" is a crucial operation that facilitates prolonged user sessions. It allows users to obtain a new access token without re-entering their credentials. This operation requires a previously issued valid access token as input and, if authenticated, issues a fresh access token, maintaining the user's authenticated state. By seamlessly refreshing tokens, this operation enhances security and user experience by minimizing the need for frequent logins while ensuring continuous access to protected resources.",
         "operationId": "refrestAuthTokenUsingGET",
         "parameters": [
           {
@@ -1602,6 +1602,12 @@
             "description": "The maximum amount of coverage provided by an insurance policy for a specific risk or asset.",
             "format": "double"
           },
+          "umpStatus": {
+            "type": "string"
+          },
+          "umpUrl": {
+            "type": "string"
+          },
           "vatAmount": {
             "type": "number",
             "format": "double"
@@ -1638,6 +1644,10 @@
           "customerInfo": {
             "description": "Customer Information",
             "$ref": "#/components/schemas/Customer Information For Document"
+          },
+          "dti": {
+            "description": "When document is Domestic Travel Insurance (DTI), only then dti related details is required",
+            "$ref": "#/components/schemas/Domestic Travel Details Request"
           },
           "ens": {
             "description": "When document is Employment and Studies (E&S), only then ens related details is required",
@@ -1867,7 +1877,7 @@
           "productDetails": {
             "type": "array",
             "description": "If the product has sub-products then this will be in use otherwise this will be null/empty",
-            "example": "For NIB -\u003E NIBEDITA-ECO, NIBEDITA-PLUS etc",
+            "example": "For NIB -> NIBEDITA-ECO, NIBEDITA-PLUS etc",
             "items": {
               "$ref": "#/components/schemas/Sub Product Details Reponse"
             }
@@ -2069,6 +2079,10 @@
             "type": "string",
             "description": "Customer Passport Number"
           },
+          "destCountry": {
+            "type": "string",
+            "description": "Destination Country"
+          },
           "destCountryAddress": {
             "type": "string",
             "description": "Destination Country Address"
@@ -2204,6 +2218,36 @@
           }
         },
         "description": "Business and Holidays Related text fields"
+      },
+      "Calculation Response": {
+        "title": "Calculation Response",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier of the calculation record",
+            "format": "int64",
+            "example": 1
+          },
+          "premiumRate": {
+            "type": "number",
+            "description": "Applicable premium rate for the calculation",
+            "format": "double",
+            "example": 1.25
+          },
+          "sumInsured": {
+            "type": "integer",
+            "description": "Total sum insured for the given peril or coverage",
+            "format": "int32",
+            "example": 500000
+          },
+          "vatRate": {
+            "type": "integer",
+            "description": "VAT percentage applied on the premium",
+            "format": "int32",
+            "example": 15
+          }
+        }
       },
       "CattleDescription": {
         "title": "CattleDescription",
@@ -2625,9 +2669,18 @@
             "description": "Gender of the customer",
             "example": "Male, Female etc."
           },
+          "groupCode": {
+            "type": "string",
+            "description": "When customerType is BUSINESS then groupCode is required"
+          },
           "incomeSource": {
             "type": "string",
             "description": "Customer source of income"
+          },
+          "isTradeAssociationRequired": {
+            "type": "boolean",
+            "description": "Flag for trade association is required or not",
+            "example": false
           },
           "lastName": {
             "type": "string",
@@ -2695,6 +2748,14 @@
             "type": "string",
             "description": "Taxpayer Identification Number (TIN)",
             "example": "95751147656"
+          },
+          "tradeAssociationNames": {
+            "type": "array",
+            "description": "Trade Association Names associated with the customer.",
+            "example": "[\"BGMEA\", \"BKMEA\"]",
+            "items": {
+              "type": "string"
+            }
           },
           "tradeLicenceNo": {
             "type": "string",
@@ -3109,6 +3170,11 @@
             "description": "Customer is Vat Exampted or not",
             "example": false
           },
+          "isTradeAssociationRequired": {
+            "type": "boolean",
+            "description": "Flag for trade association is required or not",
+            "example": false
+          },
           "lastName": {
             "type": "string",
             "description": "Last Name Of The Customer",
@@ -3201,6 +3267,14 @@
             "type": "string",
             "description": "TIN (Tax Identification Number) of the customer",
             "example": "987654321"
+          },
+          "tradeAssociationNames": {
+            "type": "array",
+            "description": "Trade association names of the customer if any",
+            "example": "Trade Association 1, Trade Association 2",
+            "items": {
+              "type": "string"
+            }
           },
           "tradeLicenceNo": {
             "type": "string",
@@ -3854,6 +3928,40 @@
           }
         }
       },
+      "DocEmployeeVm": {
+        "title": "DocEmployeeVm",
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "designation": {
+            "type": "string"
+          },
+          "dob": {
+            "type": "string",
+            "format": "date"
+          },
+          "email": {
+            "type": "string"
+          },
+          "fullname": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "mobile": {
+            "type": "string"
+          },
+          "nid": {
+            "type": "string"
+          },
+          "pfNo": {
+            "type": "string"
+          }
+        }
+      },
       "DocNoVm": {
         "title": "DocNoVm",
         "type": "object",
@@ -4086,6 +4194,121 @@
           }
         }
       },
+      "Domestic Travel Details Request": {
+        "title": "Domestic Travel Details Request",
+        "type": "object",
+        "properties": {
+          "addonsList": {
+            "type": "array",
+            "description": "List of unique IDs representing selected additional coverages (Add-ons).",
+            "example": "[1, 4, 7]",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "dayStay": {
+            "type": "integer",
+            "description": "Total duration of the stay in days.",
+            "format": "int32",
+            "example": 15
+          },
+          "hasInsuranceWithOtherCompany": {
+            "type": "boolean",
+            "description": "Flag indicating if the traveler already holds insurance with another provider.",
+            "example": false
+          },
+          "hasLongTermIllness": {
+            "type": "boolean",
+            "description": "Flag indicating if the traveler suffers from any chronic or long-term illnesses.",
+            "example": false
+          },
+          "hazardousActivityDetails": {
+            "type": "string",
+            "description": "Details of the hazardous activity. Required if 'isEngagedInHazardousActivity' is true.",
+            "example": "None"
+          },
+          "healthIssueDetails": {
+            "type": "string",
+            "description": "Details of current health issues. Required if 'isInGoodHealth' is false.",
+            "example": "Recovering from mild flu"
+          },
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the travel record. Usually null for new creation requests.",
+            "format": "int64",
+            "example": 101
+          },
+          "isEngagedInHazardousActivity": {
+            "type": "boolean",
+            "description": "Flag indicating if the traveler plans to participate in hazardous sports or activities (e.g., Skydiving, Bungee Jumping).",
+            "example": false
+          },
+          "isInGoodHealth": {
+            "type": "boolean",
+            "description": "Flag indicating if the traveler is currently in good health.",
+            "example": true
+          },
+          "longTermIllnessDetails": {
+            "type": "string",
+            "description": "Details of the chronic illness. Required if 'hasLongTermIllness' is true.",
+            "example": "Type 2 Diabetes"
+          },
+          "modeOfTravel": {
+            "type": "string",
+            "description": "The method of transportation (e.g., Air, Sea, Road).",
+            "example": "Air"
+          },
+          "nomineeDetailsVmList": {
+            "description": "List of nominees associated with this policy.",
+            "$ref": "#/components/schemas/NomineeDetails"
+          },
+          "purposeOfVisit": {
+            "type": "string",
+            "description": "The primary reason for the trip (e.g., Tourism, Business, Medical).",
+            "example": "Tourism"
+          },
+          "sumInsured": {
+            "type": "number",
+            "description": "The total coverage amount requested for the insurance policy.",
+            "format": "double",
+            "example": 50000
+          },
+          "travelFrom": {
+            "type": "string",
+            "description": "Country or city where the travel originates.",
+            "example": "Bangladesh"
+          },
+          "travelTo": {
+            "type": "string",
+            "description": "Destination country or city.",
+            "example": "Thailand"
+          }
+        }
+      },
+      "DtiQuotationModel": {
+        "title": "DtiQuotationModel",
+        "required": [
+          "dayStay",
+          "suminsured"
+        ],
+        "type": "object",
+        "properties": {
+          "dayStay": {
+            "type": "integer",
+            "description": "Number of days for stay",
+            "format": "int32",
+            "example": 160
+          },
+          "suminsured": {
+            "type": "number",
+            "description": "Policy suminsurd",
+            "format": "double",
+            "example": 100000
+          }
+        },
+        "description": "DTI Quotation Model"
+      },
       "Employment And Studies": {
         "title": "Employment And Studies",
         "required": [
@@ -4169,6 +4392,10 @@
           "custPasspostNo": {
             "type": "string",
             "description": "Customer Passport Number"
+          },
+          "destCountry": {
+            "type": "string",
+            "description": "Destination Country"
           },
           "destCountryAddress": {
             "type": "string",
@@ -4435,6 +4662,50 @@
           }
         }
       },
+      "GHI Addons Response": {
+        "title": "GHI Addons Response",
+        "type": "object",
+        "properties": {
+          "calculationList": {
+            "type": "array",
+            "description": "List of calculated premium details associated with the peril",
+            "items": {
+              "$ref": "#/components/schemas/Calculation Response"
+            }
+          },
+          "classCode": {
+            "type": "string",
+            "description": "Class code defining the insurance category or product type",
+            "example": "GHI"
+          },
+          "deptCode": {
+            "type": "string",
+            "description": "Department code associated with the insurance product",
+            "example": "HLT"
+          },
+          "hasAddons": {
+            "type": "boolean",
+            "description": "Flag indicating whether this peril includes additional coverages (add-ons)",
+            "example": true
+          },
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier of the GHI Addon record",
+            "format": "int64",
+            "example": 101
+          },
+          "perilCode": {
+            "type": "string",
+            "description": "Unique code representing the peril (risk type)",
+            "example": "P001"
+          },
+          "perilName": {
+            "type": "string",
+            "description": "Descriptive name of the peril",
+            "example": "Accidental Hospitalization"
+          }
+        }
+      },
       "GHI Pet Details": {
         "title": "GHI Pet Details",
         "type": "object",
@@ -4551,6 +4822,7 @@
       "Get Quotation Request Body": {
         "title": "Get Quotation Request Body",
         "required": [
+          "customerInfoForQuotation",
           "policyEndDate",
           "policyStartDate",
           "productCode",
@@ -4559,8 +4831,26 @@
         ],
         "type": "object",
         "properties": {
+          "addonsIds": {
+            "type": "array",
+            "description": "List of addon IDs associated with the quotation",
+            "example": "[1, 2, 3]",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
           "customerInfo": {
             "$ref": "#/components/schemas/Customer Information For Quotation"
+          },
+          "customerInfoForQuotation": {
+            "description": "customerInfoForQuotation is a required object, can not be null!",
+            "$ref": "#/components/schemas/Customer Information For Quotation"
+          },
+          "hasAddons": {
+            "type": "boolean",
+            "description": "Indicates whether the quotation includes addons",
+            "example": false
           },
           "policyEndDate": {
             "type": "string",
@@ -4757,7 +5047,7 @@
             "description": "Code identifying the customer group.",
             "example": "CUST-GRP-01"
           },
-          "customerID": {
+          "customerId": {
             "type": "integer",
             "description": "Unique ID of the customer.",
             "format": "int64",
@@ -4832,6 +5122,11 @@
             "type": "string",
             "description": "Group code associated with the customer.",
             "example": "GRP-1234"
+          },
+          "isTradeAssociationRequired": {
+            "type": "boolean",
+            "description": "Flag for trade association is required or not",
+            "example": false
           },
           "lastName": {
             "type": "string",
@@ -5014,6 +5309,14 @@
             "description": "Tax Identification Number (TIN) of the customer.",
             "example": "TIN123456"
           },
+          "tradeAssociationNames": {
+            "type": "array",
+            "description": "Trade Association Names associated with the customer.",
+            "example": "[\"Association1\", \"Association2\"]",
+            "items": {
+              "type": "string"
+            }
+          },
           "tradeLicense": {
             "type": "string",
             "description": "Trade license document of the customer.",
@@ -5111,6 +5414,9 @@
             "description": "An identifier used for correlating related messages, such as requests and replies.",
             "example": "123e4567-e89b-12d3-a456-426614174001"
           },
+          "message": {
+            "type": "string"
+          },
           "messageID": {
             "type": "string",
             "description": "A unique identifier for the message, useful for tracking and logging purposes.",
@@ -5174,7 +5480,7 @@
           "grossPremium": {
             "type": "number",
             "description": "Gross premium including VAT for the cattle insurance.",
-            "format": "float",
+            "format": "double",
             "example": 2300
           },
           "healthCardNo": {
@@ -5193,27 +5499,27 @@
             "example": "6"
           },
           "loanAmount": {
-            "type": "integer",
+            "type": "number",
             "description": "Loan amount associated with the cattle.",
-            "format": "int32",
+            "format": "double",
             "example": 50000
           },
           "marketPrice": {
-            "type": "integer",
+            "type": "number",
             "description": "Current market price of the cattle.",
-            "format": "int32",
+            "format": "double",
             "example": 55000
           },
           "netPremium": {
             "type": "number",
             "description": "Net premium for insuring the cattle.",
-            "format": "float",
+            "format": "double",
             "example": 2000
           },
           "purchasePrice": {
-            "type": "integer",
+            "type": "number",
             "description": "Purchase price of the cattle.",
-            "format": "int32",
+            "format": "double",
             "example": 45000
           },
           "tagID": {
@@ -5229,13 +5535,13 @@
           "vat": {
             "type": "number",
             "description": "Value-added tax (VAT) applied to the premium.",
-            "format": "float",
+            "format": "double",
             "example": 300
           },
           "weight": {
             "type": "number",
             "description": "Weight of the cattle in kilograms.",
-            "format": "float",
+            "format": "double",
             "example": 250.5
           }
         }
@@ -5292,31 +5598,31 @@
           "sumInsured": {
             "type": "number",
             "description": "Sum insured under the loan coverage.",
-            "format": "float",
+            "format": "double",
             "example": 500000
           },
           "totalGrossPremium": {
             "type": "number",
             "description": "Total gross premium amount for the insurance.",
-            "format": "float",
+            "format": "double",
             "example": 12000
           },
           "totalLoanAmount": {
             "type": "number",
             "description": "Total loan amount in the applicable currency.",
-            "format": "float",
+            "format": "double",
             "example": 500000
           },
           "totalNetPremium": {
             "type": "number",
             "description": "Total net premium amount for the insurance.",
-            "format": "float",
+            "format": "double",
             "example": 10000
           },
           "totalVat": {
             "type": "number",
             "description": "Total VAT applied to the insurance premium.",
-            "format": "float",
+            "format": "double",
             "example": 2000
           },
           "typeOfLivestock": {
@@ -5656,7 +5962,7 @@
           "documentType": {
             "type": "string",
             "description": "Document type (Pre-Defined 1 character code).",
-            "example": "P -\u003E Policy, T -\u003E Cirtificate etc."
+            "example": "P -> Policy, T -> Cirtificate etc."
           },
           "documentValidFrom": {
             "type": "string",
@@ -6350,14 +6656,14 @@
           },
           "docMiscOthersPetDetailsVmList": {
             "type": "array",
-            "description": "Pet Details -\u003E send (empty / null) if pet does not exists, for GHI Pet insurance this object is needed.",
+            "description": "Pet Details -> send (empty / null) if pet does not exists, for GHI Pet insurance this object is needed.",
             "items": {
               "$ref": "#/components/schemas/GHI Pet Details"
             }
           },
           "nomineeDetails": {
             "type": "array",
-            "description": "Nominee Details -\u003E send (empty / null) if nominee does not exists, for GHI nominee should be null.",
+            "description": "Nominee Details -> send (empty / null) if nominee does not exists, for GHI nominee should be null.",
             "items": {
               "$ref": "#/components/schemas/NomineeDetails"
             }
@@ -6422,6 +6728,18 @@
         "title": "Nibedita Product Sum-Insured Details",
         "type": "object",
         "properties": {
+          "addonsList": {
+            "type": "array",
+            "description": "List of Addons available for the product",
+            "items": {
+              "$ref": "#/components/schemas/GHI Addons Response"
+            }
+          },
+          "hasAddons": {
+            "type": "boolean",
+            "description": "Indicates if the product has addons or not",
+            "example": false
+          },
           "petType": {
             "type": "string",
             "description": "Applicable for GHI Pet Insurance",
@@ -6451,17 +6769,6 @@
         "title": "Nibedita Quotation Prerequisite",
         "type": "object",
         "properties": {
-          "dropdowns": {
-            "description": "Dropdown values for Nibedita/GHI",
-            "$ref": "#/components/schemas/Nibedita Dropdown Details"
-          },
-          "objectArrays": {
-            "type": "array",
-            "description": "For Nibedita Nominee can be multiple and will be save as arrays of object. In the object the nominee details will be provided",
-            "items": {
-              "$ref": "#/components/schemas/Object Arrays Details"
-            }
-          },
           "textFields": {
             "type": "array",
             "description": "Common text fields array with type and description",
@@ -6506,10 +6813,21 @@
         ],
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Nominee auto incremented id",
+            "format": "int64",
+            "example": 1
+          },
           "nomineeAddress": {
             "type": "string",
             "description": "Nominee Address",
             "example": "123 Main St, City"
+          },
+          "nomineeBirthRegNo": {
+            "type": "string",
+            "description": "Nominee Birth Registration Number",
+            "example": "BR1234567"
           },
           "nomineeDateOfBirth": {
             "type": "string",
@@ -6520,6 +6838,11 @@
             "type": "string",
             "description": "Nominee Valid Email Address",
             "example": "nominee@example.com"
+          },
+          "nomineeIDType": {
+            "type": "string",
+            "description": "Nominee ID Type",
+            "example": "NID, Passport, Birth Registration"
           },
           "nomineeMobile": {
             "type": "string",
@@ -6535,6 +6858,17 @@
             "type": "string",
             "description": "Nominee NID",
             "example": "1234567890"
+          },
+          "nomineePassportExpiryDate": {
+            "type": "string",
+            "description": "Nominee Passport Expiry Date",
+            "format": "date",
+            "example": "2025-12-25T00:00:00.000+00:00"
+          },
+          "nomineePassportNo": {
+            "type": "string",
+            "description": "Nominee Passport Number",
+            "example": "A1234567"
           },
           "nomineeRelation": {
             "type": "string",
@@ -6806,6 +7140,10 @@
             "description": "BNH information",
             "$ref": "#/components/schemas/Business And Holidays"
           },
+          "dti": {
+            "description": "DTI information",
+            "$ref": "#/components/schemas/DtiQuotationModel"
+          },
           "ens": {
             "description": "ENS information",
             "$ref": "#/components/schemas/Employment And Studies"
@@ -6831,6 +7169,10 @@
           "clientBankBranch": {
             "description": "Common client branch list",
             "$ref": "#/components/schemas/AggregatorClientBranchResponseVm"
+          },
+          "dti": {
+            "description": "Domestic Travel related prerequisite details",
+            "$ref": "#/components/schemas/Nibedita Quotation Prerequisite"
           },
           "ens": {
             "description": "Employment and Studies related prerequisite details",
@@ -7010,7 +7352,7 @@
           "searchType": {
             "type": "string",
             "description": "Customer Search Type referes (Specific Selected Criteria) based on selected customerType. SearchType must be within the given example list as it is.",
-            "example": "For (PERSONAL -\u003E nid, tin, birthRegNo, passportNo), (BUSINESS -\u003E nid, tin, bin, mobileNo) one of these criteria must be selected."
+            "example": "For (PERSONAL -> nid, tin, birthRegNo, passportNo, mobileNo), (BUSINESS -> nid, tin, bin, mobileNo) one of these criteria must be selected."
           }
         }
       },
@@ -7250,6 +7592,16 @@
             "description": "Type of amendment made to the policy like Finacial or Non-Financial",
             "example": "Finacial"
           },
+          "branchCode": {
+            "type": "string",
+            "description": "Branch code of the branch this document belongs to",
+            "example": "PBD"
+          },
+          "branchName": {
+            "type": "string",
+            "description": "Full name of the branch this document belongs to",
+            "example": "Main Branch"
+          },
           "businessSource": {
             "type": "string",
             "description": "From where the business came from",
@@ -7350,6 +7702,14 @@
           "planType": {
             "type": "string",
             "description": "Motor plan type"
+          },
+          "producer": {
+            "description": "Producer of the document",
+            "$ref": "#/components/schemas/DocEmployeeVm"
+          },
+          "serviceProvider": {
+            "description": "Service Provider of the document",
+            "$ref": "#/components/schemas/DocEmployeeVm"
           },
           "stampAmount": {
             "type": "number",
