@@ -3978,16 +3978,19 @@
       "Document Common Information For Payment": {
         "title": "Document Common Information For Payment",
         "required": [
-          "paymentBankName",
-          "paymentBranchName",
           "paymentDate",
-          "paymentMode",
-          "paymentNumber",
-          "paymentRoutingNumber",
-          "trxNumber"
+          "paymentMode"
         ],
         "type": "object",
         "properties": {
+          "customerMfsAccountNumber": {
+            "type": "string",
+            "description": "The customer's MFS account number used to make the payment."
+          },
+          "mfsAccountNumber": {
+            "type": "string",
+            "description": "The merchant's MFS account number that received the payment."
+          },
           "paymentBankName": {
             "type": "string",
             "description": "Payment Bank Name"
@@ -3998,16 +4001,17 @@
           },
           "paymentDate": {
             "type": "string",
-            "description": "Transaction Payment Date",
+            "description": "Payment Date Of The Transaction",
             "format": "date"
           },
           "paymentMode": {
             "type": "string",
-            "description": "Mode of the payment by which the transaction made"
+            "description": "The payment method or mode used for the transaction.",
+            "example": "BEFTN, BKASH, NAGAD etc"
           },
           "paymentNumber": {
             "type": "string",
-            "description": "Transaction Payment Number"
+            "description": "A unique reference or payment number associated with the transaction (this is required if the paymentMode is BEFTN)"
           },
           "paymentRoutingNumber": {
             "type": "string",
@@ -4015,7 +4019,7 @@
           },
           "trxNumber": {
             "type": "string",
-            "description": "Transaction Number"
+            "description": "The transaction ID. This field is mandatory if the payment mode is a Mobile Financial Service (MFS) such as BKASH or NAGAD."
           }
         }
       },
@@ -6769,6 +6773,17 @@
         "title": "Nibedita Quotation Prerequisite",
         "type": "object",
         "properties": {
+          "dropdowns": {
+            "description": "Dropdown values for Nibedita/GHI",
+            "$ref": "#/components/schemas/Nibedita Dropdown Details"
+          },
+          "objectArrays": {
+            "type": "array",
+            "description": "For Nibedita Nominee can be multiple and will be save as arrays of object. In the object the nominee details will be provided",
+            "items": {
+              "$ref": "#/components/schemas/Object Arrays Details"
+            }
+          },
           "textFields": {
             "type": "array",
             "description": "Common text fields array with type and description",
@@ -7340,6 +7355,7 @@
             "example": "UNILIVER, ISPAHANI"
           },
           "customerType": {
+            "pattern": "^(?i)(Personal|Business)$",
             "type": "string",
             "description": "Type of the Customer",
             "example": "Personal, Business"
