@@ -1877,7 +1877,7 @@
                     "productDetails": {
                         "type": "array",
                         "description": "If the product has sub-products then this will be in use otherwise this will be null/empty",
-                        "example": "For NIB -> NIBEDITA-ECO, NIBEDITA-PLUS etc",
+                        "example": "For NIB -\u003E NIBEDITA-ECO, NIBEDITA-PLUS etc",
                         "items": {
                             "$ref": "#/components/schemas/Sub Product Details Reponse"
                         }
@@ -3316,14 +3316,14 @@
                         "maxLength": 2147483647,
                         "minLength": 1,
                         "type": "string",
-                        "description": "Value corresponding to the selected searchType.",
-                        "example": "01711111111, GDI/AHO/08/2024/FIR/P/000001, MCL-000010/2025"
+                        "description": "The search text that matches your choosen searchType (For example, provide the actual phone number if MOBILE_NUMBER is selected, or the exact document number if DOCUMENT_NUMBER is selected.)",
+                        "example": "01711111111"
                     },
                     "searchType": {
                         "pattern": "\\bMOBILE_NUMBER|DOCUMENT_NUMBER|LOSS_ID\\b",
                         "type": "string",
-                        "description": "Type of the search fields, can be mobile number, document number, loss id",
-                        "example": "MOBILE_NUMBER, DOCUMENT_NUMBER, LOSS_ID"
+                        "description": "The category you want to search by. Must be exactly one of: MOBILE_NUMBER, DOCUMENT_NUMBER, or LOSS_ID.",
+                        "example": "MOBILE_NUMBER"
                     }
                 }
             },
@@ -5966,7 +5966,7 @@
                     "documentType": {
                         "type": "string",
                         "description": "Document type (Pre-Defined 1 character code).",
-                        "example": "P -> Policy, T -> Cirtificate etc."
+                        "example": "P -\u003E Policy, T -\u003E Cirtificate etc."
                     },
                     "documentValidFrom": {
                         "type": "string",
@@ -6660,14 +6660,14 @@
                     },
                     "docMiscOthersPetDetailsVmList": {
                         "type": "array",
-                        "description": "Pet Details -> send (empty / null) if pet does not exists, for GHI Pet insurance this object is needed.",
+                        "description": "Pet Details -\u003E send (empty / null) if pet does not exists, for GHI Pet insurance this object is needed.",
                         "items": {
                             "$ref": "#/components/schemas/GHI Pet Details"
                         }
                     },
                     "nomineeDetails": {
                         "type": "array",
-                        "description": "Nominee Details -> send (empty / null) if nominee does not exists, for GHI nominee should be null.",
+                        "description": "Nominee Details -\u003E send (empty / null) if nominee does not exists, for GHI nominee should be null.",
                         "items": {
                             "$ref": "#/components/schemas/NomineeDetails"
                         }
@@ -6773,17 +6773,6 @@
                 "title": "Nibedita Quotation Prerequisite",
                 "type": "object",
                 "properties": {
-                    "dropdowns": {
-                        "description": "Dropdown values for Nibedita/GHI",
-                        "$ref": "#/components/schemas/Nibedita Dropdown Details"
-                    },
-                    "objectArrays": {
-                        "type": "array",
-                        "description": "For Nibedita Nominee can be multiple and will be save as arrays of object. In the object the nominee details will be provided",
-                        "items": {
-                            "$ref": "#/components/schemas/Object Arrays Details"
-                        }
-                    },
                     "textFields": {
                         "type": "array",
                         "description": "Common text fields array with type and description",
@@ -7368,7 +7357,7 @@
                     "searchType": {
                         "type": "string",
                         "description": "Customer Search Type referes (Specific Selected Criteria) based on selected customerType. SearchType must be within the given example list as it is.",
-                        "example": "For (PERSONAL -> nid, tin, birthRegNo, passportNo, mobileNo), (BUSINESS -> nid, tin, bin, mobileNo) one of these criteria must be selected."
+                        "example": "For (PERSONAL -\u003E nid, tin, birthRegNo, passportNo, mobileNo), (BUSINESS -\u003E nid, tin, bin, mobileNo) one of these criteria must be selected."
                     }
                 }
             },
